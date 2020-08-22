@@ -13,6 +13,7 @@ const getUser = async function(parent, args, context, info) {
 };
 
 const getShout = async function(parent, args, context, info) {
+    return await context.prisma.shout({ shoutId: args.shoutId });
     const userIdFromToken = ensureAuthorized(context);
     const shout = await context.prisma.shout({ shoutId: args.shoutId });
     if(shoutIdIsPostedByUserId(context, shout.shoutId, userIdFromToken)) {

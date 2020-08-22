@@ -5,7 +5,7 @@ type Shout {
     createdAt: String!
     content: String! 
     postedBy: User!
-    echos: [Echo!]
+    #echos: [Echo!]
     nvoid: NVoid!
     replies: [Reply!]
 }
@@ -58,8 +58,18 @@ type Query {
     getVoidByLocation(geohash: String!): NVoid
     getEcho(echoId: ID!): Echo
     getShout(shoutId: ID!): Shout
+    getReply(replayId: ID!): Reply
 }
-
+type SavedShout {
+    originalShout: Shout! 
+    savedShoutId: ID! 
+    originalShoutCreatedAt: String!
+    originalContent: String!
+    originalPostedBy: User!
+    echos: [Echo!] 
+    originalVoid: NVoid! 
+    originalVoidGeohash: String!
+}
 type Mutation {
     #getUser(userId: ID!): User
     #getVoidById(voidId: ID!): Void
@@ -71,8 +81,9 @@ type Mutation {
     shout(content: String!): Shout
     upvoteShout(shoutId: ID!): Shout!
     downvoteShout(shoutId: ID!): Shout!
-    upvoteReply(replyId: ID!): Shout! #clients will never request/view indv reply
-    downvoteReply(replyId: ID!): Shout!
+    reply(shoutId: ID!, shoutId: ID!): Reply
+    upvoteReply(replyId: ID!): Reply! 
+    downvoteReply(replyId: ID!): Reply!
     saveShout(shoutId: ID!): User!
     saveVoid(voidId: ID!): User!
     echo(shoutId: ID!): Echo

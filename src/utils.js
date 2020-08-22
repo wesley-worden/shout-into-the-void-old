@@ -58,8 +58,23 @@ fragment ShoutVoteCount on Shout {
 const getVoteCountForShoutId = async function(context, shoutId) {
     const voteCountObj = await context.prisma.shout({ shoutId: shoutId }).$fragment(fragmentShoutVoteCount);
     const shoutVoteCount = voteCountObj.voteCount;
+    console.log(`shoutVoteCount: ${shoutVoteCount}`);
+    console.log(`stringy shoutVoteCount: ${JSON.stringify(shoutVoteCount)}`);
     return shoutVoteCount;
-}
+};
+const fragmentShoutRepliesIds = `
+fragment ShoutRepliesIds on Shout {
+    replies {
+        replyId
+    }
+}`;
+const getRepliesIdsToShoutId = async function(context, shoutId) {
+    const repliesIdsObj = await context.prisma.shout({ shoutId, shoutId }).$fragment(fragmentShoutRepliesIds);
+    const shoutRepliesIds = repliesIdsObj.replies;
+    console.log(`repliesObj: ${repliesIdsObj}`);
+    console.log(`shoutRepliesIds: ${shoutRepliesIds}`);
+    return shoutRepliesIds;
+};
 /*
 const flattenGeohash = function(geohash) {
     const coordinates = ngeohash.decode(geohash);
@@ -85,8 +100,18 @@ const getClosestVoidGeohashForUserId = async function(context, userId) {
     console.log(`closestVoidGeohash: ${closestVoidGeohash}`);
     return closestVoidGeohash; */
 };
-const getVoidFromShoutId = function(context, userId, shoutId) {
+const fragmentShoutVoidId = `
+fragment ShoutVoid on Shout {
+    nvoid {
+        voidId
+    }
+}`;
+const getVoidIdFromShoutId = async function(context, userId, shoutId) {
+    const voidIdObj = await context.prisma.shout({ shoutId: shoutId }).$fragment(fragmentShoutVoidId);
+    const shoutVoidId = voidIdObj.voidId;
+    return shoutVoidId;
     //const userIdFromToken = getUserId(context);
+    /*
     const nvoid = context.prisma.shout({ shoutId: shoutId }).nvoid();
     const voidGeohash = nvoid.geohash;
     console.log(`voidGeohash: ${JSON.stringify(voidGeohash)}`);
@@ -94,7 +119,7 @@ const getVoidFromShoutId = function(context, userId, shoutId) {
         return nvoid;
     } else {
         throw new Error("You are not within range to view this void");
-    }
+    }*/
 };
 const userIdIsAllowedToViewVoidGeohash = function(context, userId, voidGeohash) {
     const from = ngeohash.decode(voidGeohash); //note, not flattening
@@ -143,6 +168,7 @@ const createVoid = async function(context, voidGeohash, userId) {
         }
     });
 }
+
 /*
 // const channelExists = async function(context, channelId) {
 //     return await context.prisma.$exists.channel({
@@ -233,12 +259,14 @@ module.exports = {
     userIdIsAllowedToViewVoidGeohash,
     VOID_GEOHASH_PRECISION,
     getClosestVoidGeohashForUserId,
-    getVoidFromShoutId,
+    getVoidIdFromShoutId,
     shoutIdIsPostedByUserId,
     flattenGeohashToUserGeohash,
     createVoid,
     voidExists,
     getVoteCountForShoutId,
+    getRepliesIdsToShoutId,
+    getReplyIdFromShoutId,
 //    ensureAuthenticated,
     // channelExists, 
     /*
