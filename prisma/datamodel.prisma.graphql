@@ -26,11 +26,12 @@ type Echo {
     echoedBy: User! @relation(name: "EchoEchoedByUser", link: INLINE)
 }
 type NVoid {
-    nvoidId: ID! @id
-    geohash: String!
+    voidId: ID! @id
+    geohash: String! @unique
     createdAt: DateTime! @createdAt
     shouts: [Shout!] @relation(name: "ShoutVoidEdge")
     echos: [Echo!] @relation(name: "EchoVoidEdge")
+    createdBy: User! @relation(name: "VoidCreatedByUser")
 }
 type User {
     createdAt: DateTime! @createdAt
@@ -44,5 +45,6 @@ type User {
     username: String! @unique
     password: String!
     replies: [Reply!] @relation(name: "ReplyUserEdge", link: INLINE)
+    createdVoids: [NVoid!] @relation(name: "VoidCreatedByUser", link: INLINE)
 }
 

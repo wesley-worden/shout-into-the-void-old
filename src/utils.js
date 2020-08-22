@@ -37,28 +37,53 @@ const VOID_GEOHASH_PRECISION = 5;
 const USER_GEOHASH_PRECISION = 6;
 const VIEW_RADIUS = 8;
 const VIEW_RADIUS_UNITS = 'kilometers';
-const getCurrentLocationGeohashForUserId = function(context, userId) {
-    const currentLocationGeohash = context.prisma.user({ userId: userId }).currentLocationGeohash();
-    return currentLocationGeohash;
+const fragmentUserCurrentLocationGeohash = `
+fragment UserCurrentLocationGeohash on User {
+    currentLocationGeohash
+}`;
+const getCurrentLocationGeohashForUserId = async function(context, userId) {
+    console.log(`userId: ${userId}`);
+    const userCurrentLocationGeohashObj = await context.prisma.user({ userId: userId }).$fragment(fragmentUserCurrentLocationGeohash);
+    //const currentLocationGeohash = await context.prisma.user({ userId: userId }).$fragment(fragmentUserCurrentLocationGeohash)["currentLocationGeohash"];
+    //console.log(`user: ${JSON.stringify(context.prisma.user({ userId: userId }))}`);
+    const userCurrentLocationGeohash = userCurrentLocationGeohashObj.currentLocationGeohash;
+    console.log(`currentLocationGeohash: ${(userCurrentLocationGeohash)}`);
+    console.log(`stringy currentLocationGeohash: ${JSON.stringify(userCurrentLocationGeohash)}`);
+    return userCurrentLocationGeohash;
 };
+const fragmentShoutVoteCount = `
+fragment ShoutVoteCount on Shout {
+    voteCount
+}`;
+const getVoteCountForShoutId = async function(context, shoutId) {
+    const voteCountObj = await context.prisma.shout({ shoutId: shoutId }).$fragment(fragmentShoutVoteCount);
+    const shoutVoteCount = voteCountObj.voteCount;
+    return shoutVoteCount;
+}
 /*
 const flattenGeohash = function(geohash) {
     const coordinates = ngeohash.decode(geohash);
     return ngeohash.encode(coordinates.latitude, coordinates.longitude, VOID_GEOHASH_PRECISION);
 };
 */
-const flattenGeohashToUserGeohash = function(geohash) {
-    const coordinates = ngeosh.decode(geohash);
+const flattenGeohashToUserGeohash = function(geohash) { //todo these are garbage
+    const coordinates = ngeohash.decode(geohash);
     return ngeohash.encode(coordinates.latitude, coordinates.longitude, USER_GEOHASH_PRECISION);
 }
-const flattenUserGeohashToVoidGeohash = function(userGeohash) {
+const flattenUserGeohashToVoidGeohash = function(userGeohash) { //todo these are garbage
     const coordinates = ngeohash.decode(userGeohash);
     return ngeohash.encode(coordinates.latitude, coordinates.longitude, VOID_GEOHASH_PRECISION);
 };
-const getClosestVoidGeohashForUserId = function(context, userId) {
-    const currentLocationGeohash = getCurrentLocationGeohashForUserId(context, userId);
-    const closestVoidGeohash = flattenUserGeohashToVoidGeohash(currentLocationGeohash);
+const getClosestVoidGeohashForUserId = async function(context, userId) {
+    const currentLocationGeohash = await getCurrentLocationGeohashForUserId(context, userId);
+    const closestVoidGeohash = currentLocationGeohash.substring(0, VOID_GEOHASH_PRECISION);
     return closestVoidGeohash;
+    /*
+    const currentLocationGeohash = getCurrentLocationGeohashForUserId(context, userId);
+    console.log(`getCurrentLocationGeohashForUserId: ${currentLocationGeohash}`);
+    const closestVoidGeohash = flattenUserGeohashToVoidGeohash(currentLocationGeohash);
+    console.log(`closestVoidGeohash: ${closestVoidGeohash}`);
+    return closestVoidGeohash; */
 };
 const getVoidFromShoutId = function(context, userId, shoutId) {
     //const userIdFromToken = getUserId(context);
@@ -94,6 +119,30 @@ const shoutIdIsPostedByUserId = function(context, shoutId, userId) {
         return false;
     }
 };
+const voidExists = async function(context, voidGeohash) {
+    try {
+        const possibleVoid = await context.prisma.nVoid({ geohash: voidGeohash });
+        if(possibleVoid !== null) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch {
+        return false;
+    }
+    /*const result = context.prisma.$exists.nvoid({ geohash: voidGeohash});
+    console.log(`voidExists result: ${JSON.stringify(result)}`);
+    if(!result) { return false } else { return true } */
+}
+
+const createVoid = async function(context, voidGeohash, userId) {
+    return await context.prisma.createNVoid({
+        geohash: voidGeohash,
+        createdBy: { 
+            connect: { userId: userId }
+        }
+    });
+}
 /*
 // const channelExists = async function(context, channelId) {
 //     return await context.prisma.$exists.channel({
@@ -180,10 +229,16 @@ module.exports = {
     debug_settings, //are these bad?
     getUserId, 
     ensureAuthorized,
+    getCurrentLocationGeohashForUserId,
     userIdIsAllowedToViewVoidGeohash,
+    VOID_GEOHASH_PRECISION,
+    getClosestVoidGeohashForUserId,
     getVoidFromShoutId,
     shoutIdIsPostedByUserId,
     flattenGeohashToUserGeohash,
+    createVoid,
+    voidExists,
+    getVoteCountForShoutId,
 //    ensureAuthenticated,
     // channelExists, 
     /*

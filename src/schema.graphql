@@ -31,6 +31,7 @@ type NVoid {
     geohash: String!
     createdAt: String!
     shouts: [Shout!]
+    createdBy: User!
 }
 type User {
     createdAt: String!
@@ -44,6 +45,7 @@ type User {
     username: String!
     password: String!
     replies: [Reply!]
+    createdVoids: [NVoid!]
 }
 type AuthPayload {
     token: String

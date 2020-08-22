@@ -270,8 +270,8 @@ export type EchoOrderByInput =
   | "createdAt_DESC";
 
 export type NVoidOrderByInput =
-  | "nvoidId_ASC"
-  | "nvoidId_DESC"
+  | "voidId_ASC"
+  | "voidId_DESC"
   | "geohash_ASC"
   | "geohash_DESC"
   | "createdAt_ASC"
@@ -446,6 +446,9 @@ export interface UserWhereInput {
   replies_every?: Maybe<ReplyWhereInput>;
   replies_some?: Maybe<ReplyWhereInput>;
   replies_none?: Maybe<ReplyWhereInput>;
+  createdVoids_every?: Maybe<NVoidWhereInput>;
+  createdVoids_some?: Maybe<NVoidWhereInput>;
+  createdVoids_none?: Maybe<NVoidWhereInput>;
   AND?: Maybe<UserWhereInput[] | UserWhereInput>;
   OR?: Maybe<UserWhereInput[] | UserWhereInput>;
   NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
@@ -484,20 +487,20 @@ export interface EchoWhereInput {
 }
 
 export interface NVoidWhereInput {
-  nvoidId?: Maybe<ID_Input>;
-  nvoidId_not?: Maybe<ID_Input>;
-  nvoidId_in?: Maybe<ID_Input[] | ID_Input>;
-  nvoidId_not_in?: Maybe<ID_Input[] | ID_Input>;
-  nvoidId_lt?: Maybe<ID_Input>;
-  nvoidId_lte?: Maybe<ID_Input>;
-  nvoidId_gt?: Maybe<ID_Input>;
-  nvoidId_gte?: Maybe<ID_Input>;
-  nvoidId_contains?: Maybe<ID_Input>;
-  nvoidId_not_contains?: Maybe<ID_Input>;
-  nvoidId_starts_with?: Maybe<ID_Input>;
-  nvoidId_not_starts_with?: Maybe<ID_Input>;
-  nvoidId_ends_with?: Maybe<ID_Input>;
-  nvoidId_not_ends_with?: Maybe<ID_Input>;
+  voidId?: Maybe<ID_Input>;
+  voidId_not?: Maybe<ID_Input>;
+  voidId_in?: Maybe<ID_Input[] | ID_Input>;
+  voidId_not_in?: Maybe<ID_Input[] | ID_Input>;
+  voidId_lt?: Maybe<ID_Input>;
+  voidId_lte?: Maybe<ID_Input>;
+  voidId_gt?: Maybe<ID_Input>;
+  voidId_gte?: Maybe<ID_Input>;
+  voidId_contains?: Maybe<ID_Input>;
+  voidId_not_contains?: Maybe<ID_Input>;
+  voidId_starts_with?: Maybe<ID_Input>;
+  voidId_not_starts_with?: Maybe<ID_Input>;
+  voidId_ends_with?: Maybe<ID_Input>;
+  voidId_not_ends_with?: Maybe<ID_Input>;
   geohash?: Maybe<String>;
   geohash_not?: Maybe<String>;
   geohash_in?: Maybe<String[] | String>;
@@ -526,6 +529,7 @@ export interface NVoidWhereInput {
   echos_every?: Maybe<EchoWhereInput>;
   echos_some?: Maybe<EchoWhereInput>;
   echos_none?: Maybe<EchoWhereInput>;
+  createdBy?: Maybe<UserWhereInput>;
   AND?: Maybe<NVoidWhereInput[] | NVoidWhereInput>;
   OR?: Maybe<NVoidWhereInput[] | NVoidWhereInput>;
   NOT?: Maybe<NVoidWhereInput[] | NVoidWhereInput>;
@@ -584,7 +588,8 @@ export interface ReplyWhereInput {
 }
 
 export type NVoidWhereUniqueInput = AtLeastOne<{
-  nvoidId: Maybe<ID_Input>;
+  voidId: Maybe<ID_Input>;
+  geohash?: Maybe<String>;
 }>;
 
 export type ReplyWhereUniqueInput = AtLeastOne<{
@@ -614,9 +619,10 @@ export interface NVoidCreateOneWithoutEchosInput {
 }
 
 export interface NVoidCreateWithoutEchosInput {
-  nvoidId?: Maybe<ID_Input>;
+  voidId?: Maybe<ID_Input>;
   geohash: String;
   shouts?: Maybe<ShoutCreateManyWithoutNvoidInput>;
+  createdBy: UserCreateOneWithoutCreatedVoidsInput;
 }
 
 export interface ShoutCreateManyWithoutNvoidInput {
@@ -648,6 +654,7 @@ export interface UserCreateWithoutCreatedShoutsInput {
   username: String;
   password: String;
   replies?: Maybe<ReplyCreateManyWithoutPostedByInput>;
+  createdVoids?: Maybe<NVoidCreateManyWithoutCreatedByInput>;
 }
 
 export interface ShoutCreateManyInput {
@@ -694,6 +701,7 @@ export interface UserCreateWithoutEchoesInput {
   username: String;
   password: String;
   replies?: Maybe<ReplyCreateManyWithoutPostedByInput>;
+  createdVoids?: Maybe<NVoidCreateManyWithoutCreatedByInput>;
 }
 
 export interface ShoutCreateManyWithoutPostedByInput {
@@ -718,9 +726,10 @@ export interface NVoidCreateOneWithoutShoutsInput {
 }
 
 export interface NVoidCreateWithoutShoutsInput {
-  nvoidId?: Maybe<ID_Input>;
+  voidId?: Maybe<ID_Input>;
   geohash: String;
   echos?: Maybe<EchoCreateManyWithoutNvoidInput>;
+  createdBy: UserCreateOneWithoutCreatedVoidsInput;
 }
 
 export interface EchoCreateManyWithoutNvoidInput {
@@ -779,6 +788,7 @@ export interface UserCreateWithoutRepliesInput {
   currentLocationGeohash: String;
   username: String;
   password: String;
+  createdVoids?: Maybe<NVoidCreateManyWithoutCreatedByInput>;
 }
 
 export interface EchoCreateManyWithoutEchoedByInput {
@@ -824,6 +834,7 @@ export interface UserCreateWithoutEchoedShoutsInput {
   username: String;
   password: String;
   replies?: Maybe<ReplyCreateManyWithoutPostedByInput>;
+  createdVoids?: Maybe<NVoidCreateManyWithoutCreatedByInput>;
 }
 
 export interface NVoidCreateManyInput {
@@ -832,10 +843,29 @@ export interface NVoidCreateManyInput {
 }
 
 export interface NVoidCreateInput {
-  nvoidId?: Maybe<ID_Input>;
+  voidId?: Maybe<ID_Input>;
   geohash: String;
   shouts?: Maybe<ShoutCreateManyWithoutNvoidInput>;
   echos?: Maybe<EchoCreateManyWithoutNvoidInput>;
+  createdBy: UserCreateOneWithoutCreatedVoidsInput;
+}
+
+export interface UserCreateOneWithoutCreatedVoidsInput {
+  create?: Maybe<UserCreateWithoutCreatedVoidsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserCreateWithoutCreatedVoidsInput {
+  userId?: Maybe<ID_Input>;
+  createdShouts?: Maybe<ShoutCreateManyWithoutPostedByInput>;
+  savedShouts?: Maybe<ShoutCreateManyInput>;
+  echoedShouts?: Maybe<EchoCreateManyWithoutEchoedByInput>;
+  echoes?: Maybe<EchoCreateManyWithoutCreatedByInput>;
+  savedVoids?: Maybe<NVoidCreateManyInput>;
+  currentLocationGeohash: String;
+  username: String;
+  password: String;
+  replies?: Maybe<ReplyCreateManyWithoutPostedByInput>;
 }
 
 export interface ReplyCreateManyWithoutPostedByInput {
@@ -866,6 +896,20 @@ export interface ShoutCreateWithoutRepliesInput {
   nvoid: NVoidCreateOneWithoutShoutsInput;
 }
 
+export interface NVoidCreateManyWithoutCreatedByInput {
+  create?: Maybe<
+    NVoidCreateWithoutCreatedByInput[] | NVoidCreateWithoutCreatedByInput
+  >;
+  connect?: Maybe<NVoidWhereUniqueInput[] | NVoidWhereUniqueInput>;
+}
+
+export interface NVoidCreateWithoutCreatedByInput {
+  voidId?: Maybe<ID_Input>;
+  geohash: String;
+  shouts?: Maybe<ShoutCreateManyWithoutNvoidInput>;
+  echos?: Maybe<EchoCreateManyWithoutNvoidInput>;
+}
+
 export interface EchoUpdateInput {
   nvoid?: Maybe<NVoidUpdateOneRequiredWithoutEchosInput>;
   originalShout?: Maybe<ShoutUpdateOneRequiredWithoutEchosInput>;
@@ -883,6 +927,7 @@ export interface NVoidUpdateOneRequiredWithoutEchosInput {
 export interface NVoidUpdateWithoutEchosDataInput {
   geohash?: Maybe<String>;
   shouts?: Maybe<ShoutUpdateManyWithoutNvoidInput>;
+  createdBy?: Maybe<UserUpdateOneRequiredWithoutCreatedVoidsInput>;
 }
 
 export interface ShoutUpdateManyWithoutNvoidInput {
@@ -934,6 +979,7 @@ export interface UserUpdateWithoutCreatedShoutsDataInput {
   username?: Maybe<String>;
   password?: Maybe<String>;
   replies?: Maybe<ReplyUpdateManyWithoutPostedByInput>;
+  createdVoids?: Maybe<NVoidUpdateManyWithoutCreatedByInput>;
 }
 
 export interface ShoutUpdateManyInput {
@@ -1016,6 +1062,7 @@ export interface UserUpdateWithoutEchoesDataInput {
   username?: Maybe<String>;
   password?: Maybe<String>;
   replies?: Maybe<ReplyUpdateManyWithoutPostedByInput>;
+  createdVoids?: Maybe<NVoidUpdateManyWithoutCreatedByInput>;
 }
 
 export interface ShoutUpdateManyWithoutPostedByInput {
@@ -1063,6 +1110,7 @@ export interface NVoidUpdateOneRequiredWithoutShoutsInput {
 export interface NVoidUpdateWithoutShoutsDataInput {
   geohash?: Maybe<String>;
   echos?: Maybe<EchoUpdateManyWithoutNvoidInput>;
+  createdBy?: Maybe<UserUpdateOneRequiredWithoutCreatedVoidsInput>;
 }
 
 export interface EchoUpdateManyWithoutNvoidInput {
@@ -1158,6 +1206,7 @@ export interface UserUpdateWithoutRepliesDataInput {
   currentLocationGeohash?: Maybe<String>;
   username?: Maybe<String>;
   password?: Maybe<String>;
+  createdVoids?: Maybe<NVoidUpdateManyWithoutCreatedByInput>;
 }
 
 export interface EchoUpdateManyWithoutEchoedByInput {
@@ -1270,6 +1319,7 @@ export interface UserUpdateWithoutEchoedShoutsDataInput {
   username?: Maybe<String>;
   password?: Maybe<String>;
   replies?: Maybe<ReplyUpdateManyWithoutPostedByInput>;
+  createdVoids?: Maybe<NVoidUpdateManyWithoutCreatedByInput>;
 }
 
 export interface NVoidUpdateManyInput {
@@ -1301,63 +1351,26 @@ export interface NVoidUpdateDataInput {
   geohash?: Maybe<String>;
   shouts?: Maybe<ShoutUpdateManyWithoutNvoidInput>;
   echos?: Maybe<EchoUpdateManyWithoutNvoidInput>;
+  createdBy?: Maybe<UserUpdateOneRequiredWithoutCreatedVoidsInput>;
 }
 
-export interface NVoidUpsertWithWhereUniqueNestedInput {
-  where: NVoidWhereUniqueInput;
-  update: NVoidUpdateDataInput;
-  create: NVoidCreateInput;
+export interface UserUpdateOneRequiredWithoutCreatedVoidsInput {
+  create?: Maybe<UserCreateWithoutCreatedVoidsInput>;
+  update?: Maybe<UserUpdateWithoutCreatedVoidsDataInput>;
+  upsert?: Maybe<UserUpsertWithoutCreatedVoidsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
 }
 
-export interface NVoidScalarWhereInput {
-  nvoidId?: Maybe<ID_Input>;
-  nvoidId_not?: Maybe<ID_Input>;
-  nvoidId_in?: Maybe<ID_Input[] | ID_Input>;
-  nvoidId_not_in?: Maybe<ID_Input[] | ID_Input>;
-  nvoidId_lt?: Maybe<ID_Input>;
-  nvoidId_lte?: Maybe<ID_Input>;
-  nvoidId_gt?: Maybe<ID_Input>;
-  nvoidId_gte?: Maybe<ID_Input>;
-  nvoidId_contains?: Maybe<ID_Input>;
-  nvoidId_not_contains?: Maybe<ID_Input>;
-  nvoidId_starts_with?: Maybe<ID_Input>;
-  nvoidId_not_starts_with?: Maybe<ID_Input>;
-  nvoidId_ends_with?: Maybe<ID_Input>;
-  nvoidId_not_ends_with?: Maybe<ID_Input>;
-  geohash?: Maybe<String>;
-  geohash_not?: Maybe<String>;
-  geohash_in?: Maybe<String[] | String>;
-  geohash_not_in?: Maybe<String[] | String>;
-  geohash_lt?: Maybe<String>;
-  geohash_lte?: Maybe<String>;
-  geohash_gt?: Maybe<String>;
-  geohash_gte?: Maybe<String>;
-  geohash_contains?: Maybe<String>;
-  geohash_not_contains?: Maybe<String>;
-  geohash_starts_with?: Maybe<String>;
-  geohash_not_starts_with?: Maybe<String>;
-  geohash_ends_with?: Maybe<String>;
-  geohash_not_ends_with?: Maybe<String>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  AND?: Maybe<NVoidScalarWhereInput[] | NVoidScalarWhereInput>;
-  OR?: Maybe<NVoidScalarWhereInput[] | NVoidScalarWhereInput>;
-  NOT?: Maybe<NVoidScalarWhereInput[] | NVoidScalarWhereInput>;
-}
-
-export interface NVoidUpdateManyWithWhereNestedInput {
-  where: NVoidScalarWhereInput;
-  data: NVoidUpdateManyDataInput;
-}
-
-export interface NVoidUpdateManyDataInput {
-  geohash?: Maybe<String>;
+export interface UserUpdateWithoutCreatedVoidsDataInput {
+  createdShouts?: Maybe<ShoutUpdateManyWithoutPostedByInput>;
+  savedShouts?: Maybe<ShoutUpdateManyInput>;
+  echoedShouts?: Maybe<EchoUpdateManyWithoutEchoedByInput>;
+  echoes?: Maybe<EchoUpdateManyWithoutCreatedByInput>;
+  savedVoids?: Maybe<NVoidUpdateManyInput>;
+  currentLocationGeohash?: Maybe<String>;
+  username?: Maybe<String>;
+  password?: Maybe<String>;
+  replies?: Maybe<ReplyUpdateManyWithoutPostedByInput>;
 }
 
 export interface ReplyUpdateManyWithoutPostedByInput {
@@ -1477,6 +1490,107 @@ export interface ReplyUpdateManyWithWhereNestedInput {
 export interface ReplyUpdateManyDataInput {
   voteCount?: Maybe<Int>;
   content?: Maybe<String>;
+}
+
+export interface UserUpsertWithoutCreatedVoidsInput {
+  update: UserUpdateWithoutCreatedVoidsDataInput;
+  create: UserCreateWithoutCreatedVoidsInput;
+}
+
+export interface NVoidUpsertWithWhereUniqueNestedInput {
+  where: NVoidWhereUniqueInput;
+  update: NVoidUpdateDataInput;
+  create: NVoidCreateInput;
+}
+
+export interface NVoidScalarWhereInput {
+  voidId?: Maybe<ID_Input>;
+  voidId_not?: Maybe<ID_Input>;
+  voidId_in?: Maybe<ID_Input[] | ID_Input>;
+  voidId_not_in?: Maybe<ID_Input[] | ID_Input>;
+  voidId_lt?: Maybe<ID_Input>;
+  voidId_lte?: Maybe<ID_Input>;
+  voidId_gt?: Maybe<ID_Input>;
+  voidId_gte?: Maybe<ID_Input>;
+  voidId_contains?: Maybe<ID_Input>;
+  voidId_not_contains?: Maybe<ID_Input>;
+  voidId_starts_with?: Maybe<ID_Input>;
+  voidId_not_starts_with?: Maybe<ID_Input>;
+  voidId_ends_with?: Maybe<ID_Input>;
+  voidId_not_ends_with?: Maybe<ID_Input>;
+  geohash?: Maybe<String>;
+  geohash_not?: Maybe<String>;
+  geohash_in?: Maybe<String[] | String>;
+  geohash_not_in?: Maybe<String[] | String>;
+  geohash_lt?: Maybe<String>;
+  geohash_lte?: Maybe<String>;
+  geohash_gt?: Maybe<String>;
+  geohash_gte?: Maybe<String>;
+  geohash_contains?: Maybe<String>;
+  geohash_not_contains?: Maybe<String>;
+  geohash_starts_with?: Maybe<String>;
+  geohash_not_starts_with?: Maybe<String>;
+  geohash_ends_with?: Maybe<String>;
+  geohash_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<NVoidScalarWhereInput[] | NVoidScalarWhereInput>;
+  OR?: Maybe<NVoidScalarWhereInput[] | NVoidScalarWhereInput>;
+  NOT?: Maybe<NVoidScalarWhereInput[] | NVoidScalarWhereInput>;
+}
+
+export interface NVoidUpdateManyWithWhereNestedInput {
+  where: NVoidScalarWhereInput;
+  data: NVoidUpdateManyDataInput;
+}
+
+export interface NVoidUpdateManyDataInput {
+  geohash?: Maybe<String>;
+}
+
+export interface NVoidUpdateManyWithoutCreatedByInput {
+  create?: Maybe<
+    NVoidCreateWithoutCreatedByInput[] | NVoidCreateWithoutCreatedByInput
+  >;
+  delete?: Maybe<NVoidWhereUniqueInput[] | NVoidWhereUniqueInput>;
+  connect?: Maybe<NVoidWhereUniqueInput[] | NVoidWhereUniqueInput>;
+  set?: Maybe<NVoidWhereUniqueInput[] | NVoidWhereUniqueInput>;
+  disconnect?: Maybe<NVoidWhereUniqueInput[] | NVoidWhereUniqueInput>;
+  update?: Maybe<
+    | NVoidUpdateWithWhereUniqueWithoutCreatedByInput[]
+    | NVoidUpdateWithWhereUniqueWithoutCreatedByInput
+  >;
+  upsert?: Maybe<
+    | NVoidUpsertWithWhereUniqueWithoutCreatedByInput[]
+    | NVoidUpsertWithWhereUniqueWithoutCreatedByInput
+  >;
+  deleteMany?: Maybe<NVoidScalarWhereInput[] | NVoidScalarWhereInput>;
+  updateMany?: Maybe<
+    NVoidUpdateManyWithWhereNestedInput[] | NVoidUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface NVoidUpdateWithWhereUniqueWithoutCreatedByInput {
+  where: NVoidWhereUniqueInput;
+  data: NVoidUpdateWithoutCreatedByDataInput;
+}
+
+export interface NVoidUpdateWithoutCreatedByDataInput {
+  geohash?: Maybe<String>;
+  shouts?: Maybe<ShoutUpdateManyWithoutNvoidInput>;
+  echos?: Maybe<EchoUpdateManyWithoutNvoidInput>;
+}
+
+export interface NVoidUpsertWithWhereUniqueWithoutCreatedByInput {
+  where: NVoidWhereUniqueInput;
+  update: NVoidUpdateWithoutCreatedByDataInput;
+  create: NVoidCreateWithoutCreatedByInput;
 }
 
 export interface UserUpsertWithoutEchoedShoutsInput {
@@ -1620,6 +1734,7 @@ export interface NVoidUpdateInput {
   geohash?: Maybe<String>;
   shouts?: Maybe<ShoutUpdateManyWithoutNvoidInput>;
   echos?: Maybe<EchoUpdateManyWithoutNvoidInput>;
+  createdBy?: Maybe<UserUpdateOneRequiredWithoutCreatedVoidsInput>;
 }
 
 export interface NVoidUpdateManyMutationInput {
@@ -1671,6 +1786,7 @@ export interface UserCreateInput {
   username: String;
   password: String;
   replies?: Maybe<ReplyCreateManyWithoutPostedByInput>;
+  createdVoids?: Maybe<NVoidCreateManyWithoutCreatedByInput>;
 }
 
 export interface UserUpdateInput {
@@ -1683,6 +1799,7 @@ export interface UserUpdateInput {
   username?: Maybe<String>;
   password?: Maybe<String>;
   replies?: Maybe<ReplyUpdateManyWithoutPostedByInput>;
+  createdVoids?: Maybe<NVoidUpdateManyWithoutCreatedByInput>;
 }
 
 export interface UserUpdateManyMutationInput {
@@ -1787,13 +1904,13 @@ export interface EchoNullablePromise
 }
 
 export interface NVoid {
-  nvoidId: ID_Output;
+  voidId: ID_Output;
   geohash: String;
   createdAt: DateTimeOutput;
 }
 
 export interface NVoidPromise extends Promise<NVoid>, Fragmentable {
-  nvoidId: () => Promise<ID_Output>;
+  voidId: () => Promise<ID_Output>;
   geohash: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   shouts: <T = FragmentableArray<Shout>>(args?: {
@@ -1814,12 +1931,13 @@ export interface NVoidPromise extends Promise<NVoid>, Fragmentable {
     first?: Int;
     last?: Int;
   }) => T;
+  createdBy: <T = UserPromise>() => T;
 }
 
 export interface NVoidSubscription
   extends Promise<AsyncIterator<NVoid>>,
     Fragmentable {
-  nvoidId: () => Promise<AsyncIterator<ID_Output>>;
+  voidId: () => Promise<AsyncIterator<ID_Output>>;
   geohash: () => Promise<AsyncIterator<String>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   shouts: <T = Promise<AsyncIterator<ShoutSubscription>>>(args?: {
@@ -1840,12 +1958,13 @@ export interface NVoidSubscription
     first?: Int;
     last?: Int;
   }) => T;
+  createdBy: <T = UserSubscription>() => T;
 }
 
 export interface NVoidNullablePromise
   extends Promise<NVoid | null>,
     Fragmentable {
-  nvoidId: () => Promise<ID_Output>;
+  voidId: () => Promise<ID_Output>;
   geohash: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   shouts: <T = FragmentableArray<Shout>>(args?: {
@@ -1866,6 +1985,7 @@ export interface NVoidNullablePromise
     first?: Int;
     last?: Int;
   }) => T;
+  createdBy: <T = UserPromise>() => T;
 }
 
 export interface Shout {
@@ -2028,6 +2148,15 @@ export interface UserPromise extends Promise<User>, Fragmentable {
     first?: Int;
     last?: Int;
   }) => T;
+  createdVoids: <T = FragmentableArray<NVoid>>(args?: {
+    where?: NVoidWhereInput;
+    orderBy?: NVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
 export interface UserSubscription
@@ -2092,6 +2221,15 @@ export interface UserSubscription
     first?: Int;
     last?: Int;
   }) => T;
+  createdVoids: <T = Promise<AsyncIterator<NVoidSubscription>>>(args?: {
+    where?: NVoidWhereInput;
+    orderBy?: NVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
 export interface UserNullablePromise
@@ -2150,6 +2288,15 @@ export interface UserNullablePromise
   replies: <T = FragmentableArray<Reply>>(args?: {
     where?: ReplyWhereInput;
     orderBy?: ReplyOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  createdVoids: <T = FragmentableArray<NVoid>>(args?: {
+    where?: NVoidWhereInput;
+    orderBy?: NVoidOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -2575,7 +2722,7 @@ export interface NVoidSubscriptionPayloadSubscription
 }
 
 export interface NVoidPreviousValues {
-  nvoidId: ID_Output;
+  voidId: ID_Output;
   geohash: String;
   createdAt: DateTimeOutput;
 }
@@ -2583,7 +2730,7 @@ export interface NVoidPreviousValues {
 export interface NVoidPreviousValuesPromise
   extends Promise<NVoidPreviousValues>,
     Fragmentable {
-  nvoidId: () => Promise<ID_Output>;
+  voidId: () => Promise<ID_Output>;
   geohash: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
 }
@@ -2591,7 +2738,7 @@ export interface NVoidPreviousValuesPromise
 export interface NVoidPreviousValuesSubscription
   extends Promise<AsyncIterator<NVoidPreviousValues>>,
     Fragmentable {
-  nvoidId: () => Promise<AsyncIterator<ID_Output>>;
+  voidId: () => Promise<AsyncIterator<ID_Output>>;
   geohash: () => Promise<AsyncIterator<String>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }

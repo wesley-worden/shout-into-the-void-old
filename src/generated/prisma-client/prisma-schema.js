@@ -363,11 +363,12 @@ interface Node {
 }
 
 type NVoid {
-  nvoidId: ID!
+  voidId: ID!
   geohash: String!
   createdAt: DateTime!
   shouts(where: ShoutWhereInput, orderBy: ShoutOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Shout!]
   echos(where: EchoWhereInput, orderBy: EchoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Echo!]
+  createdBy: User!
 }
 
 type NVoidConnection {
@@ -377,14 +378,20 @@ type NVoidConnection {
 }
 
 input NVoidCreateInput {
-  nvoidId: ID
+  voidId: ID
   geohash: String!
   shouts: ShoutCreateManyWithoutNvoidInput
   echos: EchoCreateManyWithoutNvoidInput
+  createdBy: UserCreateOneWithoutCreatedVoidsInput!
 }
 
 input NVoidCreateManyInput {
   create: [NVoidCreateInput!]
+  connect: [NVoidWhereUniqueInput!]
+}
+
+input NVoidCreateManyWithoutCreatedByInput {
+  create: [NVoidCreateWithoutCreatedByInput!]
   connect: [NVoidWhereUniqueInput!]
 }
 
@@ -398,16 +405,25 @@ input NVoidCreateOneWithoutShoutsInput {
   connect: NVoidWhereUniqueInput
 }
 
-input NVoidCreateWithoutEchosInput {
-  nvoidId: ID
+input NVoidCreateWithoutCreatedByInput {
+  voidId: ID
   geohash: String!
   shouts: ShoutCreateManyWithoutNvoidInput
+  echos: EchoCreateManyWithoutNvoidInput
+}
+
+input NVoidCreateWithoutEchosInput {
+  voidId: ID
+  geohash: String!
+  shouts: ShoutCreateManyWithoutNvoidInput
+  createdBy: UserCreateOneWithoutCreatedVoidsInput!
 }
 
 input NVoidCreateWithoutShoutsInput {
-  nvoidId: ID
+  voidId: ID
   geohash: String!
   echos: EchoCreateManyWithoutNvoidInput
+  createdBy: UserCreateOneWithoutCreatedVoidsInput!
 }
 
 type NVoidEdge {
@@ -416,8 +432,8 @@ type NVoidEdge {
 }
 
 enum NVoidOrderByInput {
-  nvoidId_ASC
-  nvoidId_DESC
+  voidId_ASC
+  voidId_DESC
   geohash_ASC
   geohash_DESC
   createdAt_ASC
@@ -425,26 +441,26 @@ enum NVoidOrderByInput {
 }
 
 type NVoidPreviousValues {
-  nvoidId: ID!
+  voidId: ID!
   geohash: String!
   createdAt: DateTime!
 }
 
 input NVoidScalarWhereInput {
-  nvoidId: ID
-  nvoidId_not: ID
-  nvoidId_in: [ID!]
-  nvoidId_not_in: [ID!]
-  nvoidId_lt: ID
-  nvoidId_lte: ID
-  nvoidId_gt: ID
-  nvoidId_gte: ID
-  nvoidId_contains: ID
-  nvoidId_not_contains: ID
-  nvoidId_starts_with: ID
-  nvoidId_not_starts_with: ID
-  nvoidId_ends_with: ID
-  nvoidId_not_ends_with: ID
+  voidId: ID
+  voidId_not: ID
+  voidId_in: [ID!]
+  voidId_not_in: [ID!]
+  voidId_lt: ID
+  voidId_lte: ID
+  voidId_gt: ID
+  voidId_gte: ID
+  voidId_contains: ID
+  voidId_not_contains: ID
+  voidId_starts_with: ID
+  voidId_not_starts_with: ID
+  voidId_ends_with: ID
+  voidId_not_ends_with: ID
   geohash: String
   geohash_not: String
   geohash_in: [String!]
@@ -494,12 +510,14 @@ input NVoidUpdateDataInput {
   geohash: String
   shouts: ShoutUpdateManyWithoutNvoidInput
   echos: EchoUpdateManyWithoutNvoidInput
+  createdBy: UserUpdateOneRequiredWithoutCreatedVoidsInput
 }
 
 input NVoidUpdateInput {
   geohash: String
   shouts: ShoutUpdateManyWithoutNvoidInput
   echos: EchoUpdateManyWithoutNvoidInput
+  createdBy: UserUpdateOneRequiredWithoutCreatedVoidsInput
 }
 
 input NVoidUpdateManyDataInput {
@@ -522,6 +540,18 @@ input NVoidUpdateManyMutationInput {
   geohash: String
 }
 
+input NVoidUpdateManyWithoutCreatedByInput {
+  create: [NVoidCreateWithoutCreatedByInput!]
+  delete: [NVoidWhereUniqueInput!]
+  connect: [NVoidWhereUniqueInput!]
+  set: [NVoidWhereUniqueInput!]
+  disconnect: [NVoidWhereUniqueInput!]
+  update: [NVoidUpdateWithWhereUniqueWithoutCreatedByInput!]
+  upsert: [NVoidUpsertWithWhereUniqueWithoutCreatedByInput!]
+  deleteMany: [NVoidScalarWhereInput!]
+  updateMany: [NVoidUpdateManyWithWhereNestedInput!]
+}
+
 input NVoidUpdateManyWithWhereNestedInput {
   where: NVoidScalarWhereInput!
   data: NVoidUpdateManyDataInput!
@@ -541,19 +571,32 @@ input NVoidUpdateOneRequiredWithoutShoutsInput {
   connect: NVoidWhereUniqueInput
 }
 
+input NVoidUpdateWithoutCreatedByDataInput {
+  geohash: String
+  shouts: ShoutUpdateManyWithoutNvoidInput
+  echos: EchoUpdateManyWithoutNvoidInput
+}
+
 input NVoidUpdateWithoutEchosDataInput {
   geohash: String
   shouts: ShoutUpdateManyWithoutNvoidInput
+  createdBy: UserUpdateOneRequiredWithoutCreatedVoidsInput
 }
 
 input NVoidUpdateWithoutShoutsDataInput {
   geohash: String
   echos: EchoUpdateManyWithoutNvoidInput
+  createdBy: UserUpdateOneRequiredWithoutCreatedVoidsInput
 }
 
 input NVoidUpdateWithWhereUniqueNestedInput {
   where: NVoidWhereUniqueInput!
   data: NVoidUpdateDataInput!
+}
+
+input NVoidUpdateWithWhereUniqueWithoutCreatedByInput {
+  where: NVoidWhereUniqueInput!
+  data: NVoidUpdateWithoutCreatedByDataInput!
 }
 
 input NVoidUpsertWithoutEchosInput {
@@ -572,21 +615,27 @@ input NVoidUpsertWithWhereUniqueNestedInput {
   create: NVoidCreateInput!
 }
 
+input NVoidUpsertWithWhereUniqueWithoutCreatedByInput {
+  where: NVoidWhereUniqueInput!
+  update: NVoidUpdateWithoutCreatedByDataInput!
+  create: NVoidCreateWithoutCreatedByInput!
+}
+
 input NVoidWhereInput {
-  nvoidId: ID
-  nvoidId_not: ID
-  nvoidId_in: [ID!]
-  nvoidId_not_in: [ID!]
-  nvoidId_lt: ID
-  nvoidId_lte: ID
-  nvoidId_gt: ID
-  nvoidId_gte: ID
-  nvoidId_contains: ID
-  nvoidId_not_contains: ID
-  nvoidId_starts_with: ID
-  nvoidId_not_starts_with: ID
-  nvoidId_ends_with: ID
-  nvoidId_not_ends_with: ID
+  voidId: ID
+  voidId_not: ID
+  voidId_in: [ID!]
+  voidId_not_in: [ID!]
+  voidId_lt: ID
+  voidId_lte: ID
+  voidId_gt: ID
+  voidId_gte: ID
+  voidId_contains: ID
+  voidId_not_contains: ID
+  voidId_starts_with: ID
+  voidId_not_starts_with: ID
+  voidId_ends_with: ID
+  voidId_not_ends_with: ID
   geohash: String
   geohash_not: String
   geohash_in: [String!]
@@ -615,13 +664,15 @@ input NVoidWhereInput {
   echos_every: EchoWhereInput
   echos_some: EchoWhereInput
   echos_none: EchoWhereInput
+  createdBy: UserWhereInput
   AND: [NVoidWhereInput!]
   OR: [NVoidWhereInput!]
   NOT: [NVoidWhereInput!]
 }
 
 input NVoidWhereUniqueInput {
-  nvoidId: ID
+  voidId: ID
+  geohash: String
 }
 
 type PageInfo {
@@ -1343,6 +1394,7 @@ type User {
   username: String!
   password: String!
   replies(where: ReplyWhereInput, orderBy: ReplyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Reply!]
+  createdVoids(where: NVoidWhereInput, orderBy: NVoidOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [NVoid!]
 }
 
 type UserConnection {
@@ -1362,10 +1414,16 @@ input UserCreateInput {
   username: String!
   password: String!
   replies: ReplyCreateManyWithoutPostedByInput
+  createdVoids: NVoidCreateManyWithoutCreatedByInput
 }
 
 input UserCreateOneWithoutCreatedShoutsInput {
   create: UserCreateWithoutCreatedShoutsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutCreatedVoidsInput {
+  create: UserCreateWithoutCreatedVoidsInput
   connect: UserWhereUniqueInput
 }
 
@@ -1394,6 +1452,20 @@ input UserCreateWithoutCreatedShoutsInput {
   username: String!
   password: String!
   replies: ReplyCreateManyWithoutPostedByInput
+  createdVoids: NVoidCreateManyWithoutCreatedByInput
+}
+
+input UserCreateWithoutCreatedVoidsInput {
+  userId: ID
+  createdShouts: ShoutCreateManyWithoutPostedByInput
+  savedShouts: ShoutCreateManyInput
+  echoedShouts: EchoCreateManyWithoutEchoedByInput
+  echoes: EchoCreateManyWithoutCreatedByInput
+  savedVoids: NVoidCreateManyInput
+  currentLocationGeohash: String!
+  username: String!
+  password: String!
+  replies: ReplyCreateManyWithoutPostedByInput
 }
 
 input UserCreateWithoutEchoedShoutsInput {
@@ -1406,6 +1478,7 @@ input UserCreateWithoutEchoedShoutsInput {
   username: String!
   password: String!
   replies: ReplyCreateManyWithoutPostedByInput
+  createdVoids: NVoidCreateManyWithoutCreatedByInput
 }
 
 input UserCreateWithoutEchoesInput {
@@ -1418,6 +1491,7 @@ input UserCreateWithoutEchoesInput {
   username: String!
   password: String!
   replies: ReplyCreateManyWithoutPostedByInput
+  createdVoids: NVoidCreateManyWithoutCreatedByInput
 }
 
 input UserCreateWithoutRepliesInput {
@@ -1430,6 +1504,7 @@ input UserCreateWithoutRepliesInput {
   currentLocationGeohash: String!
   username: String!
   password: String!
+  createdVoids: NVoidCreateManyWithoutCreatedByInput
 }
 
 type UserEdge {
@@ -1486,6 +1561,7 @@ input UserUpdateInput {
   username: String
   password: String
   replies: ReplyUpdateManyWithoutPostedByInput
+  createdVoids: NVoidUpdateManyWithoutCreatedByInput
 }
 
 input UserUpdateManyMutationInput {
@@ -1498,6 +1574,13 @@ input UserUpdateOneRequiredWithoutCreatedShoutsInput {
   create: UserCreateWithoutCreatedShoutsInput
   update: UserUpdateWithoutCreatedShoutsDataInput
   upsert: UserUpsertWithoutCreatedShoutsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserUpdateOneRequiredWithoutCreatedVoidsInput {
+  create: UserCreateWithoutCreatedVoidsInput
+  update: UserUpdateWithoutCreatedVoidsDataInput
+  upsert: UserUpsertWithoutCreatedVoidsInput
   connect: UserWhereUniqueInput
 }
 
@@ -1531,6 +1614,19 @@ input UserUpdateWithoutCreatedShoutsDataInput {
   username: String
   password: String
   replies: ReplyUpdateManyWithoutPostedByInput
+  createdVoids: NVoidUpdateManyWithoutCreatedByInput
+}
+
+input UserUpdateWithoutCreatedVoidsDataInput {
+  createdShouts: ShoutUpdateManyWithoutPostedByInput
+  savedShouts: ShoutUpdateManyInput
+  echoedShouts: EchoUpdateManyWithoutEchoedByInput
+  echoes: EchoUpdateManyWithoutCreatedByInput
+  savedVoids: NVoidUpdateManyInput
+  currentLocationGeohash: String
+  username: String
+  password: String
+  replies: ReplyUpdateManyWithoutPostedByInput
 }
 
 input UserUpdateWithoutEchoedShoutsDataInput {
@@ -1542,6 +1638,7 @@ input UserUpdateWithoutEchoedShoutsDataInput {
   username: String
   password: String
   replies: ReplyUpdateManyWithoutPostedByInput
+  createdVoids: NVoidUpdateManyWithoutCreatedByInput
 }
 
 input UserUpdateWithoutEchoesDataInput {
@@ -1553,6 +1650,7 @@ input UserUpdateWithoutEchoesDataInput {
   username: String
   password: String
   replies: ReplyUpdateManyWithoutPostedByInput
+  createdVoids: NVoidUpdateManyWithoutCreatedByInput
 }
 
 input UserUpdateWithoutRepliesDataInput {
@@ -1564,11 +1662,17 @@ input UserUpdateWithoutRepliesDataInput {
   currentLocationGeohash: String
   username: String
   password: String
+  createdVoids: NVoidUpdateManyWithoutCreatedByInput
 }
 
 input UserUpsertWithoutCreatedShoutsInput {
   update: UserUpdateWithoutCreatedShoutsDataInput!
   create: UserCreateWithoutCreatedShoutsInput!
+}
+
+input UserUpsertWithoutCreatedVoidsInput {
+  update: UserUpdateWithoutCreatedVoidsDataInput!
+  create: UserCreateWithoutCreatedVoidsInput!
 }
 
 input UserUpsertWithoutEchoedShoutsInput {
@@ -1669,6 +1773,9 @@ input UserWhereInput {
   replies_every: ReplyWhereInput
   replies_some: ReplyWhereInput
   replies_none: ReplyWhereInput
+  createdVoids_every: NVoidWhereInput
+  createdVoids_some: NVoidWhereInput
+  createdVoids_none: NVoidWhereInput
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]

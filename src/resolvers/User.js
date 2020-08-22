@@ -1,21 +1,56 @@
-const { getUserId, shoutIdIsPostedByUserId } = require('./../utils');
+const { getUserId, shoutIdIsPostedByUserId, ensureAuthorized } = require('./../utils');
 
+const userRequestCanViewPrivateInfo = function(parent, context) {
+    const userIdFromToken = ensureAuthorized(context);
+    if(userIdFromToken === parent.userId) {
+        return true;
+    } else {
+        return false;
+    }
+};
 const createdShouts = function(parent, args, context, info) {
+    return context.prisma.user({ userId: parent.userId }).createdShouts();
     //only gives created shouts if logged in user matches parent user id
-    const userIdFromToken = getUserId(context);
-    const createdShouts = context.prisma.user({ userId: parent.userId }).createdShouts();
-    if(userIdFromToken === parent.userId) { //todo: allow admin
-        return createdShouts;
+    if(userRequestCanViewPrivateInfo) { //todo: allow admin
+        return context.prisma.user({ userId: parent.userId }).createdShouts();
     } else {
         throw new Error("You do not have access to this user info");
     }
 };
 const savedShouts = function(parent, args, context, info) {
-    //only gives saved shouts if loggin in user matches parent user id
-    const userIdFromToken = getUserId(context);
-    const savedShouts = context.prisma.user({ userId: parent.userId }).savedShouts();
-    if(userIdFromToken === parent.userId) {
-        return savedShouts;
+    return context.prisma.user({ userId: parent.userId }).savedShouts();
+    //only gives saved shouts if logged in user matches parent user id
+    if(userRequestCanViewPrivateInfo) { //todo: allow admin
+        return context.prisma.user({ userId: parent.userId }).savedShouts();
+    } else {
+        throw new Error("You do not have access to this user info");
+    }
+};
+const echos = function(parent, args, context, info) {
+    return context.prisma.user({ userId: parent.userId }).echos();
+    //only gives echos if logged in user matches parent user id
+    if(userRequestCanViewPrivateInfo) { //todo: allow admin
+        return context.prisma.user({ userId: parent.userId }).echos();
+    } else {
+        throw new Error("You do not have access to this user info");
+    }
+};
+const savedVoids = function(parent, args, context, info) {
+    return context.prisma.user({ userId: parent.userId }).savedVoids();
+    /*
+    //only gives saved voids if logged in user matches parent user id
+    if(userRequestCanViewPrivateInfo) { //todo: allow admin
+        return context.prisma.user({ userId: parent.userId }).savedVoids();
+    } else {
+        throw new Error("You do not have access to this user info");
+    }
+    */
+};
+const currentLocationGeohash = function(parent, args, context, info) {
+    return context.prisma.user({ userId: parent.userId }).currentLocationGeohash();
+    //only gives location if logged in user matches parent user id
+    if(userRequestCanViewPrivateInfo) { //todo: allow admin
+        return context.prisma.user({ userId: parent.userId }).currentLocationGeohash();
     } else {
         throw new Error("You do not have access to this user info");
     }
@@ -37,9 +72,9 @@ const ownerOfChannels = function(parent, args, context, info) {
 module.exports = {
     createdShouts,
     savedShouts,
-    //echoedShouts,
-    //echoes,
-    //savedVoids
+    echos,
+    savedVoids,
+    currentLocationGeohash
     /*
     memberOfChannelEdges,
     ownerOfChannels

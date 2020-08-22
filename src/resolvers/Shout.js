@@ -72,6 +72,7 @@ const nvoid = function(parent, args, context, info) {
 const replies = function(parent, args, context, info) {
     //user can only view replies if within range of void
     //const userIdFromToken = getUserId(context);
+    return context.prisma.shout({ shoutId: parent.shoutId }).replies();
     const nvoid = getVoidFromShoutId(context, parent.shoutId);
     const voidGeohash = nvoid.geohash;
     if(userIdIsAllowedToViewVoidGeohash(context, userIdFromToken, voidGeohash)) {

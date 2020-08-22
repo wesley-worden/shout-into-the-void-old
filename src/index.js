@@ -12,7 +12,7 @@ const Mutation = require('./resolvers/Mutation');
 const Shout = require('./resolvers/Shout');
 //const Echo = require('./resolvers/Echo');
 //const Void = require('./resolvers/Void');
-//const User = require('./resolvers/User');
+const User = require('./resolvers/User');
 const Query = require('./resolvers/Query');
 const Mutation = require('./resolvers/Mutation');
 
@@ -20,7 +20,7 @@ const resolvers = {
     Shout,
     //Echo,
     //Void,
-    //User
+    User,
     Query,
     Mutation
     /*
