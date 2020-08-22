@@ -1,0 +1,70 @@
+type Shout {
+    voteCount: Int!
+    shoutId: ID! @id
+    geohash: String!
+    createdAt: DateTime! @createdAt
+    content: String! #only allowed if current location matches or saved void geohash match
+    postedBy: User! @relation(name: "ShoutCreatedByUser") #only allowed if owner
+    echos: [Echo!] @relation(name: "ShoutEchoEdge", link: INLINE)
+    void: Void! @relation(name: "ShoutVoidEdge", link: INLINE)
+}
+type Echo {
+    echoId: ID! @id
+    void: Void! @relation(name: "EchoVoidEdge", link: INLINE)
+    originalShout: Shout! @relation(name: "ShoutEchoEdge")
+    createdAt: DateTime! @createdAt
+    createdBy: User! @relation(name: "EchoCreatedByUser", link: INLINE)
+    echoedBy: User! @relation(name: "EchoEchoedByUser", link: INLINE)
+}
+type Void {
+    voidId: ID! @id
+    geohash: String!
+    createdAt: DateTime! @createdAt
+    shouts: [Shout!] @relation(name: "ShoutVoidEdge")
+    echos: [Echo!] @relation(name: "EchoVoidEdge")
+}
+type User {
+    createdAt: DateTime! @createdAt
+    userId: ID! @id
+    createdShouts: [Shout!] @relation(name: "ShoutCreatedByUser", link: INLINE)
+    savedShouts: [Shout!] @relation(name: "ShoutSavedByUser", link: INLINE)
+    echoedShouts: [Echo!] @relation(name: "EchoEchoedByUser")
+    echoes: [Echo!] @relation(name: "EchoCreatedByUser")
+    savedVoids: [Void!] @relation(name: "VoidSavedByUser", link: INLINE)
+    localVoidGeohash: String!
+    email: String! @unique
+    password: String!
+}
+
+#type Shitpost {
+#    shitpostId: ID! @id
+#    postedBy: User! @relation(link: INLINE)
+#    createdAt: DateTime! @createdAt
+#    encryptedContent: String!
+#    channel: Channel! @relation(name: "Shitpost")
+#}
+#
+#type Channel {
+#    channelId: ID! @id
+#    name: String! @unique
+#    owner: User! @relation(name: "Owner")
+#    createdAt: DateTime! @createdAt
+#    memberEdges: [Edge!] 
+#    shitposts: [Shitpost!] @relation(name: "Shitpost", link: INLINE)
+#}
+#
+#type User {
+#    userId: ID! @id
+#    name: String! @unique
+#    memberOfChannelEdges: [Edge!]  
+#    ownerOfChannels: [Channel!] @relation(name: "Owner", link: INLINE)
+#    email: String! @unique
+#    password: String!
+#}
+#
+#type Edge {
+#    edgeId: ID! @id
+#    user: User! @relation(link: INLINE)
+#    channel: Channel! @relation(link: INLINE)
+#}
+

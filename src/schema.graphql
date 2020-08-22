@@ -1,0 +1,109 @@
+type Shout {
+    voteCount: Int!
+    shoutId: ID!
+    geohash: String!
+    createdAt: String!
+    content: String! #only allowed if current location matches or saved void geohash match
+    postedBy: User! #only allowed if owner
+    echos: [Echo!]
+    void: Void!
+}
+type Echo {
+    echoId: ID!
+    void: Void!
+    originalShout: Shout!
+    createdAt: String!
+    createdBy: User!
+    echoedBy: User!
+}
+type Void {
+    voidId: ID!
+    geohash: String!
+    createdAt: String!
+    shouts: [Shout!]
+}
+type User {
+    createdAt: String!
+    userId: ID!
+    createdShouts: [Shout!]
+    savedShouts: [Shout!]
+    echos: [Echo!]
+    savedVoids: [Void!]
+    localVoidGeohash: String!
+    email: String!
+    password: String!
+}
+type AuthPayload {
+    token: String
+    user: User
+    currentLocationGeohash: String!
+}
+type Query {
+    getMyUser(): User
+    getVoidById(voidId: ID!): Void
+    getVoidByLocation(geohash: String!): Void
+    getEcho(echoId: ID!): Echo
+}
+
+type Mutation {
+    login(email: String!, password: String!): AuthPayload
+    signup(email: String!, password: String!, name: String!): AuthPayload
+    shout(content: String!): Shout
+    upvote(shoutId: ID!): Shout!
+    downvote(shoutId: ID!): Shout!
+    saveShout(shoutId: ID!): User!
+    saveVoid(voidId: ID!): User!
+    echo(shoutId: ID!): Echo
+    updateLocation(): User!
+}
+#type Shitpost {
+#    shitpostId: ID! 
+#    postedBy: User! 
+#    createdAt: String! 
+#    encryptedContent: String!
+#    channel: Channel!
+#}
+
+#type Channel {
+#    channelId: ID!
+#    name: String!
+#    owner: User! 
+#    createdAt: String! 
+#    memberEdges: [Edge!] 
+#    shitposts: [Shitpost!] 
+#}
+
+#type User {
+#    userId: ID! 
+#    name: String!
+#    memberOfChannelEdges: [Edge!]  
+#    ownerOfChannels: [Channel!] 
+#}
+
+#type Edge {
+#    edgeId: ID!
+#    user: User!
+#    channel: Channel!
+#}
+
+#ype AuthPayload {
+#    token: String
+#    user: User
+#}
+
+#type Query {
+    #getShitpost(shitpostId: ID!): Shitpost
+    #getChannel(channelId: ID!): Channel
+    #getUser(userId: ID!): User
+#}
+
+#type Mutation {
+    #login(email: String!, password: String!): AuthPayload
+    #signup(email: String!, password: String!, name: String!): AuthPayload
+    #createChannel(name: String!): Channel
+    #addMember(channelId: ID!, memberUserId: ID!): User
+    #shitpost(encryptedContent: String!, channelId: ID!): Shitpost
+    #deleteShitpost(shitpostId: ID!): Shitpost
+    #removeMember(channelId: ID!, memberId: ID!): Channel!
+    #deleteChannel(channelId: ID!): Channel
+#}

@@ -1,0 +1,68 @@
+signup
+----------
+mutation {
+  signup(
+    email: "pepe"
+    name: "pepe"
+    password: "test1"
+  ) {
+    token
+    user {
+      userId
+    }
+  }
+}
+
+login
+----------
+mutation {
+  login(
+    email: "pepe"
+    password: "test1"
+  ) {
+    token
+    user {
+      userId
+    }
+  }
+}
+
+getUser
+----------
+query {
+  getUser(
+    userId: "5f067f9da7b11b00070fad23"
+  ) {
+    userId
+    name
+    memberOfChannels {
+      channelId
+    }
+    ownerOfChannels {
+      channelId
+    }
+  }
+}
+
+getChannel
+----------
+query {
+  getChannel(
+    channelId: "5f0679da24aa9a0008b5cb24"
+  ) {
+    channelId
+    name
+    owner {
+      userId
+      name
+    }
+    createdAt
+    members {
+      userId
+      name
+    }
+    shitposts {
+      id
+    }
+  }
+}

@@ -1,0 +1,2 @@
+#!/bin/bash
+prisma deploy

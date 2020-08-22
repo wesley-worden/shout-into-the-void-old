@@ -1,0 +1,7 @@
+{
+	"APP_SECRET": "bruh-this-needs-to-be-locked-down",
+	"debug_settings": {
+		"log": true,
+		"copy_token_to_clipboard": true
+	}
+}

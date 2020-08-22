@@ -1,0 +1,8 @@
+# HTTP endpoint for my Prisma API
+endpoint: 'http://localhost:4466'
+
+datamodel: datamodel.prisma.graphql
+
+generate:
+  - generator: javascript-client
+    output: ../src/generated/prisma-client
