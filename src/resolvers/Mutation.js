@@ -1,12 +1,12 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { APP_SECRET, showMe, showToken, getUserId, ensureUserExists, ensureChannelExists, ensureShitpostExists, ensureUserIsChannelOwner, getChannelMembers } = require('./../utils');
+const { APP_SECRET, showMe, showToken, getUserId, ensureUserExists, ensureChannelExists, ensureShitpostExists, ensureUserIsChannelOwner, getChannelMembers, flattenGeohashToUserGeohash } = require('./../utils');
 const { debug_settings } = require('./../../config.json');
 const clipboardy = require('clipboardy');
 
 const login = async function(parent, args, context, info) {
     //get existing user from prisma database
-    const { password, ...user } = await context.prisma.user({ email: args.email });
+    const { password, ...user } = await context.prisma.user({ username: args.username });
     if (!user) {
         throw new Error('No user found bruh');
     }
@@ -24,7 +24,7 @@ const login = async function(parent, args, context, info) {
 };
 
 const signup = async function(parent, args, context, info) {
-    const hashedPassword = await bcrypt.hash(args.password, 10)
+    const hashedPassword = await bcrypt.hash(args.password, 10); //todo: wait wut
     //bro whats destructuring
     const { password, ...user } = await context.prisma.createUser({ ...args, password: hashedPassword });
     const token = jwt.sign({ userId: user.userId }, APP_SECRET);
@@ -35,7 +35,16 @@ const signup = async function(parent, args, context, info) {
     }
     return { token, user }; // AuthPayload object
 };
-
+const updateLocation = async function(parent, args, context, info) {
+    const userIdFromToken = ensureAuthorized(context);
+    const flattenedGeohash = flattenGeohashToUserGeohash(args.currentLocationGeohash);
+    const updatedUser = await context.prisma.user.update({
+        where: { userId: userIdFromToken },
+        data: { currentLocationGeohash: flattenedGeohash }
+    });
+    return updatedUser;
+};
+/*
 const createChannel = async function(parent, args, context, info) {
     const userId = getUserId(context);
     const createdChannel = await context.prisma.createChannel({
@@ -148,14 +157,15 @@ const deleteChannel = async function(parent, args, context, info) {
         shitpostId: args.shitpostId 
     });
 };
-
+*/
 module.exports = { 
     login,
     signup,
-    createChannel,
-    addMember,
-    shitpost,
-    deleteShitpost,
+    updateLocation,
+    //createChannel,
+    //addMember,
+    //shitpost,
+    //deleteShitpost,
     // removeMember,
-    deleteChannel
+    //deleteChannel
 };

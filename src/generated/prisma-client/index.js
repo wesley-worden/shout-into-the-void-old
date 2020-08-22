@@ -9,11 +9,15 @@ var models = [
     embedded: false
   },
   {
+    name: "Reply",
+    embedded: false
+  },
+  {
     name: "Echo",
     embedded: false
   },
   {
-    name: "Void",
+    name: "NVoid",
     embedded: false
   },
   {

@@ -2,6 +2,8 @@ const jwt = require('jsonwebtoken');
 // const APP_SECRET = 'bruh-this-needs-to-be-locked-down';
 const { APP_SECRET, debug_settings } = require('./../config.json');
 const clipboardy = require('clipboardy');
+const ngeohash = require('ngeohash');
+const { getHashesNear, isInRadius } = require('geohashes-near');
 
 const showToken = function(token) {
     console.log("please place into http headers");
@@ -13,7 +15,7 @@ const showToken = function(token) {
     }
 }
 
-const getUserId = function(context) {
+const ensureAuthorized = function(context) {
     const Authorization = context.request.get('Authorization');
     if (Authorization) {
         const token = Authorization.replace('Bearer ', '');
@@ -21,14 +23,78 @@ const getUserId = function(context) {
         // console.log("token: ", JSON.stringify(token));
         const { userId } = jwt.verify(token, APP_SECRET);
         return userId;
+        //const { userId, currentLocationGeohash } = jwt.verify(token, APP_SECRET);
+        //return [ userId, currentLocationGeohash ];
     }
     throw new Error("Bruh you ain't authenticated bro");
 };
 
-const ensureAuthenticated = function(context) {
-    return getUserId(context);
+const getUserId = function(context) {
+    return ensureAuthorized();
+    //return ensureAuthorized(context)[0];
+};
+const VOID_GEOHASH_PRECISION = 5;
+const USER_GEOHASH_PRECISION = 6;
+const VIEW_RADIUS = 8;
+const VIEW_RADIUS_UNITS = 'kilometers';
+const getCurrentLocationGeohashForUserId = function(context, userId) {
+    const currentLocationGeohash = context.prisma.user({ userId: userId }).currentLocationGeohash();
+    return currentLocationGeohash;
+};
+/*
+const flattenGeohash = function(geohash) {
+    const coordinates = ngeohash.decode(geohash);
+    return ngeohash.encode(coordinates.latitude, coordinates.longitude, VOID_GEOHASH_PRECISION);
+};
+*/
+const flattenGeohashToUserGeohash = function(geohash) {
+    const coordinates = ngeosh.decode(geohash);
+    return ngeohash.encode(coordinates.latitude, coordinates.longitude, USER_GEOHASH_PRECISION);
 }
+const flattenUserGeohashToVoidGeohash = function(userGeohash) {
+    const coordinates = ngeohash.decode(userGeohash);
+    return ngeohash.encode(coordinates.latitude, coordinates.longitude, VOID_GEOHASH_PRECISION);
+};
+const getClosestVoidGeohashForUserId = function(context, userId) {
+    const currentLocationGeohash = getCurrentLocationGeohashForUserId(context, userId);
+    const closestVoidGeohash = flattenUserGeohashToVoidGeohash(currentLocationGeohash);
+    return closestVoidGeohash;
+};
+const getVoidFromShoutId = function(context, userId, shoutId) {
+    //const userIdFromToken = getUserId(context);
+    const nvoid = context.prisma.shout({ shoutId: shoutId }).nvoid();
+    const voidGeohash = nvoid.geohash;
+    console.log(`voidGeohash: ${JSON.stringify(voidGeohash)}`);
+    if(userIdIsAllowedToViewVoidGeohash(context, userId, voidGeohash)) {
+        return nvoid;
+    } else {
+        throw new Error("You are not within range to view this void");
+    }
+};
+const userIdIsAllowedToViewVoidGeohash = function(context, userId, voidGeohash) {
+    const from = ngeohash.decode(voidGeohash); //note, not flattening
+    const to  = from; //todo: this seems fucked
+    const radius = VIEW_RADIUS;
+    const units = VIEW_RADIUS_UNITS;
+    return isInRadius(from, to, radius, units);
+};
 
+const fragmentShoutPostedByUserId = `
+fragment ShoutPostedByUserId on Shout {
+    postedBy {
+        userId
+    }
+}`;
+const shoutIdIsPostedByUserId = function(context, shoutId, userId) {
+    const postedBy = context.prisma.shout({ shoutId: shoutId }).postedBy();
+    const postedByUserId = postedBy.$fragment(fragmentShoutPostedByUserId);
+    if(userId === postedByUserId) {
+        return true;
+    } else {
+        return false;
+    }
+};
+/*
 // const channelExists = async function(context, channelId) {
 //     return await context.prisma.$exists.channel({
 //         channelId: channelId
@@ -108,18 +174,25 @@ const showMe = function(variable) {
     // console.log(Object.keys(variable));
     console.log(`${variableName}: ${JSON.stringify(variable)}`);
 }
-
+*/
 module.exports = { 
     APP_SECRET,
     debug_settings, //are these bad?
     getUserId, 
-    ensureAuthenticated,
+    ensureAuthorized,
+    userIdIsAllowedToViewVoidGeohash,
+    getVoidFromShoutId,
+    shoutIdIsPostedByUserId,
+    flattenGeohashToUserGeohash,
+//    ensureAuthenticated,
     // channelExists, 
+    /*
     ensureUserExists,
     ensureChannelExists,
     ensureShitpostExists,
     getChannelOwnerId,
     ensureUserIsChannelOwner,
     getChannelMembers,
+    */
     showToken
 };
