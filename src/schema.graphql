@@ -65,7 +65,7 @@ type SavedReplyToShoutInVoid {
 type SavedShout {
     savedShoutId: ID!
     createdAt: String!
-    savedByUser: User!
+    savedBy: User!
     originalContent: Content!
     originalShoutVoidGeohash: String!
     shoutInVoid: ShoutInVoid!
@@ -76,11 +76,7 @@ type EchoEdge { # used soo that when a saved shout is deleted or shout is delete
     shoutInVoid: ShoutInVoid 
     savedShout: SavedShout 
     echoInVoid: EchoInVoid 
-}
-type SavedShoutEchoEdge {
-    savedShoutEchoEdgeId: ID!
-    savedShout: SavedShout
-    echoInVoid: EchoInVoid
+    savedEcho: SavedEcho
 }
 # echo of a saved shout
 type EchoInVoid {
@@ -120,7 +116,7 @@ type SavedEcho {
     originalContent: Content!
     originalShoutVoidGeohash: String!
     originalEchoVoidGeohash: String!
-    echoInVoid: EchoInVoid!
+    echoInVoid: EchoInVoid
 }
 type NVoid {
     voidId: ID!

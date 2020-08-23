@@ -1,17 +1,21 @@
-const { ensureAuthorized } = require('./../utils');
+const { ensureAuthorized } = require('./..utils');
 
-const shouts = function(parent, args, context, info) {
-    return context.prisma.nvoid({ voidId: parent.voidId }).shouts();
-};
-const echos = function(parent, args, context, info) {
-    return context.prisma.nvoid({ voidId: parent.voidId }).echos();
-};
+//todo: permissions for everything
 const createdBy = function(parent, args, context, info) {
-    return context.prisma.nvoid({ voidId: parent.voidId }).createdBy();
-};
+    return context.prisma.nVoid({ nVoidId: parent.nVoidId })
+        .createdBy();
+}
+const shouts = function(parent, args, context, info) {
+    return context.prisma.nVoid({ nVoidId: parent.nVoidId })
+        .shouts();
+}
+const echos = function(parent, args, context, info) {
+    return context.prisma.nVoid({ nVoidId: parent.nVoidId })
+        .echos();
+}
 
 module.exports = {
+    createdBy,
     shouts,
     echos,
-    createdBy
 };

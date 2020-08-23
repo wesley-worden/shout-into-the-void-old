@@ -67,7 +67,7 @@ type SavedReplyToShoutInVoid {
 type SavedShout {
     savedShoutId: ID! @id
     createdAt: DateTime! @createdAt
-    savedByUser: User! @relation(name: "UsersSavedShouts")
+    savedBy: User! @relation(name: "UsersSavedShouts")
     originalContent: Content! @relation(link: INLINE)
     originalShoutVoidGeohash: String!
     shoutInVoid: ShoutInVoid! @relation(name: "OriginalShoutToSavedShoutEdge")
@@ -78,6 +78,8 @@ type EchoEdge { # used soo that when a saved shout is deleted or shout is delete
     shoutInVoid: ShoutInVoid @relation(name: "OriginalShoutInVoidToEchoEdgeEdge", link: INLINE)
     savedShout: SavedShout @relation(name: "SavedShoutToEchoEdgeEdge", link: INLINE)
     echoInVoid: EchoInVoid @relation(name: "EchoInVoidToEchoEdgeEdge", link: INLINE)
+    # the following may be genius or pointless
+    savedEcho: SavedEcho @relation(name: "SavedEchotoEchoEdgeEdge", link: INLINE)
 }
 # echo of a saved shout
 type EchoInVoid {
@@ -117,7 +119,8 @@ type SavedEcho {
     originalContent: Content! @relation(link: INLINE)
     originalShoutVoidGeohash: String!
     originalEchoVoidGeohash: String!
-    echoInVoid: EchoInVoid! @relation(name: "OriginalEchoToSavedEchoEdge")
+    echoInVoid: EchoInVoid @relation(name: "OriginalEchoToSavedEchoEdge")
+    echoEdge: EchoEdge @relation(name: "SavedEchotoEchoEdgeEdge")
 }
 type NVoid {
     voidId: ID! @id
