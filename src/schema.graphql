@@ -36,7 +36,7 @@ type ShoutInVoid {
     createdAt: String!
     shoutedBy: User!
     content: Content!
-    voteCount: Int!ReplyToEchoInVoid
+    voteCount: Int!
     nvoid: NVoid!
     savedShouts: [SavedShout!]
     replies: [ReplyToShoutInVoid!]

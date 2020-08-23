@@ -3,23 +3,11 @@ module.exports = {
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-/* GraphQL */ `type AggregateEcho {
+/* GraphQL */ `type AggregateContent {
   count: Int!
 }
 
-type AggregateNVoid {
-  count: Int!
-}
-
-type AggregateReply {
-  count: Int!
-}
-
-type AggregateSavedShout {
-  count: Int!
-}
-
-type AggregateShout {
+type AggregateShoutInVoid {
   count: Int!
 }
 
@@ -31,278 +19,117 @@ type BatchPayload {
   count: Long!
 }
 
-scalar DateTime
-
-type Echo {
-  echoId: ID!
-  nvoid: NVoid!
-  savedShout: SavedShout!
+type Content {
+  contentId: ID!
   createdAt: DateTime!
   createdBy: User!
-  echoedBy: User!
+  message: String!
+  includeUsername: Boolean!
 }
 
-type EchoConnection {
+type ContentConnection {
   pageInfo: PageInfo!
-  edges: [EchoEdge]!
-  aggregate: AggregateEcho!
+  edges: [ContentEdge]!
+  aggregate: AggregateContent!
 }
 
-input EchoCreateInput {
-  echoId: ID
-  nvoid: NVoidCreateOneWithoutEchosInput!
-  savedShout: SavedShoutCreateOneWithoutEchosInput!
-  createdBy: UserCreateOneWithoutEchoesInput!
-  echoedBy: UserCreateOneWithoutEchoedShoutsInput!
+input ContentCreateInput {
+  contentId: ID
+  createdBy: UserCreateOneInput!
+  message: String!
+  includeUsername: Boolean!
 }
 
-input EchoCreateManyWithoutCreatedByInput {
-  create: [EchoCreateWithoutCreatedByInput!]
-  connect: [EchoWhereUniqueInput!]
+input ContentCreateOneInput {
+  create: ContentCreateInput
+  connect: ContentWhereUniqueInput
 }
 
-input EchoCreateManyWithoutEchoedByInput {
-  create: [EchoCreateWithoutEchoedByInput!]
-  connect: [EchoWhereUniqueInput!]
-}
-
-input EchoCreateManyWithoutNvoidInput {
-  create: [EchoCreateWithoutNvoidInput!]
-  connect: [EchoWhereUniqueInput!]
-}
-
-input EchoCreateManyWithoutSavedShoutInput {
-  create: [EchoCreateWithoutSavedShoutInput!]
-  connect: [EchoWhereUniqueInput!]
-}
-
-input EchoCreateWithoutCreatedByInput {
-  echoId: ID
-  nvoid: NVoidCreateOneWithoutEchosInput!
-  savedShout: SavedShoutCreateOneWithoutEchosInput!
-  echoedBy: UserCreateOneWithoutEchoedShoutsInput!
-}
-
-input EchoCreateWithoutEchoedByInput {
-  echoId: ID
-  nvoid: NVoidCreateOneWithoutEchosInput!
-  savedShout: SavedShoutCreateOneWithoutEchosInput!
-  createdBy: UserCreateOneWithoutEchoesInput!
-}
-
-input EchoCreateWithoutNvoidInput {
-  echoId: ID
-  savedShout: SavedShoutCreateOneWithoutEchosInput!
-  createdBy: UserCreateOneWithoutEchoesInput!
-  echoedBy: UserCreateOneWithoutEchoedShoutsInput!
-}
-
-input EchoCreateWithoutSavedShoutInput {
-  echoId: ID
-  nvoid: NVoidCreateOneWithoutEchosInput!
-  createdBy: UserCreateOneWithoutEchoesInput!
-  echoedBy: UserCreateOneWithoutEchoedShoutsInput!
-}
-
-type EchoEdge {
-  node: Echo!
+type ContentEdge {
+  node: Content!
   cursor: String!
 }
 
-enum EchoOrderByInput {
-  echoId_ASC
-  echoId_DESC
+enum ContentOrderByInput {
+  contentId_ASC
+  contentId_DESC
   createdAt_ASC
   createdAt_DESC
+  message_ASC
+  message_DESC
+  includeUsername_ASC
+  includeUsername_DESC
 }
 
-type EchoPreviousValues {
-  echoId: ID!
+type ContentPreviousValues {
+  contentId: ID!
   createdAt: DateTime!
+  message: String!
+  includeUsername: Boolean!
 }
 
-input EchoScalarWhereInput {
-  echoId: ID
-  echoId_not: ID
-  echoId_in: [ID!]
-  echoId_not_in: [ID!]
-  echoId_lt: ID
-  echoId_lte: ID
-  echoId_gt: ID
-  echoId_gte: ID
-  echoId_contains: ID
-  echoId_not_contains: ID
-  echoId_starts_with: ID
-  echoId_not_starts_with: ID
-  echoId_ends_with: ID
-  echoId_not_ends_with: ID
-  createdAt: DateTime
-  createdAt_not: DateTime
-  createdAt_in: [DateTime!]
-  createdAt_not_in: [DateTime!]
-  createdAt_lt: DateTime
-  createdAt_lte: DateTime
-  createdAt_gt: DateTime
-  createdAt_gte: DateTime
-  AND: [EchoScalarWhereInput!]
-  OR: [EchoScalarWhereInput!]
-  NOT: [EchoScalarWhereInput!]
-}
-
-type EchoSubscriptionPayload {
+type ContentSubscriptionPayload {
   mutation: MutationType!
-  node: Echo
+  node: Content
   updatedFields: [String!]
-  previousValues: EchoPreviousValues
+  previousValues: ContentPreviousValues
 }
 
-input EchoSubscriptionWhereInput {
+input ContentSubscriptionWhereInput {
   mutation_in: [MutationType!]
   updatedFields_contains: String
   updatedFields_contains_every: [String!]
   updatedFields_contains_some: [String!]
-  node: EchoWhereInput
-  AND: [EchoSubscriptionWhereInput!]
-  OR: [EchoSubscriptionWhereInput!]
-  NOT: [EchoSubscriptionWhereInput!]
+  node: ContentWhereInput
+  AND: [ContentSubscriptionWhereInput!]
+  OR: [ContentSubscriptionWhereInput!]
+  NOT: [ContentSubscriptionWhereInput!]
 }
 
-input EchoUpdateInput {
-  nvoid: NVoidUpdateOneRequiredWithoutEchosInput
-  savedShout: SavedShoutUpdateOneRequiredWithoutEchosInput
-  createdBy: UserUpdateOneRequiredWithoutEchoesInput
-  echoedBy: UserUpdateOneRequiredWithoutEchoedShoutsInput
+input ContentUpdateDataInput {
+  createdBy: UserUpdateOneRequiredInput
+  message: String
+  includeUsername: Boolean
 }
 
-input EchoUpdateManyWithoutCreatedByInput {
-  create: [EchoCreateWithoutCreatedByInput!]
-  delete: [EchoWhereUniqueInput!]
-  connect: [EchoWhereUniqueInput!]
-  set: [EchoWhereUniqueInput!]
-  disconnect: [EchoWhereUniqueInput!]
-  update: [EchoUpdateWithWhereUniqueWithoutCreatedByInput!]
-  upsert: [EchoUpsertWithWhereUniqueWithoutCreatedByInput!]
-  deleteMany: [EchoScalarWhereInput!]
+input ContentUpdateInput {
+  createdBy: UserUpdateOneRequiredInput
+  message: String
+  includeUsername: Boolean
 }
 
-input EchoUpdateManyWithoutEchoedByInput {
-  create: [EchoCreateWithoutEchoedByInput!]
-  delete: [EchoWhereUniqueInput!]
-  connect: [EchoWhereUniqueInput!]
-  set: [EchoWhereUniqueInput!]
-  disconnect: [EchoWhereUniqueInput!]
-  update: [EchoUpdateWithWhereUniqueWithoutEchoedByInput!]
-  upsert: [EchoUpsertWithWhereUniqueWithoutEchoedByInput!]
-  deleteMany: [EchoScalarWhereInput!]
+input ContentUpdateManyMutationInput {
+  message: String
+  includeUsername: Boolean
 }
 
-input EchoUpdateManyWithoutNvoidInput {
-  create: [EchoCreateWithoutNvoidInput!]
-  delete: [EchoWhereUniqueInput!]
-  connect: [EchoWhereUniqueInput!]
-  set: [EchoWhereUniqueInput!]
-  disconnect: [EchoWhereUniqueInput!]
-  update: [EchoUpdateWithWhereUniqueWithoutNvoidInput!]
-  upsert: [EchoUpsertWithWhereUniqueWithoutNvoidInput!]
-  deleteMany: [EchoScalarWhereInput!]
+input ContentUpdateOneRequiredInput {
+  create: ContentCreateInput
+  update: ContentUpdateDataInput
+  upsert: ContentUpsertNestedInput
+  connect: ContentWhereUniqueInput
 }
 
-input EchoUpdateManyWithoutSavedShoutInput {
-  create: [EchoCreateWithoutSavedShoutInput!]
-  delete: [EchoWhereUniqueInput!]
-  connect: [EchoWhereUniqueInput!]
-  set: [EchoWhereUniqueInput!]
-  disconnect: [EchoWhereUniqueInput!]
-  update: [EchoUpdateWithWhereUniqueWithoutSavedShoutInput!]
-  upsert: [EchoUpsertWithWhereUniqueWithoutSavedShoutInput!]
-  deleteMany: [EchoScalarWhereInput!]
+input ContentUpsertNestedInput {
+  update: ContentUpdateDataInput!
+  create: ContentCreateInput!
 }
 
-input EchoUpdateWithoutCreatedByDataInput {
-  nvoid: NVoidUpdateOneRequiredWithoutEchosInput
-  savedShout: SavedShoutUpdateOneRequiredWithoutEchosInput
-  echoedBy: UserUpdateOneRequiredWithoutEchoedShoutsInput
-}
-
-input EchoUpdateWithoutEchoedByDataInput {
-  nvoid: NVoidUpdateOneRequiredWithoutEchosInput
-  savedShout: SavedShoutUpdateOneRequiredWithoutEchosInput
-  createdBy: UserUpdateOneRequiredWithoutEchoesInput
-}
-
-input EchoUpdateWithoutNvoidDataInput {
-  savedShout: SavedShoutUpdateOneRequiredWithoutEchosInput
-  createdBy: UserUpdateOneRequiredWithoutEchoesInput
-  echoedBy: UserUpdateOneRequiredWithoutEchoedShoutsInput
-}
-
-input EchoUpdateWithoutSavedShoutDataInput {
-  nvoid: NVoidUpdateOneRequiredWithoutEchosInput
-  createdBy: UserUpdateOneRequiredWithoutEchoesInput
-  echoedBy: UserUpdateOneRequiredWithoutEchoedShoutsInput
-}
-
-input EchoUpdateWithWhereUniqueWithoutCreatedByInput {
-  where: EchoWhereUniqueInput!
-  data: EchoUpdateWithoutCreatedByDataInput!
-}
-
-input EchoUpdateWithWhereUniqueWithoutEchoedByInput {
-  where: EchoWhereUniqueInput!
-  data: EchoUpdateWithoutEchoedByDataInput!
-}
-
-input EchoUpdateWithWhereUniqueWithoutNvoidInput {
-  where: EchoWhereUniqueInput!
-  data: EchoUpdateWithoutNvoidDataInput!
-}
-
-input EchoUpdateWithWhereUniqueWithoutSavedShoutInput {
-  where: EchoWhereUniqueInput!
-  data: EchoUpdateWithoutSavedShoutDataInput!
-}
-
-input EchoUpsertWithWhereUniqueWithoutCreatedByInput {
-  where: EchoWhereUniqueInput!
-  update: EchoUpdateWithoutCreatedByDataInput!
-  create: EchoCreateWithoutCreatedByInput!
-}
-
-input EchoUpsertWithWhereUniqueWithoutEchoedByInput {
-  where: EchoWhereUniqueInput!
-  update: EchoUpdateWithoutEchoedByDataInput!
-  create: EchoCreateWithoutEchoedByInput!
-}
-
-input EchoUpsertWithWhereUniqueWithoutNvoidInput {
-  where: EchoWhereUniqueInput!
-  update: EchoUpdateWithoutNvoidDataInput!
-  create: EchoCreateWithoutNvoidInput!
-}
-
-input EchoUpsertWithWhereUniqueWithoutSavedShoutInput {
-  where: EchoWhereUniqueInput!
-  update: EchoUpdateWithoutSavedShoutDataInput!
-  create: EchoCreateWithoutSavedShoutInput!
-}
-
-input EchoWhereInput {
-  echoId: ID
-  echoId_not: ID
-  echoId_in: [ID!]
-  echoId_not_in: [ID!]
-  echoId_lt: ID
-  echoId_lte: ID
-  echoId_gt: ID
-  echoId_gte: ID
-  echoId_contains: ID
-  echoId_not_contains: ID
-  echoId_starts_with: ID
-  echoId_not_starts_with: ID
-  echoId_ends_with: ID
-  echoId_not_ends_with: ID
-  nvoid: NVoidWhereInput
-  savedShout: SavedShoutWhereInput
+input ContentWhereInput {
+  contentId: ID
+  contentId_not: ID
+  contentId_in: [ID!]
+  contentId_not_in: [ID!]
+  contentId_lt: ID
+  contentId_lte: ID
+  contentId_gt: ID
+  contentId_gte: ID
+  contentId_contains: ID
+  contentId_not_contains: ID
+  contentId_starts_with: ID
+  contentId_not_starts_with: ID
+  contentId_ends_with: ID
+  contentId_not_ends_with: ID
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -312,48 +139,48 @@ input EchoWhereInput {
   createdAt_gt: DateTime
   createdAt_gte: DateTime
   createdBy: UserWhereInput
-  echoedBy: UserWhereInput
-  AND: [EchoWhereInput!]
-  OR: [EchoWhereInput!]
-  NOT: [EchoWhereInput!]
+  message: String
+  message_not: String
+  message_in: [String!]
+  message_not_in: [String!]
+  message_lt: String
+  message_lte: String
+  message_gt: String
+  message_gte: String
+  message_contains: String
+  message_not_contains: String
+  message_starts_with: String
+  message_not_starts_with: String
+  message_ends_with: String
+  message_not_ends_with: String
+  includeUsername: Boolean
+  includeUsername_not: Boolean
+  AND: [ContentWhereInput!]
+  OR: [ContentWhereInput!]
+  NOT: [ContentWhereInput!]
 }
 
-input EchoWhereUniqueInput {
-  echoId: ID
+input ContentWhereUniqueInput {
+  contentId: ID
 }
+
+scalar DateTime
 
 scalar Long
 
 type Mutation {
-  createEcho(data: EchoCreateInput!): Echo!
-  updateEcho(data: EchoUpdateInput!, where: EchoWhereUniqueInput!): Echo
-  upsertEcho(where: EchoWhereUniqueInput!, create: EchoCreateInput!, update: EchoUpdateInput!): Echo!
-  deleteEcho(where: EchoWhereUniqueInput!): Echo
-  deleteManyEchoes(where: EchoWhereInput): BatchPayload!
-  createNVoid(data: NVoidCreateInput!): NVoid!
-  updateNVoid(data: NVoidUpdateInput!, where: NVoidWhereUniqueInput!): NVoid
-  updateManyNVoids(data: NVoidUpdateManyMutationInput!, where: NVoidWhereInput): BatchPayload!
-  upsertNVoid(where: NVoidWhereUniqueInput!, create: NVoidCreateInput!, update: NVoidUpdateInput!): NVoid!
-  deleteNVoid(where: NVoidWhereUniqueInput!): NVoid
-  deleteManyNVoids(where: NVoidWhereInput): BatchPayload!
-  createReply(data: ReplyCreateInput!): Reply!
-  updateReply(data: ReplyUpdateInput!, where: ReplyWhereUniqueInput!): Reply
-  updateManyReplies(data: ReplyUpdateManyMutationInput!, where: ReplyWhereInput): BatchPayload!
-  upsertReply(where: ReplyWhereUniqueInput!, create: ReplyCreateInput!, update: ReplyUpdateInput!): Reply!
-  deleteReply(where: ReplyWhereUniqueInput!): Reply
-  deleteManyReplies(where: ReplyWhereInput): BatchPayload!
-  createSavedShout(data: SavedShoutCreateInput!): SavedShout!
-  updateSavedShout(data: SavedShoutUpdateInput!, where: SavedShoutWhereUniqueInput!): SavedShout
-  updateManySavedShouts(data: SavedShoutUpdateManyMutationInput!, where: SavedShoutWhereInput): BatchPayload!
-  upsertSavedShout(where: SavedShoutWhereUniqueInput!, create: SavedShoutCreateInput!, update: SavedShoutUpdateInput!): SavedShout!
-  deleteSavedShout(where: SavedShoutWhereUniqueInput!): SavedShout
-  deleteManySavedShouts(where: SavedShoutWhereInput): BatchPayload!
-  createShout(data: ShoutCreateInput!): Shout!
-  updateShout(data: ShoutUpdateInput!, where: ShoutWhereUniqueInput!): Shout
-  updateManyShouts(data: ShoutUpdateManyMutationInput!, where: ShoutWhereInput): BatchPayload!
-  upsertShout(where: ShoutWhereUniqueInput!, create: ShoutCreateInput!, update: ShoutUpdateInput!): Shout!
-  deleteShout(where: ShoutWhereUniqueInput!): Shout
-  deleteManyShouts(where: ShoutWhereInput): BatchPayload!
+  createContent(data: ContentCreateInput!): Content!
+  updateContent(data: ContentUpdateInput!, where: ContentWhereUniqueInput!): Content
+  updateManyContents(data: ContentUpdateManyMutationInput!, where: ContentWhereInput): BatchPayload!
+  upsertContent(where: ContentWhereUniqueInput!, create: ContentCreateInput!, update: ContentUpdateInput!): Content!
+  deleteContent(where: ContentWhereUniqueInput!): Content
+  deleteManyContents(where: ContentWhereInput): BatchPayload!
+  createShoutInVoid(data: ShoutInVoidCreateInput!): ShoutInVoid!
+  updateShoutInVoid(data: ShoutInVoidUpdateInput!, where: ShoutInVoidWhereUniqueInput!): ShoutInVoid
+  updateManyShoutInVoids(data: ShoutInVoidUpdateManyMutationInput!, where: ShoutInVoidWhereInput): BatchPayload!
+  upsertShoutInVoid(where: ShoutInVoidWhereUniqueInput!, create: ShoutInVoidCreateInput!, update: ShoutInVoidUpdateInput!): ShoutInVoid!
+  deleteShoutInVoid(where: ShoutInVoidWhereUniqueInput!): ShoutInVoid
+  deleteManyShoutInVoids(where: ShoutInVoidWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
@@ -372,336 +199,6 @@ interface Node {
   id: ID!
 }
 
-type NVoid {
-  voidId: ID!
-  geohash: String!
-  createdAt: DateTime!
-  shouts(where: ShoutWhereInput, orderBy: ShoutOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Shout!]
-  echos(where: EchoWhereInput, orderBy: EchoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Echo!]
-  createdBy: User!
-}
-
-type NVoidConnection {
-  pageInfo: PageInfo!
-  edges: [NVoidEdge]!
-  aggregate: AggregateNVoid!
-}
-
-input NVoidCreateInput {
-  voidId: ID
-  geohash: String!
-  shouts: ShoutCreateManyWithoutNvoidInput
-  echos: EchoCreateManyWithoutNvoidInput
-  createdBy: UserCreateOneWithoutCreatedVoidsInput!
-}
-
-input NVoidCreateManyInput {
-  create: [NVoidCreateInput!]
-  connect: [NVoidWhereUniqueInput!]
-}
-
-input NVoidCreateManyWithoutCreatedByInput {
-  create: [NVoidCreateWithoutCreatedByInput!]
-  connect: [NVoidWhereUniqueInput!]
-}
-
-input NVoidCreateOneInput {
-  create: NVoidCreateInput
-  connect: NVoidWhereUniqueInput
-}
-
-input NVoidCreateOneWithoutEchosInput {
-  create: NVoidCreateWithoutEchosInput
-  connect: NVoidWhereUniqueInput
-}
-
-input NVoidCreateOneWithoutShoutsInput {
-  create: NVoidCreateWithoutShoutsInput
-  connect: NVoidWhereUniqueInput
-}
-
-input NVoidCreateWithoutCreatedByInput {
-  voidId: ID
-  geohash: String!
-  shouts: ShoutCreateManyWithoutNvoidInput
-  echos: EchoCreateManyWithoutNvoidInput
-}
-
-input NVoidCreateWithoutEchosInput {
-  voidId: ID
-  geohash: String!
-  shouts: ShoutCreateManyWithoutNvoidInput
-  createdBy: UserCreateOneWithoutCreatedVoidsInput!
-}
-
-input NVoidCreateWithoutShoutsInput {
-  voidId: ID
-  geohash: String!
-  echos: EchoCreateManyWithoutNvoidInput
-  createdBy: UserCreateOneWithoutCreatedVoidsInput!
-}
-
-type NVoidEdge {
-  node: NVoid!
-  cursor: String!
-}
-
-enum NVoidOrderByInput {
-  voidId_ASC
-  voidId_DESC
-  geohash_ASC
-  geohash_DESC
-  createdAt_ASC
-  createdAt_DESC
-}
-
-type NVoidPreviousValues {
-  voidId: ID!
-  geohash: String!
-  createdAt: DateTime!
-}
-
-input NVoidScalarWhereInput {
-  voidId: ID
-  voidId_not: ID
-  voidId_in: [ID!]
-  voidId_not_in: [ID!]
-  voidId_lt: ID
-  voidId_lte: ID
-  voidId_gt: ID
-  voidId_gte: ID
-  voidId_contains: ID
-  voidId_not_contains: ID
-  voidId_starts_with: ID
-  voidId_not_starts_with: ID
-  voidId_ends_with: ID
-  voidId_not_ends_with: ID
-  geohash: String
-  geohash_not: String
-  geohash_in: [String!]
-  geohash_not_in: [String!]
-  geohash_lt: String
-  geohash_lte: String
-  geohash_gt: String
-  geohash_gte: String
-  geohash_contains: String
-  geohash_not_contains: String
-  geohash_starts_with: String
-  geohash_not_starts_with: String
-  geohash_ends_with: String
-  geohash_not_ends_with: String
-  createdAt: DateTime
-  createdAt_not: DateTime
-  createdAt_in: [DateTime!]
-  createdAt_not_in: [DateTime!]
-  createdAt_lt: DateTime
-  createdAt_lte: DateTime
-  createdAt_gt: DateTime
-  createdAt_gte: DateTime
-  AND: [NVoidScalarWhereInput!]
-  OR: [NVoidScalarWhereInput!]
-  NOT: [NVoidScalarWhereInput!]
-}
-
-type NVoidSubscriptionPayload {
-  mutation: MutationType!
-  node: NVoid
-  updatedFields: [String!]
-  previousValues: NVoidPreviousValues
-}
-
-input NVoidSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: NVoidWhereInput
-  AND: [NVoidSubscriptionWhereInput!]
-  OR: [NVoidSubscriptionWhereInput!]
-  NOT: [NVoidSubscriptionWhereInput!]
-}
-
-input NVoidUpdateDataInput {
-  geohash: String
-  shouts: ShoutUpdateManyWithoutNvoidInput
-  echos: EchoUpdateManyWithoutNvoidInput
-  createdBy: UserUpdateOneRequiredWithoutCreatedVoidsInput
-}
-
-input NVoidUpdateInput {
-  geohash: String
-  shouts: ShoutUpdateManyWithoutNvoidInput
-  echos: EchoUpdateManyWithoutNvoidInput
-  createdBy: UserUpdateOneRequiredWithoutCreatedVoidsInput
-}
-
-input NVoidUpdateManyDataInput {
-  geohash: String
-}
-
-input NVoidUpdateManyInput {
-  create: [NVoidCreateInput!]
-  update: [NVoidUpdateWithWhereUniqueNestedInput!]
-  upsert: [NVoidUpsertWithWhereUniqueNestedInput!]
-  delete: [NVoidWhereUniqueInput!]
-  connect: [NVoidWhereUniqueInput!]
-  set: [NVoidWhereUniqueInput!]
-  disconnect: [NVoidWhereUniqueInput!]
-  deleteMany: [NVoidScalarWhereInput!]
-  updateMany: [NVoidUpdateManyWithWhereNestedInput!]
-}
-
-input NVoidUpdateManyMutationInput {
-  geohash: String
-}
-
-input NVoidUpdateManyWithoutCreatedByInput {
-  create: [NVoidCreateWithoutCreatedByInput!]
-  delete: [NVoidWhereUniqueInput!]
-  connect: [NVoidWhereUniqueInput!]
-  set: [NVoidWhereUniqueInput!]
-  disconnect: [NVoidWhereUniqueInput!]
-  update: [NVoidUpdateWithWhereUniqueWithoutCreatedByInput!]
-  upsert: [NVoidUpsertWithWhereUniqueWithoutCreatedByInput!]
-  deleteMany: [NVoidScalarWhereInput!]
-  updateMany: [NVoidUpdateManyWithWhereNestedInput!]
-}
-
-input NVoidUpdateManyWithWhereNestedInput {
-  where: NVoidScalarWhereInput!
-  data: NVoidUpdateManyDataInput!
-}
-
-input NVoidUpdateOneRequiredInput {
-  create: NVoidCreateInput
-  update: NVoidUpdateDataInput
-  upsert: NVoidUpsertNestedInput
-  connect: NVoidWhereUniqueInput
-}
-
-input NVoidUpdateOneRequiredWithoutEchosInput {
-  create: NVoidCreateWithoutEchosInput
-  update: NVoidUpdateWithoutEchosDataInput
-  upsert: NVoidUpsertWithoutEchosInput
-  connect: NVoidWhereUniqueInput
-}
-
-input NVoidUpdateOneRequiredWithoutShoutsInput {
-  create: NVoidCreateWithoutShoutsInput
-  update: NVoidUpdateWithoutShoutsDataInput
-  upsert: NVoidUpsertWithoutShoutsInput
-  connect: NVoidWhereUniqueInput
-}
-
-input NVoidUpdateWithoutCreatedByDataInput {
-  geohash: String
-  shouts: ShoutUpdateManyWithoutNvoidInput
-  echos: EchoUpdateManyWithoutNvoidInput
-}
-
-input NVoidUpdateWithoutEchosDataInput {
-  geohash: String
-  shouts: ShoutUpdateManyWithoutNvoidInput
-  createdBy: UserUpdateOneRequiredWithoutCreatedVoidsInput
-}
-
-input NVoidUpdateWithoutShoutsDataInput {
-  geohash: String
-  echos: EchoUpdateManyWithoutNvoidInput
-  createdBy: UserUpdateOneRequiredWithoutCreatedVoidsInput
-}
-
-input NVoidUpdateWithWhereUniqueNestedInput {
-  where: NVoidWhereUniqueInput!
-  data: NVoidUpdateDataInput!
-}
-
-input NVoidUpdateWithWhereUniqueWithoutCreatedByInput {
-  where: NVoidWhereUniqueInput!
-  data: NVoidUpdateWithoutCreatedByDataInput!
-}
-
-input NVoidUpsertNestedInput {
-  update: NVoidUpdateDataInput!
-  create: NVoidCreateInput!
-}
-
-input NVoidUpsertWithoutEchosInput {
-  update: NVoidUpdateWithoutEchosDataInput!
-  create: NVoidCreateWithoutEchosInput!
-}
-
-input NVoidUpsertWithoutShoutsInput {
-  update: NVoidUpdateWithoutShoutsDataInput!
-  create: NVoidCreateWithoutShoutsInput!
-}
-
-input NVoidUpsertWithWhereUniqueNestedInput {
-  where: NVoidWhereUniqueInput!
-  update: NVoidUpdateDataInput!
-  create: NVoidCreateInput!
-}
-
-input NVoidUpsertWithWhereUniqueWithoutCreatedByInput {
-  where: NVoidWhereUniqueInput!
-  update: NVoidUpdateWithoutCreatedByDataInput!
-  create: NVoidCreateWithoutCreatedByInput!
-}
-
-input NVoidWhereInput {
-  voidId: ID
-  voidId_not: ID
-  voidId_in: [ID!]
-  voidId_not_in: [ID!]
-  voidId_lt: ID
-  voidId_lte: ID
-  voidId_gt: ID
-  voidId_gte: ID
-  voidId_contains: ID
-  voidId_not_contains: ID
-  voidId_starts_with: ID
-  voidId_not_starts_with: ID
-  voidId_ends_with: ID
-  voidId_not_ends_with: ID
-  geohash: String
-  geohash_not: String
-  geohash_in: [String!]
-  geohash_not_in: [String!]
-  geohash_lt: String
-  geohash_lte: String
-  geohash_gt: String
-  geohash_gte: String
-  geohash_contains: String
-  geohash_not_contains: String
-  geohash_starts_with: String
-  geohash_not_starts_with: String
-  geohash_ends_with: String
-  geohash_not_ends_with: String
-  createdAt: DateTime
-  createdAt_not: DateTime
-  createdAt_in: [DateTime!]
-  createdAt_not_in: [DateTime!]
-  createdAt_lt: DateTime
-  createdAt_lte: DateTime
-  createdAt_gt: DateTime
-  createdAt_gte: DateTime
-  shouts_every: ShoutWhereInput
-  shouts_some: ShoutWhereInput
-  shouts_none: ShoutWhereInput
-  echos_every: EchoWhereInput
-  echos_some: EchoWhereInput
-  echos_none: EchoWhereInput
-  createdBy: UserWhereInput
-  AND: [NVoidWhereInput!]
-  OR: [NVoidWhereInput!]
-  NOT: [NVoidWhereInput!]
-}
-
-input NVoidWhereUniqueInput {
-  voidId: ID
-  geohash: String
-}
-
 type PageInfo {
   hasNextPage: Boolean!
   hasPreviousPage: Boolean!
@@ -710,660 +207,85 @@ type PageInfo {
 }
 
 type Query {
-  echo(where: EchoWhereUniqueInput!): Echo
-  echoes(where: EchoWhereInput, orderBy: EchoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Echo]!
-  echoesConnection(where: EchoWhereInput, orderBy: EchoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EchoConnection!
-  nVoid(where: NVoidWhereUniqueInput!): NVoid
-  nVoids(where: NVoidWhereInput, orderBy: NVoidOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [NVoid]!
-  nVoidsConnection(where: NVoidWhereInput, orderBy: NVoidOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NVoidConnection!
-  reply(where: ReplyWhereUniqueInput!): Reply
-  replies(where: ReplyWhereInput, orderBy: ReplyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Reply]!
-  repliesConnection(where: ReplyWhereInput, orderBy: ReplyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ReplyConnection!
-  savedShout(where: SavedShoutWhereUniqueInput!): SavedShout
-  savedShouts(where: SavedShoutWhereInput, orderBy: SavedShoutOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SavedShout]!
-  savedShoutsConnection(where: SavedShoutWhereInput, orderBy: SavedShoutOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SavedShoutConnection!
-  shout(where: ShoutWhereUniqueInput!): Shout
-  shouts(where: ShoutWhereInput, orderBy: ShoutOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Shout]!
-  shoutsConnection(where: ShoutWhereInput, orderBy: ShoutOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ShoutConnection!
+  content(where: ContentWhereUniqueInput!): Content
+  contents(where: ContentWhereInput, orderBy: ContentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Content]!
+  contentsConnection(where: ContentWhereInput, orderBy: ContentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ContentConnection!
+  shoutInVoid(where: ShoutInVoidWhereUniqueInput!): ShoutInVoid
+  shoutInVoids(where: ShoutInVoidWhereInput, orderBy: ShoutInVoidOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ShoutInVoid]!
+  shoutInVoidsConnection(where: ShoutInVoidWhereInput, orderBy: ShoutInVoidOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ShoutInVoidConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   node(id: ID!): Node
 }
 
-type Reply {
-  originalShout: Shout!
-  voteCount: Int!
-  replyId: ID!
+type ShoutInVoid {
+  shoutInVoidId: ID!
   createdAt: DateTime!
-  content: String!
-  postedBy: User!
+  shoutedBy: User!
+  content: Content!
+  voteCount: Int!
 }
 
-type ReplyConnection {
+type ShoutInVoidConnection {
   pageInfo: PageInfo!
-  edges: [ReplyEdge]!
-  aggregate: AggregateReply!
+  edges: [ShoutInVoidEdge]!
+  aggregate: AggregateShoutInVoid!
 }
 
-input ReplyCreateInput {
-  originalShout: ShoutCreateOneWithoutRepliesInput!
+input ShoutInVoidCreateInput {
+  shoutInVoidId: ID
+  shoutedBy: UserCreateOneWithoutShoutsInVoidsInput!
+  content: ContentCreateOneInput!
   voteCount: Int!
-  replyId: ID
-  content: String!
-  postedBy: UserCreateOneWithoutRepliesInput!
 }
 
-input ReplyCreateManyWithoutOriginalShoutInput {
-  create: [ReplyCreateWithoutOriginalShoutInput!]
-  connect: [ReplyWhereUniqueInput!]
+input ShoutInVoidCreateManyWithoutShoutedByInput {
+  create: [ShoutInVoidCreateWithoutShoutedByInput!]
+  connect: [ShoutInVoidWhereUniqueInput!]
 }
 
-input ReplyCreateManyWithoutPostedByInput {
-  create: [ReplyCreateWithoutPostedByInput!]
-  connect: [ReplyWhereUniqueInput!]
-}
-
-input ReplyCreateWithoutOriginalShoutInput {
+input ShoutInVoidCreateWithoutShoutedByInput {
+  shoutInVoidId: ID
+  content: ContentCreateOneInput!
   voteCount: Int!
-  replyId: ID
-  content: String!
-  postedBy: UserCreateOneWithoutRepliesInput!
 }
 
-input ReplyCreateWithoutPostedByInput {
-  originalShout: ShoutCreateOneWithoutRepliesInput!
-  voteCount: Int!
-  replyId: ID
-  content: String!
-}
-
-type ReplyEdge {
-  node: Reply!
+type ShoutInVoidEdge {
+  node: ShoutInVoid!
   cursor: String!
 }
 
-enum ReplyOrderByInput {
-  voteCount_ASC
-  voteCount_DESC
-  replyId_ASC
-  replyId_DESC
+enum ShoutInVoidOrderByInput {
+  shoutInVoidId_ASC
+  shoutInVoidId_DESC
   createdAt_ASC
   createdAt_DESC
-  content_ASC
-  content_DESC
-}
-
-type ReplyPreviousValues {
-  voteCount: Int!
-  replyId: ID!
-  createdAt: DateTime!
-  content: String!
-}
-
-input ReplyScalarWhereInput {
-  voteCount: Int
-  voteCount_not: Int
-  voteCount_in: [Int!]
-  voteCount_not_in: [Int!]
-  voteCount_lt: Int
-  voteCount_lte: Int
-  voteCount_gt: Int
-  voteCount_gte: Int
-  replyId: ID
-  replyId_not: ID
-  replyId_in: [ID!]
-  replyId_not_in: [ID!]
-  replyId_lt: ID
-  replyId_lte: ID
-  replyId_gt: ID
-  replyId_gte: ID
-  replyId_contains: ID
-  replyId_not_contains: ID
-  replyId_starts_with: ID
-  replyId_not_starts_with: ID
-  replyId_ends_with: ID
-  replyId_not_ends_with: ID
-  createdAt: DateTime
-  createdAt_not: DateTime
-  createdAt_in: [DateTime!]
-  createdAt_not_in: [DateTime!]
-  createdAt_lt: DateTime
-  createdAt_lte: DateTime
-  createdAt_gt: DateTime
-  createdAt_gte: DateTime
-  content: String
-  content_not: String
-  content_in: [String!]
-  content_not_in: [String!]
-  content_lt: String
-  content_lte: String
-  content_gt: String
-  content_gte: String
-  content_contains: String
-  content_not_contains: String
-  content_starts_with: String
-  content_not_starts_with: String
-  content_ends_with: String
-  content_not_ends_with: String
-  AND: [ReplyScalarWhereInput!]
-  OR: [ReplyScalarWhereInput!]
-  NOT: [ReplyScalarWhereInput!]
-}
-
-type ReplySubscriptionPayload {
-  mutation: MutationType!
-  node: Reply
-  updatedFields: [String!]
-  previousValues: ReplyPreviousValues
-}
-
-input ReplySubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: ReplyWhereInput
-  AND: [ReplySubscriptionWhereInput!]
-  OR: [ReplySubscriptionWhereInput!]
-  NOT: [ReplySubscriptionWhereInput!]
-}
-
-input ReplyUpdateInput {
-  originalShout: ShoutUpdateOneRequiredWithoutRepliesInput
-  voteCount: Int
-  content: String
-  postedBy: UserUpdateOneRequiredWithoutRepliesInput
-}
-
-input ReplyUpdateManyDataInput {
-  voteCount: Int
-  content: String
-}
-
-input ReplyUpdateManyMutationInput {
-  voteCount: Int
-  content: String
-}
-
-input ReplyUpdateManyWithoutOriginalShoutInput {
-  create: [ReplyCreateWithoutOriginalShoutInput!]
-  delete: [ReplyWhereUniqueInput!]
-  connect: [ReplyWhereUniqueInput!]
-  set: [ReplyWhereUniqueInput!]
-  disconnect: [ReplyWhereUniqueInput!]
-  update: [ReplyUpdateWithWhereUniqueWithoutOriginalShoutInput!]
-  upsert: [ReplyUpsertWithWhereUniqueWithoutOriginalShoutInput!]
-  deleteMany: [ReplyScalarWhereInput!]
-  updateMany: [ReplyUpdateManyWithWhereNestedInput!]
-}
-
-input ReplyUpdateManyWithoutPostedByInput {
-  create: [ReplyCreateWithoutPostedByInput!]
-  delete: [ReplyWhereUniqueInput!]
-  connect: [ReplyWhereUniqueInput!]
-  set: [ReplyWhereUniqueInput!]
-  disconnect: [ReplyWhereUniqueInput!]
-  update: [ReplyUpdateWithWhereUniqueWithoutPostedByInput!]
-  upsert: [ReplyUpsertWithWhereUniqueWithoutPostedByInput!]
-  deleteMany: [ReplyScalarWhereInput!]
-  updateMany: [ReplyUpdateManyWithWhereNestedInput!]
-}
-
-input ReplyUpdateManyWithWhereNestedInput {
-  where: ReplyScalarWhereInput!
-  data: ReplyUpdateManyDataInput!
-}
-
-input ReplyUpdateWithoutOriginalShoutDataInput {
-  voteCount: Int
-  content: String
-  postedBy: UserUpdateOneRequiredWithoutRepliesInput
-}
-
-input ReplyUpdateWithoutPostedByDataInput {
-  originalShout: ShoutUpdateOneRequiredWithoutRepliesInput
-  voteCount: Int
-  content: String
-}
-
-input ReplyUpdateWithWhereUniqueWithoutOriginalShoutInput {
-  where: ReplyWhereUniqueInput!
-  data: ReplyUpdateWithoutOriginalShoutDataInput!
-}
-
-input ReplyUpdateWithWhereUniqueWithoutPostedByInput {
-  where: ReplyWhereUniqueInput!
-  data: ReplyUpdateWithoutPostedByDataInput!
-}
-
-input ReplyUpsertWithWhereUniqueWithoutOriginalShoutInput {
-  where: ReplyWhereUniqueInput!
-  update: ReplyUpdateWithoutOriginalShoutDataInput!
-  create: ReplyCreateWithoutOriginalShoutInput!
-}
-
-input ReplyUpsertWithWhereUniqueWithoutPostedByInput {
-  where: ReplyWhereUniqueInput!
-  update: ReplyUpdateWithoutPostedByDataInput!
-  create: ReplyCreateWithoutPostedByInput!
-}
-
-input ReplyWhereInput {
-  originalShout: ShoutWhereInput
-  voteCount: Int
-  voteCount_not: Int
-  voteCount_in: [Int!]
-  voteCount_not_in: [Int!]
-  voteCount_lt: Int
-  voteCount_lte: Int
-  voteCount_gt: Int
-  voteCount_gte: Int
-  replyId: ID
-  replyId_not: ID
-  replyId_in: [ID!]
-  replyId_not_in: [ID!]
-  replyId_lt: ID
-  replyId_lte: ID
-  replyId_gt: ID
-  replyId_gte: ID
-  replyId_contains: ID
-  replyId_not_contains: ID
-  replyId_starts_with: ID
-  replyId_not_starts_with: ID
-  replyId_ends_with: ID
-  replyId_not_ends_with: ID
-  createdAt: DateTime
-  createdAt_not: DateTime
-  createdAt_in: [DateTime!]
-  createdAt_not_in: [DateTime!]
-  createdAt_lt: DateTime
-  createdAt_lte: DateTime
-  createdAt_gt: DateTime
-  createdAt_gte: DateTime
-  content: String
-  content_not: String
-  content_in: [String!]
-  content_not_in: [String!]
-  content_lt: String
-  content_lte: String
-  content_gt: String
-  content_gte: String
-  content_contains: String
-  content_not_contains: String
-  content_starts_with: String
-  content_not_starts_with: String
-  content_ends_with: String
-  content_not_ends_with: String
-  postedBy: UserWhereInput
-  AND: [ReplyWhereInput!]
-  OR: [ReplyWhereInput!]
-  NOT: [ReplyWhereInput!]
-}
-
-input ReplyWhereUniqueInput {
-  replyId: ID
-}
-
-type SavedShout {
-  originalShout: Shout!
-  savedShoutId: ID!
-  originalShoutCreatedAt: DateTime!
-  originalContent: String!
-  originalPostedBy: User!
-  echos(where: EchoWhereInput, orderBy: EchoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Echo!]
-  originalVoid: NVoid!
-  originalVoidGeohash: String!
-}
-
-type SavedShoutConnection {
-  pageInfo: PageInfo!
-  edges: [SavedShoutEdge]!
-  aggregate: AggregateSavedShout!
-}
-
-input SavedShoutCreateInput {
-  originalShout: ShoutCreateOneWithoutSavedShoutInput!
-  savedShoutId: ID
-  originalShoutCreatedAt: DateTime!
-  originalContent: String!
-  originalPostedBy: UserCreateOneInput!
-  echos: EchoCreateManyWithoutSavedShoutInput
-  originalVoid: NVoidCreateOneInput!
-  originalVoidGeohash: String!
-}
-
-input SavedShoutCreateOneWithoutEchosInput {
-  create: SavedShoutCreateWithoutEchosInput
-  connect: SavedShoutWhereUniqueInput
-}
-
-input SavedShoutCreateOneWithoutOriginalShoutInput {
-  create: SavedShoutCreateWithoutOriginalShoutInput
-  connect: SavedShoutWhereUniqueInput
-}
-
-input SavedShoutCreateWithoutEchosInput {
-  originalShout: ShoutCreateOneWithoutSavedShoutInput!
-  savedShoutId: ID
-  originalShoutCreatedAt: DateTime!
-  originalContent: String!
-  originalPostedBy: UserCreateOneInput!
-  originalVoid: NVoidCreateOneInput!
-  originalVoidGeohash: String!
-}
-
-input SavedShoutCreateWithoutOriginalShoutInput {
-  savedShoutId: ID
-  originalShoutCreatedAt: DateTime!
-  originalContent: String!
-  originalPostedBy: UserCreateOneInput!
-  echos: EchoCreateManyWithoutSavedShoutInput
-  originalVoid: NVoidCreateOneInput!
-  originalVoidGeohash: String!
-}
-
-type SavedShoutEdge {
-  node: SavedShout!
-  cursor: String!
-}
-
-enum SavedShoutOrderByInput {
-  savedShoutId_ASC
-  savedShoutId_DESC
-  originalShoutCreatedAt_ASC
-  originalShoutCreatedAt_DESC
-  originalContent_ASC
-  originalContent_DESC
-  originalVoidGeohash_ASC
-  originalVoidGeohash_DESC
-}
-
-type SavedShoutPreviousValues {
-  savedShoutId: ID!
-  originalShoutCreatedAt: DateTime!
-  originalContent: String!
-  originalVoidGeohash: String!
-}
-
-type SavedShoutSubscriptionPayload {
-  mutation: MutationType!
-  node: SavedShout
-  updatedFields: [String!]
-  previousValues: SavedShoutPreviousValues
-}
-
-input SavedShoutSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: SavedShoutWhereInput
-  AND: [SavedShoutSubscriptionWhereInput!]
-  OR: [SavedShoutSubscriptionWhereInput!]
-  NOT: [SavedShoutSubscriptionWhereInput!]
-}
-
-input SavedShoutUpdateInput {
-  originalShout: ShoutUpdateOneRequiredWithoutSavedShoutInput
-  originalShoutCreatedAt: DateTime
-  originalContent: String
-  originalPostedBy: UserUpdateOneRequiredInput
-  echos: EchoUpdateManyWithoutSavedShoutInput
-  originalVoid: NVoidUpdateOneRequiredInput
-  originalVoidGeohash: String
-}
-
-input SavedShoutUpdateManyMutationInput {
-  originalShoutCreatedAt: DateTime
-  originalContent: String
-  originalVoidGeohash: String
-}
-
-input SavedShoutUpdateOneRequiredWithoutEchosInput {
-  create: SavedShoutCreateWithoutEchosInput
-  update: SavedShoutUpdateWithoutEchosDataInput
-  upsert: SavedShoutUpsertWithoutEchosInput
-  connect: SavedShoutWhereUniqueInput
-}
-
-input SavedShoutUpdateOneWithoutOriginalShoutInput {
-  create: SavedShoutCreateWithoutOriginalShoutInput
-  update: SavedShoutUpdateWithoutOriginalShoutDataInput
-  upsert: SavedShoutUpsertWithoutOriginalShoutInput
-  delete: Boolean
-  disconnect: Boolean
-  connect: SavedShoutWhereUniqueInput
-}
-
-input SavedShoutUpdateWithoutEchosDataInput {
-  originalShout: ShoutUpdateOneRequiredWithoutSavedShoutInput
-  originalShoutCreatedAt: DateTime
-  originalContent: String
-  originalPostedBy: UserUpdateOneRequiredInput
-  originalVoid: NVoidUpdateOneRequiredInput
-  originalVoidGeohash: String
-}
-
-input SavedShoutUpdateWithoutOriginalShoutDataInput {
-  originalShoutCreatedAt: DateTime
-  originalContent: String
-  originalPostedBy: UserUpdateOneRequiredInput
-  echos: EchoUpdateManyWithoutSavedShoutInput
-  originalVoid: NVoidUpdateOneRequiredInput
-  originalVoidGeohash: String
-}
-
-input SavedShoutUpsertWithoutEchosInput {
-  update: SavedShoutUpdateWithoutEchosDataInput!
-  create: SavedShoutCreateWithoutEchosInput!
-}
-
-input SavedShoutUpsertWithoutOriginalShoutInput {
-  update: SavedShoutUpdateWithoutOriginalShoutDataInput!
-  create: SavedShoutCreateWithoutOriginalShoutInput!
-}
-
-input SavedShoutWhereInput {
-  originalShout: ShoutWhereInput
-  savedShoutId: ID
-  savedShoutId_not: ID
-  savedShoutId_in: [ID!]
-  savedShoutId_not_in: [ID!]
-  savedShoutId_lt: ID
-  savedShoutId_lte: ID
-  savedShoutId_gt: ID
-  savedShoutId_gte: ID
-  savedShoutId_contains: ID
-  savedShoutId_not_contains: ID
-  savedShoutId_starts_with: ID
-  savedShoutId_not_starts_with: ID
-  savedShoutId_ends_with: ID
-  savedShoutId_not_ends_with: ID
-  originalShoutCreatedAt: DateTime
-  originalShoutCreatedAt_not: DateTime
-  originalShoutCreatedAt_in: [DateTime!]
-  originalShoutCreatedAt_not_in: [DateTime!]
-  originalShoutCreatedAt_lt: DateTime
-  originalShoutCreatedAt_lte: DateTime
-  originalShoutCreatedAt_gt: DateTime
-  originalShoutCreatedAt_gte: DateTime
-  originalContent: String
-  originalContent_not: String
-  originalContent_in: [String!]
-  originalContent_not_in: [String!]
-  originalContent_lt: String
-  originalContent_lte: String
-  originalContent_gt: String
-  originalContent_gte: String
-  originalContent_contains: String
-  originalContent_not_contains: String
-  originalContent_starts_with: String
-  originalContent_not_starts_with: String
-  originalContent_ends_with: String
-  originalContent_not_ends_with: String
-  originalPostedBy: UserWhereInput
-  echos_every: EchoWhereInput
-  echos_some: EchoWhereInput
-  echos_none: EchoWhereInput
-  originalVoid: NVoidWhereInput
-  originalVoidGeohash: String
-  originalVoidGeohash_not: String
-  originalVoidGeohash_in: [String!]
-  originalVoidGeohash_not_in: [String!]
-  originalVoidGeohash_lt: String
-  originalVoidGeohash_lte: String
-  originalVoidGeohash_gt: String
-  originalVoidGeohash_gte: String
-  originalVoidGeohash_contains: String
-  originalVoidGeohash_not_contains: String
-  originalVoidGeohash_starts_with: String
-  originalVoidGeohash_not_starts_with: String
-  originalVoidGeohash_ends_with: String
-  originalVoidGeohash_not_ends_with: String
-  AND: [SavedShoutWhereInput!]
-  OR: [SavedShoutWhereInput!]
-  NOT: [SavedShoutWhereInput!]
-}
-
-input SavedShoutWhereUniqueInput {
-  savedShoutId: ID
-}
-
-type Shout {
-  voteCount: Int!
-  shoutId: ID!
-  createdAt: DateTime!
-  content: String!
-  postedBy: User!
-  savedShout: SavedShout
-  nvoid: NVoid!
-  replies(where: ReplyWhereInput, orderBy: ReplyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Reply!]
-}
-
-type ShoutConnection {
-  pageInfo: PageInfo!
-  edges: [ShoutEdge]!
-  aggregate: AggregateShout!
-}
-
-input ShoutCreateInput {
-  voteCount: Int!
-  shoutId: ID
-  content: String!
-  postedBy: UserCreateOneWithoutCreatedShoutsInput!
-  savedShout: SavedShoutCreateOneWithoutOriginalShoutInput
-  nvoid: NVoidCreateOneWithoutShoutsInput!
-  replies: ReplyCreateManyWithoutOriginalShoutInput
-}
-
-input ShoutCreateManyInput {
-  create: [ShoutCreateInput!]
-  connect: [ShoutWhereUniqueInput!]
-}
-
-input ShoutCreateManyWithoutNvoidInput {
-  create: [ShoutCreateWithoutNvoidInput!]
-  connect: [ShoutWhereUniqueInput!]
-}
-
-input ShoutCreateManyWithoutPostedByInput {
-  create: [ShoutCreateWithoutPostedByInput!]
-  connect: [ShoutWhereUniqueInput!]
-}
-
-input ShoutCreateOneWithoutRepliesInput {
-  create: ShoutCreateWithoutRepliesInput
-  connect: ShoutWhereUniqueInput
-}
-
-input ShoutCreateOneWithoutSavedShoutInput {
-  create: ShoutCreateWithoutSavedShoutInput
-  connect: ShoutWhereUniqueInput
-}
-
-input ShoutCreateWithoutNvoidInput {
-  voteCount: Int!
-  shoutId: ID
-  content: String!
-  postedBy: UserCreateOneWithoutCreatedShoutsInput!
-  savedShout: SavedShoutCreateOneWithoutOriginalShoutInput
-  replies: ReplyCreateManyWithoutOriginalShoutInput
-}
-
-input ShoutCreateWithoutPostedByInput {
-  voteCount: Int!
-  shoutId: ID
-  content: String!
-  savedShout: SavedShoutCreateOneWithoutOriginalShoutInput
-  nvoid: NVoidCreateOneWithoutShoutsInput!
-  replies: ReplyCreateManyWithoutOriginalShoutInput
-}
-
-input ShoutCreateWithoutRepliesInput {
-  voteCount: Int!
-  shoutId: ID
-  content: String!
-  postedBy: UserCreateOneWithoutCreatedShoutsInput!
-  savedShout: SavedShoutCreateOneWithoutOriginalShoutInput
-  nvoid: NVoidCreateOneWithoutShoutsInput!
-}
-
-input ShoutCreateWithoutSavedShoutInput {
-  voteCount: Int!
-  shoutId: ID
-  content: String!
-  postedBy: UserCreateOneWithoutCreatedShoutsInput!
-  nvoid: NVoidCreateOneWithoutShoutsInput!
-  replies: ReplyCreateManyWithoutOriginalShoutInput
-}
-
-type ShoutEdge {
-  node: Shout!
-  cursor: String!
-}
-
-enum ShoutOrderByInput {
   voteCount_ASC
   voteCount_DESC
-  shoutId_ASC
-  shoutId_DESC
-  createdAt_ASC
-  createdAt_DESC
-  content_ASC
-  content_DESC
 }
 
-type ShoutPreviousValues {
-  voteCount: Int!
-  shoutId: ID!
+type ShoutInVoidPreviousValues {
+  shoutInVoidId: ID!
   createdAt: DateTime!
-  content: String!
+  voteCount: Int!
 }
 
-input ShoutScalarWhereInput {
-  voteCount: Int
-  voteCount_not: Int
-  voteCount_in: [Int!]
-  voteCount_not_in: [Int!]
-  voteCount_lt: Int
-  voteCount_lte: Int
-  voteCount_gt: Int
-  voteCount_gte: Int
-  shoutId: ID
-  shoutId_not: ID
-  shoutId_in: [ID!]
-  shoutId_not_in: [ID!]
-  shoutId_lt: ID
-  shoutId_lte: ID
-  shoutId_gt: ID
-  shoutId_gte: ID
-  shoutId_contains: ID
-  shoutId_not_contains: ID
-  shoutId_starts_with: ID
-  shoutId_not_starts_with: ID
-  shoutId_ends_with: ID
-  shoutId_not_ends_with: ID
+input ShoutInVoidScalarWhereInput {
+  shoutInVoidId: ID
+  shoutInVoidId_not: ID
+  shoutInVoidId_in: [ID!]
+  shoutInVoidId_not_in: [ID!]
+  shoutInVoidId_lt: ID
+  shoutInVoidId_lte: ID
+  shoutInVoidId_gt: ID
+  shoutInVoidId_gte: ID
+  shoutInVoidId_contains: ID
+  shoutInVoidId_not_contains: ID
+  shoutInVoidId_starts_with: ID
+  shoutInVoidId_not_starts_with: ID
+  shoutInVoidId_ends_with: ID
+  shoutInVoidId_not_ends_with: ID
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -1372,224 +294,99 @@ input ShoutScalarWhereInput {
   createdAt_lte: DateTime
   createdAt_gt: DateTime
   createdAt_gte: DateTime
-  content: String
-  content_not: String
-  content_in: [String!]
-  content_not_in: [String!]
-  content_lt: String
-  content_lte: String
-  content_gt: String
-  content_gte: String
-  content_contains: String
-  content_not_contains: String
-  content_starts_with: String
-  content_not_starts_with: String
-  content_ends_with: String
-  content_not_ends_with: String
-  AND: [ShoutScalarWhereInput!]
-  OR: [ShoutScalarWhereInput!]
-  NOT: [ShoutScalarWhereInput!]
+  voteCount: Int
+  voteCount_not: Int
+  voteCount_in: [Int!]
+  voteCount_not_in: [Int!]
+  voteCount_lt: Int
+  voteCount_lte: Int
+  voteCount_gt: Int
+  voteCount_gte: Int
+  AND: [ShoutInVoidScalarWhereInput!]
+  OR: [ShoutInVoidScalarWhereInput!]
+  NOT: [ShoutInVoidScalarWhereInput!]
 }
 
-type ShoutSubscriptionPayload {
+type ShoutInVoidSubscriptionPayload {
   mutation: MutationType!
-  node: Shout
+  node: ShoutInVoid
   updatedFields: [String!]
-  previousValues: ShoutPreviousValues
+  previousValues: ShoutInVoidPreviousValues
 }
 
-input ShoutSubscriptionWhereInput {
+input ShoutInVoidSubscriptionWhereInput {
   mutation_in: [MutationType!]
   updatedFields_contains: String
   updatedFields_contains_every: [String!]
   updatedFields_contains_some: [String!]
-  node: ShoutWhereInput
-  AND: [ShoutSubscriptionWhereInput!]
-  OR: [ShoutSubscriptionWhereInput!]
-  NOT: [ShoutSubscriptionWhereInput!]
+  node: ShoutInVoidWhereInput
+  AND: [ShoutInVoidSubscriptionWhereInput!]
+  OR: [ShoutInVoidSubscriptionWhereInput!]
+  NOT: [ShoutInVoidSubscriptionWhereInput!]
 }
 
-input ShoutUpdateDataInput {
+input ShoutInVoidUpdateInput {
+  shoutedBy: UserUpdateOneRequiredWithoutShoutsInVoidsInput
+  content: ContentUpdateOneRequiredInput
   voteCount: Int
-  content: String
-  postedBy: UserUpdateOneRequiredWithoutCreatedShoutsInput
-  savedShout: SavedShoutUpdateOneWithoutOriginalShoutInput
-  nvoid: NVoidUpdateOneRequiredWithoutShoutsInput
-  replies: ReplyUpdateManyWithoutOriginalShoutInput
 }
 
-input ShoutUpdateInput {
+input ShoutInVoidUpdateManyDataInput {
   voteCount: Int
-  content: String
-  postedBy: UserUpdateOneRequiredWithoutCreatedShoutsInput
-  savedShout: SavedShoutUpdateOneWithoutOriginalShoutInput
-  nvoid: NVoidUpdateOneRequiredWithoutShoutsInput
-  replies: ReplyUpdateManyWithoutOriginalShoutInput
 }
 
-input ShoutUpdateManyDataInput {
+input ShoutInVoidUpdateManyMutationInput {
   voteCount: Int
-  content: String
 }
 
-input ShoutUpdateManyInput {
-  create: [ShoutCreateInput!]
-  update: [ShoutUpdateWithWhereUniqueNestedInput!]
-  upsert: [ShoutUpsertWithWhereUniqueNestedInput!]
-  delete: [ShoutWhereUniqueInput!]
-  connect: [ShoutWhereUniqueInput!]
-  set: [ShoutWhereUniqueInput!]
-  disconnect: [ShoutWhereUniqueInput!]
-  deleteMany: [ShoutScalarWhereInput!]
-  updateMany: [ShoutUpdateManyWithWhereNestedInput!]
+input ShoutInVoidUpdateManyWithoutShoutedByInput {
+  create: [ShoutInVoidCreateWithoutShoutedByInput!]
+  delete: [ShoutInVoidWhereUniqueInput!]
+  connect: [ShoutInVoidWhereUniqueInput!]
+  set: [ShoutInVoidWhereUniqueInput!]
+  disconnect: [ShoutInVoidWhereUniqueInput!]
+  update: [ShoutInVoidUpdateWithWhereUniqueWithoutShoutedByInput!]
+  upsert: [ShoutInVoidUpsertWithWhereUniqueWithoutShoutedByInput!]
+  deleteMany: [ShoutInVoidScalarWhereInput!]
+  updateMany: [ShoutInVoidUpdateManyWithWhereNestedInput!]
 }
 
-input ShoutUpdateManyMutationInput {
+input ShoutInVoidUpdateManyWithWhereNestedInput {
+  where: ShoutInVoidScalarWhereInput!
+  data: ShoutInVoidUpdateManyDataInput!
+}
+
+input ShoutInVoidUpdateWithoutShoutedByDataInput {
+  content: ContentUpdateOneRequiredInput
   voteCount: Int
-  content: String
 }
 
-input ShoutUpdateManyWithoutNvoidInput {
-  create: [ShoutCreateWithoutNvoidInput!]
-  delete: [ShoutWhereUniqueInput!]
-  connect: [ShoutWhereUniqueInput!]
-  set: [ShoutWhereUniqueInput!]
-  disconnect: [ShoutWhereUniqueInput!]
-  update: [ShoutUpdateWithWhereUniqueWithoutNvoidInput!]
-  upsert: [ShoutUpsertWithWhereUniqueWithoutNvoidInput!]
-  deleteMany: [ShoutScalarWhereInput!]
-  updateMany: [ShoutUpdateManyWithWhereNestedInput!]
+input ShoutInVoidUpdateWithWhereUniqueWithoutShoutedByInput {
+  where: ShoutInVoidWhereUniqueInput!
+  data: ShoutInVoidUpdateWithoutShoutedByDataInput!
 }
 
-input ShoutUpdateManyWithoutPostedByInput {
-  create: [ShoutCreateWithoutPostedByInput!]
-  delete: [ShoutWhereUniqueInput!]
-  connect: [ShoutWhereUniqueInput!]
-  set: [ShoutWhereUniqueInput!]
-  disconnect: [ShoutWhereUniqueInput!]
-  update: [ShoutUpdateWithWhereUniqueWithoutPostedByInput!]
-  upsert: [ShoutUpsertWithWhereUniqueWithoutPostedByInput!]
-  deleteMany: [ShoutScalarWhereInput!]
-  updateMany: [ShoutUpdateManyWithWhereNestedInput!]
+input ShoutInVoidUpsertWithWhereUniqueWithoutShoutedByInput {
+  where: ShoutInVoidWhereUniqueInput!
+  update: ShoutInVoidUpdateWithoutShoutedByDataInput!
+  create: ShoutInVoidCreateWithoutShoutedByInput!
 }
 
-input ShoutUpdateManyWithWhereNestedInput {
-  where: ShoutScalarWhereInput!
-  data: ShoutUpdateManyDataInput!
-}
-
-input ShoutUpdateOneRequiredWithoutRepliesInput {
-  create: ShoutCreateWithoutRepliesInput
-  update: ShoutUpdateWithoutRepliesDataInput
-  upsert: ShoutUpsertWithoutRepliesInput
-  connect: ShoutWhereUniqueInput
-}
-
-input ShoutUpdateOneRequiredWithoutSavedShoutInput {
-  create: ShoutCreateWithoutSavedShoutInput
-  update: ShoutUpdateWithoutSavedShoutDataInput
-  upsert: ShoutUpsertWithoutSavedShoutInput
-  connect: ShoutWhereUniqueInput
-}
-
-input ShoutUpdateWithoutNvoidDataInput {
-  voteCount: Int
-  content: String
-  postedBy: UserUpdateOneRequiredWithoutCreatedShoutsInput
-  savedShout: SavedShoutUpdateOneWithoutOriginalShoutInput
-  replies: ReplyUpdateManyWithoutOriginalShoutInput
-}
-
-input ShoutUpdateWithoutPostedByDataInput {
-  voteCount: Int
-  content: String
-  savedShout: SavedShoutUpdateOneWithoutOriginalShoutInput
-  nvoid: NVoidUpdateOneRequiredWithoutShoutsInput
-  replies: ReplyUpdateManyWithoutOriginalShoutInput
-}
-
-input ShoutUpdateWithoutRepliesDataInput {
-  voteCount: Int
-  content: String
-  postedBy: UserUpdateOneRequiredWithoutCreatedShoutsInput
-  savedShout: SavedShoutUpdateOneWithoutOriginalShoutInput
-  nvoid: NVoidUpdateOneRequiredWithoutShoutsInput
-}
-
-input ShoutUpdateWithoutSavedShoutDataInput {
-  voteCount: Int
-  content: String
-  postedBy: UserUpdateOneRequiredWithoutCreatedShoutsInput
-  nvoid: NVoidUpdateOneRequiredWithoutShoutsInput
-  replies: ReplyUpdateManyWithoutOriginalShoutInput
-}
-
-input ShoutUpdateWithWhereUniqueNestedInput {
-  where: ShoutWhereUniqueInput!
-  data: ShoutUpdateDataInput!
-}
-
-input ShoutUpdateWithWhereUniqueWithoutNvoidInput {
-  where: ShoutWhereUniqueInput!
-  data: ShoutUpdateWithoutNvoidDataInput!
-}
-
-input ShoutUpdateWithWhereUniqueWithoutPostedByInput {
-  where: ShoutWhereUniqueInput!
-  data: ShoutUpdateWithoutPostedByDataInput!
-}
-
-input ShoutUpsertWithoutRepliesInput {
-  update: ShoutUpdateWithoutRepliesDataInput!
-  create: ShoutCreateWithoutRepliesInput!
-}
-
-input ShoutUpsertWithoutSavedShoutInput {
-  update: ShoutUpdateWithoutSavedShoutDataInput!
-  create: ShoutCreateWithoutSavedShoutInput!
-}
-
-input ShoutUpsertWithWhereUniqueNestedInput {
-  where: ShoutWhereUniqueInput!
-  update: ShoutUpdateDataInput!
-  create: ShoutCreateInput!
-}
-
-input ShoutUpsertWithWhereUniqueWithoutNvoidInput {
-  where: ShoutWhereUniqueInput!
-  update: ShoutUpdateWithoutNvoidDataInput!
-  create: ShoutCreateWithoutNvoidInput!
-}
-
-input ShoutUpsertWithWhereUniqueWithoutPostedByInput {
-  where: ShoutWhereUniqueInput!
-  update: ShoutUpdateWithoutPostedByDataInput!
-  create: ShoutCreateWithoutPostedByInput!
-}
-
-input ShoutWhereInput {
-  voteCount: Int
-  voteCount_not: Int
-  voteCount_in: [Int!]
-  voteCount_not_in: [Int!]
-  voteCount_lt: Int
-  voteCount_lte: Int
-  voteCount_gt: Int
-  voteCount_gte: Int
-  shoutId: ID
-  shoutId_not: ID
-  shoutId_in: [ID!]
-  shoutId_not_in: [ID!]
-  shoutId_lt: ID
-  shoutId_lte: ID
-  shoutId_gt: ID
-  shoutId_gte: ID
-  shoutId_contains: ID
-  shoutId_not_contains: ID
-  shoutId_starts_with: ID
-  shoutId_not_starts_with: ID
-  shoutId_ends_with: ID
-  shoutId_not_ends_with: ID
+input ShoutInVoidWhereInput {
+  shoutInVoidId: ID
+  shoutInVoidId_not: ID
+  shoutInVoidId_in: [ID!]
+  shoutInVoidId_not_in: [ID!]
+  shoutInVoidId_lt: ID
+  shoutInVoidId_lte: ID
+  shoutInVoidId_gt: ID
+  shoutInVoidId_gte: ID
+  shoutInVoidId_contains: ID
+  shoutInVoidId_not_contains: ID
+  shoutInVoidId_starts_with: ID
+  shoutInVoidId_not_starts_with: ID
+  shoutInVoidId_ends_with: ID
+  shoutInVoidId_not_ends_with: ID
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -1598,57 +395,38 @@ input ShoutWhereInput {
   createdAt_lte: DateTime
   createdAt_gt: DateTime
   createdAt_gte: DateTime
-  content: String
-  content_not: String
-  content_in: [String!]
-  content_not_in: [String!]
-  content_lt: String
-  content_lte: String
-  content_gt: String
-  content_gte: String
-  content_contains: String
-  content_not_contains: String
-  content_starts_with: String
-  content_not_starts_with: String
-  content_ends_with: String
-  content_not_ends_with: String
-  postedBy: UserWhereInput
-  savedShout: SavedShoutWhereInput
-  nvoid: NVoidWhereInput
-  replies_every: ReplyWhereInput
-  replies_some: ReplyWhereInput
-  replies_none: ReplyWhereInput
-  AND: [ShoutWhereInput!]
-  OR: [ShoutWhereInput!]
-  NOT: [ShoutWhereInput!]
+  shoutedBy: UserWhereInput
+  content: ContentWhereInput
+  voteCount: Int
+  voteCount_not: Int
+  voteCount_in: [Int!]
+  voteCount_not_in: [Int!]
+  voteCount_lt: Int
+  voteCount_lte: Int
+  voteCount_gt: Int
+  voteCount_gte: Int
+  AND: [ShoutInVoidWhereInput!]
+  OR: [ShoutInVoidWhereInput!]
+  NOT: [ShoutInVoidWhereInput!]
 }
 
-input ShoutWhereUniqueInput {
-  shoutId: ID
+input ShoutInVoidWhereUniqueInput {
+  shoutInVoidId: ID
 }
 
 type Subscription {
-  echo(where: EchoSubscriptionWhereInput): EchoSubscriptionPayload
-  nVoid(where: NVoidSubscriptionWhereInput): NVoidSubscriptionPayload
-  reply(where: ReplySubscriptionWhereInput): ReplySubscriptionPayload
-  savedShout(where: SavedShoutSubscriptionWhereInput): SavedShoutSubscriptionPayload
-  shout(where: ShoutSubscriptionWhereInput): ShoutSubscriptionPayload
+  content(where: ContentSubscriptionWhereInput): ContentSubscriptionPayload
+  shoutInVoid(where: ShoutInVoidSubscriptionWhereInput): ShoutInVoidSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
 type User {
-  createdAt: DateTime!
   userId: ID!
-  createdShouts(where: ShoutWhereInput, orderBy: ShoutOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Shout!]
-  savedShouts(where: ShoutWhereInput, orderBy: ShoutOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Shout!]
-  echoedShouts(where: EchoWhereInput, orderBy: EchoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Echo!]
-  echoes(where: EchoWhereInput, orderBy: EchoOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Echo!]
-  savedVoids(where: NVoidWhereInput, orderBy: NVoidOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [NVoid!]
-  currentLocationGeohash: String!
+  createdAt: DateTime!
   username: String!
   password: String!
-  replies(where: ReplyWhereInput, orderBy: ReplyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Reply!]
-  createdVoids(where: NVoidWhereInput, orderBy: NVoidOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [NVoid!]
+  currentLocationGeohash: String!
+  shoutsInVoids(where: ShoutInVoidWhereInput, orderBy: ShoutInVoidOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ShoutInVoid!]
 }
 
 type UserConnection {
@@ -1659,16 +437,10 @@ type UserConnection {
 
 input UserCreateInput {
   userId: ID
-  createdShouts: ShoutCreateManyWithoutPostedByInput
-  savedShouts: ShoutCreateManyInput
-  echoedShouts: EchoCreateManyWithoutEchoedByInput
-  echoes: EchoCreateManyWithoutCreatedByInput
-  savedVoids: NVoidCreateManyInput
-  currentLocationGeohash: String!
   username: String!
   password: String!
-  replies: ReplyCreateManyWithoutPostedByInput
-  createdVoids: NVoidCreateManyWithoutCreatedByInput
+  currentLocationGeohash: String!
+  shoutsInVoids: ShoutInVoidCreateManyWithoutShoutedByInput
 }
 
 input UserCreateOneInput {
@@ -1676,94 +448,16 @@ input UserCreateOneInput {
   connect: UserWhereUniqueInput
 }
 
-input UserCreateOneWithoutCreatedShoutsInput {
-  create: UserCreateWithoutCreatedShoutsInput
+input UserCreateOneWithoutShoutsInVoidsInput {
+  create: UserCreateWithoutShoutsInVoidsInput
   connect: UserWhereUniqueInput
 }
 
-input UserCreateOneWithoutCreatedVoidsInput {
-  create: UserCreateWithoutCreatedVoidsInput
-  connect: UserWhereUniqueInput
-}
-
-input UserCreateOneWithoutEchoedShoutsInput {
-  create: UserCreateWithoutEchoedShoutsInput
-  connect: UserWhereUniqueInput
-}
-
-input UserCreateOneWithoutEchoesInput {
-  create: UserCreateWithoutEchoesInput
-  connect: UserWhereUniqueInput
-}
-
-input UserCreateOneWithoutRepliesInput {
-  create: UserCreateWithoutRepliesInput
-  connect: UserWhereUniqueInput
-}
-
-input UserCreateWithoutCreatedShoutsInput {
+input UserCreateWithoutShoutsInVoidsInput {
   userId: ID
-  savedShouts: ShoutCreateManyInput
-  echoedShouts: EchoCreateManyWithoutEchoedByInput
-  echoes: EchoCreateManyWithoutCreatedByInput
-  savedVoids: NVoidCreateManyInput
-  currentLocationGeohash: String!
   username: String!
   password: String!
-  replies: ReplyCreateManyWithoutPostedByInput
-  createdVoids: NVoidCreateManyWithoutCreatedByInput
-}
-
-input UserCreateWithoutCreatedVoidsInput {
-  userId: ID
-  createdShouts: ShoutCreateManyWithoutPostedByInput
-  savedShouts: ShoutCreateManyInput
-  echoedShouts: EchoCreateManyWithoutEchoedByInput
-  echoes: EchoCreateManyWithoutCreatedByInput
-  savedVoids: NVoidCreateManyInput
   currentLocationGeohash: String!
-  username: String!
-  password: String!
-  replies: ReplyCreateManyWithoutPostedByInput
-}
-
-input UserCreateWithoutEchoedShoutsInput {
-  userId: ID
-  createdShouts: ShoutCreateManyWithoutPostedByInput
-  savedShouts: ShoutCreateManyInput
-  echoes: EchoCreateManyWithoutCreatedByInput
-  savedVoids: NVoidCreateManyInput
-  currentLocationGeohash: String!
-  username: String!
-  password: String!
-  replies: ReplyCreateManyWithoutPostedByInput
-  createdVoids: NVoidCreateManyWithoutCreatedByInput
-}
-
-input UserCreateWithoutEchoesInput {
-  userId: ID
-  createdShouts: ShoutCreateManyWithoutPostedByInput
-  savedShouts: ShoutCreateManyInput
-  echoedShouts: EchoCreateManyWithoutEchoedByInput
-  savedVoids: NVoidCreateManyInput
-  currentLocationGeohash: String!
-  username: String!
-  password: String!
-  replies: ReplyCreateManyWithoutPostedByInput
-  createdVoids: NVoidCreateManyWithoutCreatedByInput
-}
-
-input UserCreateWithoutRepliesInput {
-  userId: ID
-  createdShouts: ShoutCreateManyWithoutPostedByInput
-  savedShouts: ShoutCreateManyInput
-  echoedShouts: EchoCreateManyWithoutEchoedByInput
-  echoes: EchoCreateManyWithoutCreatedByInput
-  savedVoids: NVoidCreateManyInput
-  currentLocationGeohash: String!
-  username: String!
-  password: String!
-  createdVoids: NVoidCreateManyWithoutCreatedByInput
 }
 
 type UserEdge {
@@ -1772,24 +466,24 @@ type UserEdge {
 }
 
 enum UserOrderByInput {
-  createdAt_ASC
-  createdAt_DESC
   userId_ASC
   userId_DESC
-  currentLocationGeohash_ASC
-  currentLocationGeohash_DESC
+  createdAt_ASC
+  createdAt_DESC
   username_ASC
   username_DESC
   password_ASC
   password_DESC
+  currentLocationGeohash_ASC
+  currentLocationGeohash_DESC
 }
 
 type UserPreviousValues {
-  createdAt: DateTime!
   userId: ID!
-  currentLocationGeohash: String!
+  createdAt: DateTime!
   username: String!
   password: String!
+  currentLocationGeohash: String!
 }
 
 type UserSubscriptionPayload {
@@ -1811,35 +505,23 @@ input UserSubscriptionWhereInput {
 }
 
 input UserUpdateDataInput {
-  createdShouts: ShoutUpdateManyWithoutPostedByInput
-  savedShouts: ShoutUpdateManyInput
-  echoedShouts: EchoUpdateManyWithoutEchoedByInput
-  echoes: EchoUpdateManyWithoutCreatedByInput
-  savedVoids: NVoidUpdateManyInput
-  currentLocationGeohash: String
   username: String
   password: String
-  replies: ReplyUpdateManyWithoutPostedByInput
-  createdVoids: NVoidUpdateManyWithoutCreatedByInput
+  currentLocationGeohash: String
+  shoutsInVoids: ShoutInVoidUpdateManyWithoutShoutedByInput
 }
 
 input UserUpdateInput {
-  createdShouts: ShoutUpdateManyWithoutPostedByInput
-  savedShouts: ShoutUpdateManyInput
-  echoedShouts: EchoUpdateManyWithoutEchoedByInput
-  echoes: EchoUpdateManyWithoutCreatedByInput
-  savedVoids: NVoidUpdateManyInput
-  currentLocationGeohash: String
   username: String
   password: String
-  replies: ReplyUpdateManyWithoutPostedByInput
-  createdVoids: NVoidUpdateManyWithoutCreatedByInput
+  currentLocationGeohash: String
+  shoutsInVoids: ShoutInVoidUpdateManyWithoutShoutedByInput
 }
 
 input UserUpdateManyMutationInput {
-  currentLocationGeohash: String
   username: String
   password: String
+  currentLocationGeohash: String
 }
 
 input UserUpdateOneRequiredInput {
@@ -1849,99 +531,17 @@ input UserUpdateOneRequiredInput {
   connect: UserWhereUniqueInput
 }
 
-input UserUpdateOneRequiredWithoutCreatedShoutsInput {
-  create: UserCreateWithoutCreatedShoutsInput
-  update: UserUpdateWithoutCreatedShoutsDataInput
-  upsert: UserUpsertWithoutCreatedShoutsInput
+input UserUpdateOneRequiredWithoutShoutsInVoidsInput {
+  create: UserCreateWithoutShoutsInVoidsInput
+  update: UserUpdateWithoutShoutsInVoidsDataInput
+  upsert: UserUpsertWithoutShoutsInVoidsInput
   connect: UserWhereUniqueInput
 }
 
-input UserUpdateOneRequiredWithoutCreatedVoidsInput {
-  create: UserCreateWithoutCreatedVoidsInput
-  update: UserUpdateWithoutCreatedVoidsDataInput
-  upsert: UserUpsertWithoutCreatedVoidsInput
-  connect: UserWhereUniqueInput
-}
-
-input UserUpdateOneRequiredWithoutEchoedShoutsInput {
-  create: UserCreateWithoutEchoedShoutsInput
-  update: UserUpdateWithoutEchoedShoutsDataInput
-  upsert: UserUpsertWithoutEchoedShoutsInput
-  connect: UserWhereUniqueInput
-}
-
-input UserUpdateOneRequiredWithoutEchoesInput {
-  create: UserCreateWithoutEchoesInput
-  update: UserUpdateWithoutEchoesDataInput
-  upsert: UserUpsertWithoutEchoesInput
-  connect: UserWhereUniqueInput
-}
-
-input UserUpdateOneRequiredWithoutRepliesInput {
-  create: UserCreateWithoutRepliesInput
-  update: UserUpdateWithoutRepliesDataInput
-  upsert: UserUpsertWithoutRepliesInput
-  connect: UserWhereUniqueInput
-}
-
-input UserUpdateWithoutCreatedShoutsDataInput {
-  savedShouts: ShoutUpdateManyInput
-  echoedShouts: EchoUpdateManyWithoutEchoedByInput
-  echoes: EchoUpdateManyWithoutCreatedByInput
-  savedVoids: NVoidUpdateManyInput
-  currentLocationGeohash: String
+input UserUpdateWithoutShoutsInVoidsDataInput {
   username: String
   password: String
-  replies: ReplyUpdateManyWithoutPostedByInput
-  createdVoids: NVoidUpdateManyWithoutCreatedByInput
-}
-
-input UserUpdateWithoutCreatedVoidsDataInput {
-  createdShouts: ShoutUpdateManyWithoutPostedByInput
-  savedShouts: ShoutUpdateManyInput
-  echoedShouts: EchoUpdateManyWithoutEchoedByInput
-  echoes: EchoUpdateManyWithoutCreatedByInput
-  savedVoids: NVoidUpdateManyInput
   currentLocationGeohash: String
-  username: String
-  password: String
-  replies: ReplyUpdateManyWithoutPostedByInput
-}
-
-input UserUpdateWithoutEchoedShoutsDataInput {
-  createdShouts: ShoutUpdateManyWithoutPostedByInput
-  savedShouts: ShoutUpdateManyInput
-  echoes: EchoUpdateManyWithoutCreatedByInput
-  savedVoids: NVoidUpdateManyInput
-  currentLocationGeohash: String
-  username: String
-  password: String
-  replies: ReplyUpdateManyWithoutPostedByInput
-  createdVoids: NVoidUpdateManyWithoutCreatedByInput
-}
-
-input UserUpdateWithoutEchoesDataInput {
-  createdShouts: ShoutUpdateManyWithoutPostedByInput
-  savedShouts: ShoutUpdateManyInput
-  echoedShouts: EchoUpdateManyWithoutEchoedByInput
-  savedVoids: NVoidUpdateManyInput
-  currentLocationGeohash: String
-  username: String
-  password: String
-  replies: ReplyUpdateManyWithoutPostedByInput
-  createdVoids: NVoidUpdateManyWithoutCreatedByInput
-}
-
-input UserUpdateWithoutRepliesDataInput {
-  createdShouts: ShoutUpdateManyWithoutPostedByInput
-  savedShouts: ShoutUpdateManyInput
-  echoedShouts: EchoUpdateManyWithoutEchoedByInput
-  echoes: EchoUpdateManyWithoutCreatedByInput
-  savedVoids: NVoidUpdateManyInput
-  currentLocationGeohash: String
-  username: String
-  password: String
-  createdVoids: NVoidUpdateManyWithoutCreatedByInput
 }
 
 input UserUpsertNestedInput {
@@ -1949,40 +549,12 @@ input UserUpsertNestedInput {
   create: UserCreateInput!
 }
 
-input UserUpsertWithoutCreatedShoutsInput {
-  update: UserUpdateWithoutCreatedShoutsDataInput!
-  create: UserCreateWithoutCreatedShoutsInput!
-}
-
-input UserUpsertWithoutCreatedVoidsInput {
-  update: UserUpdateWithoutCreatedVoidsDataInput!
-  create: UserCreateWithoutCreatedVoidsInput!
-}
-
-input UserUpsertWithoutEchoedShoutsInput {
-  update: UserUpdateWithoutEchoedShoutsDataInput!
-  create: UserCreateWithoutEchoedShoutsInput!
-}
-
-input UserUpsertWithoutEchoesInput {
-  update: UserUpdateWithoutEchoesDataInput!
-  create: UserCreateWithoutEchoesInput!
-}
-
-input UserUpsertWithoutRepliesInput {
-  update: UserUpdateWithoutRepliesDataInput!
-  create: UserCreateWithoutRepliesInput!
+input UserUpsertWithoutShoutsInVoidsInput {
+  update: UserUpdateWithoutShoutsInVoidsDataInput!
+  create: UserCreateWithoutShoutsInVoidsInput!
 }
 
 input UserWhereInput {
-  createdAt: DateTime
-  createdAt_not: DateTime
-  createdAt_in: [DateTime!]
-  createdAt_not_in: [DateTime!]
-  createdAt_lt: DateTime
-  createdAt_lte: DateTime
-  createdAt_gt: DateTime
-  createdAt_gte: DateTime
   userId: ID
   userId_not: ID
   userId_in: [ID!]
@@ -1997,35 +569,14 @@ input UserWhereInput {
   userId_not_starts_with: ID
   userId_ends_with: ID
   userId_not_ends_with: ID
-  createdShouts_every: ShoutWhereInput
-  createdShouts_some: ShoutWhereInput
-  createdShouts_none: ShoutWhereInput
-  savedShouts_every: ShoutWhereInput
-  savedShouts_some: ShoutWhereInput
-  savedShouts_none: ShoutWhereInput
-  echoedShouts_every: EchoWhereInput
-  echoedShouts_some: EchoWhereInput
-  echoedShouts_none: EchoWhereInput
-  echoes_every: EchoWhereInput
-  echoes_some: EchoWhereInput
-  echoes_none: EchoWhereInput
-  savedVoids_every: NVoidWhereInput
-  savedVoids_some: NVoidWhereInput
-  savedVoids_none: NVoidWhereInput
-  currentLocationGeohash: String
-  currentLocationGeohash_not: String
-  currentLocationGeohash_in: [String!]
-  currentLocationGeohash_not_in: [String!]
-  currentLocationGeohash_lt: String
-  currentLocationGeohash_lte: String
-  currentLocationGeohash_gt: String
-  currentLocationGeohash_gte: String
-  currentLocationGeohash_contains: String
-  currentLocationGeohash_not_contains: String
-  currentLocationGeohash_starts_with: String
-  currentLocationGeohash_not_starts_with: String
-  currentLocationGeohash_ends_with: String
-  currentLocationGeohash_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
   username: String
   username_not: String
   username_in: [String!]
@@ -2054,12 +605,23 @@ input UserWhereInput {
   password_not_starts_with: String
   password_ends_with: String
   password_not_ends_with: String
-  replies_every: ReplyWhereInput
-  replies_some: ReplyWhereInput
-  replies_none: ReplyWhereInput
-  createdVoids_every: NVoidWhereInput
-  createdVoids_some: NVoidWhereInput
-  createdVoids_none: NVoidWhereInput
+  currentLocationGeohash: String
+  currentLocationGeohash_not: String
+  currentLocationGeohash_in: [String!]
+  currentLocationGeohash_not_in: [String!]
+  currentLocationGeohash_lt: String
+  currentLocationGeohash_lte: String
+  currentLocationGeohash_gt: String
+  currentLocationGeohash_gte: String
+  currentLocationGeohash_contains: String
+  currentLocationGeohash_not_contains: String
+  currentLocationGeohash_starts_with: String
+  currentLocationGeohash_not_starts_with: String
+  currentLocationGeohash_ends_with: String
+  currentLocationGeohash_not_ends_with: String
+  shoutsInVoids_every: ShoutInVoidWhereInput
+  shoutsInVoids_some: ShoutInVoidWhereInput
+  shoutsInVoids_none: ShoutInVoidWhereInput
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]
@@ -2067,7 +629,6 @@ input UserWhereInput {
 
 input UserWhereUniqueInput {
   userId: ID
-  username: String
 }
 `
       }

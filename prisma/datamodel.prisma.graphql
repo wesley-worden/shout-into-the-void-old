@@ -11,10 +11,11 @@
 type Content {
     contentId: ID! @id
     createdAt: DateTime! @createdAt
-    createdBy: User!
+    createdBy: User! @relation(link: INLINE)
     message: String!
     includeUsername: Boolean!
 }
+
 type User {
     userId: ID! @id
     createdAt: DateTime! @createdAt
@@ -29,14 +30,15 @@ type User {
     savedRepliesToShoutsInVoids: [SavedReplyToShoutInVoid!] @relation(name: "UsersSavedRepliesToShouts", link: INLINE)
     repliesToEchosInVoids: [ReplyToEchoInVoid!] @relation(name: "UsersRepliesToEchos", link: INLINE)
     savedRepliesToEchosInVoids: [SavedReplyToEchoInVoid!] @relation(name: "UsersSavedRepliesToEchos", link: INLINE)
+    createdVoids: [NVoid!] @relation(name: "UsersCreatedVoids", link: INLINE)
     savedVoids: [SavedVoid!] @relation(name: "UsersSavedVoids", link: INLINE)
 }
 type ShoutInVoid {
     shoutInVoidId: ID! @id
     createdAt: DateTime! @createdAt
     shoutedBy: User! @relation(name: "UsersShoutsInVoids")
-    content: Content!
-    voteCount: Int!ReplyToEchoInVoid
+    content: Content! @relation(link: INLINE)
+    voteCount: Int!
     nvoid: NVoid! @relation(name: "ShoutsInVoid")
     savedShouts: [SavedShout!] @relation(name: "OriginalShoutToSavedShoutEdge", link: INLINE)
     replies: [ReplyToShoutInVoid!] @relation(name: "OriginalShoutToReplyEdge", link: INLINE)
@@ -45,7 +47,7 @@ type ReplyToShoutInVoid {
     replyToShoutInVoidId: ID! @id
     createdAt: DateTime! @createdAt
     createdBy: User! @relation(name: "UsersRepliesToShouts")
-    content: Content!
+    content: Content! @relation(link: INLINE)
     voteCount: Int!
     shoutInVoid: ShoutInVoid! @relation(name: "OriginalShoutToReplyEdge")
     savedReplies: [SavedReplyToShoutInVoid!] @relation(name: "OriginalReplyToSavedReplyToShoutEdge", link: INLINE)
@@ -54,8 +56,8 @@ type SavedReplyToShoutInVoid {
     savedReplyToShoutInVoidId: ID! @id
     createdAt: DateTime! @createdAt
     savedBy: User! @relation(name: "UsersSavedRepliesToShouts")
-    originalReplyContent: Content!
-    originalShoutContent: Content!
+    originalReplyContent: Content! @relation(name: "ReplyContentToSavedReplyToShoutInVoid", link: INLINE)
+    originalShoutContent: Content! @relation(name: "ShoutContentToSavedReplyToShoutInVoid", link: INLINE)
     originalVoidGeohash: String!
     replyToShoutInVoid: ReplyToShoutInVoid! @relation(name: "OriginalReplyToSavedReplyToShoutEdge")
 }
@@ -64,7 +66,7 @@ type SavedShout {
     savedShoutId: ID! @id
     createdAt: DateTime! @createdAt
     savedByUser: User! @relation(name: "UsersSavedShouts")
-    originalContent: Content!
+    originalContent: Content! @relation(link: INLINE)
     originalShoutVoidGeohash: String!
     shoutInVoid: ShoutInVoid! @relation(name: "OriginalShoutToSavedShoutEdge")
 }
@@ -73,7 +75,7 @@ type EchoInVoid {
     echoInVoidId: ID! @id
     createdAt: DateTime! @createdAt
     echoedBy: User! @relation(name: "UsersEchosInVoids")
-    originalContent: Content!
+    originalContent: Content! @relation(link: INLINE)
     voteCount: Int!
     originalShoutVoidGeohash: String!
     nvoid: NVoid! @relation(name: "EchosInVoid")
@@ -84,7 +86,7 @@ type ReplyToEchoInVoid {
     replyToEchoInVoidId: ID! @id
     createdAt: DateTime! @createdAt
     createdBy: User! @relation(name: "UsersRepliesToEchos")
-    content: Content!
+    content: Content! @relation(link: INLINE)
     voteCount: Int!
     echoInVoid: EchoInVoid! @relation(name: "OriginalEchoToReplyToEchoEdge")
     savedReplies: [SavedReplyToEchoInVoid!] @relation(name: "OriginalReplyToSavedReplyToEchoEdge", link: INLINE)
@@ -93,8 +95,8 @@ type SavedReplyToEchoInVoid {
     savedReplyToEchoInVoid: ID! @id
     createdAt: DateTime! @createdAt
     savedBy: User! @relation(name: "UsersSavedRepliesToEchos")
-    originalReplyContent: Content!
-    originalShoutContent: Content!
+    originalReplyContent: Content! @relation(name: "ReplyContentToSavedReplyToEchoInVoid", link: INLINE)
+    originalShoutContent: Content! @relation(name: "ShoutContentToSavedReplyToEchoInVoid", link: INLINE)
     originalVoidGeohash: String!
     replyToEchoInVoid: ReplyToEchoInVoid! @relation(name: "OriginalReplyToSavedReplyToEchoEdge")
 }
@@ -102,7 +104,7 @@ type SavedEcho {
     savedEcho: ID! @id
     createdAt: DateTime! @createdAt
     savedBy: User! @relation(name: "UsersSavedEchos")
-    originalContent: Content!
+    originalContent: Content! @relation(link: INLINE)
     originalShoutVoidGeohash: String!
     originalEchoVoidGeohash: String!
     echoInVoid: EchoInVoid! @relation(name: "OriginalEchoToSavedEchoEdge")
@@ -110,7 +112,7 @@ type SavedEcho {
 type NVoid {
     voidId: ID! @id
     createdAt: DateTime! @createdAt
-    createdBy: User!
+    createdBy: User! @relation(name: "UsersCreatedVoids")
     voidGeohash: String!
     shouts: [ShoutInVoid!] @relation(name: "ShoutsInVoid", link: INLINE)
     echos: [EchoInVoid!] @relation(name: "EchosInVoid", link: INLINE)

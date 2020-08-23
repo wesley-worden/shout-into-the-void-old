@@ -5,19 +5,23 @@ var typeDefs = require("./prisma-schema").typeDefs;
 
 var models = [
   {
-    name: "Shout",
+    name: "Content",
     embedded: false
   },
   {
-    name: "Reply",
+    name: "User",
     embedded: false
   },
   {
-    name: "Echo",
+    name: "ShoutInVoid",
     embedded: false
   },
   {
-    name: "NVoid",
+    name: "ReplyToShoutInVoid",
+    embedded: false
+  },
+  {
+    name: "SavedReplyToShoutInVoid",
     embedded: false
   },
   {
@@ -25,7 +29,27 @@ var models = [
     embedded: false
   },
   {
-    name: "User",
+    name: "EchoInVoid",
+    embedded: false
+  },
+  {
+    name: "ReplyToEchoInVoid",
+    embedded: false
+  },
+  {
+    name: "SavedReplyToEchoInVoid",
+    embedded: false
+  },
+  {
+    name: "SavedEcho",
+    embedded: false
+  },
+  {
+    name: "NVoid",
+    embedded: false
+  },
+  {
+    name: "SavedVoid",
     embedded: false
   }
 ];
