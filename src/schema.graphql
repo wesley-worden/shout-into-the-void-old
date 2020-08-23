@@ -6,22 +6,32 @@ type Shout {
     content: String! 
     postedBy: User!
     #echos: [Echo!]
+    savedShouts: [SavedShout!]
     nvoid: NVoid!
     replies: [Reply!]
 }
-type Reply {
+type ShoutReply {
     originalShout: Shout!
     voteCount: Int!
-    replyId: ID! 
+    shoutReplyId: ID! 
     createdAt: String! 
     content: String!
     postedBy: User!
     #void: Void! #get from shout
 }
-type Echo {
+type EchoReply {
+    originalEcho: Echo!
+    voteCount: Int!
+    echoReplyId: ID!
+    createdAt: String!
+    content: String!
+    postedBy: User!
+}
+type EchoShout {
     echoId: ID!
     nvoid: NVoid!
     originalShout: Shout!
+    savedShout: SavedShout!
     createdAt: String!
     createdBy: User!
     echoedBy: User!
@@ -32,6 +42,15 @@ type NVoid {
     createdAt: String!
     shouts: [Shout!]
     createdBy: User!
+    savedVoids: [SavedVoid!]
+    #add save count
+    echos: [Echo!]
+}
+type SavedVoid {
+    savedVoidId: ID!
+    originalGeohash: String!
+    createdAt: String!
+    originalVoid: Void!
 }
 type User {
     createdAt: String!

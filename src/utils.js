@@ -169,6 +169,42 @@ const createVoid = async function(context, voidGeohash, userId) {
     });
 }
 
+const fragmentShoutCreatedAt = `
+fragment ShoutCreatedAt on Shout {
+    createdAt
+}`;
+const getShoutCreatedAt = async function(context, shoutId) {
+    const createdAtObj = await context.prisma.shout({ shoutId: shoutId}).$fragment(fragmentShoutCreatedAt);
+    const shoutCreatedAt = createdAtObj.createdAt;
+    return shoutCreatedAt;
+};
+const fragmentShoutContent = `
+fragment ShoutContent on Shout {
+    content
+}`;
+const getShoutContent = async function(context, shoutId) {
+    const shoutContentObj = await context.prisma.shout({ shoutId: shoutId}).$fragment(fragmentShoutContent);
+    const shoutContent = shoutContentObj.content;
+    return shoutContent;
+};
+const fragmentShoutPostedBy= `
+fragment ShoutContent on Shout {
+    content
+}`;
+const getShoutContent = async function(context, shoutId) {
+    const shoutContentObj = await context.prisma.shout({ shoutId: shoutId}).$fragment(fragmentShoutPostedBy);
+    const shoutContent = shoutContentObj.content;
+    return shoutContent;
+};
+const fragmentVoidGeohash = `
+fragment VoidGeohash on NVoid {
+    geohash
+}`;
+const getVoidGeohashFromVoidId = async function(context, voidId) {
+    const voidGeohashObj = await context.prisma.nVoid({ voidId: voidId }).$fragment(fragmentVoidGeohash);
+    const voidGeohash = voidGeohashObj.geohash;
+    return voidGeohash;
+};
 /*
 // const channelExists = async function(context, channelId) {
 //     return await context.prisma.$exists.channel({
@@ -267,6 +303,10 @@ module.exports = {
     getVoteCountForShoutId,
     getRepliesIdsToShoutId,
     getReplyIdFromShoutId,
+    getShoutCreatedAt,
+    getShoutContent,
+    getShoutPostedBy,
+    getVoidGeohashFromVoidId,
 //    ensureAuthenticated,
     // channelExists, 
     /*

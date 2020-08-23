@@ -6,9 +6,9 @@ type Shout {
     content: String! 
     postedBy: User! @relation(name: "ShoutCreatedByUser") 
     #echos: [Echo!] @relation(name: "ShoutEchoEdge", link: INLINE)
-    savedShout: SavedShout @relation(name: "SavedShoutEchoEdge")
+    savedShouts: [SavedShout!] @relation(name: "SavedShoutShoutEdge")
     nvoid: NVoid! @relation(name: "ShoutVoidEdge", link: INLINE)
-    replies: [Reply!] @relation(name: "ShoutReplyEdge")
+    replies: [Reply!] @relation(name: "ShoutReplyShoutEdge")
 }
 type Reply {
     originalShout: Shout! @relation(name: "ShoutReplyEdge", link: INLINE)
@@ -18,7 +18,7 @@ type Reply {
     content: String!
     postedBy: User! @relation(name: "ReplyUserEdge")
 }
-type Echo {
+type Echo { 
     echoId: ID! @id
     nvoid: NVoid! @relation(name: "EchoVoidEdge", link: INLINE)
     savedShout: SavedShout! @relation(name: "SavedShoutEchoEdge")
@@ -33,16 +33,24 @@ type NVoid {
     shouts: [Shout!] @relation(name: "ShoutVoidEdge")
     echos: [Echo!] @relation(name: "EchoVoidEdge")
     createdBy: User! @relation(name: "VoidCreatedByUser")
+    savedVoids: [SavedVoid!] @relation(name: SavedVoidVoidEdge, link: INLINE)
+}
+type SavedVoid {
+    savedVoidId: ID! @id
+    originalGeohash: String!
+    createdAt: DateTime! @createdAt
+    originalVoid: Void! @relation(name: SavedVoidVoidEdge)
 }
 type SavedShout {
-    originalShout: Shout! @relation(name: "SavedShoutEchoEdge")
+    originalShout: Shout! @relation(name: "SavedShoutShoutEdge", link: INLINE)
     savedShoutId: ID! @id
     originalShoutCreatedAt: DateTime!
     originalContent: String!
-    originalPostedBy: User!
-    echos: [Echo!] @relation(name: "SavedShoutEchoEdge", link: INLINE)
+    originalPostedBy: User! @relation(name: "SavedShoutPostedByUser", link: INLINE)
+    echo: Echo! @relation(name: "SavedShoutEchoEdge", link: INLINE)
     originalVoid: NVoid! @relation(name: "SavedShoutVoidEdge", link: INLINE)
     originalVoidGeohash: String!
+    createdAt: DateTime! @createdAt
 }
 type User {
     createdAt: DateTime! @createdAt

@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { APP_SECRET, VOID_GEOHASH_PRECISION, getVoteCountForShoutId, showMe, getCurrentLocationGeohashForUserId, getClosestVoidGeohashForUserId, createVoid, voidExists, showToken, getUserId, ensureAuthorized, ensureUserExists, ensureChannelExists, ensureShitpostExists, ensureUserIsChannelOwner, getChannelMembers, flattenGeohashToUserGeohash, getRepliesIdsToShoutId, getVoidIdFromShoutId } = require('./../utils');
+const { APP_SECRET, VOID_GEOHASH_PRECISION, getVoteCountForShoutId, showMe, getCurrentLocationGeohashForUserId, getClosestVoidGeohashForUserId, createVoid, voidExists, showToken, getUserId, ensureAuthorized, ensureUserExists, ensureChannelExists, ensureShitpostExists, ensureUserIsChannelOwner, getChannelMembers, flattenGeohashToUserGeohash, getRepliesIdsToShoutId, getVoidIdFromShoutId, getShoutCreatedAt, getShoutContent, shoutIdIsPostedByUserId, getVoidGeohashFromVoidId } = require('./../utils');
 const { debug_settings } = require('./../../config.json');
 const clipboardy = require('clipboardy');
 
@@ -114,7 +114,21 @@ const reply = async function(parent, args, context, info) {
 };
 const saveShout = async function(parent, args, context, info) {
     const userIdFromToken = ensureAuthorized(context);
-    
+    const shoutCreatedAt = getShoutCreatedAt(context, args.shoutId);
+    const shoutContent = getShoutContent(context, args.shoutId);
+    const shoutPostedByUserId = shoutIdIsPostedByUserId(context, args.shoutId);
+    const shoutOriginalVoidId = getVoidIdFromShoutId(context, args.shoutId);
+    const shoutOriginalVoidGeohash = getVoidGeohashFromVoidId(context, shoutOriginalVoidId);
+    const createdSavedShout = await context.prisma.createSavedShout({
+        originalShout: { connect: { shoutId: args.shoutId }},
+        savedShoutId: args.shoutId,
+        originalShoutCreatedAt: shoutCreatedAt,
+        originalContent: shoutContent,
+        originalPostedBy:  { connect: { userId: shoutPostedByUserId }},
+        originalVoid: { connect: { voidId: shoutOriginalVoidId }},
+        originalVoidGeohash: shoutOriginalVoidGeohash
+    });
+    return createdSavedShout;
 };
 const shout = async function(parent, args, context, info) {
     const userIdFromToken = ensureAuthorized(context);
