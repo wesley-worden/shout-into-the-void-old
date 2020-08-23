@@ -40,6 +40,8 @@ type ShoutInVoid {
     nvoid: NVoid!
     savedShouts: [SavedShout!]
     replies: [ReplyToShoutInVoid!]
+    # would only be used if no one has the shout still saved but want to see if an echo still has its original shout
+    echoEdges: [EchoEdge!]
 }
 type ReplyToShoutInVoid {
     replyToShoutInVoidId: ID!
@@ -67,6 +69,18 @@ type SavedShout {
     originalContent: Content!
     originalShoutVoidGeohash: String!
     shoutInVoid: ShoutInVoid!
+    echoEdges: [EchoEdge!]
+}
+type EchoEdge { # used soo that when a saved shout is deleted or shout is deleted we can still see if it was echoed
+    echoEdegId: ID! 
+    shoutInVoid: ShoutInVoid 
+    savedShout: SavedShout 
+    echoInVoid: EchoInVoid 
+}
+type SavedShoutEchoEdge {
+    savedShoutEchoEdgeId: ID!
+    savedShout: SavedShout
+    echoInVoid: EchoInVoid
 }
 # echo of a saved shout
 type EchoInVoid {
@@ -79,6 +93,7 @@ type EchoInVoid {
     nvoid: NVoid!
     savedEchos: [SavedEcho!]
     replies: [ReplyToEchoInVoid!]
+    echoEdge: EchoEdge
 }
 type ReplyToEchoInVoid {
     replyToEchoInVoidId: ID!

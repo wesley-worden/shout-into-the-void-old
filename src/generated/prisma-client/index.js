@@ -29,6 +29,10 @@ var models = [
     embedded: false
   },
   {
+    name: "EchoEdge",
+    embedded: false
+  },
+  {
     name: "EchoInVoid",
     embedded: false
   },

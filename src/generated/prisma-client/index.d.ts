@@ -17,6 +17,22 @@ export type Maybe<T> = T | undefined | null;
 
 export interface Exists {
   content: (where?: ContentWhereInput) => Promise<boolean>;
+  echoEdge: (where?: EchoEdgeWhereInput) => Promise<boolean>;
+  echoInVoid: (where?: EchoInVoidWhereInput) => Promise<boolean>;
+  nVoid: (where?: NVoidWhereInput) => Promise<boolean>;
+  replyToEchoInVoid: (where?: ReplyToEchoInVoidWhereInput) => Promise<boolean>;
+  replyToShoutInVoid: (
+    where?: ReplyToShoutInVoidWhereInput
+  ) => Promise<boolean>;
+  savedEcho: (where?: SavedEchoWhereInput) => Promise<boolean>;
+  savedReplyToEchoInVoid: (
+    where?: SavedReplyToEchoInVoidWhereInput
+  ) => Promise<boolean>;
+  savedReplyToShoutInVoid: (
+    where?: SavedReplyToShoutInVoidWhereInput
+  ) => Promise<boolean>;
+  savedShout: (where?: SavedShoutWhereInput) => Promise<boolean>;
+  savedVoid: (where?: SavedVoidWhereInput) => Promise<boolean>;
   shoutInVoid: (where?: ShoutInVoidWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
 }
@@ -59,6 +75,204 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => ContentConnectionPromise;
+  echoEdge: (where: EchoEdgeWhereUniqueInput) => EchoEdgeNullablePromise;
+  echoEdges: (args?: {
+    where?: EchoEdgeWhereInput;
+    orderBy?: EchoEdgeOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<EchoEdge>;
+  echoEdgesConnection: (args?: {
+    where?: EchoEdgeWhereInput;
+    orderBy?: EchoEdgeOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => EchoEdgeConnectionPromise;
+  echoInVoid: (where: EchoInVoidWhereUniqueInput) => EchoInVoidNullablePromise;
+  echoInVoids: (args?: {
+    where?: EchoInVoidWhereInput;
+    orderBy?: EchoInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<EchoInVoid>;
+  echoInVoidsConnection: (args?: {
+    where?: EchoInVoidWhereInput;
+    orderBy?: EchoInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => EchoInVoidConnectionPromise;
+  nVoid: (where: NVoidWhereUniqueInput) => NVoidNullablePromise;
+  nVoids: (args?: {
+    where?: NVoidWhereInput;
+    orderBy?: NVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<NVoid>;
+  nVoidsConnection: (args?: {
+    where?: NVoidWhereInput;
+    orderBy?: NVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => NVoidConnectionPromise;
+  replyToEchoInVoid: (
+    where: ReplyToEchoInVoidWhereUniqueInput
+  ) => ReplyToEchoInVoidNullablePromise;
+  replyToEchoInVoids: (args?: {
+    where?: ReplyToEchoInVoidWhereInput;
+    orderBy?: ReplyToEchoInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<ReplyToEchoInVoid>;
+  replyToEchoInVoidsConnection: (args?: {
+    where?: ReplyToEchoInVoidWhereInput;
+    orderBy?: ReplyToEchoInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => ReplyToEchoInVoidConnectionPromise;
+  replyToShoutInVoid: (
+    where: ReplyToShoutInVoidWhereUniqueInput
+  ) => ReplyToShoutInVoidNullablePromise;
+  replyToShoutInVoids: (args?: {
+    where?: ReplyToShoutInVoidWhereInput;
+    orderBy?: ReplyToShoutInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<ReplyToShoutInVoid>;
+  replyToShoutInVoidsConnection: (args?: {
+    where?: ReplyToShoutInVoidWhereInput;
+    orderBy?: ReplyToShoutInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => ReplyToShoutInVoidConnectionPromise;
+  savedEcho: (where: SavedEchoWhereUniqueInput) => SavedEchoNullablePromise;
+  savedEchoes: (args?: {
+    where?: SavedEchoWhereInput;
+    orderBy?: SavedEchoOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<SavedEcho>;
+  savedEchoesConnection: (args?: {
+    where?: SavedEchoWhereInput;
+    orderBy?: SavedEchoOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => SavedEchoConnectionPromise;
+  savedReplyToEchoInVoid: (
+    where: SavedReplyToEchoInVoidWhereUniqueInput
+  ) => SavedReplyToEchoInVoidNullablePromise;
+  savedReplyToEchoInVoids: (args?: {
+    where?: SavedReplyToEchoInVoidWhereInput;
+    orderBy?: SavedReplyToEchoInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<SavedReplyToEchoInVoid>;
+  savedReplyToEchoInVoidsConnection: (args?: {
+    where?: SavedReplyToEchoInVoidWhereInput;
+    orderBy?: SavedReplyToEchoInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => SavedReplyToEchoInVoidConnectionPromise;
+  savedReplyToShoutInVoid: (
+    where: SavedReplyToShoutInVoidWhereUniqueInput
+  ) => SavedReplyToShoutInVoidNullablePromise;
+  savedReplyToShoutInVoids: (args?: {
+    where?: SavedReplyToShoutInVoidWhereInput;
+    orderBy?: SavedReplyToShoutInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<SavedReplyToShoutInVoid>;
+  savedReplyToShoutInVoidsConnection: (args?: {
+    where?: SavedReplyToShoutInVoidWhereInput;
+    orderBy?: SavedReplyToShoutInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => SavedReplyToShoutInVoidConnectionPromise;
+  savedShout: (where: SavedShoutWhereUniqueInput) => SavedShoutNullablePromise;
+  savedShouts: (args?: {
+    where?: SavedShoutWhereInput;
+    orderBy?: SavedShoutOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<SavedShout>;
+  savedShoutsConnection: (args?: {
+    where?: SavedShoutWhereInput;
+    orderBy?: SavedShoutOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => SavedShoutConnectionPromise;
+  savedVoid: (where: SavedVoidWhereUniqueInput) => SavedVoidNullablePromise;
+  savedVoids: (args?: {
+    where?: SavedVoidWhereInput;
+    orderBy?: SavedVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<SavedVoid>;
+  savedVoidsConnection: (args?: {
+    where?: SavedVoidWhereInput;
+    orderBy?: SavedVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => SavedVoidConnectionPromise;
   shoutInVoid: (
     where: ShoutInVoidWhereUniqueInput
   ) => ShoutInVoidNullablePromise;
@@ -121,6 +335,186 @@ export interface Prisma {
   }) => ContentPromise;
   deleteContent: (where: ContentWhereUniqueInput) => ContentPromise;
   deleteManyContents: (where?: ContentWhereInput) => BatchPayloadPromise;
+  createEchoEdge: (data: EchoEdgeCreateInput) => EchoEdgePromise;
+  updateEchoEdge: (args: {
+    data: EchoEdgeUpdateInput;
+    where: EchoEdgeWhereUniqueInput;
+  }) => EchoEdgePromise;
+  upsertEchoEdge: (args: {
+    where: EchoEdgeWhereUniqueInput;
+    create: EchoEdgeCreateInput;
+    update: EchoEdgeUpdateInput;
+  }) => EchoEdgePromise;
+  deleteEchoEdge: (where: EchoEdgeWhereUniqueInput) => EchoEdgePromise;
+  deleteManyEchoEdges: (where?: EchoEdgeWhereInput) => BatchPayloadPromise;
+  createEchoInVoid: (data: EchoInVoidCreateInput) => EchoInVoidPromise;
+  updateEchoInVoid: (args: {
+    data: EchoInVoidUpdateInput;
+    where: EchoInVoidWhereUniqueInput;
+  }) => EchoInVoidPromise;
+  updateManyEchoInVoids: (args: {
+    data: EchoInVoidUpdateManyMutationInput;
+    where?: EchoInVoidWhereInput;
+  }) => BatchPayloadPromise;
+  upsertEchoInVoid: (args: {
+    where: EchoInVoidWhereUniqueInput;
+    create: EchoInVoidCreateInput;
+    update: EchoInVoidUpdateInput;
+  }) => EchoInVoidPromise;
+  deleteEchoInVoid: (where: EchoInVoidWhereUniqueInput) => EchoInVoidPromise;
+  deleteManyEchoInVoids: (where?: EchoInVoidWhereInput) => BatchPayloadPromise;
+  createNVoid: (data: NVoidCreateInput) => NVoidPromise;
+  updateNVoid: (args: {
+    data: NVoidUpdateInput;
+    where: NVoidWhereUniqueInput;
+  }) => NVoidPromise;
+  updateManyNVoids: (args: {
+    data: NVoidUpdateManyMutationInput;
+    where?: NVoidWhereInput;
+  }) => BatchPayloadPromise;
+  upsertNVoid: (args: {
+    where: NVoidWhereUniqueInput;
+    create: NVoidCreateInput;
+    update: NVoidUpdateInput;
+  }) => NVoidPromise;
+  deleteNVoid: (where: NVoidWhereUniqueInput) => NVoidPromise;
+  deleteManyNVoids: (where?: NVoidWhereInput) => BatchPayloadPromise;
+  createReplyToEchoInVoid: (
+    data: ReplyToEchoInVoidCreateInput
+  ) => ReplyToEchoInVoidPromise;
+  updateReplyToEchoInVoid: (args: {
+    data: ReplyToEchoInVoidUpdateInput;
+    where: ReplyToEchoInVoidWhereUniqueInput;
+  }) => ReplyToEchoInVoidPromise;
+  updateManyReplyToEchoInVoids: (args: {
+    data: ReplyToEchoInVoidUpdateManyMutationInput;
+    where?: ReplyToEchoInVoidWhereInput;
+  }) => BatchPayloadPromise;
+  upsertReplyToEchoInVoid: (args: {
+    where: ReplyToEchoInVoidWhereUniqueInput;
+    create: ReplyToEchoInVoidCreateInput;
+    update: ReplyToEchoInVoidUpdateInput;
+  }) => ReplyToEchoInVoidPromise;
+  deleteReplyToEchoInVoid: (
+    where: ReplyToEchoInVoidWhereUniqueInput
+  ) => ReplyToEchoInVoidPromise;
+  deleteManyReplyToEchoInVoids: (
+    where?: ReplyToEchoInVoidWhereInput
+  ) => BatchPayloadPromise;
+  createReplyToShoutInVoid: (
+    data: ReplyToShoutInVoidCreateInput
+  ) => ReplyToShoutInVoidPromise;
+  updateReplyToShoutInVoid: (args: {
+    data: ReplyToShoutInVoidUpdateInput;
+    where: ReplyToShoutInVoidWhereUniqueInput;
+  }) => ReplyToShoutInVoidPromise;
+  updateManyReplyToShoutInVoids: (args: {
+    data: ReplyToShoutInVoidUpdateManyMutationInput;
+    where?: ReplyToShoutInVoidWhereInput;
+  }) => BatchPayloadPromise;
+  upsertReplyToShoutInVoid: (args: {
+    where: ReplyToShoutInVoidWhereUniqueInput;
+    create: ReplyToShoutInVoidCreateInput;
+    update: ReplyToShoutInVoidUpdateInput;
+  }) => ReplyToShoutInVoidPromise;
+  deleteReplyToShoutInVoid: (
+    where: ReplyToShoutInVoidWhereUniqueInput
+  ) => ReplyToShoutInVoidPromise;
+  deleteManyReplyToShoutInVoids: (
+    where?: ReplyToShoutInVoidWhereInput
+  ) => BatchPayloadPromise;
+  createSavedEcho: (data: SavedEchoCreateInput) => SavedEchoPromise;
+  updateSavedEcho: (args: {
+    data: SavedEchoUpdateInput;
+    where: SavedEchoWhereUniqueInput;
+  }) => SavedEchoPromise;
+  updateManySavedEchoes: (args: {
+    data: SavedEchoUpdateManyMutationInput;
+    where?: SavedEchoWhereInput;
+  }) => BatchPayloadPromise;
+  upsertSavedEcho: (args: {
+    where: SavedEchoWhereUniqueInput;
+    create: SavedEchoCreateInput;
+    update: SavedEchoUpdateInput;
+  }) => SavedEchoPromise;
+  deleteSavedEcho: (where: SavedEchoWhereUniqueInput) => SavedEchoPromise;
+  deleteManySavedEchoes: (where?: SavedEchoWhereInput) => BatchPayloadPromise;
+  createSavedReplyToEchoInVoid: (
+    data: SavedReplyToEchoInVoidCreateInput
+  ) => SavedReplyToEchoInVoidPromise;
+  updateSavedReplyToEchoInVoid: (args: {
+    data: SavedReplyToEchoInVoidUpdateInput;
+    where: SavedReplyToEchoInVoidWhereUniqueInput;
+  }) => SavedReplyToEchoInVoidPromise;
+  updateManySavedReplyToEchoInVoids: (args: {
+    data: SavedReplyToEchoInVoidUpdateManyMutationInput;
+    where?: SavedReplyToEchoInVoidWhereInput;
+  }) => BatchPayloadPromise;
+  upsertSavedReplyToEchoInVoid: (args: {
+    where: SavedReplyToEchoInVoidWhereUniqueInput;
+    create: SavedReplyToEchoInVoidCreateInput;
+    update: SavedReplyToEchoInVoidUpdateInput;
+  }) => SavedReplyToEchoInVoidPromise;
+  deleteSavedReplyToEchoInVoid: (
+    where: SavedReplyToEchoInVoidWhereUniqueInput
+  ) => SavedReplyToEchoInVoidPromise;
+  deleteManySavedReplyToEchoInVoids: (
+    where?: SavedReplyToEchoInVoidWhereInput
+  ) => BatchPayloadPromise;
+  createSavedReplyToShoutInVoid: (
+    data: SavedReplyToShoutInVoidCreateInput
+  ) => SavedReplyToShoutInVoidPromise;
+  updateSavedReplyToShoutInVoid: (args: {
+    data: SavedReplyToShoutInVoidUpdateInput;
+    where: SavedReplyToShoutInVoidWhereUniqueInput;
+  }) => SavedReplyToShoutInVoidPromise;
+  updateManySavedReplyToShoutInVoids: (args: {
+    data: SavedReplyToShoutInVoidUpdateManyMutationInput;
+    where?: SavedReplyToShoutInVoidWhereInput;
+  }) => BatchPayloadPromise;
+  upsertSavedReplyToShoutInVoid: (args: {
+    where: SavedReplyToShoutInVoidWhereUniqueInput;
+    create: SavedReplyToShoutInVoidCreateInput;
+    update: SavedReplyToShoutInVoidUpdateInput;
+  }) => SavedReplyToShoutInVoidPromise;
+  deleteSavedReplyToShoutInVoid: (
+    where: SavedReplyToShoutInVoidWhereUniqueInput
+  ) => SavedReplyToShoutInVoidPromise;
+  deleteManySavedReplyToShoutInVoids: (
+    where?: SavedReplyToShoutInVoidWhereInput
+  ) => BatchPayloadPromise;
+  createSavedShout: (data: SavedShoutCreateInput) => SavedShoutPromise;
+  updateSavedShout: (args: {
+    data: SavedShoutUpdateInput;
+    where: SavedShoutWhereUniqueInput;
+  }) => SavedShoutPromise;
+  updateManySavedShouts: (args: {
+    data: SavedShoutUpdateManyMutationInput;
+    where?: SavedShoutWhereInput;
+  }) => BatchPayloadPromise;
+  upsertSavedShout: (args: {
+    where: SavedShoutWhereUniqueInput;
+    create: SavedShoutCreateInput;
+    update: SavedShoutUpdateInput;
+  }) => SavedShoutPromise;
+  deleteSavedShout: (where: SavedShoutWhereUniqueInput) => SavedShoutPromise;
+  deleteManySavedShouts: (where?: SavedShoutWhereInput) => BatchPayloadPromise;
+  createSavedVoid: (data: SavedVoidCreateInput) => SavedVoidPromise;
+  updateSavedVoid: (args: {
+    data: SavedVoidUpdateInput;
+    where: SavedVoidWhereUniqueInput;
+  }) => SavedVoidPromise;
+  updateManySavedVoids: (args: {
+    data: SavedVoidUpdateManyMutationInput;
+    where?: SavedVoidWhereInput;
+  }) => BatchPayloadPromise;
+  upsertSavedVoid: (args: {
+    where: SavedVoidWhereUniqueInput;
+    create: SavedVoidCreateInput;
+    update: SavedVoidUpdateInput;
+  }) => SavedVoidPromise;
+  deleteSavedVoid: (where: SavedVoidWhereUniqueInput) => SavedVoidPromise;
+  deleteManySavedVoids: (where?: SavedVoidWhereInput) => BatchPayloadPromise;
   createShoutInVoid: (data: ShoutInVoidCreateInput) => ShoutInVoidPromise;
   updateShoutInVoid: (args: {
     data: ShoutInVoidUpdateInput;
@@ -167,6 +561,36 @@ export interface Subscription {
   content: (
     where?: ContentSubscriptionWhereInput
   ) => ContentSubscriptionPayloadSubscription;
+  echoEdge: (
+    where?: EchoEdgeSubscriptionWhereInput
+  ) => EchoEdgeSubscriptionPayloadSubscription;
+  echoInVoid: (
+    where?: EchoInVoidSubscriptionWhereInput
+  ) => EchoInVoidSubscriptionPayloadSubscription;
+  nVoid: (
+    where?: NVoidSubscriptionWhereInput
+  ) => NVoidSubscriptionPayloadSubscription;
+  replyToEchoInVoid: (
+    where?: ReplyToEchoInVoidSubscriptionWhereInput
+  ) => ReplyToEchoInVoidSubscriptionPayloadSubscription;
+  replyToShoutInVoid: (
+    where?: ReplyToShoutInVoidSubscriptionWhereInput
+  ) => ReplyToShoutInVoidSubscriptionPayloadSubscription;
+  savedEcho: (
+    where?: SavedEchoSubscriptionWhereInput
+  ) => SavedEchoSubscriptionPayloadSubscription;
+  savedReplyToEchoInVoid: (
+    where?: SavedReplyToEchoInVoidSubscriptionWhereInput
+  ) => SavedReplyToEchoInVoidSubscriptionPayloadSubscription;
+  savedReplyToShoutInVoid: (
+    where?: SavedReplyToShoutInVoidSubscriptionWhereInput
+  ) => SavedReplyToShoutInVoidSubscriptionPayloadSubscription;
+  savedShout: (
+    where?: SavedShoutSubscriptionWhereInput
+  ) => SavedShoutSubscriptionPayloadSubscription;
+  savedVoid: (
+    where?: SavedVoidSubscriptionWhereInput
+  ) => SavedVoidSubscriptionPayloadSubscription;
   shoutInVoid: (
     where?: ShoutInVoidSubscriptionWhereInput
   ) => ShoutInVoidSubscriptionPayloadSubscription;
@@ -190,6 +614,84 @@ export type ShoutInVoidOrderByInput =
   | "createdAt_DESC"
   | "voteCount_ASC"
   | "voteCount_DESC";
+
+export type EchoInVoidOrderByInput =
+  | "echoInVoidId_ASC"
+  | "echoInVoidId_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "voteCount_ASC"
+  | "voteCount_DESC"
+  | "originalShoutVoidGeohash_ASC"
+  | "originalShoutVoidGeohash_DESC";
+
+export type SavedEchoOrderByInput =
+  | "savedEcho_ASC"
+  | "savedEcho_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "originalShoutVoidGeohash_ASC"
+  | "originalShoutVoidGeohash_DESC"
+  | "originalEchoVoidGeohash_ASC"
+  | "originalEchoVoidGeohash_DESC";
+
+export type ReplyToEchoInVoidOrderByInput =
+  | "replyToEchoInVoidId_ASC"
+  | "replyToEchoInVoidId_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "voteCount_ASC"
+  | "voteCount_DESC";
+
+export type SavedReplyToEchoInVoidOrderByInput =
+  | "savedReplyToEchoInVoid_ASC"
+  | "savedReplyToEchoInVoid_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "originalVoidGeohash_ASC"
+  | "originalVoidGeohash_DESC";
+
+export type EchoEdgeOrderByInput = "echoEdegId_ASC" | "echoEdegId_DESC";
+
+export type SavedShoutOrderByInput =
+  | "savedShoutId_ASC"
+  | "savedShoutId_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "originalShoutVoidGeohash_ASC"
+  | "originalShoutVoidGeohash_DESC";
+
+export type ReplyToShoutInVoidOrderByInput =
+  | "replyToShoutInVoidId_ASC"
+  | "replyToShoutInVoidId_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "voteCount_ASC"
+  | "voteCount_DESC";
+
+export type SavedReplyToShoutInVoidOrderByInput =
+  | "savedReplyToShoutInVoidId_ASC"
+  | "savedReplyToShoutInVoidId_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "originalVoidGeohash_ASC"
+  | "originalVoidGeohash_DESC";
+
+export type NVoidOrderByInput =
+  | "voidId_ASC"
+  | "voidId_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "voidGeohash_ASC"
+  | "voidGeohash_DESC";
+
+export type SavedVoidOrderByInput =
+  | "savedVoidId_ASC"
+  | "savedVoidId_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "voidGeohash_ASC"
+  | "voidGeohash_DESC";
 
 export type ContentOrderByInput =
   | "contentId_ASC"
@@ -252,6 +754,16 @@ export interface ShoutInVoidWhereInput {
   voteCount_lte?: Maybe<Int>;
   voteCount_gt?: Maybe<Int>;
   voteCount_gte?: Maybe<Int>;
+  nvoid?: Maybe<NVoidWhereInput>;
+  savedShouts_every?: Maybe<SavedShoutWhereInput>;
+  savedShouts_some?: Maybe<SavedShoutWhereInput>;
+  savedShouts_none?: Maybe<SavedShoutWhereInput>;
+  replies_every?: Maybe<ReplyToShoutInVoidWhereInput>;
+  replies_some?: Maybe<ReplyToShoutInVoidWhereInput>;
+  replies_none?: Maybe<ReplyToShoutInVoidWhereInput>;
+  echoEdges_every?: Maybe<EchoEdgeWhereInput>;
+  echoEdges_some?: Maybe<EchoEdgeWhereInput>;
+  echoEdges_none?: Maybe<EchoEdgeWhereInput>;
   AND?: Maybe<ShoutInVoidWhereInput[] | ShoutInVoidWhereInput>;
   OR?: Maybe<ShoutInVoidWhereInput[] | ShoutInVoidWhereInput>;
   NOT?: Maybe<ShoutInVoidWhereInput[] | ShoutInVoidWhereInput>;
@@ -325,9 +837,84 @@ export interface UserWhereInput {
   shoutsInVoids_every?: Maybe<ShoutInVoidWhereInput>;
   shoutsInVoids_some?: Maybe<ShoutInVoidWhereInput>;
   shoutsInVoids_none?: Maybe<ShoutInVoidWhereInput>;
+  savedShouts_every?: Maybe<SavedShoutWhereInput>;
+  savedShouts_some?: Maybe<SavedShoutWhereInput>;
+  savedShouts_none?: Maybe<SavedShoutWhereInput>;
+  echosInVoids_every?: Maybe<EchoInVoidWhereInput>;
+  echosInVoids_some?: Maybe<EchoInVoidWhereInput>;
+  echosInVoids_none?: Maybe<EchoInVoidWhereInput>;
+  savedEchos_every?: Maybe<SavedEchoWhereInput>;
+  savedEchos_some?: Maybe<SavedEchoWhereInput>;
+  savedEchos_none?: Maybe<SavedEchoWhereInput>;
+  repliesToShoutsInVoids_every?: Maybe<ReplyToShoutInVoidWhereInput>;
+  repliesToShoutsInVoids_some?: Maybe<ReplyToShoutInVoidWhereInput>;
+  repliesToShoutsInVoids_none?: Maybe<ReplyToShoutInVoidWhereInput>;
+  savedRepliesToShoutsInVoids_every?: Maybe<SavedReplyToShoutInVoidWhereInput>;
+  savedRepliesToShoutsInVoids_some?: Maybe<SavedReplyToShoutInVoidWhereInput>;
+  savedRepliesToShoutsInVoids_none?: Maybe<SavedReplyToShoutInVoidWhereInput>;
+  repliesToEchosInVoids_every?: Maybe<ReplyToEchoInVoidWhereInput>;
+  repliesToEchosInVoids_some?: Maybe<ReplyToEchoInVoidWhereInput>;
+  repliesToEchosInVoids_none?: Maybe<ReplyToEchoInVoidWhereInput>;
+  savedRepliesToEchosInVoids_every?: Maybe<SavedReplyToEchoInVoidWhereInput>;
+  savedRepliesToEchosInVoids_some?: Maybe<SavedReplyToEchoInVoidWhereInput>;
+  savedRepliesToEchosInVoids_none?: Maybe<SavedReplyToEchoInVoidWhereInput>;
+  createdVoids_every?: Maybe<NVoidWhereInput>;
+  createdVoids_some?: Maybe<NVoidWhereInput>;
+  createdVoids_none?: Maybe<NVoidWhereInput>;
+  savedVoids_every?: Maybe<SavedVoidWhereInput>;
+  savedVoids_some?: Maybe<SavedVoidWhereInput>;
+  savedVoids_none?: Maybe<SavedVoidWhereInput>;
   AND?: Maybe<UserWhereInput[] | UserWhereInput>;
   OR?: Maybe<UserWhereInput[] | UserWhereInput>;
   NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
+}
+
+export interface SavedShoutWhereInput {
+  savedShoutId?: Maybe<ID_Input>;
+  savedShoutId_not?: Maybe<ID_Input>;
+  savedShoutId_in?: Maybe<ID_Input[] | ID_Input>;
+  savedShoutId_not_in?: Maybe<ID_Input[] | ID_Input>;
+  savedShoutId_lt?: Maybe<ID_Input>;
+  savedShoutId_lte?: Maybe<ID_Input>;
+  savedShoutId_gt?: Maybe<ID_Input>;
+  savedShoutId_gte?: Maybe<ID_Input>;
+  savedShoutId_contains?: Maybe<ID_Input>;
+  savedShoutId_not_contains?: Maybe<ID_Input>;
+  savedShoutId_starts_with?: Maybe<ID_Input>;
+  savedShoutId_not_starts_with?: Maybe<ID_Input>;
+  savedShoutId_ends_with?: Maybe<ID_Input>;
+  savedShoutId_not_ends_with?: Maybe<ID_Input>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  savedByUser?: Maybe<UserWhereInput>;
+  originalContent?: Maybe<ContentWhereInput>;
+  originalShoutVoidGeohash?: Maybe<String>;
+  originalShoutVoidGeohash_not?: Maybe<String>;
+  originalShoutVoidGeohash_in?: Maybe<String[] | String>;
+  originalShoutVoidGeohash_not_in?: Maybe<String[] | String>;
+  originalShoutVoidGeohash_lt?: Maybe<String>;
+  originalShoutVoidGeohash_lte?: Maybe<String>;
+  originalShoutVoidGeohash_gt?: Maybe<String>;
+  originalShoutVoidGeohash_gte?: Maybe<String>;
+  originalShoutVoidGeohash_contains?: Maybe<String>;
+  originalShoutVoidGeohash_not_contains?: Maybe<String>;
+  originalShoutVoidGeohash_starts_with?: Maybe<String>;
+  originalShoutVoidGeohash_not_starts_with?: Maybe<String>;
+  originalShoutVoidGeohash_ends_with?: Maybe<String>;
+  originalShoutVoidGeohash_not_ends_with?: Maybe<String>;
+  shoutInVoid?: Maybe<ShoutInVoidWhereInput>;
+  echoEdges_every?: Maybe<EchoEdgeWhereInput>;
+  echoEdges_some?: Maybe<EchoEdgeWhereInput>;
+  echoEdges_none?: Maybe<EchoEdgeWhereInput>;
+  AND?: Maybe<SavedShoutWhereInput[] | SavedShoutWhereInput>;
+  OR?: Maybe<SavedShoutWhereInput[] | SavedShoutWhereInput>;
+  NOT?: Maybe<SavedShoutWhereInput[] | SavedShoutWhereInput>;
 }
 
 export interface ContentWhereInput {
@@ -375,6 +962,468 @@ export interface ContentWhereInput {
   NOT?: Maybe<ContentWhereInput[] | ContentWhereInput>;
 }
 
+export interface EchoEdgeWhereInput {
+  echoEdegId?: Maybe<ID_Input>;
+  echoEdegId_not?: Maybe<ID_Input>;
+  echoEdegId_in?: Maybe<ID_Input[] | ID_Input>;
+  echoEdegId_not_in?: Maybe<ID_Input[] | ID_Input>;
+  echoEdegId_lt?: Maybe<ID_Input>;
+  echoEdegId_lte?: Maybe<ID_Input>;
+  echoEdegId_gt?: Maybe<ID_Input>;
+  echoEdegId_gte?: Maybe<ID_Input>;
+  echoEdegId_contains?: Maybe<ID_Input>;
+  echoEdegId_not_contains?: Maybe<ID_Input>;
+  echoEdegId_starts_with?: Maybe<ID_Input>;
+  echoEdegId_not_starts_with?: Maybe<ID_Input>;
+  echoEdegId_ends_with?: Maybe<ID_Input>;
+  echoEdegId_not_ends_with?: Maybe<ID_Input>;
+  shoutInVoid?: Maybe<ShoutInVoidWhereInput>;
+  savedShout?: Maybe<SavedShoutWhereInput>;
+  echoInVoid?: Maybe<EchoInVoidWhereInput>;
+  AND?: Maybe<EchoEdgeWhereInput[] | EchoEdgeWhereInput>;
+  OR?: Maybe<EchoEdgeWhereInput[] | EchoEdgeWhereInput>;
+  NOT?: Maybe<EchoEdgeWhereInput[] | EchoEdgeWhereInput>;
+}
+
+export interface EchoInVoidWhereInput {
+  echoInVoidId?: Maybe<ID_Input>;
+  echoInVoidId_not?: Maybe<ID_Input>;
+  echoInVoidId_in?: Maybe<ID_Input[] | ID_Input>;
+  echoInVoidId_not_in?: Maybe<ID_Input[] | ID_Input>;
+  echoInVoidId_lt?: Maybe<ID_Input>;
+  echoInVoidId_lte?: Maybe<ID_Input>;
+  echoInVoidId_gt?: Maybe<ID_Input>;
+  echoInVoidId_gte?: Maybe<ID_Input>;
+  echoInVoidId_contains?: Maybe<ID_Input>;
+  echoInVoidId_not_contains?: Maybe<ID_Input>;
+  echoInVoidId_starts_with?: Maybe<ID_Input>;
+  echoInVoidId_not_starts_with?: Maybe<ID_Input>;
+  echoInVoidId_ends_with?: Maybe<ID_Input>;
+  echoInVoidId_not_ends_with?: Maybe<ID_Input>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  echoedBy?: Maybe<UserWhereInput>;
+  originalContent?: Maybe<ContentWhereInput>;
+  voteCount?: Maybe<Int>;
+  voteCount_not?: Maybe<Int>;
+  voteCount_in?: Maybe<Int[] | Int>;
+  voteCount_not_in?: Maybe<Int[] | Int>;
+  voteCount_lt?: Maybe<Int>;
+  voteCount_lte?: Maybe<Int>;
+  voteCount_gt?: Maybe<Int>;
+  voteCount_gte?: Maybe<Int>;
+  originalShoutVoidGeohash?: Maybe<String>;
+  originalShoutVoidGeohash_not?: Maybe<String>;
+  originalShoutVoidGeohash_in?: Maybe<String[] | String>;
+  originalShoutVoidGeohash_not_in?: Maybe<String[] | String>;
+  originalShoutVoidGeohash_lt?: Maybe<String>;
+  originalShoutVoidGeohash_lte?: Maybe<String>;
+  originalShoutVoidGeohash_gt?: Maybe<String>;
+  originalShoutVoidGeohash_gte?: Maybe<String>;
+  originalShoutVoidGeohash_contains?: Maybe<String>;
+  originalShoutVoidGeohash_not_contains?: Maybe<String>;
+  originalShoutVoidGeohash_starts_with?: Maybe<String>;
+  originalShoutVoidGeohash_not_starts_with?: Maybe<String>;
+  originalShoutVoidGeohash_ends_with?: Maybe<String>;
+  originalShoutVoidGeohash_not_ends_with?: Maybe<String>;
+  nvoid?: Maybe<NVoidWhereInput>;
+  savedEchos_every?: Maybe<SavedEchoWhereInput>;
+  savedEchos_some?: Maybe<SavedEchoWhereInput>;
+  savedEchos_none?: Maybe<SavedEchoWhereInput>;
+  replies_every?: Maybe<ReplyToEchoInVoidWhereInput>;
+  replies_some?: Maybe<ReplyToEchoInVoidWhereInput>;
+  replies_none?: Maybe<ReplyToEchoInVoidWhereInput>;
+  echoEdge?: Maybe<EchoEdgeWhereInput>;
+  AND?: Maybe<EchoInVoidWhereInput[] | EchoInVoidWhereInput>;
+  OR?: Maybe<EchoInVoidWhereInput[] | EchoInVoidWhereInput>;
+  NOT?: Maybe<EchoInVoidWhereInput[] | EchoInVoidWhereInput>;
+}
+
+export interface NVoidWhereInput {
+  voidId?: Maybe<ID_Input>;
+  voidId_not?: Maybe<ID_Input>;
+  voidId_in?: Maybe<ID_Input[] | ID_Input>;
+  voidId_not_in?: Maybe<ID_Input[] | ID_Input>;
+  voidId_lt?: Maybe<ID_Input>;
+  voidId_lte?: Maybe<ID_Input>;
+  voidId_gt?: Maybe<ID_Input>;
+  voidId_gte?: Maybe<ID_Input>;
+  voidId_contains?: Maybe<ID_Input>;
+  voidId_not_contains?: Maybe<ID_Input>;
+  voidId_starts_with?: Maybe<ID_Input>;
+  voidId_not_starts_with?: Maybe<ID_Input>;
+  voidId_ends_with?: Maybe<ID_Input>;
+  voidId_not_ends_with?: Maybe<ID_Input>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  createdBy?: Maybe<UserWhereInput>;
+  voidGeohash?: Maybe<String>;
+  voidGeohash_not?: Maybe<String>;
+  voidGeohash_in?: Maybe<String[] | String>;
+  voidGeohash_not_in?: Maybe<String[] | String>;
+  voidGeohash_lt?: Maybe<String>;
+  voidGeohash_lte?: Maybe<String>;
+  voidGeohash_gt?: Maybe<String>;
+  voidGeohash_gte?: Maybe<String>;
+  voidGeohash_contains?: Maybe<String>;
+  voidGeohash_not_contains?: Maybe<String>;
+  voidGeohash_starts_with?: Maybe<String>;
+  voidGeohash_not_starts_with?: Maybe<String>;
+  voidGeohash_ends_with?: Maybe<String>;
+  voidGeohash_not_ends_with?: Maybe<String>;
+  shouts_every?: Maybe<ShoutInVoidWhereInput>;
+  shouts_some?: Maybe<ShoutInVoidWhereInput>;
+  shouts_none?: Maybe<ShoutInVoidWhereInput>;
+  echos_every?: Maybe<EchoInVoidWhereInput>;
+  echos_some?: Maybe<EchoInVoidWhereInput>;
+  echos_none?: Maybe<EchoInVoidWhereInput>;
+  AND?: Maybe<NVoidWhereInput[] | NVoidWhereInput>;
+  OR?: Maybe<NVoidWhereInput[] | NVoidWhereInput>;
+  NOT?: Maybe<NVoidWhereInput[] | NVoidWhereInput>;
+}
+
+export interface SavedEchoWhereInput {
+  savedEcho?: Maybe<ID_Input>;
+  savedEcho_not?: Maybe<ID_Input>;
+  savedEcho_in?: Maybe<ID_Input[] | ID_Input>;
+  savedEcho_not_in?: Maybe<ID_Input[] | ID_Input>;
+  savedEcho_lt?: Maybe<ID_Input>;
+  savedEcho_lte?: Maybe<ID_Input>;
+  savedEcho_gt?: Maybe<ID_Input>;
+  savedEcho_gte?: Maybe<ID_Input>;
+  savedEcho_contains?: Maybe<ID_Input>;
+  savedEcho_not_contains?: Maybe<ID_Input>;
+  savedEcho_starts_with?: Maybe<ID_Input>;
+  savedEcho_not_starts_with?: Maybe<ID_Input>;
+  savedEcho_ends_with?: Maybe<ID_Input>;
+  savedEcho_not_ends_with?: Maybe<ID_Input>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  savedBy?: Maybe<UserWhereInput>;
+  originalContent?: Maybe<ContentWhereInput>;
+  originalShoutVoidGeohash?: Maybe<String>;
+  originalShoutVoidGeohash_not?: Maybe<String>;
+  originalShoutVoidGeohash_in?: Maybe<String[] | String>;
+  originalShoutVoidGeohash_not_in?: Maybe<String[] | String>;
+  originalShoutVoidGeohash_lt?: Maybe<String>;
+  originalShoutVoidGeohash_lte?: Maybe<String>;
+  originalShoutVoidGeohash_gt?: Maybe<String>;
+  originalShoutVoidGeohash_gte?: Maybe<String>;
+  originalShoutVoidGeohash_contains?: Maybe<String>;
+  originalShoutVoidGeohash_not_contains?: Maybe<String>;
+  originalShoutVoidGeohash_starts_with?: Maybe<String>;
+  originalShoutVoidGeohash_not_starts_with?: Maybe<String>;
+  originalShoutVoidGeohash_ends_with?: Maybe<String>;
+  originalShoutVoidGeohash_not_ends_with?: Maybe<String>;
+  originalEchoVoidGeohash?: Maybe<String>;
+  originalEchoVoidGeohash_not?: Maybe<String>;
+  originalEchoVoidGeohash_in?: Maybe<String[] | String>;
+  originalEchoVoidGeohash_not_in?: Maybe<String[] | String>;
+  originalEchoVoidGeohash_lt?: Maybe<String>;
+  originalEchoVoidGeohash_lte?: Maybe<String>;
+  originalEchoVoidGeohash_gt?: Maybe<String>;
+  originalEchoVoidGeohash_gte?: Maybe<String>;
+  originalEchoVoidGeohash_contains?: Maybe<String>;
+  originalEchoVoidGeohash_not_contains?: Maybe<String>;
+  originalEchoVoidGeohash_starts_with?: Maybe<String>;
+  originalEchoVoidGeohash_not_starts_with?: Maybe<String>;
+  originalEchoVoidGeohash_ends_with?: Maybe<String>;
+  originalEchoVoidGeohash_not_ends_with?: Maybe<String>;
+  echoInVoid?: Maybe<EchoInVoidWhereInput>;
+  AND?: Maybe<SavedEchoWhereInput[] | SavedEchoWhereInput>;
+  OR?: Maybe<SavedEchoWhereInput[] | SavedEchoWhereInput>;
+  NOT?: Maybe<SavedEchoWhereInput[] | SavedEchoWhereInput>;
+}
+
+export interface ReplyToEchoInVoidWhereInput {
+  replyToEchoInVoidId?: Maybe<ID_Input>;
+  replyToEchoInVoidId_not?: Maybe<ID_Input>;
+  replyToEchoInVoidId_in?: Maybe<ID_Input[] | ID_Input>;
+  replyToEchoInVoidId_not_in?: Maybe<ID_Input[] | ID_Input>;
+  replyToEchoInVoidId_lt?: Maybe<ID_Input>;
+  replyToEchoInVoidId_lte?: Maybe<ID_Input>;
+  replyToEchoInVoidId_gt?: Maybe<ID_Input>;
+  replyToEchoInVoidId_gte?: Maybe<ID_Input>;
+  replyToEchoInVoidId_contains?: Maybe<ID_Input>;
+  replyToEchoInVoidId_not_contains?: Maybe<ID_Input>;
+  replyToEchoInVoidId_starts_with?: Maybe<ID_Input>;
+  replyToEchoInVoidId_not_starts_with?: Maybe<ID_Input>;
+  replyToEchoInVoidId_ends_with?: Maybe<ID_Input>;
+  replyToEchoInVoidId_not_ends_with?: Maybe<ID_Input>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  createdBy?: Maybe<UserWhereInput>;
+  content?: Maybe<ContentWhereInput>;
+  voteCount?: Maybe<Int>;
+  voteCount_not?: Maybe<Int>;
+  voteCount_in?: Maybe<Int[] | Int>;
+  voteCount_not_in?: Maybe<Int[] | Int>;
+  voteCount_lt?: Maybe<Int>;
+  voteCount_lte?: Maybe<Int>;
+  voteCount_gt?: Maybe<Int>;
+  voteCount_gte?: Maybe<Int>;
+  echoInVoid?: Maybe<EchoInVoidWhereInput>;
+  savedReplies_every?: Maybe<SavedReplyToEchoInVoidWhereInput>;
+  savedReplies_some?: Maybe<SavedReplyToEchoInVoidWhereInput>;
+  savedReplies_none?: Maybe<SavedReplyToEchoInVoidWhereInput>;
+  AND?: Maybe<ReplyToEchoInVoidWhereInput[] | ReplyToEchoInVoidWhereInput>;
+  OR?: Maybe<ReplyToEchoInVoidWhereInput[] | ReplyToEchoInVoidWhereInput>;
+  NOT?: Maybe<ReplyToEchoInVoidWhereInput[] | ReplyToEchoInVoidWhereInput>;
+}
+
+export interface SavedReplyToEchoInVoidWhereInput {
+  savedReplyToEchoInVoid?: Maybe<ID_Input>;
+  savedReplyToEchoInVoid_not?: Maybe<ID_Input>;
+  savedReplyToEchoInVoid_in?: Maybe<ID_Input[] | ID_Input>;
+  savedReplyToEchoInVoid_not_in?: Maybe<ID_Input[] | ID_Input>;
+  savedReplyToEchoInVoid_lt?: Maybe<ID_Input>;
+  savedReplyToEchoInVoid_lte?: Maybe<ID_Input>;
+  savedReplyToEchoInVoid_gt?: Maybe<ID_Input>;
+  savedReplyToEchoInVoid_gte?: Maybe<ID_Input>;
+  savedReplyToEchoInVoid_contains?: Maybe<ID_Input>;
+  savedReplyToEchoInVoid_not_contains?: Maybe<ID_Input>;
+  savedReplyToEchoInVoid_starts_with?: Maybe<ID_Input>;
+  savedReplyToEchoInVoid_not_starts_with?: Maybe<ID_Input>;
+  savedReplyToEchoInVoid_ends_with?: Maybe<ID_Input>;
+  savedReplyToEchoInVoid_not_ends_with?: Maybe<ID_Input>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  savedBy?: Maybe<UserWhereInput>;
+  originalReplyContent?: Maybe<ContentWhereInput>;
+  originalShoutContent?: Maybe<ContentWhereInput>;
+  originalVoidGeohash?: Maybe<String>;
+  originalVoidGeohash_not?: Maybe<String>;
+  originalVoidGeohash_in?: Maybe<String[] | String>;
+  originalVoidGeohash_not_in?: Maybe<String[] | String>;
+  originalVoidGeohash_lt?: Maybe<String>;
+  originalVoidGeohash_lte?: Maybe<String>;
+  originalVoidGeohash_gt?: Maybe<String>;
+  originalVoidGeohash_gte?: Maybe<String>;
+  originalVoidGeohash_contains?: Maybe<String>;
+  originalVoidGeohash_not_contains?: Maybe<String>;
+  originalVoidGeohash_starts_with?: Maybe<String>;
+  originalVoidGeohash_not_starts_with?: Maybe<String>;
+  originalVoidGeohash_ends_with?: Maybe<String>;
+  originalVoidGeohash_not_ends_with?: Maybe<String>;
+  replyToEchoInVoid?: Maybe<ReplyToEchoInVoidWhereInput>;
+  AND?: Maybe<
+    SavedReplyToEchoInVoidWhereInput[] | SavedReplyToEchoInVoidWhereInput
+  >;
+  OR?: Maybe<
+    SavedReplyToEchoInVoidWhereInput[] | SavedReplyToEchoInVoidWhereInput
+  >;
+  NOT?: Maybe<
+    SavedReplyToEchoInVoidWhereInput[] | SavedReplyToEchoInVoidWhereInput
+  >;
+}
+
+export interface ReplyToShoutInVoidWhereInput {
+  replyToShoutInVoidId?: Maybe<ID_Input>;
+  replyToShoutInVoidId_not?: Maybe<ID_Input>;
+  replyToShoutInVoidId_in?: Maybe<ID_Input[] | ID_Input>;
+  replyToShoutInVoidId_not_in?: Maybe<ID_Input[] | ID_Input>;
+  replyToShoutInVoidId_lt?: Maybe<ID_Input>;
+  replyToShoutInVoidId_lte?: Maybe<ID_Input>;
+  replyToShoutInVoidId_gt?: Maybe<ID_Input>;
+  replyToShoutInVoidId_gte?: Maybe<ID_Input>;
+  replyToShoutInVoidId_contains?: Maybe<ID_Input>;
+  replyToShoutInVoidId_not_contains?: Maybe<ID_Input>;
+  replyToShoutInVoidId_starts_with?: Maybe<ID_Input>;
+  replyToShoutInVoidId_not_starts_with?: Maybe<ID_Input>;
+  replyToShoutInVoidId_ends_with?: Maybe<ID_Input>;
+  replyToShoutInVoidId_not_ends_with?: Maybe<ID_Input>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  createdBy?: Maybe<UserWhereInput>;
+  content?: Maybe<ContentWhereInput>;
+  voteCount?: Maybe<Int>;
+  voteCount_not?: Maybe<Int>;
+  voteCount_in?: Maybe<Int[] | Int>;
+  voteCount_not_in?: Maybe<Int[] | Int>;
+  voteCount_lt?: Maybe<Int>;
+  voteCount_lte?: Maybe<Int>;
+  voteCount_gt?: Maybe<Int>;
+  voteCount_gte?: Maybe<Int>;
+  shoutInVoid?: Maybe<ShoutInVoidWhereInput>;
+  savedReplies_every?: Maybe<SavedReplyToShoutInVoidWhereInput>;
+  savedReplies_some?: Maybe<SavedReplyToShoutInVoidWhereInput>;
+  savedReplies_none?: Maybe<SavedReplyToShoutInVoidWhereInput>;
+  AND?: Maybe<ReplyToShoutInVoidWhereInput[] | ReplyToShoutInVoidWhereInput>;
+  OR?: Maybe<ReplyToShoutInVoidWhereInput[] | ReplyToShoutInVoidWhereInput>;
+  NOT?: Maybe<ReplyToShoutInVoidWhereInput[] | ReplyToShoutInVoidWhereInput>;
+}
+
+export interface SavedReplyToShoutInVoidWhereInput {
+  savedReplyToShoutInVoidId?: Maybe<ID_Input>;
+  savedReplyToShoutInVoidId_not?: Maybe<ID_Input>;
+  savedReplyToShoutInVoidId_in?: Maybe<ID_Input[] | ID_Input>;
+  savedReplyToShoutInVoidId_not_in?: Maybe<ID_Input[] | ID_Input>;
+  savedReplyToShoutInVoidId_lt?: Maybe<ID_Input>;
+  savedReplyToShoutInVoidId_lte?: Maybe<ID_Input>;
+  savedReplyToShoutInVoidId_gt?: Maybe<ID_Input>;
+  savedReplyToShoutInVoidId_gte?: Maybe<ID_Input>;
+  savedReplyToShoutInVoidId_contains?: Maybe<ID_Input>;
+  savedReplyToShoutInVoidId_not_contains?: Maybe<ID_Input>;
+  savedReplyToShoutInVoidId_starts_with?: Maybe<ID_Input>;
+  savedReplyToShoutInVoidId_not_starts_with?: Maybe<ID_Input>;
+  savedReplyToShoutInVoidId_ends_with?: Maybe<ID_Input>;
+  savedReplyToShoutInVoidId_not_ends_with?: Maybe<ID_Input>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  savedBy?: Maybe<UserWhereInput>;
+  originalReplyContent?: Maybe<ContentWhereInput>;
+  originalShoutContent?: Maybe<ContentWhereInput>;
+  originalVoidGeohash?: Maybe<String>;
+  originalVoidGeohash_not?: Maybe<String>;
+  originalVoidGeohash_in?: Maybe<String[] | String>;
+  originalVoidGeohash_not_in?: Maybe<String[] | String>;
+  originalVoidGeohash_lt?: Maybe<String>;
+  originalVoidGeohash_lte?: Maybe<String>;
+  originalVoidGeohash_gt?: Maybe<String>;
+  originalVoidGeohash_gte?: Maybe<String>;
+  originalVoidGeohash_contains?: Maybe<String>;
+  originalVoidGeohash_not_contains?: Maybe<String>;
+  originalVoidGeohash_starts_with?: Maybe<String>;
+  originalVoidGeohash_not_starts_with?: Maybe<String>;
+  originalVoidGeohash_ends_with?: Maybe<String>;
+  originalVoidGeohash_not_ends_with?: Maybe<String>;
+  replyToShoutInVoid?: Maybe<ReplyToShoutInVoidWhereInput>;
+  AND?: Maybe<
+    SavedReplyToShoutInVoidWhereInput[] | SavedReplyToShoutInVoidWhereInput
+  >;
+  OR?: Maybe<
+    SavedReplyToShoutInVoidWhereInput[] | SavedReplyToShoutInVoidWhereInput
+  >;
+  NOT?: Maybe<
+    SavedReplyToShoutInVoidWhereInput[] | SavedReplyToShoutInVoidWhereInput
+  >;
+}
+
+export interface SavedVoidWhereInput {
+  savedVoidId?: Maybe<ID_Input>;
+  savedVoidId_not?: Maybe<ID_Input>;
+  savedVoidId_in?: Maybe<ID_Input[] | ID_Input>;
+  savedVoidId_not_in?: Maybe<ID_Input[] | ID_Input>;
+  savedVoidId_lt?: Maybe<ID_Input>;
+  savedVoidId_lte?: Maybe<ID_Input>;
+  savedVoidId_gt?: Maybe<ID_Input>;
+  savedVoidId_gte?: Maybe<ID_Input>;
+  savedVoidId_contains?: Maybe<ID_Input>;
+  savedVoidId_not_contains?: Maybe<ID_Input>;
+  savedVoidId_starts_with?: Maybe<ID_Input>;
+  savedVoidId_not_starts_with?: Maybe<ID_Input>;
+  savedVoidId_ends_with?: Maybe<ID_Input>;
+  savedVoidId_not_ends_with?: Maybe<ID_Input>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  createdBy?: Maybe<UserWhereInput>;
+  voidGeohash?: Maybe<String>;
+  voidGeohash_not?: Maybe<String>;
+  voidGeohash_in?: Maybe<String[] | String>;
+  voidGeohash_not_in?: Maybe<String[] | String>;
+  voidGeohash_lt?: Maybe<String>;
+  voidGeohash_lte?: Maybe<String>;
+  voidGeohash_gt?: Maybe<String>;
+  voidGeohash_gte?: Maybe<String>;
+  voidGeohash_contains?: Maybe<String>;
+  voidGeohash_not_contains?: Maybe<String>;
+  voidGeohash_starts_with?: Maybe<String>;
+  voidGeohash_not_starts_with?: Maybe<String>;
+  voidGeohash_ends_with?: Maybe<String>;
+  voidGeohash_not_ends_with?: Maybe<String>;
+  AND?: Maybe<SavedVoidWhereInput[] | SavedVoidWhereInput>;
+  OR?: Maybe<SavedVoidWhereInput[] | SavedVoidWhereInput>;
+  NOT?: Maybe<SavedVoidWhereInput[] | SavedVoidWhereInput>;
+}
+
+export type EchoEdgeWhereUniqueInput = AtLeastOne<{
+  echoEdegId: Maybe<ID_Input>;
+}>;
+
+export type EchoInVoidWhereUniqueInput = AtLeastOne<{
+  echoInVoidId: Maybe<ID_Input>;
+}>;
+
+export type NVoidWhereUniqueInput = AtLeastOne<{
+  voidId: Maybe<ID_Input>;
+}>;
+
+export type ReplyToEchoInVoidWhereUniqueInput = AtLeastOne<{
+  replyToEchoInVoidId: Maybe<ID_Input>;
+}>;
+
+export type ReplyToShoutInVoidWhereUniqueInput = AtLeastOne<{
+  replyToShoutInVoidId: Maybe<ID_Input>;
+}>;
+
+export type SavedEchoWhereUniqueInput = AtLeastOne<{
+  savedEcho: Maybe<ID_Input>;
+}>;
+
+export type SavedReplyToEchoInVoidWhereUniqueInput = AtLeastOne<{
+  savedReplyToEchoInVoid: Maybe<ID_Input>;
+}>;
+
+export type SavedReplyToShoutInVoidWhereUniqueInput = AtLeastOne<{
+  savedReplyToShoutInVoidId: Maybe<ID_Input>;
+}>;
+
+export type SavedShoutWhereUniqueInput = AtLeastOne<{
+  savedShoutId: Maybe<ID_Input>;
+}>;
+
+export type SavedVoidWhereUniqueInput = AtLeastOne<{
+  savedVoidId: Maybe<ID_Input>;
+}>;
+
 export type ShoutInVoidWhereUniqueInput = AtLeastOne<{
   shoutInVoidId: Maybe<ID_Input>;
 }>;
@@ -401,6 +1450,23 @@ export interface UserCreateInput {
   password: String;
   currentLocationGeohash: String;
   shoutsInVoids?: Maybe<ShoutInVoidCreateManyWithoutShoutedByInput>;
+  savedShouts?: Maybe<SavedShoutCreateManyWithoutSavedByUserInput>;
+  echosInVoids?: Maybe<EchoInVoidCreateManyWithoutEchoedByInput>;
+  savedEchos?: Maybe<SavedEchoCreateManyWithoutSavedByInput>;
+  repliesToShoutsInVoids?: Maybe<
+    ReplyToShoutInVoidCreateManyWithoutCreatedByInput
+  >;
+  savedRepliesToShoutsInVoids?: Maybe<
+    SavedReplyToShoutInVoidCreateManyWithoutSavedByInput
+  >;
+  repliesToEchosInVoids?: Maybe<
+    ReplyToEchoInVoidCreateManyWithoutCreatedByInput
+  >;
+  savedRepliesToEchosInVoids?: Maybe<
+    SavedReplyToEchoInVoidCreateManyWithoutSavedByInput
+  >;
+  createdVoids?: Maybe<NVoidCreateManyWithoutCreatedByInput>;
+  savedVoids?: Maybe<SavedVoidCreateManyWithoutCreatedByInput>;
 }
 
 export interface ShoutInVoidCreateManyWithoutShoutedByInput {
@@ -415,11 +1481,763 @@ export interface ShoutInVoidCreateWithoutShoutedByInput {
   shoutInVoidId?: Maybe<ID_Input>;
   content: ContentCreateOneInput;
   voteCount: Int;
+  nvoid: NVoidCreateOneWithoutShoutsInput;
+  savedShouts?: Maybe<SavedShoutCreateManyWithoutShoutInVoidInput>;
+  replies?: Maybe<ReplyToShoutInVoidCreateManyWithoutShoutInVoidInput>;
+  echoEdges?: Maybe<EchoEdgeCreateManyWithoutShoutInVoidInput>;
 }
 
 export interface ContentCreateOneInput {
   create?: Maybe<ContentCreateInput>;
   connect?: Maybe<ContentWhereUniqueInput>;
+}
+
+export interface NVoidCreateOneWithoutShoutsInput {
+  create?: Maybe<NVoidCreateWithoutShoutsInput>;
+  connect?: Maybe<NVoidWhereUniqueInput>;
+}
+
+export interface NVoidCreateWithoutShoutsInput {
+  voidId?: Maybe<ID_Input>;
+  createdBy: UserCreateOneWithoutCreatedVoidsInput;
+  voidGeohash: String;
+  echos?: Maybe<EchoInVoidCreateManyWithoutNvoidInput>;
+}
+
+export interface UserCreateOneWithoutCreatedVoidsInput {
+  create?: Maybe<UserCreateWithoutCreatedVoidsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserCreateWithoutCreatedVoidsInput {
+  userId?: Maybe<ID_Input>;
+  username: String;
+  password: String;
+  currentLocationGeohash: String;
+  shoutsInVoids?: Maybe<ShoutInVoidCreateManyWithoutShoutedByInput>;
+  savedShouts?: Maybe<SavedShoutCreateManyWithoutSavedByUserInput>;
+  echosInVoids?: Maybe<EchoInVoidCreateManyWithoutEchoedByInput>;
+  savedEchos?: Maybe<SavedEchoCreateManyWithoutSavedByInput>;
+  repliesToShoutsInVoids?: Maybe<
+    ReplyToShoutInVoidCreateManyWithoutCreatedByInput
+  >;
+  savedRepliesToShoutsInVoids?: Maybe<
+    SavedReplyToShoutInVoidCreateManyWithoutSavedByInput
+  >;
+  repliesToEchosInVoids?: Maybe<
+    ReplyToEchoInVoidCreateManyWithoutCreatedByInput
+  >;
+  savedRepliesToEchosInVoids?: Maybe<
+    SavedReplyToEchoInVoidCreateManyWithoutSavedByInput
+  >;
+  savedVoids?: Maybe<SavedVoidCreateManyWithoutCreatedByInput>;
+}
+
+export interface SavedShoutCreateManyWithoutSavedByUserInput {
+  create?: Maybe<
+    | SavedShoutCreateWithoutSavedByUserInput[]
+    | SavedShoutCreateWithoutSavedByUserInput
+  >;
+  connect?: Maybe<SavedShoutWhereUniqueInput[] | SavedShoutWhereUniqueInput>;
+}
+
+export interface SavedShoutCreateWithoutSavedByUserInput {
+  savedShoutId?: Maybe<ID_Input>;
+  originalContent: ContentCreateOneInput;
+  originalShoutVoidGeohash: String;
+  shoutInVoid: ShoutInVoidCreateOneWithoutSavedShoutsInput;
+  echoEdges?: Maybe<EchoEdgeCreateManyWithoutSavedShoutInput>;
+}
+
+export interface ShoutInVoidCreateOneWithoutSavedShoutsInput {
+  create?: Maybe<ShoutInVoidCreateWithoutSavedShoutsInput>;
+  connect?: Maybe<ShoutInVoidWhereUniqueInput>;
+}
+
+export interface ShoutInVoidCreateWithoutSavedShoutsInput {
+  shoutInVoidId?: Maybe<ID_Input>;
+  shoutedBy: UserCreateOneWithoutShoutsInVoidsInput;
+  content: ContentCreateOneInput;
+  voteCount: Int;
+  nvoid: NVoidCreateOneWithoutShoutsInput;
+  replies?: Maybe<ReplyToShoutInVoidCreateManyWithoutShoutInVoidInput>;
+  echoEdges?: Maybe<EchoEdgeCreateManyWithoutShoutInVoidInput>;
+}
+
+export interface UserCreateOneWithoutShoutsInVoidsInput {
+  create?: Maybe<UserCreateWithoutShoutsInVoidsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserCreateWithoutShoutsInVoidsInput {
+  userId?: Maybe<ID_Input>;
+  username: String;
+  password: String;
+  currentLocationGeohash: String;
+  savedShouts?: Maybe<SavedShoutCreateManyWithoutSavedByUserInput>;
+  echosInVoids?: Maybe<EchoInVoidCreateManyWithoutEchoedByInput>;
+  savedEchos?: Maybe<SavedEchoCreateManyWithoutSavedByInput>;
+  repliesToShoutsInVoids?: Maybe<
+    ReplyToShoutInVoidCreateManyWithoutCreatedByInput
+  >;
+  savedRepliesToShoutsInVoids?: Maybe<
+    SavedReplyToShoutInVoidCreateManyWithoutSavedByInput
+  >;
+  repliesToEchosInVoids?: Maybe<
+    ReplyToEchoInVoidCreateManyWithoutCreatedByInput
+  >;
+  savedRepliesToEchosInVoids?: Maybe<
+    SavedReplyToEchoInVoidCreateManyWithoutSavedByInput
+  >;
+  createdVoids?: Maybe<NVoidCreateManyWithoutCreatedByInput>;
+  savedVoids?: Maybe<SavedVoidCreateManyWithoutCreatedByInput>;
+}
+
+export interface EchoInVoidCreateManyWithoutEchoedByInput {
+  create?: Maybe<
+    | EchoInVoidCreateWithoutEchoedByInput[]
+    | EchoInVoidCreateWithoutEchoedByInput
+  >;
+  connect?: Maybe<EchoInVoidWhereUniqueInput[] | EchoInVoidWhereUniqueInput>;
+}
+
+export interface EchoInVoidCreateWithoutEchoedByInput {
+  echoInVoidId?: Maybe<ID_Input>;
+  originalContent: ContentCreateOneInput;
+  voteCount: Int;
+  originalShoutVoidGeohash: String;
+  nvoid: NVoidCreateOneWithoutEchosInput;
+  savedEchos?: Maybe<SavedEchoCreateManyWithoutEchoInVoidInput>;
+  replies?: Maybe<ReplyToEchoInVoidCreateManyWithoutEchoInVoidInput>;
+  echoEdge?: Maybe<EchoEdgeCreateOneWithoutEchoInVoidInput>;
+}
+
+export interface NVoidCreateOneWithoutEchosInput {
+  create?: Maybe<NVoidCreateWithoutEchosInput>;
+  connect?: Maybe<NVoidWhereUniqueInput>;
+}
+
+export interface NVoidCreateWithoutEchosInput {
+  voidId?: Maybe<ID_Input>;
+  createdBy: UserCreateOneWithoutCreatedVoidsInput;
+  voidGeohash: String;
+  shouts?: Maybe<ShoutInVoidCreateManyWithoutNvoidInput>;
+}
+
+export interface ShoutInVoidCreateManyWithoutNvoidInput {
+  create?: Maybe<
+    ShoutInVoidCreateWithoutNvoidInput[] | ShoutInVoidCreateWithoutNvoidInput
+  >;
+  connect?: Maybe<ShoutInVoidWhereUniqueInput[] | ShoutInVoidWhereUniqueInput>;
+}
+
+export interface ShoutInVoidCreateWithoutNvoidInput {
+  shoutInVoidId?: Maybe<ID_Input>;
+  shoutedBy: UserCreateOneWithoutShoutsInVoidsInput;
+  content: ContentCreateOneInput;
+  voteCount: Int;
+  savedShouts?: Maybe<SavedShoutCreateManyWithoutShoutInVoidInput>;
+  replies?: Maybe<ReplyToShoutInVoidCreateManyWithoutShoutInVoidInput>;
+  echoEdges?: Maybe<EchoEdgeCreateManyWithoutShoutInVoidInput>;
+}
+
+export interface SavedShoutCreateManyWithoutShoutInVoidInput {
+  create?: Maybe<
+    | SavedShoutCreateWithoutShoutInVoidInput[]
+    | SavedShoutCreateWithoutShoutInVoidInput
+  >;
+  connect?: Maybe<SavedShoutWhereUniqueInput[] | SavedShoutWhereUniqueInput>;
+}
+
+export interface SavedShoutCreateWithoutShoutInVoidInput {
+  savedShoutId?: Maybe<ID_Input>;
+  savedByUser: UserCreateOneWithoutSavedShoutsInput;
+  originalContent: ContentCreateOneInput;
+  originalShoutVoidGeohash: String;
+  echoEdges?: Maybe<EchoEdgeCreateManyWithoutSavedShoutInput>;
+}
+
+export interface UserCreateOneWithoutSavedShoutsInput {
+  create?: Maybe<UserCreateWithoutSavedShoutsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserCreateWithoutSavedShoutsInput {
+  userId?: Maybe<ID_Input>;
+  username: String;
+  password: String;
+  currentLocationGeohash: String;
+  shoutsInVoids?: Maybe<ShoutInVoidCreateManyWithoutShoutedByInput>;
+  echosInVoids?: Maybe<EchoInVoidCreateManyWithoutEchoedByInput>;
+  savedEchos?: Maybe<SavedEchoCreateManyWithoutSavedByInput>;
+  repliesToShoutsInVoids?: Maybe<
+    ReplyToShoutInVoidCreateManyWithoutCreatedByInput
+  >;
+  savedRepliesToShoutsInVoids?: Maybe<
+    SavedReplyToShoutInVoidCreateManyWithoutSavedByInput
+  >;
+  repliesToEchosInVoids?: Maybe<
+    ReplyToEchoInVoidCreateManyWithoutCreatedByInput
+  >;
+  savedRepliesToEchosInVoids?: Maybe<
+    SavedReplyToEchoInVoidCreateManyWithoutSavedByInput
+  >;
+  createdVoids?: Maybe<NVoidCreateManyWithoutCreatedByInput>;
+  savedVoids?: Maybe<SavedVoidCreateManyWithoutCreatedByInput>;
+}
+
+export interface SavedEchoCreateManyWithoutSavedByInput {
+  create?: Maybe<
+    SavedEchoCreateWithoutSavedByInput[] | SavedEchoCreateWithoutSavedByInput
+  >;
+  connect?: Maybe<SavedEchoWhereUniqueInput[] | SavedEchoWhereUniqueInput>;
+}
+
+export interface SavedEchoCreateWithoutSavedByInput {
+  savedEcho?: Maybe<ID_Input>;
+  originalContent: ContentCreateOneInput;
+  originalShoutVoidGeohash: String;
+  originalEchoVoidGeohash: String;
+  echoInVoid: EchoInVoidCreateOneWithoutSavedEchosInput;
+}
+
+export interface EchoInVoidCreateOneWithoutSavedEchosInput {
+  create?: Maybe<EchoInVoidCreateWithoutSavedEchosInput>;
+  connect?: Maybe<EchoInVoidWhereUniqueInput>;
+}
+
+export interface EchoInVoidCreateWithoutSavedEchosInput {
+  echoInVoidId?: Maybe<ID_Input>;
+  echoedBy: UserCreateOneWithoutEchosInVoidsInput;
+  originalContent: ContentCreateOneInput;
+  voteCount: Int;
+  originalShoutVoidGeohash: String;
+  nvoid: NVoidCreateOneWithoutEchosInput;
+  replies?: Maybe<ReplyToEchoInVoidCreateManyWithoutEchoInVoidInput>;
+  echoEdge?: Maybe<EchoEdgeCreateOneWithoutEchoInVoidInput>;
+}
+
+export interface UserCreateOneWithoutEchosInVoidsInput {
+  create?: Maybe<UserCreateWithoutEchosInVoidsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserCreateWithoutEchosInVoidsInput {
+  userId?: Maybe<ID_Input>;
+  username: String;
+  password: String;
+  currentLocationGeohash: String;
+  shoutsInVoids?: Maybe<ShoutInVoidCreateManyWithoutShoutedByInput>;
+  savedShouts?: Maybe<SavedShoutCreateManyWithoutSavedByUserInput>;
+  savedEchos?: Maybe<SavedEchoCreateManyWithoutSavedByInput>;
+  repliesToShoutsInVoids?: Maybe<
+    ReplyToShoutInVoidCreateManyWithoutCreatedByInput
+  >;
+  savedRepliesToShoutsInVoids?: Maybe<
+    SavedReplyToShoutInVoidCreateManyWithoutSavedByInput
+  >;
+  repliesToEchosInVoids?: Maybe<
+    ReplyToEchoInVoidCreateManyWithoutCreatedByInput
+  >;
+  savedRepliesToEchosInVoids?: Maybe<
+    SavedReplyToEchoInVoidCreateManyWithoutSavedByInput
+  >;
+  createdVoids?: Maybe<NVoidCreateManyWithoutCreatedByInput>;
+  savedVoids?: Maybe<SavedVoidCreateManyWithoutCreatedByInput>;
+}
+
+export interface ReplyToShoutInVoidCreateManyWithoutCreatedByInput {
+  create?: Maybe<
+    | ReplyToShoutInVoidCreateWithoutCreatedByInput[]
+    | ReplyToShoutInVoidCreateWithoutCreatedByInput
+  >;
+  connect?: Maybe<
+    ReplyToShoutInVoidWhereUniqueInput[] | ReplyToShoutInVoidWhereUniqueInput
+  >;
+}
+
+export interface ReplyToShoutInVoidCreateWithoutCreatedByInput {
+  replyToShoutInVoidId?: Maybe<ID_Input>;
+  content: ContentCreateOneInput;
+  voteCount: Int;
+  shoutInVoid: ShoutInVoidCreateOneWithoutRepliesInput;
+  savedReplies?: Maybe<
+    SavedReplyToShoutInVoidCreateManyWithoutReplyToShoutInVoidInput
+  >;
+}
+
+export interface ShoutInVoidCreateOneWithoutRepliesInput {
+  create?: Maybe<ShoutInVoidCreateWithoutRepliesInput>;
+  connect?: Maybe<ShoutInVoidWhereUniqueInput>;
+}
+
+export interface ShoutInVoidCreateWithoutRepliesInput {
+  shoutInVoidId?: Maybe<ID_Input>;
+  shoutedBy: UserCreateOneWithoutShoutsInVoidsInput;
+  content: ContentCreateOneInput;
+  voteCount: Int;
+  nvoid: NVoidCreateOneWithoutShoutsInput;
+  savedShouts?: Maybe<SavedShoutCreateManyWithoutShoutInVoidInput>;
+  echoEdges?: Maybe<EchoEdgeCreateManyWithoutShoutInVoidInput>;
+}
+
+export interface EchoEdgeCreateManyWithoutShoutInVoidInput {
+  create?: Maybe<
+    | EchoEdgeCreateWithoutShoutInVoidInput[]
+    | EchoEdgeCreateWithoutShoutInVoidInput
+  >;
+  connect?: Maybe<EchoEdgeWhereUniqueInput[] | EchoEdgeWhereUniqueInput>;
+}
+
+export interface EchoEdgeCreateWithoutShoutInVoidInput {
+  echoEdegId?: Maybe<ID_Input>;
+  savedShout?: Maybe<SavedShoutCreateOneWithoutEchoEdgesInput>;
+  echoInVoid?: Maybe<EchoInVoidCreateOneWithoutEchoEdgeInput>;
+}
+
+export interface SavedShoutCreateOneWithoutEchoEdgesInput {
+  create?: Maybe<SavedShoutCreateWithoutEchoEdgesInput>;
+  connect?: Maybe<SavedShoutWhereUniqueInput>;
+}
+
+export interface SavedShoutCreateWithoutEchoEdgesInput {
+  savedShoutId?: Maybe<ID_Input>;
+  savedByUser: UserCreateOneWithoutSavedShoutsInput;
+  originalContent: ContentCreateOneInput;
+  originalShoutVoidGeohash: String;
+  shoutInVoid: ShoutInVoidCreateOneWithoutSavedShoutsInput;
+}
+
+export interface EchoInVoidCreateOneWithoutEchoEdgeInput {
+  create?: Maybe<EchoInVoidCreateWithoutEchoEdgeInput>;
+  connect?: Maybe<EchoInVoidWhereUniqueInput>;
+}
+
+export interface EchoInVoidCreateWithoutEchoEdgeInput {
+  echoInVoidId?: Maybe<ID_Input>;
+  echoedBy: UserCreateOneWithoutEchosInVoidsInput;
+  originalContent: ContentCreateOneInput;
+  voteCount: Int;
+  originalShoutVoidGeohash: String;
+  nvoid: NVoidCreateOneWithoutEchosInput;
+  savedEchos?: Maybe<SavedEchoCreateManyWithoutEchoInVoidInput>;
+  replies?: Maybe<ReplyToEchoInVoidCreateManyWithoutEchoInVoidInput>;
+}
+
+export interface SavedEchoCreateManyWithoutEchoInVoidInput {
+  create?: Maybe<
+    | SavedEchoCreateWithoutEchoInVoidInput[]
+    | SavedEchoCreateWithoutEchoInVoidInput
+  >;
+  connect?: Maybe<SavedEchoWhereUniqueInput[] | SavedEchoWhereUniqueInput>;
+}
+
+export interface SavedEchoCreateWithoutEchoInVoidInput {
+  savedEcho?: Maybe<ID_Input>;
+  savedBy: UserCreateOneWithoutSavedEchosInput;
+  originalContent: ContentCreateOneInput;
+  originalShoutVoidGeohash: String;
+  originalEchoVoidGeohash: String;
+}
+
+export interface UserCreateOneWithoutSavedEchosInput {
+  create?: Maybe<UserCreateWithoutSavedEchosInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserCreateWithoutSavedEchosInput {
+  userId?: Maybe<ID_Input>;
+  username: String;
+  password: String;
+  currentLocationGeohash: String;
+  shoutsInVoids?: Maybe<ShoutInVoidCreateManyWithoutShoutedByInput>;
+  savedShouts?: Maybe<SavedShoutCreateManyWithoutSavedByUserInput>;
+  echosInVoids?: Maybe<EchoInVoidCreateManyWithoutEchoedByInput>;
+  repliesToShoutsInVoids?: Maybe<
+    ReplyToShoutInVoidCreateManyWithoutCreatedByInput
+  >;
+  savedRepliesToShoutsInVoids?: Maybe<
+    SavedReplyToShoutInVoidCreateManyWithoutSavedByInput
+  >;
+  repliesToEchosInVoids?: Maybe<
+    ReplyToEchoInVoidCreateManyWithoutCreatedByInput
+  >;
+  savedRepliesToEchosInVoids?: Maybe<
+    SavedReplyToEchoInVoidCreateManyWithoutSavedByInput
+  >;
+  createdVoids?: Maybe<NVoidCreateManyWithoutCreatedByInput>;
+  savedVoids?: Maybe<SavedVoidCreateManyWithoutCreatedByInput>;
+}
+
+export interface SavedReplyToShoutInVoidCreateManyWithoutSavedByInput {
+  create?: Maybe<
+    | SavedReplyToShoutInVoidCreateWithoutSavedByInput[]
+    | SavedReplyToShoutInVoidCreateWithoutSavedByInput
+  >;
+  connect?: Maybe<
+    | SavedReplyToShoutInVoidWhereUniqueInput[]
+    | SavedReplyToShoutInVoidWhereUniqueInput
+  >;
+}
+
+export interface SavedReplyToShoutInVoidCreateWithoutSavedByInput {
+  savedReplyToShoutInVoidId?: Maybe<ID_Input>;
+  originalReplyContent: ContentCreateOneInput;
+  originalShoutContent: ContentCreateOneInput;
+  originalVoidGeohash: String;
+  replyToShoutInVoid: ReplyToShoutInVoidCreateOneWithoutSavedRepliesInput;
+}
+
+export interface ReplyToShoutInVoidCreateOneWithoutSavedRepliesInput {
+  create?: Maybe<ReplyToShoutInVoidCreateWithoutSavedRepliesInput>;
+  connect?: Maybe<ReplyToShoutInVoidWhereUniqueInput>;
+}
+
+export interface ReplyToShoutInVoidCreateWithoutSavedRepliesInput {
+  replyToShoutInVoidId?: Maybe<ID_Input>;
+  createdBy: UserCreateOneWithoutRepliesToShoutsInVoidsInput;
+  content: ContentCreateOneInput;
+  voteCount: Int;
+  shoutInVoid: ShoutInVoidCreateOneWithoutRepliesInput;
+}
+
+export interface UserCreateOneWithoutRepliesToShoutsInVoidsInput {
+  create?: Maybe<UserCreateWithoutRepliesToShoutsInVoidsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserCreateWithoutRepliesToShoutsInVoidsInput {
+  userId?: Maybe<ID_Input>;
+  username: String;
+  password: String;
+  currentLocationGeohash: String;
+  shoutsInVoids?: Maybe<ShoutInVoidCreateManyWithoutShoutedByInput>;
+  savedShouts?: Maybe<SavedShoutCreateManyWithoutSavedByUserInput>;
+  echosInVoids?: Maybe<EchoInVoidCreateManyWithoutEchoedByInput>;
+  savedEchos?: Maybe<SavedEchoCreateManyWithoutSavedByInput>;
+  savedRepliesToShoutsInVoids?: Maybe<
+    SavedReplyToShoutInVoidCreateManyWithoutSavedByInput
+  >;
+  repliesToEchosInVoids?: Maybe<
+    ReplyToEchoInVoidCreateManyWithoutCreatedByInput
+  >;
+  savedRepliesToEchosInVoids?: Maybe<
+    SavedReplyToEchoInVoidCreateManyWithoutSavedByInput
+  >;
+  createdVoids?: Maybe<NVoidCreateManyWithoutCreatedByInput>;
+  savedVoids?: Maybe<SavedVoidCreateManyWithoutCreatedByInput>;
+}
+
+export interface ReplyToEchoInVoidCreateManyWithoutCreatedByInput {
+  create?: Maybe<
+    | ReplyToEchoInVoidCreateWithoutCreatedByInput[]
+    | ReplyToEchoInVoidCreateWithoutCreatedByInput
+  >;
+  connect?: Maybe<
+    ReplyToEchoInVoidWhereUniqueInput[] | ReplyToEchoInVoidWhereUniqueInput
+  >;
+}
+
+export interface ReplyToEchoInVoidCreateWithoutCreatedByInput {
+  replyToEchoInVoidId?: Maybe<ID_Input>;
+  content: ContentCreateOneInput;
+  voteCount: Int;
+  echoInVoid: EchoInVoidCreateOneWithoutRepliesInput;
+  savedReplies?: Maybe<
+    SavedReplyToEchoInVoidCreateManyWithoutReplyToEchoInVoidInput
+  >;
+}
+
+export interface EchoInVoidCreateOneWithoutRepliesInput {
+  create?: Maybe<EchoInVoidCreateWithoutRepliesInput>;
+  connect?: Maybe<EchoInVoidWhereUniqueInput>;
+}
+
+export interface EchoInVoidCreateWithoutRepliesInput {
+  echoInVoidId?: Maybe<ID_Input>;
+  echoedBy: UserCreateOneWithoutEchosInVoidsInput;
+  originalContent: ContentCreateOneInput;
+  voteCount: Int;
+  originalShoutVoidGeohash: String;
+  nvoid: NVoidCreateOneWithoutEchosInput;
+  savedEchos?: Maybe<SavedEchoCreateManyWithoutEchoInVoidInput>;
+  echoEdge?: Maybe<EchoEdgeCreateOneWithoutEchoInVoidInput>;
+}
+
+export interface EchoEdgeCreateOneWithoutEchoInVoidInput {
+  create?: Maybe<EchoEdgeCreateWithoutEchoInVoidInput>;
+  connect?: Maybe<EchoEdgeWhereUniqueInput>;
+}
+
+export interface EchoEdgeCreateWithoutEchoInVoidInput {
+  echoEdegId?: Maybe<ID_Input>;
+  shoutInVoid?: Maybe<ShoutInVoidCreateOneWithoutEchoEdgesInput>;
+  savedShout?: Maybe<SavedShoutCreateOneWithoutEchoEdgesInput>;
+}
+
+export interface ShoutInVoidCreateOneWithoutEchoEdgesInput {
+  create?: Maybe<ShoutInVoidCreateWithoutEchoEdgesInput>;
+  connect?: Maybe<ShoutInVoidWhereUniqueInput>;
+}
+
+export interface ShoutInVoidCreateWithoutEchoEdgesInput {
+  shoutInVoidId?: Maybe<ID_Input>;
+  shoutedBy: UserCreateOneWithoutShoutsInVoidsInput;
+  content: ContentCreateOneInput;
+  voteCount: Int;
+  nvoid: NVoidCreateOneWithoutShoutsInput;
+  savedShouts?: Maybe<SavedShoutCreateManyWithoutShoutInVoidInput>;
+  replies?: Maybe<ReplyToShoutInVoidCreateManyWithoutShoutInVoidInput>;
+}
+
+export interface ReplyToShoutInVoidCreateManyWithoutShoutInVoidInput {
+  create?: Maybe<
+    | ReplyToShoutInVoidCreateWithoutShoutInVoidInput[]
+    | ReplyToShoutInVoidCreateWithoutShoutInVoidInput
+  >;
+  connect?: Maybe<
+    ReplyToShoutInVoidWhereUniqueInput[] | ReplyToShoutInVoidWhereUniqueInput
+  >;
+}
+
+export interface ReplyToShoutInVoidCreateWithoutShoutInVoidInput {
+  replyToShoutInVoidId?: Maybe<ID_Input>;
+  createdBy: UserCreateOneWithoutRepliesToShoutsInVoidsInput;
+  content: ContentCreateOneInput;
+  voteCount: Int;
+  savedReplies?: Maybe<
+    SavedReplyToShoutInVoidCreateManyWithoutReplyToShoutInVoidInput
+  >;
+}
+
+export interface SavedReplyToShoutInVoidCreateManyWithoutReplyToShoutInVoidInput {
+  create?: Maybe<
+    | SavedReplyToShoutInVoidCreateWithoutReplyToShoutInVoidInput[]
+    | SavedReplyToShoutInVoidCreateWithoutReplyToShoutInVoidInput
+  >;
+  connect?: Maybe<
+    | SavedReplyToShoutInVoidWhereUniqueInput[]
+    | SavedReplyToShoutInVoidWhereUniqueInput
+  >;
+}
+
+export interface SavedReplyToShoutInVoidCreateWithoutReplyToShoutInVoidInput {
+  savedReplyToShoutInVoidId?: Maybe<ID_Input>;
+  savedBy: UserCreateOneWithoutSavedRepliesToShoutsInVoidsInput;
+  originalReplyContent: ContentCreateOneInput;
+  originalShoutContent: ContentCreateOneInput;
+  originalVoidGeohash: String;
+}
+
+export interface UserCreateOneWithoutSavedRepliesToShoutsInVoidsInput {
+  create?: Maybe<UserCreateWithoutSavedRepliesToShoutsInVoidsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserCreateWithoutSavedRepliesToShoutsInVoidsInput {
+  userId?: Maybe<ID_Input>;
+  username: String;
+  password: String;
+  currentLocationGeohash: String;
+  shoutsInVoids?: Maybe<ShoutInVoidCreateManyWithoutShoutedByInput>;
+  savedShouts?: Maybe<SavedShoutCreateManyWithoutSavedByUserInput>;
+  echosInVoids?: Maybe<EchoInVoidCreateManyWithoutEchoedByInput>;
+  savedEchos?: Maybe<SavedEchoCreateManyWithoutSavedByInput>;
+  repliesToShoutsInVoids?: Maybe<
+    ReplyToShoutInVoidCreateManyWithoutCreatedByInput
+  >;
+  repliesToEchosInVoids?: Maybe<
+    ReplyToEchoInVoidCreateManyWithoutCreatedByInput
+  >;
+  savedRepliesToEchosInVoids?: Maybe<
+    SavedReplyToEchoInVoidCreateManyWithoutSavedByInput
+  >;
+  createdVoids?: Maybe<NVoidCreateManyWithoutCreatedByInput>;
+  savedVoids?: Maybe<SavedVoidCreateManyWithoutCreatedByInput>;
+}
+
+export interface SavedReplyToEchoInVoidCreateManyWithoutSavedByInput {
+  create?: Maybe<
+    | SavedReplyToEchoInVoidCreateWithoutSavedByInput[]
+    | SavedReplyToEchoInVoidCreateWithoutSavedByInput
+  >;
+  connect?: Maybe<
+    | SavedReplyToEchoInVoidWhereUniqueInput[]
+    | SavedReplyToEchoInVoidWhereUniqueInput
+  >;
+}
+
+export interface SavedReplyToEchoInVoidCreateWithoutSavedByInput {
+  savedReplyToEchoInVoid?: Maybe<ID_Input>;
+  originalReplyContent: ContentCreateOneInput;
+  originalShoutContent: ContentCreateOneInput;
+  originalVoidGeohash: String;
+  replyToEchoInVoid: ReplyToEchoInVoidCreateOneWithoutSavedRepliesInput;
+}
+
+export interface ReplyToEchoInVoidCreateOneWithoutSavedRepliesInput {
+  create?: Maybe<ReplyToEchoInVoidCreateWithoutSavedRepliesInput>;
+  connect?: Maybe<ReplyToEchoInVoidWhereUniqueInput>;
+}
+
+export interface ReplyToEchoInVoidCreateWithoutSavedRepliesInput {
+  replyToEchoInVoidId?: Maybe<ID_Input>;
+  createdBy: UserCreateOneWithoutRepliesToEchosInVoidsInput;
+  content: ContentCreateOneInput;
+  voteCount: Int;
+  echoInVoid: EchoInVoidCreateOneWithoutRepliesInput;
+}
+
+export interface UserCreateOneWithoutRepliesToEchosInVoidsInput {
+  create?: Maybe<UserCreateWithoutRepliesToEchosInVoidsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserCreateWithoutRepliesToEchosInVoidsInput {
+  userId?: Maybe<ID_Input>;
+  username: String;
+  password: String;
+  currentLocationGeohash: String;
+  shoutsInVoids?: Maybe<ShoutInVoidCreateManyWithoutShoutedByInput>;
+  savedShouts?: Maybe<SavedShoutCreateManyWithoutSavedByUserInput>;
+  echosInVoids?: Maybe<EchoInVoidCreateManyWithoutEchoedByInput>;
+  savedEchos?: Maybe<SavedEchoCreateManyWithoutSavedByInput>;
+  repliesToShoutsInVoids?: Maybe<
+    ReplyToShoutInVoidCreateManyWithoutCreatedByInput
+  >;
+  savedRepliesToShoutsInVoids?: Maybe<
+    SavedReplyToShoutInVoidCreateManyWithoutSavedByInput
+  >;
+  savedRepliesToEchosInVoids?: Maybe<
+    SavedReplyToEchoInVoidCreateManyWithoutSavedByInput
+  >;
+  createdVoids?: Maybe<NVoidCreateManyWithoutCreatedByInput>;
+  savedVoids?: Maybe<SavedVoidCreateManyWithoutCreatedByInput>;
+}
+
+export interface NVoidCreateManyWithoutCreatedByInput {
+  create?: Maybe<
+    NVoidCreateWithoutCreatedByInput[] | NVoidCreateWithoutCreatedByInput
+  >;
+  connect?: Maybe<NVoidWhereUniqueInput[] | NVoidWhereUniqueInput>;
+}
+
+export interface NVoidCreateWithoutCreatedByInput {
+  voidId?: Maybe<ID_Input>;
+  voidGeohash: String;
+  shouts?: Maybe<ShoutInVoidCreateManyWithoutNvoidInput>;
+  echos?: Maybe<EchoInVoidCreateManyWithoutNvoidInput>;
+}
+
+export interface EchoInVoidCreateManyWithoutNvoidInput {
+  create?: Maybe<
+    EchoInVoidCreateWithoutNvoidInput[] | EchoInVoidCreateWithoutNvoidInput
+  >;
+  connect?: Maybe<EchoInVoidWhereUniqueInput[] | EchoInVoidWhereUniqueInput>;
+}
+
+export interface EchoInVoidCreateWithoutNvoidInput {
+  echoInVoidId?: Maybe<ID_Input>;
+  echoedBy: UserCreateOneWithoutEchosInVoidsInput;
+  originalContent: ContentCreateOneInput;
+  voteCount: Int;
+  originalShoutVoidGeohash: String;
+  savedEchos?: Maybe<SavedEchoCreateManyWithoutEchoInVoidInput>;
+  replies?: Maybe<ReplyToEchoInVoidCreateManyWithoutEchoInVoidInput>;
+  echoEdge?: Maybe<EchoEdgeCreateOneWithoutEchoInVoidInput>;
+}
+
+export interface ReplyToEchoInVoidCreateManyWithoutEchoInVoidInput {
+  create?: Maybe<
+    | ReplyToEchoInVoidCreateWithoutEchoInVoidInput[]
+    | ReplyToEchoInVoidCreateWithoutEchoInVoidInput
+  >;
+  connect?: Maybe<
+    ReplyToEchoInVoidWhereUniqueInput[] | ReplyToEchoInVoidWhereUniqueInput
+  >;
+}
+
+export interface ReplyToEchoInVoidCreateWithoutEchoInVoidInput {
+  replyToEchoInVoidId?: Maybe<ID_Input>;
+  createdBy: UserCreateOneWithoutRepliesToEchosInVoidsInput;
+  content: ContentCreateOneInput;
+  voteCount: Int;
+  savedReplies?: Maybe<
+    SavedReplyToEchoInVoidCreateManyWithoutReplyToEchoInVoidInput
+  >;
+}
+
+export interface SavedReplyToEchoInVoidCreateManyWithoutReplyToEchoInVoidInput {
+  create?: Maybe<
+    | SavedReplyToEchoInVoidCreateWithoutReplyToEchoInVoidInput[]
+    | SavedReplyToEchoInVoidCreateWithoutReplyToEchoInVoidInput
+  >;
+  connect?: Maybe<
+    | SavedReplyToEchoInVoidWhereUniqueInput[]
+    | SavedReplyToEchoInVoidWhereUniqueInput
+  >;
+}
+
+export interface SavedReplyToEchoInVoidCreateWithoutReplyToEchoInVoidInput {
+  savedReplyToEchoInVoid?: Maybe<ID_Input>;
+  savedBy: UserCreateOneWithoutSavedRepliesToEchosInVoidsInput;
+  originalReplyContent: ContentCreateOneInput;
+  originalShoutContent: ContentCreateOneInput;
+  originalVoidGeohash: String;
+}
+
+export interface UserCreateOneWithoutSavedRepliesToEchosInVoidsInput {
+  create?: Maybe<UserCreateWithoutSavedRepliesToEchosInVoidsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserCreateWithoutSavedRepliesToEchosInVoidsInput {
+  userId?: Maybe<ID_Input>;
+  username: String;
+  password: String;
+  currentLocationGeohash: String;
+  shoutsInVoids?: Maybe<ShoutInVoidCreateManyWithoutShoutedByInput>;
+  savedShouts?: Maybe<SavedShoutCreateManyWithoutSavedByUserInput>;
+  echosInVoids?: Maybe<EchoInVoidCreateManyWithoutEchoedByInput>;
+  savedEchos?: Maybe<SavedEchoCreateManyWithoutSavedByInput>;
+  repliesToShoutsInVoids?: Maybe<
+    ReplyToShoutInVoidCreateManyWithoutCreatedByInput
+  >;
+  savedRepliesToShoutsInVoids?: Maybe<
+    SavedReplyToShoutInVoidCreateManyWithoutSavedByInput
+  >;
+  repliesToEchosInVoids?: Maybe<
+    ReplyToEchoInVoidCreateManyWithoutCreatedByInput
+  >;
+  createdVoids?: Maybe<NVoidCreateManyWithoutCreatedByInput>;
+  savedVoids?: Maybe<SavedVoidCreateManyWithoutCreatedByInput>;
+}
+
+export interface SavedVoidCreateManyWithoutCreatedByInput {
+  create?: Maybe<
+    | SavedVoidCreateWithoutCreatedByInput[]
+    | SavedVoidCreateWithoutCreatedByInput
+  >;
+  connect?: Maybe<SavedVoidWhereUniqueInput[] | SavedVoidWhereUniqueInput>;
+}
+
+export interface SavedVoidCreateWithoutCreatedByInput {
+  savedVoidId?: Maybe<ID_Input>;
+  voidGeohash: String;
+}
+
+export interface EchoEdgeCreateManyWithoutSavedShoutInput {
+  create?: Maybe<
+    | EchoEdgeCreateWithoutSavedShoutInput[]
+    | EchoEdgeCreateWithoutSavedShoutInput
+  >;
+  connect?: Maybe<EchoEdgeWhereUniqueInput[] | EchoEdgeWhereUniqueInput>;
+}
+
+export interface EchoEdgeCreateWithoutSavedShoutInput {
+  echoEdegId?: Maybe<ID_Input>;
+  shoutInVoid?: Maybe<ShoutInVoidCreateOneWithoutEchoEdgesInput>;
+  echoInVoid?: Maybe<EchoInVoidCreateOneWithoutEchoEdgeInput>;
 }
 
 export interface ContentUpdateInput {
@@ -440,6 +2258,23 @@ export interface UserUpdateDataInput {
   password?: Maybe<String>;
   currentLocationGeohash?: Maybe<String>;
   shoutsInVoids?: Maybe<ShoutInVoidUpdateManyWithoutShoutedByInput>;
+  savedShouts?: Maybe<SavedShoutUpdateManyWithoutSavedByUserInput>;
+  echosInVoids?: Maybe<EchoInVoidUpdateManyWithoutEchoedByInput>;
+  savedEchos?: Maybe<SavedEchoUpdateManyWithoutSavedByInput>;
+  repliesToShoutsInVoids?: Maybe<
+    ReplyToShoutInVoidUpdateManyWithoutCreatedByInput
+  >;
+  savedRepliesToShoutsInVoids?: Maybe<
+    SavedReplyToShoutInVoidUpdateManyWithoutSavedByInput
+  >;
+  repliesToEchosInVoids?: Maybe<
+    ReplyToEchoInVoidUpdateManyWithoutCreatedByInput
+  >;
+  savedRepliesToEchosInVoids?: Maybe<
+    SavedReplyToEchoInVoidUpdateManyWithoutSavedByInput
+  >;
+  createdVoids?: Maybe<NVoidUpdateManyWithoutCreatedByInput>;
+  savedVoids?: Maybe<SavedVoidUpdateManyWithoutCreatedByInput>;
 }
 
 export interface ShoutInVoidUpdateManyWithoutShoutedByInput {
@@ -478,6 +2313,10 @@ export interface ShoutInVoidUpdateWithWhereUniqueWithoutShoutedByInput {
 export interface ShoutInVoidUpdateWithoutShoutedByDataInput {
   content?: Maybe<ContentUpdateOneRequiredInput>;
   voteCount?: Maybe<Int>;
+  nvoid?: Maybe<NVoidUpdateOneRequiredWithoutShoutsInput>;
+  savedShouts?: Maybe<SavedShoutUpdateManyWithoutShoutInVoidInput>;
+  replies?: Maybe<ReplyToShoutInVoidUpdateManyWithoutShoutInVoidInput>;
+  echoEdges?: Maybe<EchoEdgeUpdateManyWithoutShoutInVoidInput>;
 }
 
 export interface ContentUpdateOneRequiredInput {
@@ -498,10 +2337,1943 @@ export interface ContentUpsertNestedInput {
   create: ContentCreateInput;
 }
 
-export interface ShoutInVoidUpsertWithWhereUniqueWithoutShoutedByInput {
+export interface NVoidUpdateOneRequiredWithoutShoutsInput {
+  create?: Maybe<NVoidCreateWithoutShoutsInput>;
+  update?: Maybe<NVoidUpdateWithoutShoutsDataInput>;
+  upsert?: Maybe<NVoidUpsertWithoutShoutsInput>;
+  connect?: Maybe<NVoidWhereUniqueInput>;
+}
+
+export interface NVoidUpdateWithoutShoutsDataInput {
+  createdBy?: Maybe<UserUpdateOneRequiredWithoutCreatedVoidsInput>;
+  voidGeohash?: Maybe<String>;
+  echos?: Maybe<EchoInVoidUpdateManyWithoutNvoidInput>;
+}
+
+export interface UserUpdateOneRequiredWithoutCreatedVoidsInput {
+  create?: Maybe<UserCreateWithoutCreatedVoidsInput>;
+  update?: Maybe<UserUpdateWithoutCreatedVoidsDataInput>;
+  upsert?: Maybe<UserUpsertWithoutCreatedVoidsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserUpdateWithoutCreatedVoidsDataInput {
+  username?: Maybe<String>;
+  password?: Maybe<String>;
+  currentLocationGeohash?: Maybe<String>;
+  shoutsInVoids?: Maybe<ShoutInVoidUpdateManyWithoutShoutedByInput>;
+  savedShouts?: Maybe<SavedShoutUpdateManyWithoutSavedByUserInput>;
+  echosInVoids?: Maybe<EchoInVoidUpdateManyWithoutEchoedByInput>;
+  savedEchos?: Maybe<SavedEchoUpdateManyWithoutSavedByInput>;
+  repliesToShoutsInVoids?: Maybe<
+    ReplyToShoutInVoidUpdateManyWithoutCreatedByInput
+  >;
+  savedRepliesToShoutsInVoids?: Maybe<
+    SavedReplyToShoutInVoidUpdateManyWithoutSavedByInput
+  >;
+  repliesToEchosInVoids?: Maybe<
+    ReplyToEchoInVoidUpdateManyWithoutCreatedByInput
+  >;
+  savedRepliesToEchosInVoids?: Maybe<
+    SavedReplyToEchoInVoidUpdateManyWithoutSavedByInput
+  >;
+  savedVoids?: Maybe<SavedVoidUpdateManyWithoutCreatedByInput>;
+}
+
+export interface SavedShoutUpdateManyWithoutSavedByUserInput {
+  create?: Maybe<
+    | SavedShoutCreateWithoutSavedByUserInput[]
+    | SavedShoutCreateWithoutSavedByUserInput
+  >;
+  delete?: Maybe<SavedShoutWhereUniqueInput[] | SavedShoutWhereUniqueInput>;
+  connect?: Maybe<SavedShoutWhereUniqueInput[] | SavedShoutWhereUniqueInput>;
+  set?: Maybe<SavedShoutWhereUniqueInput[] | SavedShoutWhereUniqueInput>;
+  disconnect?: Maybe<SavedShoutWhereUniqueInput[] | SavedShoutWhereUniqueInput>;
+  update?: Maybe<
+    | SavedShoutUpdateWithWhereUniqueWithoutSavedByUserInput[]
+    | SavedShoutUpdateWithWhereUniqueWithoutSavedByUserInput
+  >;
+  upsert?: Maybe<
+    | SavedShoutUpsertWithWhereUniqueWithoutSavedByUserInput[]
+    | SavedShoutUpsertWithWhereUniqueWithoutSavedByUserInput
+  >;
+  deleteMany?: Maybe<SavedShoutScalarWhereInput[] | SavedShoutScalarWhereInput>;
+  updateMany?: Maybe<
+    | SavedShoutUpdateManyWithWhereNestedInput[]
+    | SavedShoutUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface SavedShoutUpdateWithWhereUniqueWithoutSavedByUserInput {
+  where: SavedShoutWhereUniqueInput;
+  data: SavedShoutUpdateWithoutSavedByUserDataInput;
+}
+
+export interface SavedShoutUpdateWithoutSavedByUserDataInput {
+  originalContent?: Maybe<ContentUpdateOneRequiredInput>;
+  originalShoutVoidGeohash?: Maybe<String>;
+  shoutInVoid?: Maybe<ShoutInVoidUpdateOneRequiredWithoutSavedShoutsInput>;
+  echoEdges?: Maybe<EchoEdgeUpdateManyWithoutSavedShoutInput>;
+}
+
+export interface ShoutInVoidUpdateOneRequiredWithoutSavedShoutsInput {
+  create?: Maybe<ShoutInVoidCreateWithoutSavedShoutsInput>;
+  update?: Maybe<ShoutInVoidUpdateWithoutSavedShoutsDataInput>;
+  upsert?: Maybe<ShoutInVoidUpsertWithoutSavedShoutsInput>;
+  connect?: Maybe<ShoutInVoidWhereUniqueInput>;
+}
+
+export interface ShoutInVoidUpdateWithoutSavedShoutsDataInput {
+  shoutedBy?: Maybe<UserUpdateOneRequiredWithoutShoutsInVoidsInput>;
+  content?: Maybe<ContentUpdateOneRequiredInput>;
+  voteCount?: Maybe<Int>;
+  nvoid?: Maybe<NVoidUpdateOneRequiredWithoutShoutsInput>;
+  replies?: Maybe<ReplyToShoutInVoidUpdateManyWithoutShoutInVoidInput>;
+  echoEdges?: Maybe<EchoEdgeUpdateManyWithoutShoutInVoidInput>;
+}
+
+export interface UserUpdateOneRequiredWithoutShoutsInVoidsInput {
+  create?: Maybe<UserCreateWithoutShoutsInVoidsInput>;
+  update?: Maybe<UserUpdateWithoutShoutsInVoidsDataInput>;
+  upsert?: Maybe<UserUpsertWithoutShoutsInVoidsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserUpdateWithoutShoutsInVoidsDataInput {
+  username?: Maybe<String>;
+  password?: Maybe<String>;
+  currentLocationGeohash?: Maybe<String>;
+  savedShouts?: Maybe<SavedShoutUpdateManyWithoutSavedByUserInput>;
+  echosInVoids?: Maybe<EchoInVoidUpdateManyWithoutEchoedByInput>;
+  savedEchos?: Maybe<SavedEchoUpdateManyWithoutSavedByInput>;
+  repliesToShoutsInVoids?: Maybe<
+    ReplyToShoutInVoidUpdateManyWithoutCreatedByInput
+  >;
+  savedRepliesToShoutsInVoids?: Maybe<
+    SavedReplyToShoutInVoidUpdateManyWithoutSavedByInput
+  >;
+  repliesToEchosInVoids?: Maybe<
+    ReplyToEchoInVoidUpdateManyWithoutCreatedByInput
+  >;
+  savedRepliesToEchosInVoids?: Maybe<
+    SavedReplyToEchoInVoidUpdateManyWithoutSavedByInput
+  >;
+  createdVoids?: Maybe<NVoidUpdateManyWithoutCreatedByInput>;
+  savedVoids?: Maybe<SavedVoidUpdateManyWithoutCreatedByInput>;
+}
+
+export interface EchoInVoidUpdateManyWithoutEchoedByInput {
+  create?: Maybe<
+    | EchoInVoidCreateWithoutEchoedByInput[]
+    | EchoInVoidCreateWithoutEchoedByInput
+  >;
+  delete?: Maybe<EchoInVoidWhereUniqueInput[] | EchoInVoidWhereUniqueInput>;
+  connect?: Maybe<EchoInVoidWhereUniqueInput[] | EchoInVoidWhereUniqueInput>;
+  set?: Maybe<EchoInVoidWhereUniqueInput[] | EchoInVoidWhereUniqueInput>;
+  disconnect?: Maybe<EchoInVoidWhereUniqueInput[] | EchoInVoidWhereUniqueInput>;
+  update?: Maybe<
+    | EchoInVoidUpdateWithWhereUniqueWithoutEchoedByInput[]
+    | EchoInVoidUpdateWithWhereUniqueWithoutEchoedByInput
+  >;
+  upsert?: Maybe<
+    | EchoInVoidUpsertWithWhereUniqueWithoutEchoedByInput[]
+    | EchoInVoidUpsertWithWhereUniqueWithoutEchoedByInput
+  >;
+  deleteMany?: Maybe<EchoInVoidScalarWhereInput[] | EchoInVoidScalarWhereInput>;
+  updateMany?: Maybe<
+    | EchoInVoidUpdateManyWithWhereNestedInput[]
+    | EchoInVoidUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface EchoInVoidUpdateWithWhereUniqueWithoutEchoedByInput {
+  where: EchoInVoidWhereUniqueInput;
+  data: EchoInVoidUpdateWithoutEchoedByDataInput;
+}
+
+export interface EchoInVoidUpdateWithoutEchoedByDataInput {
+  originalContent?: Maybe<ContentUpdateOneRequiredInput>;
+  voteCount?: Maybe<Int>;
+  originalShoutVoidGeohash?: Maybe<String>;
+  nvoid?: Maybe<NVoidUpdateOneRequiredWithoutEchosInput>;
+  savedEchos?: Maybe<SavedEchoUpdateManyWithoutEchoInVoidInput>;
+  replies?: Maybe<ReplyToEchoInVoidUpdateManyWithoutEchoInVoidInput>;
+  echoEdge?: Maybe<EchoEdgeUpdateOneWithoutEchoInVoidInput>;
+}
+
+export interface NVoidUpdateOneRequiredWithoutEchosInput {
+  create?: Maybe<NVoidCreateWithoutEchosInput>;
+  update?: Maybe<NVoidUpdateWithoutEchosDataInput>;
+  upsert?: Maybe<NVoidUpsertWithoutEchosInput>;
+  connect?: Maybe<NVoidWhereUniqueInput>;
+}
+
+export interface NVoidUpdateWithoutEchosDataInput {
+  createdBy?: Maybe<UserUpdateOneRequiredWithoutCreatedVoidsInput>;
+  voidGeohash?: Maybe<String>;
+  shouts?: Maybe<ShoutInVoidUpdateManyWithoutNvoidInput>;
+}
+
+export interface ShoutInVoidUpdateManyWithoutNvoidInput {
+  create?: Maybe<
+    ShoutInVoidCreateWithoutNvoidInput[] | ShoutInVoidCreateWithoutNvoidInput
+  >;
+  delete?: Maybe<ShoutInVoidWhereUniqueInput[] | ShoutInVoidWhereUniqueInput>;
+  connect?: Maybe<ShoutInVoidWhereUniqueInput[] | ShoutInVoidWhereUniqueInput>;
+  set?: Maybe<ShoutInVoidWhereUniqueInput[] | ShoutInVoidWhereUniqueInput>;
+  disconnect?: Maybe<
+    ShoutInVoidWhereUniqueInput[] | ShoutInVoidWhereUniqueInput
+  >;
+  update?: Maybe<
+    | ShoutInVoidUpdateWithWhereUniqueWithoutNvoidInput[]
+    | ShoutInVoidUpdateWithWhereUniqueWithoutNvoidInput
+  >;
+  upsert?: Maybe<
+    | ShoutInVoidUpsertWithWhereUniqueWithoutNvoidInput[]
+    | ShoutInVoidUpsertWithWhereUniqueWithoutNvoidInput
+  >;
+  deleteMany?: Maybe<
+    ShoutInVoidScalarWhereInput[] | ShoutInVoidScalarWhereInput
+  >;
+  updateMany?: Maybe<
+    | ShoutInVoidUpdateManyWithWhereNestedInput[]
+    | ShoutInVoidUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface ShoutInVoidUpdateWithWhereUniqueWithoutNvoidInput {
   where: ShoutInVoidWhereUniqueInput;
-  update: ShoutInVoidUpdateWithoutShoutedByDataInput;
-  create: ShoutInVoidCreateWithoutShoutedByInput;
+  data: ShoutInVoidUpdateWithoutNvoidDataInput;
+}
+
+export interface ShoutInVoidUpdateWithoutNvoidDataInput {
+  shoutedBy?: Maybe<UserUpdateOneRequiredWithoutShoutsInVoidsInput>;
+  content?: Maybe<ContentUpdateOneRequiredInput>;
+  voteCount?: Maybe<Int>;
+  savedShouts?: Maybe<SavedShoutUpdateManyWithoutShoutInVoidInput>;
+  replies?: Maybe<ReplyToShoutInVoidUpdateManyWithoutShoutInVoidInput>;
+  echoEdges?: Maybe<EchoEdgeUpdateManyWithoutShoutInVoidInput>;
+}
+
+export interface SavedShoutUpdateManyWithoutShoutInVoidInput {
+  create?: Maybe<
+    | SavedShoutCreateWithoutShoutInVoidInput[]
+    | SavedShoutCreateWithoutShoutInVoidInput
+  >;
+  delete?: Maybe<SavedShoutWhereUniqueInput[] | SavedShoutWhereUniqueInput>;
+  connect?: Maybe<SavedShoutWhereUniqueInput[] | SavedShoutWhereUniqueInput>;
+  set?: Maybe<SavedShoutWhereUniqueInput[] | SavedShoutWhereUniqueInput>;
+  disconnect?: Maybe<SavedShoutWhereUniqueInput[] | SavedShoutWhereUniqueInput>;
+  update?: Maybe<
+    | SavedShoutUpdateWithWhereUniqueWithoutShoutInVoidInput[]
+    | SavedShoutUpdateWithWhereUniqueWithoutShoutInVoidInput
+  >;
+  upsert?: Maybe<
+    | SavedShoutUpsertWithWhereUniqueWithoutShoutInVoidInput[]
+    | SavedShoutUpsertWithWhereUniqueWithoutShoutInVoidInput
+  >;
+  deleteMany?: Maybe<SavedShoutScalarWhereInput[] | SavedShoutScalarWhereInput>;
+  updateMany?: Maybe<
+    | SavedShoutUpdateManyWithWhereNestedInput[]
+    | SavedShoutUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface SavedShoutUpdateWithWhereUniqueWithoutShoutInVoidInput {
+  where: SavedShoutWhereUniqueInput;
+  data: SavedShoutUpdateWithoutShoutInVoidDataInput;
+}
+
+export interface SavedShoutUpdateWithoutShoutInVoidDataInput {
+  savedByUser?: Maybe<UserUpdateOneRequiredWithoutSavedShoutsInput>;
+  originalContent?: Maybe<ContentUpdateOneRequiredInput>;
+  originalShoutVoidGeohash?: Maybe<String>;
+  echoEdges?: Maybe<EchoEdgeUpdateManyWithoutSavedShoutInput>;
+}
+
+export interface UserUpdateOneRequiredWithoutSavedShoutsInput {
+  create?: Maybe<UserCreateWithoutSavedShoutsInput>;
+  update?: Maybe<UserUpdateWithoutSavedShoutsDataInput>;
+  upsert?: Maybe<UserUpsertWithoutSavedShoutsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserUpdateWithoutSavedShoutsDataInput {
+  username?: Maybe<String>;
+  password?: Maybe<String>;
+  currentLocationGeohash?: Maybe<String>;
+  shoutsInVoids?: Maybe<ShoutInVoidUpdateManyWithoutShoutedByInput>;
+  echosInVoids?: Maybe<EchoInVoidUpdateManyWithoutEchoedByInput>;
+  savedEchos?: Maybe<SavedEchoUpdateManyWithoutSavedByInput>;
+  repliesToShoutsInVoids?: Maybe<
+    ReplyToShoutInVoidUpdateManyWithoutCreatedByInput
+  >;
+  savedRepliesToShoutsInVoids?: Maybe<
+    SavedReplyToShoutInVoidUpdateManyWithoutSavedByInput
+  >;
+  repliesToEchosInVoids?: Maybe<
+    ReplyToEchoInVoidUpdateManyWithoutCreatedByInput
+  >;
+  savedRepliesToEchosInVoids?: Maybe<
+    SavedReplyToEchoInVoidUpdateManyWithoutSavedByInput
+  >;
+  createdVoids?: Maybe<NVoidUpdateManyWithoutCreatedByInput>;
+  savedVoids?: Maybe<SavedVoidUpdateManyWithoutCreatedByInput>;
+}
+
+export interface SavedEchoUpdateManyWithoutSavedByInput {
+  create?: Maybe<
+    SavedEchoCreateWithoutSavedByInput[] | SavedEchoCreateWithoutSavedByInput
+  >;
+  delete?: Maybe<SavedEchoWhereUniqueInput[] | SavedEchoWhereUniqueInput>;
+  connect?: Maybe<SavedEchoWhereUniqueInput[] | SavedEchoWhereUniqueInput>;
+  set?: Maybe<SavedEchoWhereUniqueInput[] | SavedEchoWhereUniqueInput>;
+  disconnect?: Maybe<SavedEchoWhereUniqueInput[] | SavedEchoWhereUniqueInput>;
+  update?: Maybe<
+    | SavedEchoUpdateWithWhereUniqueWithoutSavedByInput[]
+    | SavedEchoUpdateWithWhereUniqueWithoutSavedByInput
+  >;
+  upsert?: Maybe<
+    | SavedEchoUpsertWithWhereUniqueWithoutSavedByInput[]
+    | SavedEchoUpsertWithWhereUniqueWithoutSavedByInput
+  >;
+  deleteMany?: Maybe<SavedEchoScalarWhereInput[] | SavedEchoScalarWhereInput>;
+  updateMany?: Maybe<
+    | SavedEchoUpdateManyWithWhereNestedInput[]
+    | SavedEchoUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface SavedEchoUpdateWithWhereUniqueWithoutSavedByInput {
+  where: SavedEchoWhereUniqueInput;
+  data: SavedEchoUpdateWithoutSavedByDataInput;
+}
+
+export interface SavedEchoUpdateWithoutSavedByDataInput {
+  originalContent?: Maybe<ContentUpdateOneRequiredInput>;
+  originalShoutVoidGeohash?: Maybe<String>;
+  originalEchoVoidGeohash?: Maybe<String>;
+  echoInVoid?: Maybe<EchoInVoidUpdateOneRequiredWithoutSavedEchosInput>;
+}
+
+export interface EchoInVoidUpdateOneRequiredWithoutSavedEchosInput {
+  create?: Maybe<EchoInVoidCreateWithoutSavedEchosInput>;
+  update?: Maybe<EchoInVoidUpdateWithoutSavedEchosDataInput>;
+  upsert?: Maybe<EchoInVoidUpsertWithoutSavedEchosInput>;
+  connect?: Maybe<EchoInVoidWhereUniqueInput>;
+}
+
+export interface EchoInVoidUpdateWithoutSavedEchosDataInput {
+  echoedBy?: Maybe<UserUpdateOneRequiredWithoutEchosInVoidsInput>;
+  originalContent?: Maybe<ContentUpdateOneRequiredInput>;
+  voteCount?: Maybe<Int>;
+  originalShoutVoidGeohash?: Maybe<String>;
+  nvoid?: Maybe<NVoidUpdateOneRequiredWithoutEchosInput>;
+  replies?: Maybe<ReplyToEchoInVoidUpdateManyWithoutEchoInVoidInput>;
+  echoEdge?: Maybe<EchoEdgeUpdateOneWithoutEchoInVoidInput>;
+}
+
+export interface UserUpdateOneRequiredWithoutEchosInVoidsInput {
+  create?: Maybe<UserCreateWithoutEchosInVoidsInput>;
+  update?: Maybe<UserUpdateWithoutEchosInVoidsDataInput>;
+  upsert?: Maybe<UserUpsertWithoutEchosInVoidsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserUpdateWithoutEchosInVoidsDataInput {
+  username?: Maybe<String>;
+  password?: Maybe<String>;
+  currentLocationGeohash?: Maybe<String>;
+  shoutsInVoids?: Maybe<ShoutInVoidUpdateManyWithoutShoutedByInput>;
+  savedShouts?: Maybe<SavedShoutUpdateManyWithoutSavedByUserInput>;
+  savedEchos?: Maybe<SavedEchoUpdateManyWithoutSavedByInput>;
+  repliesToShoutsInVoids?: Maybe<
+    ReplyToShoutInVoidUpdateManyWithoutCreatedByInput
+  >;
+  savedRepliesToShoutsInVoids?: Maybe<
+    SavedReplyToShoutInVoidUpdateManyWithoutSavedByInput
+  >;
+  repliesToEchosInVoids?: Maybe<
+    ReplyToEchoInVoidUpdateManyWithoutCreatedByInput
+  >;
+  savedRepliesToEchosInVoids?: Maybe<
+    SavedReplyToEchoInVoidUpdateManyWithoutSavedByInput
+  >;
+  createdVoids?: Maybe<NVoidUpdateManyWithoutCreatedByInput>;
+  savedVoids?: Maybe<SavedVoidUpdateManyWithoutCreatedByInput>;
+}
+
+export interface ReplyToShoutInVoidUpdateManyWithoutCreatedByInput {
+  create?: Maybe<
+    | ReplyToShoutInVoidCreateWithoutCreatedByInput[]
+    | ReplyToShoutInVoidCreateWithoutCreatedByInput
+  >;
+  delete?: Maybe<
+    ReplyToShoutInVoidWhereUniqueInput[] | ReplyToShoutInVoidWhereUniqueInput
+  >;
+  connect?: Maybe<
+    ReplyToShoutInVoidWhereUniqueInput[] | ReplyToShoutInVoidWhereUniqueInput
+  >;
+  set?: Maybe<
+    ReplyToShoutInVoidWhereUniqueInput[] | ReplyToShoutInVoidWhereUniqueInput
+  >;
+  disconnect?: Maybe<
+    ReplyToShoutInVoidWhereUniqueInput[] | ReplyToShoutInVoidWhereUniqueInput
+  >;
+  update?: Maybe<
+    | ReplyToShoutInVoidUpdateWithWhereUniqueWithoutCreatedByInput[]
+    | ReplyToShoutInVoidUpdateWithWhereUniqueWithoutCreatedByInput
+  >;
+  upsert?: Maybe<
+    | ReplyToShoutInVoidUpsertWithWhereUniqueWithoutCreatedByInput[]
+    | ReplyToShoutInVoidUpsertWithWhereUniqueWithoutCreatedByInput
+  >;
+  deleteMany?: Maybe<
+    ReplyToShoutInVoidScalarWhereInput[] | ReplyToShoutInVoidScalarWhereInput
+  >;
+  updateMany?: Maybe<
+    | ReplyToShoutInVoidUpdateManyWithWhereNestedInput[]
+    | ReplyToShoutInVoidUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface ReplyToShoutInVoidUpdateWithWhereUniqueWithoutCreatedByInput {
+  where: ReplyToShoutInVoidWhereUniqueInput;
+  data: ReplyToShoutInVoidUpdateWithoutCreatedByDataInput;
+}
+
+export interface ReplyToShoutInVoidUpdateWithoutCreatedByDataInput {
+  content?: Maybe<ContentUpdateOneRequiredInput>;
+  voteCount?: Maybe<Int>;
+  shoutInVoid?: Maybe<ShoutInVoidUpdateOneRequiredWithoutRepliesInput>;
+  savedReplies?: Maybe<
+    SavedReplyToShoutInVoidUpdateManyWithoutReplyToShoutInVoidInput
+  >;
+}
+
+export interface ShoutInVoidUpdateOneRequiredWithoutRepliesInput {
+  create?: Maybe<ShoutInVoidCreateWithoutRepliesInput>;
+  update?: Maybe<ShoutInVoidUpdateWithoutRepliesDataInput>;
+  upsert?: Maybe<ShoutInVoidUpsertWithoutRepliesInput>;
+  connect?: Maybe<ShoutInVoidWhereUniqueInput>;
+}
+
+export interface ShoutInVoidUpdateWithoutRepliesDataInput {
+  shoutedBy?: Maybe<UserUpdateOneRequiredWithoutShoutsInVoidsInput>;
+  content?: Maybe<ContentUpdateOneRequiredInput>;
+  voteCount?: Maybe<Int>;
+  nvoid?: Maybe<NVoidUpdateOneRequiredWithoutShoutsInput>;
+  savedShouts?: Maybe<SavedShoutUpdateManyWithoutShoutInVoidInput>;
+  echoEdges?: Maybe<EchoEdgeUpdateManyWithoutShoutInVoidInput>;
+}
+
+export interface EchoEdgeUpdateManyWithoutShoutInVoidInput {
+  create?: Maybe<
+    | EchoEdgeCreateWithoutShoutInVoidInput[]
+    | EchoEdgeCreateWithoutShoutInVoidInput
+  >;
+  delete?: Maybe<EchoEdgeWhereUniqueInput[] | EchoEdgeWhereUniqueInput>;
+  connect?: Maybe<EchoEdgeWhereUniqueInput[] | EchoEdgeWhereUniqueInput>;
+  set?: Maybe<EchoEdgeWhereUniqueInput[] | EchoEdgeWhereUniqueInput>;
+  disconnect?: Maybe<EchoEdgeWhereUniqueInput[] | EchoEdgeWhereUniqueInput>;
+  update?: Maybe<
+    | EchoEdgeUpdateWithWhereUniqueWithoutShoutInVoidInput[]
+    | EchoEdgeUpdateWithWhereUniqueWithoutShoutInVoidInput
+  >;
+  upsert?: Maybe<
+    | EchoEdgeUpsertWithWhereUniqueWithoutShoutInVoidInput[]
+    | EchoEdgeUpsertWithWhereUniqueWithoutShoutInVoidInput
+  >;
+  deleteMany?: Maybe<EchoEdgeScalarWhereInput[] | EchoEdgeScalarWhereInput>;
+}
+
+export interface EchoEdgeUpdateWithWhereUniqueWithoutShoutInVoidInput {
+  where: EchoEdgeWhereUniqueInput;
+  data: EchoEdgeUpdateWithoutShoutInVoidDataInput;
+}
+
+export interface EchoEdgeUpdateWithoutShoutInVoidDataInput {
+  savedShout?: Maybe<SavedShoutUpdateOneWithoutEchoEdgesInput>;
+  echoInVoid?: Maybe<EchoInVoidUpdateOneWithoutEchoEdgeInput>;
+}
+
+export interface SavedShoutUpdateOneWithoutEchoEdgesInput {
+  create?: Maybe<SavedShoutCreateWithoutEchoEdgesInput>;
+  update?: Maybe<SavedShoutUpdateWithoutEchoEdgesDataInput>;
+  upsert?: Maybe<SavedShoutUpsertWithoutEchoEdgesInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<SavedShoutWhereUniqueInput>;
+}
+
+export interface SavedShoutUpdateWithoutEchoEdgesDataInput {
+  savedByUser?: Maybe<UserUpdateOneRequiredWithoutSavedShoutsInput>;
+  originalContent?: Maybe<ContentUpdateOneRequiredInput>;
+  originalShoutVoidGeohash?: Maybe<String>;
+  shoutInVoid?: Maybe<ShoutInVoidUpdateOneRequiredWithoutSavedShoutsInput>;
+}
+
+export interface SavedShoutUpsertWithoutEchoEdgesInput {
+  update: SavedShoutUpdateWithoutEchoEdgesDataInput;
+  create: SavedShoutCreateWithoutEchoEdgesInput;
+}
+
+export interface EchoInVoidUpdateOneWithoutEchoEdgeInput {
+  create?: Maybe<EchoInVoidCreateWithoutEchoEdgeInput>;
+  update?: Maybe<EchoInVoidUpdateWithoutEchoEdgeDataInput>;
+  upsert?: Maybe<EchoInVoidUpsertWithoutEchoEdgeInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<EchoInVoidWhereUniqueInput>;
+}
+
+export interface EchoInVoidUpdateWithoutEchoEdgeDataInput {
+  echoedBy?: Maybe<UserUpdateOneRequiredWithoutEchosInVoidsInput>;
+  originalContent?: Maybe<ContentUpdateOneRequiredInput>;
+  voteCount?: Maybe<Int>;
+  originalShoutVoidGeohash?: Maybe<String>;
+  nvoid?: Maybe<NVoidUpdateOneRequiredWithoutEchosInput>;
+  savedEchos?: Maybe<SavedEchoUpdateManyWithoutEchoInVoidInput>;
+  replies?: Maybe<ReplyToEchoInVoidUpdateManyWithoutEchoInVoidInput>;
+}
+
+export interface SavedEchoUpdateManyWithoutEchoInVoidInput {
+  create?: Maybe<
+    | SavedEchoCreateWithoutEchoInVoidInput[]
+    | SavedEchoCreateWithoutEchoInVoidInput
+  >;
+  delete?: Maybe<SavedEchoWhereUniqueInput[] | SavedEchoWhereUniqueInput>;
+  connect?: Maybe<SavedEchoWhereUniqueInput[] | SavedEchoWhereUniqueInput>;
+  set?: Maybe<SavedEchoWhereUniqueInput[] | SavedEchoWhereUniqueInput>;
+  disconnect?: Maybe<SavedEchoWhereUniqueInput[] | SavedEchoWhereUniqueInput>;
+  update?: Maybe<
+    | SavedEchoUpdateWithWhereUniqueWithoutEchoInVoidInput[]
+    | SavedEchoUpdateWithWhereUniqueWithoutEchoInVoidInput
+  >;
+  upsert?: Maybe<
+    | SavedEchoUpsertWithWhereUniqueWithoutEchoInVoidInput[]
+    | SavedEchoUpsertWithWhereUniqueWithoutEchoInVoidInput
+  >;
+  deleteMany?: Maybe<SavedEchoScalarWhereInput[] | SavedEchoScalarWhereInput>;
+  updateMany?: Maybe<
+    | SavedEchoUpdateManyWithWhereNestedInput[]
+    | SavedEchoUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface SavedEchoUpdateWithWhereUniqueWithoutEchoInVoidInput {
+  where: SavedEchoWhereUniqueInput;
+  data: SavedEchoUpdateWithoutEchoInVoidDataInput;
+}
+
+export interface SavedEchoUpdateWithoutEchoInVoidDataInput {
+  savedBy?: Maybe<UserUpdateOneRequiredWithoutSavedEchosInput>;
+  originalContent?: Maybe<ContentUpdateOneRequiredInput>;
+  originalShoutVoidGeohash?: Maybe<String>;
+  originalEchoVoidGeohash?: Maybe<String>;
+}
+
+export interface UserUpdateOneRequiredWithoutSavedEchosInput {
+  create?: Maybe<UserCreateWithoutSavedEchosInput>;
+  update?: Maybe<UserUpdateWithoutSavedEchosDataInput>;
+  upsert?: Maybe<UserUpsertWithoutSavedEchosInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserUpdateWithoutSavedEchosDataInput {
+  username?: Maybe<String>;
+  password?: Maybe<String>;
+  currentLocationGeohash?: Maybe<String>;
+  shoutsInVoids?: Maybe<ShoutInVoidUpdateManyWithoutShoutedByInput>;
+  savedShouts?: Maybe<SavedShoutUpdateManyWithoutSavedByUserInput>;
+  echosInVoids?: Maybe<EchoInVoidUpdateManyWithoutEchoedByInput>;
+  repliesToShoutsInVoids?: Maybe<
+    ReplyToShoutInVoidUpdateManyWithoutCreatedByInput
+  >;
+  savedRepliesToShoutsInVoids?: Maybe<
+    SavedReplyToShoutInVoidUpdateManyWithoutSavedByInput
+  >;
+  repliesToEchosInVoids?: Maybe<
+    ReplyToEchoInVoidUpdateManyWithoutCreatedByInput
+  >;
+  savedRepliesToEchosInVoids?: Maybe<
+    SavedReplyToEchoInVoidUpdateManyWithoutSavedByInput
+  >;
+  createdVoids?: Maybe<NVoidUpdateManyWithoutCreatedByInput>;
+  savedVoids?: Maybe<SavedVoidUpdateManyWithoutCreatedByInput>;
+}
+
+export interface SavedReplyToShoutInVoidUpdateManyWithoutSavedByInput {
+  create?: Maybe<
+    | SavedReplyToShoutInVoidCreateWithoutSavedByInput[]
+    | SavedReplyToShoutInVoidCreateWithoutSavedByInput
+  >;
+  delete?: Maybe<
+    | SavedReplyToShoutInVoidWhereUniqueInput[]
+    | SavedReplyToShoutInVoidWhereUniqueInput
+  >;
+  connect?: Maybe<
+    | SavedReplyToShoutInVoidWhereUniqueInput[]
+    | SavedReplyToShoutInVoidWhereUniqueInput
+  >;
+  set?: Maybe<
+    | SavedReplyToShoutInVoidWhereUniqueInput[]
+    | SavedReplyToShoutInVoidWhereUniqueInput
+  >;
+  disconnect?: Maybe<
+    | SavedReplyToShoutInVoidWhereUniqueInput[]
+    | SavedReplyToShoutInVoidWhereUniqueInput
+  >;
+  update?: Maybe<
+    | SavedReplyToShoutInVoidUpdateWithWhereUniqueWithoutSavedByInput[]
+    | SavedReplyToShoutInVoidUpdateWithWhereUniqueWithoutSavedByInput
+  >;
+  upsert?: Maybe<
+    | SavedReplyToShoutInVoidUpsertWithWhereUniqueWithoutSavedByInput[]
+    | SavedReplyToShoutInVoidUpsertWithWhereUniqueWithoutSavedByInput
+  >;
+  deleteMany?: Maybe<
+    | SavedReplyToShoutInVoidScalarWhereInput[]
+    | SavedReplyToShoutInVoidScalarWhereInput
+  >;
+  updateMany?: Maybe<
+    | SavedReplyToShoutInVoidUpdateManyWithWhereNestedInput[]
+    | SavedReplyToShoutInVoidUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface SavedReplyToShoutInVoidUpdateWithWhereUniqueWithoutSavedByInput {
+  where: SavedReplyToShoutInVoidWhereUniqueInput;
+  data: SavedReplyToShoutInVoidUpdateWithoutSavedByDataInput;
+}
+
+export interface SavedReplyToShoutInVoidUpdateWithoutSavedByDataInput {
+  originalReplyContent?: Maybe<ContentUpdateOneRequiredInput>;
+  originalShoutContent?: Maybe<ContentUpdateOneRequiredInput>;
+  originalVoidGeohash?: Maybe<String>;
+  replyToShoutInVoid?: Maybe<
+    ReplyToShoutInVoidUpdateOneRequiredWithoutSavedRepliesInput
+  >;
+}
+
+export interface ReplyToShoutInVoidUpdateOneRequiredWithoutSavedRepliesInput {
+  create?: Maybe<ReplyToShoutInVoidCreateWithoutSavedRepliesInput>;
+  update?: Maybe<ReplyToShoutInVoidUpdateWithoutSavedRepliesDataInput>;
+  upsert?: Maybe<ReplyToShoutInVoidUpsertWithoutSavedRepliesInput>;
+  connect?: Maybe<ReplyToShoutInVoidWhereUniqueInput>;
+}
+
+export interface ReplyToShoutInVoidUpdateWithoutSavedRepliesDataInput {
+  createdBy?: Maybe<UserUpdateOneRequiredWithoutRepliesToShoutsInVoidsInput>;
+  content?: Maybe<ContentUpdateOneRequiredInput>;
+  voteCount?: Maybe<Int>;
+  shoutInVoid?: Maybe<ShoutInVoidUpdateOneRequiredWithoutRepliesInput>;
+}
+
+export interface UserUpdateOneRequiredWithoutRepliesToShoutsInVoidsInput {
+  create?: Maybe<UserCreateWithoutRepliesToShoutsInVoidsInput>;
+  update?: Maybe<UserUpdateWithoutRepliesToShoutsInVoidsDataInput>;
+  upsert?: Maybe<UserUpsertWithoutRepliesToShoutsInVoidsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserUpdateWithoutRepliesToShoutsInVoidsDataInput {
+  username?: Maybe<String>;
+  password?: Maybe<String>;
+  currentLocationGeohash?: Maybe<String>;
+  shoutsInVoids?: Maybe<ShoutInVoidUpdateManyWithoutShoutedByInput>;
+  savedShouts?: Maybe<SavedShoutUpdateManyWithoutSavedByUserInput>;
+  echosInVoids?: Maybe<EchoInVoidUpdateManyWithoutEchoedByInput>;
+  savedEchos?: Maybe<SavedEchoUpdateManyWithoutSavedByInput>;
+  savedRepliesToShoutsInVoids?: Maybe<
+    SavedReplyToShoutInVoidUpdateManyWithoutSavedByInput
+  >;
+  repliesToEchosInVoids?: Maybe<
+    ReplyToEchoInVoidUpdateManyWithoutCreatedByInput
+  >;
+  savedRepliesToEchosInVoids?: Maybe<
+    SavedReplyToEchoInVoidUpdateManyWithoutSavedByInput
+  >;
+  createdVoids?: Maybe<NVoidUpdateManyWithoutCreatedByInput>;
+  savedVoids?: Maybe<SavedVoidUpdateManyWithoutCreatedByInput>;
+}
+
+export interface ReplyToEchoInVoidUpdateManyWithoutCreatedByInput {
+  create?: Maybe<
+    | ReplyToEchoInVoidCreateWithoutCreatedByInput[]
+    | ReplyToEchoInVoidCreateWithoutCreatedByInput
+  >;
+  delete?: Maybe<
+    ReplyToEchoInVoidWhereUniqueInput[] | ReplyToEchoInVoidWhereUniqueInput
+  >;
+  connect?: Maybe<
+    ReplyToEchoInVoidWhereUniqueInput[] | ReplyToEchoInVoidWhereUniqueInput
+  >;
+  set?: Maybe<
+    ReplyToEchoInVoidWhereUniqueInput[] | ReplyToEchoInVoidWhereUniqueInput
+  >;
+  disconnect?: Maybe<
+    ReplyToEchoInVoidWhereUniqueInput[] | ReplyToEchoInVoidWhereUniqueInput
+  >;
+  update?: Maybe<
+    | ReplyToEchoInVoidUpdateWithWhereUniqueWithoutCreatedByInput[]
+    | ReplyToEchoInVoidUpdateWithWhereUniqueWithoutCreatedByInput
+  >;
+  upsert?: Maybe<
+    | ReplyToEchoInVoidUpsertWithWhereUniqueWithoutCreatedByInput[]
+    | ReplyToEchoInVoidUpsertWithWhereUniqueWithoutCreatedByInput
+  >;
+  deleteMany?: Maybe<
+    ReplyToEchoInVoidScalarWhereInput[] | ReplyToEchoInVoidScalarWhereInput
+  >;
+  updateMany?: Maybe<
+    | ReplyToEchoInVoidUpdateManyWithWhereNestedInput[]
+    | ReplyToEchoInVoidUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface ReplyToEchoInVoidUpdateWithWhereUniqueWithoutCreatedByInput {
+  where: ReplyToEchoInVoidWhereUniqueInput;
+  data: ReplyToEchoInVoidUpdateWithoutCreatedByDataInput;
+}
+
+export interface ReplyToEchoInVoidUpdateWithoutCreatedByDataInput {
+  content?: Maybe<ContentUpdateOneRequiredInput>;
+  voteCount?: Maybe<Int>;
+  echoInVoid?: Maybe<EchoInVoidUpdateOneRequiredWithoutRepliesInput>;
+  savedReplies?: Maybe<
+    SavedReplyToEchoInVoidUpdateManyWithoutReplyToEchoInVoidInput
+  >;
+}
+
+export interface EchoInVoidUpdateOneRequiredWithoutRepliesInput {
+  create?: Maybe<EchoInVoidCreateWithoutRepliesInput>;
+  update?: Maybe<EchoInVoidUpdateWithoutRepliesDataInput>;
+  upsert?: Maybe<EchoInVoidUpsertWithoutRepliesInput>;
+  connect?: Maybe<EchoInVoidWhereUniqueInput>;
+}
+
+export interface EchoInVoidUpdateWithoutRepliesDataInput {
+  echoedBy?: Maybe<UserUpdateOneRequiredWithoutEchosInVoidsInput>;
+  originalContent?: Maybe<ContentUpdateOneRequiredInput>;
+  voteCount?: Maybe<Int>;
+  originalShoutVoidGeohash?: Maybe<String>;
+  nvoid?: Maybe<NVoidUpdateOneRequiredWithoutEchosInput>;
+  savedEchos?: Maybe<SavedEchoUpdateManyWithoutEchoInVoidInput>;
+  echoEdge?: Maybe<EchoEdgeUpdateOneWithoutEchoInVoidInput>;
+}
+
+export interface EchoEdgeUpdateOneWithoutEchoInVoidInput {
+  create?: Maybe<EchoEdgeCreateWithoutEchoInVoidInput>;
+  update?: Maybe<EchoEdgeUpdateWithoutEchoInVoidDataInput>;
+  upsert?: Maybe<EchoEdgeUpsertWithoutEchoInVoidInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<EchoEdgeWhereUniqueInput>;
+}
+
+export interface EchoEdgeUpdateWithoutEchoInVoidDataInput {
+  shoutInVoid?: Maybe<ShoutInVoidUpdateOneWithoutEchoEdgesInput>;
+  savedShout?: Maybe<SavedShoutUpdateOneWithoutEchoEdgesInput>;
+}
+
+export interface ShoutInVoidUpdateOneWithoutEchoEdgesInput {
+  create?: Maybe<ShoutInVoidCreateWithoutEchoEdgesInput>;
+  update?: Maybe<ShoutInVoidUpdateWithoutEchoEdgesDataInput>;
+  upsert?: Maybe<ShoutInVoidUpsertWithoutEchoEdgesInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<ShoutInVoidWhereUniqueInput>;
+}
+
+export interface ShoutInVoidUpdateWithoutEchoEdgesDataInput {
+  shoutedBy?: Maybe<UserUpdateOneRequiredWithoutShoutsInVoidsInput>;
+  content?: Maybe<ContentUpdateOneRequiredInput>;
+  voteCount?: Maybe<Int>;
+  nvoid?: Maybe<NVoidUpdateOneRequiredWithoutShoutsInput>;
+  savedShouts?: Maybe<SavedShoutUpdateManyWithoutShoutInVoidInput>;
+  replies?: Maybe<ReplyToShoutInVoidUpdateManyWithoutShoutInVoidInput>;
+}
+
+export interface ReplyToShoutInVoidUpdateManyWithoutShoutInVoidInput {
+  create?: Maybe<
+    | ReplyToShoutInVoidCreateWithoutShoutInVoidInput[]
+    | ReplyToShoutInVoidCreateWithoutShoutInVoidInput
+  >;
+  delete?: Maybe<
+    ReplyToShoutInVoidWhereUniqueInput[] | ReplyToShoutInVoidWhereUniqueInput
+  >;
+  connect?: Maybe<
+    ReplyToShoutInVoidWhereUniqueInput[] | ReplyToShoutInVoidWhereUniqueInput
+  >;
+  set?: Maybe<
+    ReplyToShoutInVoidWhereUniqueInput[] | ReplyToShoutInVoidWhereUniqueInput
+  >;
+  disconnect?: Maybe<
+    ReplyToShoutInVoidWhereUniqueInput[] | ReplyToShoutInVoidWhereUniqueInput
+  >;
+  update?: Maybe<
+    | ReplyToShoutInVoidUpdateWithWhereUniqueWithoutShoutInVoidInput[]
+    | ReplyToShoutInVoidUpdateWithWhereUniqueWithoutShoutInVoidInput
+  >;
+  upsert?: Maybe<
+    | ReplyToShoutInVoidUpsertWithWhereUniqueWithoutShoutInVoidInput[]
+    | ReplyToShoutInVoidUpsertWithWhereUniqueWithoutShoutInVoidInput
+  >;
+  deleteMany?: Maybe<
+    ReplyToShoutInVoidScalarWhereInput[] | ReplyToShoutInVoidScalarWhereInput
+  >;
+  updateMany?: Maybe<
+    | ReplyToShoutInVoidUpdateManyWithWhereNestedInput[]
+    | ReplyToShoutInVoidUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface ReplyToShoutInVoidUpdateWithWhereUniqueWithoutShoutInVoidInput {
+  where: ReplyToShoutInVoidWhereUniqueInput;
+  data: ReplyToShoutInVoidUpdateWithoutShoutInVoidDataInput;
+}
+
+export interface ReplyToShoutInVoidUpdateWithoutShoutInVoidDataInput {
+  createdBy?: Maybe<UserUpdateOneRequiredWithoutRepliesToShoutsInVoidsInput>;
+  content?: Maybe<ContentUpdateOneRequiredInput>;
+  voteCount?: Maybe<Int>;
+  savedReplies?: Maybe<
+    SavedReplyToShoutInVoidUpdateManyWithoutReplyToShoutInVoidInput
+  >;
+}
+
+export interface SavedReplyToShoutInVoidUpdateManyWithoutReplyToShoutInVoidInput {
+  create?: Maybe<
+    | SavedReplyToShoutInVoidCreateWithoutReplyToShoutInVoidInput[]
+    | SavedReplyToShoutInVoidCreateWithoutReplyToShoutInVoidInput
+  >;
+  delete?: Maybe<
+    | SavedReplyToShoutInVoidWhereUniqueInput[]
+    | SavedReplyToShoutInVoidWhereUniqueInput
+  >;
+  connect?: Maybe<
+    | SavedReplyToShoutInVoidWhereUniqueInput[]
+    | SavedReplyToShoutInVoidWhereUniqueInput
+  >;
+  set?: Maybe<
+    | SavedReplyToShoutInVoidWhereUniqueInput[]
+    | SavedReplyToShoutInVoidWhereUniqueInput
+  >;
+  disconnect?: Maybe<
+    | SavedReplyToShoutInVoidWhereUniqueInput[]
+    | SavedReplyToShoutInVoidWhereUniqueInput
+  >;
+  update?: Maybe<
+    | SavedReplyToShoutInVoidUpdateWithWhereUniqueWithoutReplyToShoutInVoidInput[]
+    | SavedReplyToShoutInVoidUpdateWithWhereUniqueWithoutReplyToShoutInVoidInput
+  >;
+  upsert?: Maybe<
+    | SavedReplyToShoutInVoidUpsertWithWhereUniqueWithoutReplyToShoutInVoidInput[]
+    | SavedReplyToShoutInVoidUpsertWithWhereUniqueWithoutReplyToShoutInVoidInput
+  >;
+  deleteMany?: Maybe<
+    | SavedReplyToShoutInVoidScalarWhereInput[]
+    | SavedReplyToShoutInVoidScalarWhereInput
+  >;
+  updateMany?: Maybe<
+    | SavedReplyToShoutInVoidUpdateManyWithWhereNestedInput[]
+    | SavedReplyToShoutInVoidUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface SavedReplyToShoutInVoidUpdateWithWhereUniqueWithoutReplyToShoutInVoidInput {
+  where: SavedReplyToShoutInVoidWhereUniqueInput;
+  data: SavedReplyToShoutInVoidUpdateWithoutReplyToShoutInVoidDataInput;
+}
+
+export interface SavedReplyToShoutInVoidUpdateWithoutReplyToShoutInVoidDataInput {
+  savedBy?: Maybe<UserUpdateOneRequiredWithoutSavedRepliesToShoutsInVoidsInput>;
+  originalReplyContent?: Maybe<ContentUpdateOneRequiredInput>;
+  originalShoutContent?: Maybe<ContentUpdateOneRequiredInput>;
+  originalVoidGeohash?: Maybe<String>;
+}
+
+export interface UserUpdateOneRequiredWithoutSavedRepliesToShoutsInVoidsInput {
+  create?: Maybe<UserCreateWithoutSavedRepliesToShoutsInVoidsInput>;
+  update?: Maybe<UserUpdateWithoutSavedRepliesToShoutsInVoidsDataInput>;
+  upsert?: Maybe<UserUpsertWithoutSavedRepliesToShoutsInVoidsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserUpdateWithoutSavedRepliesToShoutsInVoidsDataInput {
+  username?: Maybe<String>;
+  password?: Maybe<String>;
+  currentLocationGeohash?: Maybe<String>;
+  shoutsInVoids?: Maybe<ShoutInVoidUpdateManyWithoutShoutedByInput>;
+  savedShouts?: Maybe<SavedShoutUpdateManyWithoutSavedByUserInput>;
+  echosInVoids?: Maybe<EchoInVoidUpdateManyWithoutEchoedByInput>;
+  savedEchos?: Maybe<SavedEchoUpdateManyWithoutSavedByInput>;
+  repliesToShoutsInVoids?: Maybe<
+    ReplyToShoutInVoidUpdateManyWithoutCreatedByInput
+  >;
+  repliesToEchosInVoids?: Maybe<
+    ReplyToEchoInVoidUpdateManyWithoutCreatedByInput
+  >;
+  savedRepliesToEchosInVoids?: Maybe<
+    SavedReplyToEchoInVoidUpdateManyWithoutSavedByInput
+  >;
+  createdVoids?: Maybe<NVoidUpdateManyWithoutCreatedByInput>;
+  savedVoids?: Maybe<SavedVoidUpdateManyWithoutCreatedByInput>;
+}
+
+export interface SavedReplyToEchoInVoidUpdateManyWithoutSavedByInput {
+  create?: Maybe<
+    | SavedReplyToEchoInVoidCreateWithoutSavedByInput[]
+    | SavedReplyToEchoInVoidCreateWithoutSavedByInput
+  >;
+  delete?: Maybe<
+    | SavedReplyToEchoInVoidWhereUniqueInput[]
+    | SavedReplyToEchoInVoidWhereUniqueInput
+  >;
+  connect?: Maybe<
+    | SavedReplyToEchoInVoidWhereUniqueInput[]
+    | SavedReplyToEchoInVoidWhereUniqueInput
+  >;
+  set?: Maybe<
+    | SavedReplyToEchoInVoidWhereUniqueInput[]
+    | SavedReplyToEchoInVoidWhereUniqueInput
+  >;
+  disconnect?: Maybe<
+    | SavedReplyToEchoInVoidWhereUniqueInput[]
+    | SavedReplyToEchoInVoidWhereUniqueInput
+  >;
+  update?: Maybe<
+    | SavedReplyToEchoInVoidUpdateWithWhereUniqueWithoutSavedByInput[]
+    | SavedReplyToEchoInVoidUpdateWithWhereUniqueWithoutSavedByInput
+  >;
+  upsert?: Maybe<
+    | SavedReplyToEchoInVoidUpsertWithWhereUniqueWithoutSavedByInput[]
+    | SavedReplyToEchoInVoidUpsertWithWhereUniqueWithoutSavedByInput
+  >;
+  deleteMany?: Maybe<
+    | SavedReplyToEchoInVoidScalarWhereInput[]
+    | SavedReplyToEchoInVoidScalarWhereInput
+  >;
+  updateMany?: Maybe<
+    | SavedReplyToEchoInVoidUpdateManyWithWhereNestedInput[]
+    | SavedReplyToEchoInVoidUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface SavedReplyToEchoInVoidUpdateWithWhereUniqueWithoutSavedByInput {
+  where: SavedReplyToEchoInVoidWhereUniqueInput;
+  data: SavedReplyToEchoInVoidUpdateWithoutSavedByDataInput;
+}
+
+export interface SavedReplyToEchoInVoidUpdateWithoutSavedByDataInput {
+  originalReplyContent?: Maybe<ContentUpdateOneRequiredInput>;
+  originalShoutContent?: Maybe<ContentUpdateOneRequiredInput>;
+  originalVoidGeohash?: Maybe<String>;
+  replyToEchoInVoid?: Maybe<
+    ReplyToEchoInVoidUpdateOneRequiredWithoutSavedRepliesInput
+  >;
+}
+
+export interface ReplyToEchoInVoidUpdateOneRequiredWithoutSavedRepliesInput {
+  create?: Maybe<ReplyToEchoInVoidCreateWithoutSavedRepliesInput>;
+  update?: Maybe<ReplyToEchoInVoidUpdateWithoutSavedRepliesDataInput>;
+  upsert?: Maybe<ReplyToEchoInVoidUpsertWithoutSavedRepliesInput>;
+  connect?: Maybe<ReplyToEchoInVoidWhereUniqueInput>;
+}
+
+export interface ReplyToEchoInVoidUpdateWithoutSavedRepliesDataInput {
+  createdBy?: Maybe<UserUpdateOneRequiredWithoutRepliesToEchosInVoidsInput>;
+  content?: Maybe<ContentUpdateOneRequiredInput>;
+  voteCount?: Maybe<Int>;
+  echoInVoid?: Maybe<EchoInVoidUpdateOneRequiredWithoutRepliesInput>;
+}
+
+export interface UserUpdateOneRequiredWithoutRepliesToEchosInVoidsInput {
+  create?: Maybe<UserCreateWithoutRepliesToEchosInVoidsInput>;
+  update?: Maybe<UserUpdateWithoutRepliesToEchosInVoidsDataInput>;
+  upsert?: Maybe<UserUpsertWithoutRepliesToEchosInVoidsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserUpdateWithoutRepliesToEchosInVoidsDataInput {
+  username?: Maybe<String>;
+  password?: Maybe<String>;
+  currentLocationGeohash?: Maybe<String>;
+  shoutsInVoids?: Maybe<ShoutInVoidUpdateManyWithoutShoutedByInput>;
+  savedShouts?: Maybe<SavedShoutUpdateManyWithoutSavedByUserInput>;
+  echosInVoids?: Maybe<EchoInVoidUpdateManyWithoutEchoedByInput>;
+  savedEchos?: Maybe<SavedEchoUpdateManyWithoutSavedByInput>;
+  repliesToShoutsInVoids?: Maybe<
+    ReplyToShoutInVoidUpdateManyWithoutCreatedByInput
+  >;
+  savedRepliesToShoutsInVoids?: Maybe<
+    SavedReplyToShoutInVoidUpdateManyWithoutSavedByInput
+  >;
+  savedRepliesToEchosInVoids?: Maybe<
+    SavedReplyToEchoInVoidUpdateManyWithoutSavedByInput
+  >;
+  createdVoids?: Maybe<NVoidUpdateManyWithoutCreatedByInput>;
+  savedVoids?: Maybe<SavedVoidUpdateManyWithoutCreatedByInput>;
+}
+
+export interface NVoidUpdateManyWithoutCreatedByInput {
+  create?: Maybe<
+    NVoidCreateWithoutCreatedByInput[] | NVoidCreateWithoutCreatedByInput
+  >;
+  delete?: Maybe<NVoidWhereUniqueInput[] | NVoidWhereUniqueInput>;
+  connect?: Maybe<NVoidWhereUniqueInput[] | NVoidWhereUniqueInput>;
+  set?: Maybe<NVoidWhereUniqueInput[] | NVoidWhereUniqueInput>;
+  disconnect?: Maybe<NVoidWhereUniqueInput[] | NVoidWhereUniqueInput>;
+  update?: Maybe<
+    | NVoidUpdateWithWhereUniqueWithoutCreatedByInput[]
+    | NVoidUpdateWithWhereUniqueWithoutCreatedByInput
+  >;
+  upsert?: Maybe<
+    | NVoidUpsertWithWhereUniqueWithoutCreatedByInput[]
+    | NVoidUpsertWithWhereUniqueWithoutCreatedByInput
+  >;
+  deleteMany?: Maybe<NVoidScalarWhereInput[] | NVoidScalarWhereInput>;
+  updateMany?: Maybe<
+    NVoidUpdateManyWithWhereNestedInput[] | NVoidUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface NVoidUpdateWithWhereUniqueWithoutCreatedByInput {
+  where: NVoidWhereUniqueInput;
+  data: NVoidUpdateWithoutCreatedByDataInput;
+}
+
+export interface NVoidUpdateWithoutCreatedByDataInput {
+  voidGeohash?: Maybe<String>;
+  shouts?: Maybe<ShoutInVoidUpdateManyWithoutNvoidInput>;
+  echos?: Maybe<EchoInVoidUpdateManyWithoutNvoidInput>;
+}
+
+export interface EchoInVoidUpdateManyWithoutNvoidInput {
+  create?: Maybe<
+    EchoInVoidCreateWithoutNvoidInput[] | EchoInVoidCreateWithoutNvoidInput
+  >;
+  delete?: Maybe<EchoInVoidWhereUniqueInput[] | EchoInVoidWhereUniqueInput>;
+  connect?: Maybe<EchoInVoidWhereUniqueInput[] | EchoInVoidWhereUniqueInput>;
+  set?: Maybe<EchoInVoidWhereUniqueInput[] | EchoInVoidWhereUniqueInput>;
+  disconnect?: Maybe<EchoInVoidWhereUniqueInput[] | EchoInVoidWhereUniqueInput>;
+  update?: Maybe<
+    | EchoInVoidUpdateWithWhereUniqueWithoutNvoidInput[]
+    | EchoInVoidUpdateWithWhereUniqueWithoutNvoidInput
+  >;
+  upsert?: Maybe<
+    | EchoInVoidUpsertWithWhereUniqueWithoutNvoidInput[]
+    | EchoInVoidUpsertWithWhereUniqueWithoutNvoidInput
+  >;
+  deleteMany?: Maybe<EchoInVoidScalarWhereInput[] | EchoInVoidScalarWhereInput>;
+  updateMany?: Maybe<
+    | EchoInVoidUpdateManyWithWhereNestedInput[]
+    | EchoInVoidUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface EchoInVoidUpdateWithWhereUniqueWithoutNvoidInput {
+  where: EchoInVoidWhereUniqueInput;
+  data: EchoInVoidUpdateWithoutNvoidDataInput;
+}
+
+export interface EchoInVoidUpdateWithoutNvoidDataInput {
+  echoedBy?: Maybe<UserUpdateOneRequiredWithoutEchosInVoidsInput>;
+  originalContent?: Maybe<ContentUpdateOneRequiredInput>;
+  voteCount?: Maybe<Int>;
+  originalShoutVoidGeohash?: Maybe<String>;
+  savedEchos?: Maybe<SavedEchoUpdateManyWithoutEchoInVoidInput>;
+  replies?: Maybe<ReplyToEchoInVoidUpdateManyWithoutEchoInVoidInput>;
+  echoEdge?: Maybe<EchoEdgeUpdateOneWithoutEchoInVoidInput>;
+}
+
+export interface ReplyToEchoInVoidUpdateManyWithoutEchoInVoidInput {
+  create?: Maybe<
+    | ReplyToEchoInVoidCreateWithoutEchoInVoidInput[]
+    | ReplyToEchoInVoidCreateWithoutEchoInVoidInput
+  >;
+  delete?: Maybe<
+    ReplyToEchoInVoidWhereUniqueInput[] | ReplyToEchoInVoidWhereUniqueInput
+  >;
+  connect?: Maybe<
+    ReplyToEchoInVoidWhereUniqueInput[] | ReplyToEchoInVoidWhereUniqueInput
+  >;
+  set?: Maybe<
+    ReplyToEchoInVoidWhereUniqueInput[] | ReplyToEchoInVoidWhereUniqueInput
+  >;
+  disconnect?: Maybe<
+    ReplyToEchoInVoidWhereUniqueInput[] | ReplyToEchoInVoidWhereUniqueInput
+  >;
+  update?: Maybe<
+    | ReplyToEchoInVoidUpdateWithWhereUniqueWithoutEchoInVoidInput[]
+    | ReplyToEchoInVoidUpdateWithWhereUniqueWithoutEchoInVoidInput
+  >;
+  upsert?: Maybe<
+    | ReplyToEchoInVoidUpsertWithWhereUniqueWithoutEchoInVoidInput[]
+    | ReplyToEchoInVoidUpsertWithWhereUniqueWithoutEchoInVoidInput
+  >;
+  deleteMany?: Maybe<
+    ReplyToEchoInVoidScalarWhereInput[] | ReplyToEchoInVoidScalarWhereInput
+  >;
+  updateMany?: Maybe<
+    | ReplyToEchoInVoidUpdateManyWithWhereNestedInput[]
+    | ReplyToEchoInVoidUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface ReplyToEchoInVoidUpdateWithWhereUniqueWithoutEchoInVoidInput {
+  where: ReplyToEchoInVoidWhereUniqueInput;
+  data: ReplyToEchoInVoidUpdateWithoutEchoInVoidDataInput;
+}
+
+export interface ReplyToEchoInVoidUpdateWithoutEchoInVoidDataInput {
+  createdBy?: Maybe<UserUpdateOneRequiredWithoutRepliesToEchosInVoidsInput>;
+  content?: Maybe<ContentUpdateOneRequiredInput>;
+  voteCount?: Maybe<Int>;
+  savedReplies?: Maybe<
+    SavedReplyToEchoInVoidUpdateManyWithoutReplyToEchoInVoidInput
+  >;
+}
+
+export interface SavedReplyToEchoInVoidUpdateManyWithoutReplyToEchoInVoidInput {
+  create?: Maybe<
+    | SavedReplyToEchoInVoidCreateWithoutReplyToEchoInVoidInput[]
+    | SavedReplyToEchoInVoidCreateWithoutReplyToEchoInVoidInput
+  >;
+  delete?: Maybe<
+    | SavedReplyToEchoInVoidWhereUniqueInput[]
+    | SavedReplyToEchoInVoidWhereUniqueInput
+  >;
+  connect?: Maybe<
+    | SavedReplyToEchoInVoidWhereUniqueInput[]
+    | SavedReplyToEchoInVoidWhereUniqueInput
+  >;
+  set?: Maybe<
+    | SavedReplyToEchoInVoidWhereUniqueInput[]
+    | SavedReplyToEchoInVoidWhereUniqueInput
+  >;
+  disconnect?: Maybe<
+    | SavedReplyToEchoInVoidWhereUniqueInput[]
+    | SavedReplyToEchoInVoidWhereUniqueInput
+  >;
+  update?: Maybe<
+    | SavedReplyToEchoInVoidUpdateWithWhereUniqueWithoutReplyToEchoInVoidInput[]
+    | SavedReplyToEchoInVoidUpdateWithWhereUniqueWithoutReplyToEchoInVoidInput
+  >;
+  upsert?: Maybe<
+    | SavedReplyToEchoInVoidUpsertWithWhereUniqueWithoutReplyToEchoInVoidInput[]
+    | SavedReplyToEchoInVoidUpsertWithWhereUniqueWithoutReplyToEchoInVoidInput
+  >;
+  deleteMany?: Maybe<
+    | SavedReplyToEchoInVoidScalarWhereInput[]
+    | SavedReplyToEchoInVoidScalarWhereInput
+  >;
+  updateMany?: Maybe<
+    | SavedReplyToEchoInVoidUpdateManyWithWhereNestedInput[]
+    | SavedReplyToEchoInVoidUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface SavedReplyToEchoInVoidUpdateWithWhereUniqueWithoutReplyToEchoInVoidInput {
+  where: SavedReplyToEchoInVoidWhereUniqueInput;
+  data: SavedReplyToEchoInVoidUpdateWithoutReplyToEchoInVoidDataInput;
+}
+
+export interface SavedReplyToEchoInVoidUpdateWithoutReplyToEchoInVoidDataInput {
+  savedBy?: Maybe<UserUpdateOneRequiredWithoutSavedRepliesToEchosInVoidsInput>;
+  originalReplyContent?: Maybe<ContentUpdateOneRequiredInput>;
+  originalShoutContent?: Maybe<ContentUpdateOneRequiredInput>;
+  originalVoidGeohash?: Maybe<String>;
+}
+
+export interface UserUpdateOneRequiredWithoutSavedRepliesToEchosInVoidsInput {
+  create?: Maybe<UserCreateWithoutSavedRepliesToEchosInVoidsInput>;
+  update?: Maybe<UserUpdateWithoutSavedRepliesToEchosInVoidsDataInput>;
+  upsert?: Maybe<UserUpsertWithoutSavedRepliesToEchosInVoidsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserUpdateWithoutSavedRepliesToEchosInVoidsDataInput {
+  username?: Maybe<String>;
+  password?: Maybe<String>;
+  currentLocationGeohash?: Maybe<String>;
+  shoutsInVoids?: Maybe<ShoutInVoidUpdateManyWithoutShoutedByInput>;
+  savedShouts?: Maybe<SavedShoutUpdateManyWithoutSavedByUserInput>;
+  echosInVoids?: Maybe<EchoInVoidUpdateManyWithoutEchoedByInput>;
+  savedEchos?: Maybe<SavedEchoUpdateManyWithoutSavedByInput>;
+  repliesToShoutsInVoids?: Maybe<
+    ReplyToShoutInVoidUpdateManyWithoutCreatedByInput
+  >;
+  savedRepliesToShoutsInVoids?: Maybe<
+    SavedReplyToShoutInVoidUpdateManyWithoutSavedByInput
+  >;
+  repliesToEchosInVoids?: Maybe<
+    ReplyToEchoInVoidUpdateManyWithoutCreatedByInput
+  >;
+  createdVoids?: Maybe<NVoidUpdateManyWithoutCreatedByInput>;
+  savedVoids?: Maybe<SavedVoidUpdateManyWithoutCreatedByInput>;
+}
+
+export interface SavedVoidUpdateManyWithoutCreatedByInput {
+  create?: Maybe<
+    | SavedVoidCreateWithoutCreatedByInput[]
+    | SavedVoidCreateWithoutCreatedByInput
+  >;
+  delete?: Maybe<SavedVoidWhereUniqueInput[] | SavedVoidWhereUniqueInput>;
+  connect?: Maybe<SavedVoidWhereUniqueInput[] | SavedVoidWhereUniqueInput>;
+  set?: Maybe<SavedVoidWhereUniqueInput[] | SavedVoidWhereUniqueInput>;
+  disconnect?: Maybe<SavedVoidWhereUniqueInput[] | SavedVoidWhereUniqueInput>;
+  update?: Maybe<
+    | SavedVoidUpdateWithWhereUniqueWithoutCreatedByInput[]
+    | SavedVoidUpdateWithWhereUniqueWithoutCreatedByInput
+  >;
+  upsert?: Maybe<
+    | SavedVoidUpsertWithWhereUniqueWithoutCreatedByInput[]
+    | SavedVoidUpsertWithWhereUniqueWithoutCreatedByInput
+  >;
+  deleteMany?: Maybe<SavedVoidScalarWhereInput[] | SavedVoidScalarWhereInput>;
+  updateMany?: Maybe<
+    | SavedVoidUpdateManyWithWhereNestedInput[]
+    | SavedVoidUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface SavedVoidUpdateWithWhereUniqueWithoutCreatedByInput {
+  where: SavedVoidWhereUniqueInput;
+  data: SavedVoidUpdateWithoutCreatedByDataInput;
+}
+
+export interface SavedVoidUpdateWithoutCreatedByDataInput {
+  voidGeohash?: Maybe<String>;
+}
+
+export interface SavedVoidUpsertWithWhereUniqueWithoutCreatedByInput {
+  where: SavedVoidWhereUniqueInput;
+  update: SavedVoidUpdateWithoutCreatedByDataInput;
+  create: SavedVoidCreateWithoutCreatedByInput;
+}
+
+export interface SavedVoidScalarWhereInput {
+  savedVoidId?: Maybe<ID_Input>;
+  savedVoidId_not?: Maybe<ID_Input>;
+  savedVoidId_in?: Maybe<ID_Input[] | ID_Input>;
+  savedVoidId_not_in?: Maybe<ID_Input[] | ID_Input>;
+  savedVoidId_lt?: Maybe<ID_Input>;
+  savedVoidId_lte?: Maybe<ID_Input>;
+  savedVoidId_gt?: Maybe<ID_Input>;
+  savedVoidId_gte?: Maybe<ID_Input>;
+  savedVoidId_contains?: Maybe<ID_Input>;
+  savedVoidId_not_contains?: Maybe<ID_Input>;
+  savedVoidId_starts_with?: Maybe<ID_Input>;
+  savedVoidId_not_starts_with?: Maybe<ID_Input>;
+  savedVoidId_ends_with?: Maybe<ID_Input>;
+  savedVoidId_not_ends_with?: Maybe<ID_Input>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  voidGeohash?: Maybe<String>;
+  voidGeohash_not?: Maybe<String>;
+  voidGeohash_in?: Maybe<String[] | String>;
+  voidGeohash_not_in?: Maybe<String[] | String>;
+  voidGeohash_lt?: Maybe<String>;
+  voidGeohash_lte?: Maybe<String>;
+  voidGeohash_gt?: Maybe<String>;
+  voidGeohash_gte?: Maybe<String>;
+  voidGeohash_contains?: Maybe<String>;
+  voidGeohash_not_contains?: Maybe<String>;
+  voidGeohash_starts_with?: Maybe<String>;
+  voidGeohash_not_starts_with?: Maybe<String>;
+  voidGeohash_ends_with?: Maybe<String>;
+  voidGeohash_not_ends_with?: Maybe<String>;
+  AND?: Maybe<SavedVoidScalarWhereInput[] | SavedVoidScalarWhereInput>;
+  OR?: Maybe<SavedVoidScalarWhereInput[] | SavedVoidScalarWhereInput>;
+  NOT?: Maybe<SavedVoidScalarWhereInput[] | SavedVoidScalarWhereInput>;
+}
+
+export interface SavedVoidUpdateManyWithWhereNestedInput {
+  where: SavedVoidScalarWhereInput;
+  data: SavedVoidUpdateManyDataInput;
+}
+
+export interface SavedVoidUpdateManyDataInput {
+  voidGeohash?: Maybe<String>;
+}
+
+export interface UserUpsertWithoutSavedRepliesToEchosInVoidsInput {
+  update: UserUpdateWithoutSavedRepliesToEchosInVoidsDataInput;
+  create: UserCreateWithoutSavedRepliesToEchosInVoidsInput;
+}
+
+export interface SavedReplyToEchoInVoidUpsertWithWhereUniqueWithoutReplyToEchoInVoidInput {
+  where: SavedReplyToEchoInVoidWhereUniqueInput;
+  update: SavedReplyToEchoInVoidUpdateWithoutReplyToEchoInVoidDataInput;
+  create: SavedReplyToEchoInVoidCreateWithoutReplyToEchoInVoidInput;
+}
+
+export interface SavedReplyToEchoInVoidScalarWhereInput {
+  savedReplyToEchoInVoid?: Maybe<ID_Input>;
+  savedReplyToEchoInVoid_not?: Maybe<ID_Input>;
+  savedReplyToEchoInVoid_in?: Maybe<ID_Input[] | ID_Input>;
+  savedReplyToEchoInVoid_not_in?: Maybe<ID_Input[] | ID_Input>;
+  savedReplyToEchoInVoid_lt?: Maybe<ID_Input>;
+  savedReplyToEchoInVoid_lte?: Maybe<ID_Input>;
+  savedReplyToEchoInVoid_gt?: Maybe<ID_Input>;
+  savedReplyToEchoInVoid_gte?: Maybe<ID_Input>;
+  savedReplyToEchoInVoid_contains?: Maybe<ID_Input>;
+  savedReplyToEchoInVoid_not_contains?: Maybe<ID_Input>;
+  savedReplyToEchoInVoid_starts_with?: Maybe<ID_Input>;
+  savedReplyToEchoInVoid_not_starts_with?: Maybe<ID_Input>;
+  savedReplyToEchoInVoid_ends_with?: Maybe<ID_Input>;
+  savedReplyToEchoInVoid_not_ends_with?: Maybe<ID_Input>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  originalVoidGeohash?: Maybe<String>;
+  originalVoidGeohash_not?: Maybe<String>;
+  originalVoidGeohash_in?: Maybe<String[] | String>;
+  originalVoidGeohash_not_in?: Maybe<String[] | String>;
+  originalVoidGeohash_lt?: Maybe<String>;
+  originalVoidGeohash_lte?: Maybe<String>;
+  originalVoidGeohash_gt?: Maybe<String>;
+  originalVoidGeohash_gte?: Maybe<String>;
+  originalVoidGeohash_contains?: Maybe<String>;
+  originalVoidGeohash_not_contains?: Maybe<String>;
+  originalVoidGeohash_starts_with?: Maybe<String>;
+  originalVoidGeohash_not_starts_with?: Maybe<String>;
+  originalVoidGeohash_ends_with?: Maybe<String>;
+  originalVoidGeohash_not_ends_with?: Maybe<String>;
+  AND?: Maybe<
+    | SavedReplyToEchoInVoidScalarWhereInput[]
+    | SavedReplyToEchoInVoidScalarWhereInput
+  >;
+  OR?: Maybe<
+    | SavedReplyToEchoInVoidScalarWhereInput[]
+    | SavedReplyToEchoInVoidScalarWhereInput
+  >;
+  NOT?: Maybe<
+    | SavedReplyToEchoInVoidScalarWhereInput[]
+    | SavedReplyToEchoInVoidScalarWhereInput
+  >;
+}
+
+export interface SavedReplyToEchoInVoidUpdateManyWithWhereNestedInput {
+  where: SavedReplyToEchoInVoidScalarWhereInput;
+  data: SavedReplyToEchoInVoidUpdateManyDataInput;
+}
+
+export interface SavedReplyToEchoInVoidUpdateManyDataInput {
+  originalVoidGeohash?: Maybe<String>;
+}
+
+export interface ReplyToEchoInVoidUpsertWithWhereUniqueWithoutEchoInVoidInput {
+  where: ReplyToEchoInVoidWhereUniqueInput;
+  update: ReplyToEchoInVoidUpdateWithoutEchoInVoidDataInput;
+  create: ReplyToEchoInVoidCreateWithoutEchoInVoidInput;
+}
+
+export interface ReplyToEchoInVoidScalarWhereInput {
+  replyToEchoInVoidId?: Maybe<ID_Input>;
+  replyToEchoInVoidId_not?: Maybe<ID_Input>;
+  replyToEchoInVoidId_in?: Maybe<ID_Input[] | ID_Input>;
+  replyToEchoInVoidId_not_in?: Maybe<ID_Input[] | ID_Input>;
+  replyToEchoInVoidId_lt?: Maybe<ID_Input>;
+  replyToEchoInVoidId_lte?: Maybe<ID_Input>;
+  replyToEchoInVoidId_gt?: Maybe<ID_Input>;
+  replyToEchoInVoidId_gte?: Maybe<ID_Input>;
+  replyToEchoInVoidId_contains?: Maybe<ID_Input>;
+  replyToEchoInVoidId_not_contains?: Maybe<ID_Input>;
+  replyToEchoInVoidId_starts_with?: Maybe<ID_Input>;
+  replyToEchoInVoidId_not_starts_with?: Maybe<ID_Input>;
+  replyToEchoInVoidId_ends_with?: Maybe<ID_Input>;
+  replyToEchoInVoidId_not_ends_with?: Maybe<ID_Input>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  voteCount?: Maybe<Int>;
+  voteCount_not?: Maybe<Int>;
+  voteCount_in?: Maybe<Int[] | Int>;
+  voteCount_not_in?: Maybe<Int[] | Int>;
+  voteCount_lt?: Maybe<Int>;
+  voteCount_lte?: Maybe<Int>;
+  voteCount_gt?: Maybe<Int>;
+  voteCount_gte?: Maybe<Int>;
+  AND?: Maybe<
+    ReplyToEchoInVoidScalarWhereInput[] | ReplyToEchoInVoidScalarWhereInput
+  >;
+  OR?: Maybe<
+    ReplyToEchoInVoidScalarWhereInput[] | ReplyToEchoInVoidScalarWhereInput
+  >;
+  NOT?: Maybe<
+    ReplyToEchoInVoidScalarWhereInput[] | ReplyToEchoInVoidScalarWhereInput
+  >;
+}
+
+export interface ReplyToEchoInVoidUpdateManyWithWhereNestedInput {
+  where: ReplyToEchoInVoidScalarWhereInput;
+  data: ReplyToEchoInVoidUpdateManyDataInput;
+}
+
+export interface ReplyToEchoInVoidUpdateManyDataInput {
+  voteCount?: Maybe<Int>;
+}
+
+export interface EchoInVoidUpsertWithWhereUniqueWithoutNvoidInput {
+  where: EchoInVoidWhereUniqueInput;
+  update: EchoInVoidUpdateWithoutNvoidDataInput;
+  create: EchoInVoidCreateWithoutNvoidInput;
+}
+
+export interface EchoInVoidScalarWhereInput {
+  echoInVoidId?: Maybe<ID_Input>;
+  echoInVoidId_not?: Maybe<ID_Input>;
+  echoInVoidId_in?: Maybe<ID_Input[] | ID_Input>;
+  echoInVoidId_not_in?: Maybe<ID_Input[] | ID_Input>;
+  echoInVoidId_lt?: Maybe<ID_Input>;
+  echoInVoidId_lte?: Maybe<ID_Input>;
+  echoInVoidId_gt?: Maybe<ID_Input>;
+  echoInVoidId_gte?: Maybe<ID_Input>;
+  echoInVoidId_contains?: Maybe<ID_Input>;
+  echoInVoidId_not_contains?: Maybe<ID_Input>;
+  echoInVoidId_starts_with?: Maybe<ID_Input>;
+  echoInVoidId_not_starts_with?: Maybe<ID_Input>;
+  echoInVoidId_ends_with?: Maybe<ID_Input>;
+  echoInVoidId_not_ends_with?: Maybe<ID_Input>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  voteCount?: Maybe<Int>;
+  voteCount_not?: Maybe<Int>;
+  voteCount_in?: Maybe<Int[] | Int>;
+  voteCount_not_in?: Maybe<Int[] | Int>;
+  voteCount_lt?: Maybe<Int>;
+  voteCount_lte?: Maybe<Int>;
+  voteCount_gt?: Maybe<Int>;
+  voteCount_gte?: Maybe<Int>;
+  originalShoutVoidGeohash?: Maybe<String>;
+  originalShoutVoidGeohash_not?: Maybe<String>;
+  originalShoutVoidGeohash_in?: Maybe<String[] | String>;
+  originalShoutVoidGeohash_not_in?: Maybe<String[] | String>;
+  originalShoutVoidGeohash_lt?: Maybe<String>;
+  originalShoutVoidGeohash_lte?: Maybe<String>;
+  originalShoutVoidGeohash_gt?: Maybe<String>;
+  originalShoutVoidGeohash_gte?: Maybe<String>;
+  originalShoutVoidGeohash_contains?: Maybe<String>;
+  originalShoutVoidGeohash_not_contains?: Maybe<String>;
+  originalShoutVoidGeohash_starts_with?: Maybe<String>;
+  originalShoutVoidGeohash_not_starts_with?: Maybe<String>;
+  originalShoutVoidGeohash_ends_with?: Maybe<String>;
+  originalShoutVoidGeohash_not_ends_with?: Maybe<String>;
+  AND?: Maybe<EchoInVoidScalarWhereInput[] | EchoInVoidScalarWhereInput>;
+  OR?: Maybe<EchoInVoidScalarWhereInput[] | EchoInVoidScalarWhereInput>;
+  NOT?: Maybe<EchoInVoidScalarWhereInput[] | EchoInVoidScalarWhereInput>;
+}
+
+export interface EchoInVoidUpdateManyWithWhereNestedInput {
+  where: EchoInVoidScalarWhereInput;
+  data: EchoInVoidUpdateManyDataInput;
+}
+
+export interface EchoInVoidUpdateManyDataInput {
+  voteCount?: Maybe<Int>;
+  originalShoutVoidGeohash?: Maybe<String>;
+}
+
+export interface NVoidUpsertWithWhereUniqueWithoutCreatedByInput {
+  where: NVoidWhereUniqueInput;
+  update: NVoidUpdateWithoutCreatedByDataInput;
+  create: NVoidCreateWithoutCreatedByInput;
+}
+
+export interface NVoidScalarWhereInput {
+  voidId?: Maybe<ID_Input>;
+  voidId_not?: Maybe<ID_Input>;
+  voidId_in?: Maybe<ID_Input[] | ID_Input>;
+  voidId_not_in?: Maybe<ID_Input[] | ID_Input>;
+  voidId_lt?: Maybe<ID_Input>;
+  voidId_lte?: Maybe<ID_Input>;
+  voidId_gt?: Maybe<ID_Input>;
+  voidId_gte?: Maybe<ID_Input>;
+  voidId_contains?: Maybe<ID_Input>;
+  voidId_not_contains?: Maybe<ID_Input>;
+  voidId_starts_with?: Maybe<ID_Input>;
+  voidId_not_starts_with?: Maybe<ID_Input>;
+  voidId_ends_with?: Maybe<ID_Input>;
+  voidId_not_ends_with?: Maybe<ID_Input>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  voidGeohash?: Maybe<String>;
+  voidGeohash_not?: Maybe<String>;
+  voidGeohash_in?: Maybe<String[] | String>;
+  voidGeohash_not_in?: Maybe<String[] | String>;
+  voidGeohash_lt?: Maybe<String>;
+  voidGeohash_lte?: Maybe<String>;
+  voidGeohash_gt?: Maybe<String>;
+  voidGeohash_gte?: Maybe<String>;
+  voidGeohash_contains?: Maybe<String>;
+  voidGeohash_not_contains?: Maybe<String>;
+  voidGeohash_starts_with?: Maybe<String>;
+  voidGeohash_not_starts_with?: Maybe<String>;
+  voidGeohash_ends_with?: Maybe<String>;
+  voidGeohash_not_ends_with?: Maybe<String>;
+  AND?: Maybe<NVoidScalarWhereInput[] | NVoidScalarWhereInput>;
+  OR?: Maybe<NVoidScalarWhereInput[] | NVoidScalarWhereInput>;
+  NOT?: Maybe<NVoidScalarWhereInput[] | NVoidScalarWhereInput>;
+}
+
+export interface NVoidUpdateManyWithWhereNestedInput {
+  where: NVoidScalarWhereInput;
+  data: NVoidUpdateManyDataInput;
+}
+
+export interface NVoidUpdateManyDataInput {
+  voidGeohash?: Maybe<String>;
+}
+
+export interface UserUpsertWithoutRepliesToEchosInVoidsInput {
+  update: UserUpdateWithoutRepliesToEchosInVoidsDataInput;
+  create: UserCreateWithoutRepliesToEchosInVoidsInput;
+}
+
+export interface ReplyToEchoInVoidUpsertWithoutSavedRepliesInput {
+  update: ReplyToEchoInVoidUpdateWithoutSavedRepliesDataInput;
+  create: ReplyToEchoInVoidCreateWithoutSavedRepliesInput;
+}
+
+export interface SavedReplyToEchoInVoidUpsertWithWhereUniqueWithoutSavedByInput {
+  where: SavedReplyToEchoInVoidWhereUniqueInput;
+  update: SavedReplyToEchoInVoidUpdateWithoutSavedByDataInput;
+  create: SavedReplyToEchoInVoidCreateWithoutSavedByInput;
+}
+
+export interface UserUpsertWithoutSavedRepliesToShoutsInVoidsInput {
+  update: UserUpdateWithoutSavedRepliesToShoutsInVoidsDataInput;
+  create: UserCreateWithoutSavedRepliesToShoutsInVoidsInput;
+}
+
+export interface SavedReplyToShoutInVoidUpsertWithWhereUniqueWithoutReplyToShoutInVoidInput {
+  where: SavedReplyToShoutInVoidWhereUniqueInput;
+  update: SavedReplyToShoutInVoidUpdateWithoutReplyToShoutInVoidDataInput;
+  create: SavedReplyToShoutInVoidCreateWithoutReplyToShoutInVoidInput;
+}
+
+export interface SavedReplyToShoutInVoidScalarWhereInput {
+  savedReplyToShoutInVoidId?: Maybe<ID_Input>;
+  savedReplyToShoutInVoidId_not?: Maybe<ID_Input>;
+  savedReplyToShoutInVoidId_in?: Maybe<ID_Input[] | ID_Input>;
+  savedReplyToShoutInVoidId_not_in?: Maybe<ID_Input[] | ID_Input>;
+  savedReplyToShoutInVoidId_lt?: Maybe<ID_Input>;
+  savedReplyToShoutInVoidId_lte?: Maybe<ID_Input>;
+  savedReplyToShoutInVoidId_gt?: Maybe<ID_Input>;
+  savedReplyToShoutInVoidId_gte?: Maybe<ID_Input>;
+  savedReplyToShoutInVoidId_contains?: Maybe<ID_Input>;
+  savedReplyToShoutInVoidId_not_contains?: Maybe<ID_Input>;
+  savedReplyToShoutInVoidId_starts_with?: Maybe<ID_Input>;
+  savedReplyToShoutInVoidId_not_starts_with?: Maybe<ID_Input>;
+  savedReplyToShoutInVoidId_ends_with?: Maybe<ID_Input>;
+  savedReplyToShoutInVoidId_not_ends_with?: Maybe<ID_Input>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  originalVoidGeohash?: Maybe<String>;
+  originalVoidGeohash_not?: Maybe<String>;
+  originalVoidGeohash_in?: Maybe<String[] | String>;
+  originalVoidGeohash_not_in?: Maybe<String[] | String>;
+  originalVoidGeohash_lt?: Maybe<String>;
+  originalVoidGeohash_lte?: Maybe<String>;
+  originalVoidGeohash_gt?: Maybe<String>;
+  originalVoidGeohash_gte?: Maybe<String>;
+  originalVoidGeohash_contains?: Maybe<String>;
+  originalVoidGeohash_not_contains?: Maybe<String>;
+  originalVoidGeohash_starts_with?: Maybe<String>;
+  originalVoidGeohash_not_starts_with?: Maybe<String>;
+  originalVoidGeohash_ends_with?: Maybe<String>;
+  originalVoidGeohash_not_ends_with?: Maybe<String>;
+  AND?: Maybe<
+    | SavedReplyToShoutInVoidScalarWhereInput[]
+    | SavedReplyToShoutInVoidScalarWhereInput
+  >;
+  OR?: Maybe<
+    | SavedReplyToShoutInVoidScalarWhereInput[]
+    | SavedReplyToShoutInVoidScalarWhereInput
+  >;
+  NOT?: Maybe<
+    | SavedReplyToShoutInVoidScalarWhereInput[]
+    | SavedReplyToShoutInVoidScalarWhereInput
+  >;
+}
+
+export interface SavedReplyToShoutInVoidUpdateManyWithWhereNestedInput {
+  where: SavedReplyToShoutInVoidScalarWhereInput;
+  data: SavedReplyToShoutInVoidUpdateManyDataInput;
+}
+
+export interface SavedReplyToShoutInVoidUpdateManyDataInput {
+  originalVoidGeohash?: Maybe<String>;
+}
+
+export interface ReplyToShoutInVoidUpsertWithWhereUniqueWithoutShoutInVoidInput {
+  where: ReplyToShoutInVoidWhereUniqueInput;
+  update: ReplyToShoutInVoidUpdateWithoutShoutInVoidDataInput;
+  create: ReplyToShoutInVoidCreateWithoutShoutInVoidInput;
+}
+
+export interface ReplyToShoutInVoidScalarWhereInput {
+  replyToShoutInVoidId?: Maybe<ID_Input>;
+  replyToShoutInVoidId_not?: Maybe<ID_Input>;
+  replyToShoutInVoidId_in?: Maybe<ID_Input[] | ID_Input>;
+  replyToShoutInVoidId_not_in?: Maybe<ID_Input[] | ID_Input>;
+  replyToShoutInVoidId_lt?: Maybe<ID_Input>;
+  replyToShoutInVoidId_lte?: Maybe<ID_Input>;
+  replyToShoutInVoidId_gt?: Maybe<ID_Input>;
+  replyToShoutInVoidId_gte?: Maybe<ID_Input>;
+  replyToShoutInVoidId_contains?: Maybe<ID_Input>;
+  replyToShoutInVoidId_not_contains?: Maybe<ID_Input>;
+  replyToShoutInVoidId_starts_with?: Maybe<ID_Input>;
+  replyToShoutInVoidId_not_starts_with?: Maybe<ID_Input>;
+  replyToShoutInVoidId_ends_with?: Maybe<ID_Input>;
+  replyToShoutInVoidId_not_ends_with?: Maybe<ID_Input>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  voteCount?: Maybe<Int>;
+  voteCount_not?: Maybe<Int>;
+  voteCount_in?: Maybe<Int[] | Int>;
+  voteCount_not_in?: Maybe<Int[] | Int>;
+  voteCount_lt?: Maybe<Int>;
+  voteCount_lte?: Maybe<Int>;
+  voteCount_gt?: Maybe<Int>;
+  voteCount_gte?: Maybe<Int>;
+  AND?: Maybe<
+    ReplyToShoutInVoidScalarWhereInput[] | ReplyToShoutInVoidScalarWhereInput
+  >;
+  OR?: Maybe<
+    ReplyToShoutInVoidScalarWhereInput[] | ReplyToShoutInVoidScalarWhereInput
+  >;
+  NOT?: Maybe<
+    ReplyToShoutInVoidScalarWhereInput[] | ReplyToShoutInVoidScalarWhereInput
+  >;
+}
+
+export interface ReplyToShoutInVoidUpdateManyWithWhereNestedInput {
+  where: ReplyToShoutInVoidScalarWhereInput;
+  data: ReplyToShoutInVoidUpdateManyDataInput;
+}
+
+export interface ReplyToShoutInVoidUpdateManyDataInput {
+  voteCount?: Maybe<Int>;
+}
+
+export interface ShoutInVoidUpsertWithoutEchoEdgesInput {
+  update: ShoutInVoidUpdateWithoutEchoEdgesDataInput;
+  create: ShoutInVoidCreateWithoutEchoEdgesInput;
+}
+
+export interface EchoEdgeUpsertWithoutEchoInVoidInput {
+  update: EchoEdgeUpdateWithoutEchoInVoidDataInput;
+  create: EchoEdgeCreateWithoutEchoInVoidInput;
+}
+
+export interface EchoInVoidUpsertWithoutRepliesInput {
+  update: EchoInVoidUpdateWithoutRepliesDataInput;
+  create: EchoInVoidCreateWithoutRepliesInput;
+}
+
+export interface ReplyToEchoInVoidUpsertWithWhereUniqueWithoutCreatedByInput {
+  where: ReplyToEchoInVoidWhereUniqueInput;
+  update: ReplyToEchoInVoidUpdateWithoutCreatedByDataInput;
+  create: ReplyToEchoInVoidCreateWithoutCreatedByInput;
+}
+
+export interface UserUpsertWithoutRepliesToShoutsInVoidsInput {
+  update: UserUpdateWithoutRepliesToShoutsInVoidsDataInput;
+  create: UserCreateWithoutRepliesToShoutsInVoidsInput;
+}
+
+export interface ReplyToShoutInVoidUpsertWithoutSavedRepliesInput {
+  update: ReplyToShoutInVoidUpdateWithoutSavedRepliesDataInput;
+  create: ReplyToShoutInVoidCreateWithoutSavedRepliesInput;
+}
+
+export interface SavedReplyToShoutInVoidUpsertWithWhereUniqueWithoutSavedByInput {
+  where: SavedReplyToShoutInVoidWhereUniqueInput;
+  update: SavedReplyToShoutInVoidUpdateWithoutSavedByDataInput;
+  create: SavedReplyToShoutInVoidCreateWithoutSavedByInput;
+}
+
+export interface UserUpsertWithoutSavedEchosInput {
+  update: UserUpdateWithoutSavedEchosDataInput;
+  create: UserCreateWithoutSavedEchosInput;
+}
+
+export interface SavedEchoUpsertWithWhereUniqueWithoutEchoInVoidInput {
+  where: SavedEchoWhereUniqueInput;
+  update: SavedEchoUpdateWithoutEchoInVoidDataInput;
+  create: SavedEchoCreateWithoutEchoInVoidInput;
+}
+
+export interface SavedEchoScalarWhereInput {
+  savedEcho?: Maybe<ID_Input>;
+  savedEcho_not?: Maybe<ID_Input>;
+  savedEcho_in?: Maybe<ID_Input[] | ID_Input>;
+  savedEcho_not_in?: Maybe<ID_Input[] | ID_Input>;
+  savedEcho_lt?: Maybe<ID_Input>;
+  savedEcho_lte?: Maybe<ID_Input>;
+  savedEcho_gt?: Maybe<ID_Input>;
+  savedEcho_gte?: Maybe<ID_Input>;
+  savedEcho_contains?: Maybe<ID_Input>;
+  savedEcho_not_contains?: Maybe<ID_Input>;
+  savedEcho_starts_with?: Maybe<ID_Input>;
+  savedEcho_not_starts_with?: Maybe<ID_Input>;
+  savedEcho_ends_with?: Maybe<ID_Input>;
+  savedEcho_not_ends_with?: Maybe<ID_Input>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  originalShoutVoidGeohash?: Maybe<String>;
+  originalShoutVoidGeohash_not?: Maybe<String>;
+  originalShoutVoidGeohash_in?: Maybe<String[] | String>;
+  originalShoutVoidGeohash_not_in?: Maybe<String[] | String>;
+  originalShoutVoidGeohash_lt?: Maybe<String>;
+  originalShoutVoidGeohash_lte?: Maybe<String>;
+  originalShoutVoidGeohash_gt?: Maybe<String>;
+  originalShoutVoidGeohash_gte?: Maybe<String>;
+  originalShoutVoidGeohash_contains?: Maybe<String>;
+  originalShoutVoidGeohash_not_contains?: Maybe<String>;
+  originalShoutVoidGeohash_starts_with?: Maybe<String>;
+  originalShoutVoidGeohash_not_starts_with?: Maybe<String>;
+  originalShoutVoidGeohash_ends_with?: Maybe<String>;
+  originalShoutVoidGeohash_not_ends_with?: Maybe<String>;
+  originalEchoVoidGeohash?: Maybe<String>;
+  originalEchoVoidGeohash_not?: Maybe<String>;
+  originalEchoVoidGeohash_in?: Maybe<String[] | String>;
+  originalEchoVoidGeohash_not_in?: Maybe<String[] | String>;
+  originalEchoVoidGeohash_lt?: Maybe<String>;
+  originalEchoVoidGeohash_lte?: Maybe<String>;
+  originalEchoVoidGeohash_gt?: Maybe<String>;
+  originalEchoVoidGeohash_gte?: Maybe<String>;
+  originalEchoVoidGeohash_contains?: Maybe<String>;
+  originalEchoVoidGeohash_not_contains?: Maybe<String>;
+  originalEchoVoidGeohash_starts_with?: Maybe<String>;
+  originalEchoVoidGeohash_not_starts_with?: Maybe<String>;
+  originalEchoVoidGeohash_ends_with?: Maybe<String>;
+  originalEchoVoidGeohash_not_ends_with?: Maybe<String>;
+  AND?: Maybe<SavedEchoScalarWhereInput[] | SavedEchoScalarWhereInput>;
+  OR?: Maybe<SavedEchoScalarWhereInput[] | SavedEchoScalarWhereInput>;
+  NOT?: Maybe<SavedEchoScalarWhereInput[] | SavedEchoScalarWhereInput>;
+}
+
+export interface SavedEchoUpdateManyWithWhereNestedInput {
+  where: SavedEchoScalarWhereInput;
+  data: SavedEchoUpdateManyDataInput;
+}
+
+export interface SavedEchoUpdateManyDataInput {
+  originalShoutVoidGeohash?: Maybe<String>;
+  originalEchoVoidGeohash?: Maybe<String>;
+}
+
+export interface EchoInVoidUpsertWithoutEchoEdgeInput {
+  update: EchoInVoidUpdateWithoutEchoEdgeDataInput;
+  create: EchoInVoidCreateWithoutEchoEdgeInput;
+}
+
+export interface EchoEdgeUpsertWithWhereUniqueWithoutShoutInVoidInput {
+  where: EchoEdgeWhereUniqueInput;
+  update: EchoEdgeUpdateWithoutShoutInVoidDataInput;
+  create: EchoEdgeCreateWithoutShoutInVoidInput;
+}
+
+export interface EchoEdgeScalarWhereInput {
+  echoEdegId?: Maybe<ID_Input>;
+  echoEdegId_not?: Maybe<ID_Input>;
+  echoEdegId_in?: Maybe<ID_Input[] | ID_Input>;
+  echoEdegId_not_in?: Maybe<ID_Input[] | ID_Input>;
+  echoEdegId_lt?: Maybe<ID_Input>;
+  echoEdegId_lte?: Maybe<ID_Input>;
+  echoEdegId_gt?: Maybe<ID_Input>;
+  echoEdegId_gte?: Maybe<ID_Input>;
+  echoEdegId_contains?: Maybe<ID_Input>;
+  echoEdegId_not_contains?: Maybe<ID_Input>;
+  echoEdegId_starts_with?: Maybe<ID_Input>;
+  echoEdegId_not_starts_with?: Maybe<ID_Input>;
+  echoEdegId_ends_with?: Maybe<ID_Input>;
+  echoEdegId_not_ends_with?: Maybe<ID_Input>;
+  AND?: Maybe<EchoEdgeScalarWhereInput[] | EchoEdgeScalarWhereInput>;
+  OR?: Maybe<EchoEdgeScalarWhereInput[] | EchoEdgeScalarWhereInput>;
+  NOT?: Maybe<EchoEdgeScalarWhereInput[] | EchoEdgeScalarWhereInput>;
+}
+
+export interface ShoutInVoidUpsertWithoutRepliesInput {
+  update: ShoutInVoidUpdateWithoutRepliesDataInput;
+  create: ShoutInVoidCreateWithoutRepliesInput;
+}
+
+export interface ReplyToShoutInVoidUpsertWithWhereUniqueWithoutCreatedByInput {
+  where: ReplyToShoutInVoidWhereUniqueInput;
+  update: ReplyToShoutInVoidUpdateWithoutCreatedByDataInput;
+  create: ReplyToShoutInVoidCreateWithoutCreatedByInput;
+}
+
+export interface UserUpsertWithoutEchosInVoidsInput {
+  update: UserUpdateWithoutEchosInVoidsDataInput;
+  create: UserCreateWithoutEchosInVoidsInput;
+}
+
+export interface EchoInVoidUpsertWithoutSavedEchosInput {
+  update: EchoInVoidUpdateWithoutSavedEchosDataInput;
+  create: EchoInVoidCreateWithoutSavedEchosInput;
+}
+
+export interface SavedEchoUpsertWithWhereUniqueWithoutSavedByInput {
+  where: SavedEchoWhereUniqueInput;
+  update: SavedEchoUpdateWithoutSavedByDataInput;
+  create: SavedEchoCreateWithoutSavedByInput;
+}
+
+export interface UserUpsertWithoutSavedShoutsInput {
+  update: UserUpdateWithoutSavedShoutsDataInput;
+  create: UserCreateWithoutSavedShoutsInput;
+}
+
+export interface EchoEdgeUpdateManyWithoutSavedShoutInput {
+  create?: Maybe<
+    | EchoEdgeCreateWithoutSavedShoutInput[]
+    | EchoEdgeCreateWithoutSavedShoutInput
+  >;
+  delete?: Maybe<EchoEdgeWhereUniqueInput[] | EchoEdgeWhereUniqueInput>;
+  connect?: Maybe<EchoEdgeWhereUniqueInput[] | EchoEdgeWhereUniqueInput>;
+  set?: Maybe<EchoEdgeWhereUniqueInput[] | EchoEdgeWhereUniqueInput>;
+  disconnect?: Maybe<EchoEdgeWhereUniqueInput[] | EchoEdgeWhereUniqueInput>;
+  update?: Maybe<
+    | EchoEdgeUpdateWithWhereUniqueWithoutSavedShoutInput[]
+    | EchoEdgeUpdateWithWhereUniqueWithoutSavedShoutInput
+  >;
+  upsert?: Maybe<
+    | EchoEdgeUpsertWithWhereUniqueWithoutSavedShoutInput[]
+    | EchoEdgeUpsertWithWhereUniqueWithoutSavedShoutInput
+  >;
+  deleteMany?: Maybe<EchoEdgeScalarWhereInput[] | EchoEdgeScalarWhereInput>;
+}
+
+export interface EchoEdgeUpdateWithWhereUniqueWithoutSavedShoutInput {
+  where: EchoEdgeWhereUniqueInput;
+  data: EchoEdgeUpdateWithoutSavedShoutDataInput;
+}
+
+export interface EchoEdgeUpdateWithoutSavedShoutDataInput {
+  shoutInVoid?: Maybe<ShoutInVoidUpdateOneWithoutEchoEdgesInput>;
+  echoInVoid?: Maybe<EchoInVoidUpdateOneWithoutEchoEdgeInput>;
+}
+
+export interface EchoEdgeUpsertWithWhereUniqueWithoutSavedShoutInput {
+  where: EchoEdgeWhereUniqueInput;
+  update: EchoEdgeUpdateWithoutSavedShoutDataInput;
+  create: EchoEdgeCreateWithoutSavedShoutInput;
+}
+
+export interface SavedShoutUpsertWithWhereUniqueWithoutShoutInVoidInput {
+  where: SavedShoutWhereUniqueInput;
+  update: SavedShoutUpdateWithoutShoutInVoidDataInput;
+  create: SavedShoutCreateWithoutShoutInVoidInput;
+}
+
+export interface SavedShoutScalarWhereInput {
+  savedShoutId?: Maybe<ID_Input>;
+  savedShoutId_not?: Maybe<ID_Input>;
+  savedShoutId_in?: Maybe<ID_Input[] | ID_Input>;
+  savedShoutId_not_in?: Maybe<ID_Input[] | ID_Input>;
+  savedShoutId_lt?: Maybe<ID_Input>;
+  savedShoutId_lte?: Maybe<ID_Input>;
+  savedShoutId_gt?: Maybe<ID_Input>;
+  savedShoutId_gte?: Maybe<ID_Input>;
+  savedShoutId_contains?: Maybe<ID_Input>;
+  savedShoutId_not_contains?: Maybe<ID_Input>;
+  savedShoutId_starts_with?: Maybe<ID_Input>;
+  savedShoutId_not_starts_with?: Maybe<ID_Input>;
+  savedShoutId_ends_with?: Maybe<ID_Input>;
+  savedShoutId_not_ends_with?: Maybe<ID_Input>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  originalShoutVoidGeohash?: Maybe<String>;
+  originalShoutVoidGeohash_not?: Maybe<String>;
+  originalShoutVoidGeohash_in?: Maybe<String[] | String>;
+  originalShoutVoidGeohash_not_in?: Maybe<String[] | String>;
+  originalShoutVoidGeohash_lt?: Maybe<String>;
+  originalShoutVoidGeohash_lte?: Maybe<String>;
+  originalShoutVoidGeohash_gt?: Maybe<String>;
+  originalShoutVoidGeohash_gte?: Maybe<String>;
+  originalShoutVoidGeohash_contains?: Maybe<String>;
+  originalShoutVoidGeohash_not_contains?: Maybe<String>;
+  originalShoutVoidGeohash_starts_with?: Maybe<String>;
+  originalShoutVoidGeohash_not_starts_with?: Maybe<String>;
+  originalShoutVoidGeohash_ends_with?: Maybe<String>;
+  originalShoutVoidGeohash_not_ends_with?: Maybe<String>;
+  AND?: Maybe<SavedShoutScalarWhereInput[] | SavedShoutScalarWhereInput>;
+  OR?: Maybe<SavedShoutScalarWhereInput[] | SavedShoutScalarWhereInput>;
+  NOT?: Maybe<SavedShoutScalarWhereInput[] | SavedShoutScalarWhereInput>;
+}
+
+export interface SavedShoutUpdateManyWithWhereNestedInput {
+  where: SavedShoutScalarWhereInput;
+  data: SavedShoutUpdateManyDataInput;
+}
+
+export interface SavedShoutUpdateManyDataInput {
+  originalShoutVoidGeohash?: Maybe<String>;
+}
+
+export interface ShoutInVoidUpsertWithWhereUniqueWithoutNvoidInput {
+  where: ShoutInVoidWhereUniqueInput;
+  update: ShoutInVoidUpdateWithoutNvoidDataInput;
+  create: ShoutInVoidCreateWithoutNvoidInput;
 }
 
 export interface ShoutInVoidScalarWhereInput {
@@ -549,6 +4321,49 @@ export interface ShoutInVoidUpdateManyDataInput {
   voteCount?: Maybe<Int>;
 }
 
+export interface NVoidUpsertWithoutEchosInput {
+  update: NVoidUpdateWithoutEchosDataInput;
+  create: NVoidCreateWithoutEchosInput;
+}
+
+export interface EchoInVoidUpsertWithWhereUniqueWithoutEchoedByInput {
+  where: EchoInVoidWhereUniqueInput;
+  update: EchoInVoidUpdateWithoutEchoedByDataInput;
+  create: EchoInVoidCreateWithoutEchoedByInput;
+}
+
+export interface UserUpsertWithoutShoutsInVoidsInput {
+  update: UserUpdateWithoutShoutsInVoidsDataInput;
+  create: UserCreateWithoutShoutsInVoidsInput;
+}
+
+export interface ShoutInVoidUpsertWithoutSavedShoutsInput {
+  update: ShoutInVoidUpdateWithoutSavedShoutsDataInput;
+  create: ShoutInVoidCreateWithoutSavedShoutsInput;
+}
+
+export interface SavedShoutUpsertWithWhereUniqueWithoutSavedByUserInput {
+  where: SavedShoutWhereUniqueInput;
+  update: SavedShoutUpdateWithoutSavedByUserDataInput;
+  create: SavedShoutCreateWithoutSavedByUserInput;
+}
+
+export interface UserUpsertWithoutCreatedVoidsInput {
+  update: UserUpdateWithoutCreatedVoidsDataInput;
+  create: UserCreateWithoutCreatedVoidsInput;
+}
+
+export interface NVoidUpsertWithoutShoutsInput {
+  update: NVoidUpdateWithoutShoutsDataInput;
+  create: NVoidCreateWithoutShoutsInput;
+}
+
+export interface ShoutInVoidUpsertWithWhereUniqueWithoutShoutedByInput {
+  where: ShoutInVoidWhereUniqueInput;
+  update: ShoutInVoidUpdateWithoutShoutedByDataInput;
+  create: ShoutInVoidCreateWithoutShoutedByInput;
+}
+
 export interface UserUpsertNestedInput {
   update: UserUpdateDataInput;
   create: UserCreateInput;
@@ -559,47 +4374,303 @@ export interface ContentUpdateManyMutationInput {
   includeUsername?: Maybe<Boolean>;
 }
 
+export interface EchoEdgeCreateInput {
+  echoEdegId?: Maybe<ID_Input>;
+  shoutInVoid?: Maybe<ShoutInVoidCreateOneWithoutEchoEdgesInput>;
+  savedShout?: Maybe<SavedShoutCreateOneWithoutEchoEdgesInput>;
+  echoInVoid?: Maybe<EchoInVoidCreateOneWithoutEchoEdgeInput>;
+}
+
+export interface EchoEdgeUpdateInput {
+  shoutInVoid?: Maybe<ShoutInVoidUpdateOneWithoutEchoEdgesInput>;
+  savedShout?: Maybe<SavedShoutUpdateOneWithoutEchoEdgesInput>;
+  echoInVoid?: Maybe<EchoInVoidUpdateOneWithoutEchoEdgeInput>;
+}
+
+export interface EchoInVoidCreateInput {
+  echoInVoidId?: Maybe<ID_Input>;
+  echoedBy: UserCreateOneWithoutEchosInVoidsInput;
+  originalContent: ContentCreateOneInput;
+  voteCount: Int;
+  originalShoutVoidGeohash: String;
+  nvoid: NVoidCreateOneWithoutEchosInput;
+  savedEchos?: Maybe<SavedEchoCreateManyWithoutEchoInVoidInput>;
+  replies?: Maybe<ReplyToEchoInVoidCreateManyWithoutEchoInVoidInput>;
+  echoEdge?: Maybe<EchoEdgeCreateOneWithoutEchoInVoidInput>;
+}
+
+export interface EchoInVoidUpdateInput {
+  echoedBy?: Maybe<UserUpdateOneRequiredWithoutEchosInVoidsInput>;
+  originalContent?: Maybe<ContentUpdateOneRequiredInput>;
+  voteCount?: Maybe<Int>;
+  originalShoutVoidGeohash?: Maybe<String>;
+  nvoid?: Maybe<NVoidUpdateOneRequiredWithoutEchosInput>;
+  savedEchos?: Maybe<SavedEchoUpdateManyWithoutEchoInVoidInput>;
+  replies?: Maybe<ReplyToEchoInVoidUpdateManyWithoutEchoInVoidInput>;
+  echoEdge?: Maybe<EchoEdgeUpdateOneWithoutEchoInVoidInput>;
+}
+
+export interface EchoInVoidUpdateManyMutationInput {
+  voteCount?: Maybe<Int>;
+  originalShoutVoidGeohash?: Maybe<String>;
+}
+
+export interface NVoidCreateInput {
+  voidId?: Maybe<ID_Input>;
+  createdBy: UserCreateOneWithoutCreatedVoidsInput;
+  voidGeohash: String;
+  shouts?: Maybe<ShoutInVoidCreateManyWithoutNvoidInput>;
+  echos?: Maybe<EchoInVoidCreateManyWithoutNvoidInput>;
+}
+
+export interface NVoidUpdateInput {
+  createdBy?: Maybe<UserUpdateOneRequiredWithoutCreatedVoidsInput>;
+  voidGeohash?: Maybe<String>;
+  shouts?: Maybe<ShoutInVoidUpdateManyWithoutNvoidInput>;
+  echos?: Maybe<EchoInVoidUpdateManyWithoutNvoidInput>;
+}
+
+export interface NVoidUpdateManyMutationInput {
+  voidGeohash?: Maybe<String>;
+}
+
+export interface ReplyToEchoInVoidCreateInput {
+  replyToEchoInVoidId?: Maybe<ID_Input>;
+  createdBy: UserCreateOneWithoutRepliesToEchosInVoidsInput;
+  content: ContentCreateOneInput;
+  voteCount: Int;
+  echoInVoid: EchoInVoidCreateOneWithoutRepliesInput;
+  savedReplies?: Maybe<
+    SavedReplyToEchoInVoidCreateManyWithoutReplyToEchoInVoidInput
+  >;
+}
+
+export interface ReplyToEchoInVoidUpdateInput {
+  createdBy?: Maybe<UserUpdateOneRequiredWithoutRepliesToEchosInVoidsInput>;
+  content?: Maybe<ContentUpdateOneRequiredInput>;
+  voteCount?: Maybe<Int>;
+  echoInVoid?: Maybe<EchoInVoidUpdateOneRequiredWithoutRepliesInput>;
+  savedReplies?: Maybe<
+    SavedReplyToEchoInVoidUpdateManyWithoutReplyToEchoInVoidInput
+  >;
+}
+
+export interface ReplyToEchoInVoidUpdateManyMutationInput {
+  voteCount?: Maybe<Int>;
+}
+
+export interface ReplyToShoutInVoidCreateInput {
+  replyToShoutInVoidId?: Maybe<ID_Input>;
+  createdBy: UserCreateOneWithoutRepliesToShoutsInVoidsInput;
+  content: ContentCreateOneInput;
+  voteCount: Int;
+  shoutInVoid: ShoutInVoidCreateOneWithoutRepliesInput;
+  savedReplies?: Maybe<
+    SavedReplyToShoutInVoidCreateManyWithoutReplyToShoutInVoidInput
+  >;
+}
+
+export interface ReplyToShoutInVoidUpdateInput {
+  createdBy?: Maybe<UserUpdateOneRequiredWithoutRepliesToShoutsInVoidsInput>;
+  content?: Maybe<ContentUpdateOneRequiredInput>;
+  voteCount?: Maybe<Int>;
+  shoutInVoid?: Maybe<ShoutInVoidUpdateOneRequiredWithoutRepliesInput>;
+  savedReplies?: Maybe<
+    SavedReplyToShoutInVoidUpdateManyWithoutReplyToShoutInVoidInput
+  >;
+}
+
+export interface ReplyToShoutInVoidUpdateManyMutationInput {
+  voteCount?: Maybe<Int>;
+}
+
+export interface SavedEchoCreateInput {
+  savedEcho?: Maybe<ID_Input>;
+  savedBy: UserCreateOneWithoutSavedEchosInput;
+  originalContent: ContentCreateOneInput;
+  originalShoutVoidGeohash: String;
+  originalEchoVoidGeohash: String;
+  echoInVoid: EchoInVoidCreateOneWithoutSavedEchosInput;
+}
+
+export interface SavedEchoUpdateInput {
+  savedBy?: Maybe<UserUpdateOneRequiredWithoutSavedEchosInput>;
+  originalContent?: Maybe<ContentUpdateOneRequiredInput>;
+  originalShoutVoidGeohash?: Maybe<String>;
+  originalEchoVoidGeohash?: Maybe<String>;
+  echoInVoid?: Maybe<EchoInVoidUpdateOneRequiredWithoutSavedEchosInput>;
+}
+
+export interface SavedEchoUpdateManyMutationInput {
+  originalShoutVoidGeohash?: Maybe<String>;
+  originalEchoVoidGeohash?: Maybe<String>;
+}
+
+export interface SavedReplyToEchoInVoidCreateInput {
+  savedReplyToEchoInVoid?: Maybe<ID_Input>;
+  savedBy: UserCreateOneWithoutSavedRepliesToEchosInVoidsInput;
+  originalReplyContent: ContentCreateOneInput;
+  originalShoutContent: ContentCreateOneInput;
+  originalVoidGeohash: String;
+  replyToEchoInVoid: ReplyToEchoInVoidCreateOneWithoutSavedRepliesInput;
+}
+
+export interface SavedReplyToEchoInVoidUpdateInput {
+  savedBy?: Maybe<UserUpdateOneRequiredWithoutSavedRepliesToEchosInVoidsInput>;
+  originalReplyContent?: Maybe<ContentUpdateOneRequiredInput>;
+  originalShoutContent?: Maybe<ContentUpdateOneRequiredInput>;
+  originalVoidGeohash?: Maybe<String>;
+  replyToEchoInVoid?: Maybe<
+    ReplyToEchoInVoidUpdateOneRequiredWithoutSavedRepliesInput
+  >;
+}
+
+export interface SavedReplyToEchoInVoidUpdateManyMutationInput {
+  originalVoidGeohash?: Maybe<String>;
+}
+
+export interface SavedReplyToShoutInVoidCreateInput {
+  savedReplyToShoutInVoidId?: Maybe<ID_Input>;
+  savedBy: UserCreateOneWithoutSavedRepliesToShoutsInVoidsInput;
+  originalReplyContent: ContentCreateOneInput;
+  originalShoutContent: ContentCreateOneInput;
+  originalVoidGeohash: String;
+  replyToShoutInVoid: ReplyToShoutInVoidCreateOneWithoutSavedRepliesInput;
+}
+
+export interface SavedReplyToShoutInVoidUpdateInput {
+  savedBy?: Maybe<UserUpdateOneRequiredWithoutSavedRepliesToShoutsInVoidsInput>;
+  originalReplyContent?: Maybe<ContentUpdateOneRequiredInput>;
+  originalShoutContent?: Maybe<ContentUpdateOneRequiredInput>;
+  originalVoidGeohash?: Maybe<String>;
+  replyToShoutInVoid?: Maybe<
+    ReplyToShoutInVoidUpdateOneRequiredWithoutSavedRepliesInput
+  >;
+}
+
+export interface SavedReplyToShoutInVoidUpdateManyMutationInput {
+  originalVoidGeohash?: Maybe<String>;
+}
+
+export interface SavedShoutCreateInput {
+  savedShoutId?: Maybe<ID_Input>;
+  savedByUser: UserCreateOneWithoutSavedShoutsInput;
+  originalContent: ContentCreateOneInput;
+  originalShoutVoidGeohash: String;
+  shoutInVoid: ShoutInVoidCreateOneWithoutSavedShoutsInput;
+  echoEdges?: Maybe<EchoEdgeCreateManyWithoutSavedShoutInput>;
+}
+
+export interface SavedShoutUpdateInput {
+  savedByUser?: Maybe<UserUpdateOneRequiredWithoutSavedShoutsInput>;
+  originalContent?: Maybe<ContentUpdateOneRequiredInput>;
+  originalShoutVoidGeohash?: Maybe<String>;
+  shoutInVoid?: Maybe<ShoutInVoidUpdateOneRequiredWithoutSavedShoutsInput>;
+  echoEdges?: Maybe<EchoEdgeUpdateManyWithoutSavedShoutInput>;
+}
+
+export interface SavedShoutUpdateManyMutationInput {
+  originalShoutVoidGeohash?: Maybe<String>;
+}
+
+export interface SavedVoidCreateInput {
+  savedVoidId?: Maybe<ID_Input>;
+  createdBy: UserCreateOneWithoutSavedVoidsInput;
+  voidGeohash: String;
+}
+
+export interface UserCreateOneWithoutSavedVoidsInput {
+  create?: Maybe<UserCreateWithoutSavedVoidsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserCreateWithoutSavedVoidsInput {
+  userId?: Maybe<ID_Input>;
+  username: String;
+  password: String;
+  currentLocationGeohash: String;
+  shoutsInVoids?: Maybe<ShoutInVoidCreateManyWithoutShoutedByInput>;
+  savedShouts?: Maybe<SavedShoutCreateManyWithoutSavedByUserInput>;
+  echosInVoids?: Maybe<EchoInVoidCreateManyWithoutEchoedByInput>;
+  savedEchos?: Maybe<SavedEchoCreateManyWithoutSavedByInput>;
+  repliesToShoutsInVoids?: Maybe<
+    ReplyToShoutInVoidCreateManyWithoutCreatedByInput
+  >;
+  savedRepliesToShoutsInVoids?: Maybe<
+    SavedReplyToShoutInVoidCreateManyWithoutSavedByInput
+  >;
+  repliesToEchosInVoids?: Maybe<
+    ReplyToEchoInVoidCreateManyWithoutCreatedByInput
+  >;
+  savedRepliesToEchosInVoids?: Maybe<
+    SavedReplyToEchoInVoidCreateManyWithoutSavedByInput
+  >;
+  createdVoids?: Maybe<NVoidCreateManyWithoutCreatedByInput>;
+}
+
+export interface SavedVoidUpdateInput {
+  createdBy?: Maybe<UserUpdateOneRequiredWithoutSavedVoidsInput>;
+  voidGeohash?: Maybe<String>;
+}
+
+export interface UserUpdateOneRequiredWithoutSavedVoidsInput {
+  create?: Maybe<UserCreateWithoutSavedVoidsInput>;
+  update?: Maybe<UserUpdateWithoutSavedVoidsDataInput>;
+  upsert?: Maybe<UserUpsertWithoutSavedVoidsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserUpdateWithoutSavedVoidsDataInput {
+  username?: Maybe<String>;
+  password?: Maybe<String>;
+  currentLocationGeohash?: Maybe<String>;
+  shoutsInVoids?: Maybe<ShoutInVoidUpdateManyWithoutShoutedByInput>;
+  savedShouts?: Maybe<SavedShoutUpdateManyWithoutSavedByUserInput>;
+  echosInVoids?: Maybe<EchoInVoidUpdateManyWithoutEchoedByInput>;
+  savedEchos?: Maybe<SavedEchoUpdateManyWithoutSavedByInput>;
+  repliesToShoutsInVoids?: Maybe<
+    ReplyToShoutInVoidUpdateManyWithoutCreatedByInput
+  >;
+  savedRepliesToShoutsInVoids?: Maybe<
+    SavedReplyToShoutInVoidUpdateManyWithoutSavedByInput
+  >;
+  repliesToEchosInVoids?: Maybe<
+    ReplyToEchoInVoidUpdateManyWithoutCreatedByInput
+  >;
+  savedRepliesToEchosInVoids?: Maybe<
+    SavedReplyToEchoInVoidUpdateManyWithoutSavedByInput
+  >;
+  createdVoids?: Maybe<NVoidUpdateManyWithoutCreatedByInput>;
+}
+
+export interface UserUpsertWithoutSavedVoidsInput {
+  update: UserUpdateWithoutSavedVoidsDataInput;
+  create: UserCreateWithoutSavedVoidsInput;
+}
+
+export interface SavedVoidUpdateManyMutationInput {
+  voidGeohash?: Maybe<String>;
+}
+
 export interface ShoutInVoidCreateInput {
   shoutInVoidId?: Maybe<ID_Input>;
   shoutedBy: UserCreateOneWithoutShoutsInVoidsInput;
   content: ContentCreateOneInput;
   voteCount: Int;
-}
-
-export interface UserCreateOneWithoutShoutsInVoidsInput {
-  create?: Maybe<UserCreateWithoutShoutsInVoidsInput>;
-  connect?: Maybe<UserWhereUniqueInput>;
-}
-
-export interface UserCreateWithoutShoutsInVoidsInput {
-  userId?: Maybe<ID_Input>;
-  username: String;
-  password: String;
-  currentLocationGeohash: String;
+  nvoid: NVoidCreateOneWithoutShoutsInput;
+  savedShouts?: Maybe<SavedShoutCreateManyWithoutShoutInVoidInput>;
+  replies?: Maybe<ReplyToShoutInVoidCreateManyWithoutShoutInVoidInput>;
+  echoEdges?: Maybe<EchoEdgeCreateManyWithoutShoutInVoidInput>;
 }
 
 export interface ShoutInVoidUpdateInput {
   shoutedBy?: Maybe<UserUpdateOneRequiredWithoutShoutsInVoidsInput>;
   content?: Maybe<ContentUpdateOneRequiredInput>;
   voteCount?: Maybe<Int>;
-}
-
-export interface UserUpdateOneRequiredWithoutShoutsInVoidsInput {
-  create?: Maybe<UserCreateWithoutShoutsInVoidsInput>;
-  update?: Maybe<UserUpdateWithoutShoutsInVoidsDataInput>;
-  upsert?: Maybe<UserUpsertWithoutShoutsInVoidsInput>;
-  connect?: Maybe<UserWhereUniqueInput>;
-}
-
-export interface UserUpdateWithoutShoutsInVoidsDataInput {
-  username?: Maybe<String>;
-  password?: Maybe<String>;
-  currentLocationGeohash?: Maybe<String>;
-}
-
-export interface UserUpsertWithoutShoutsInVoidsInput {
-  update: UserUpdateWithoutShoutsInVoidsDataInput;
-  create: UserCreateWithoutShoutsInVoidsInput;
+  nvoid?: Maybe<NVoidUpdateOneRequiredWithoutShoutsInput>;
+  savedShouts?: Maybe<SavedShoutUpdateManyWithoutShoutInVoidInput>;
+  replies?: Maybe<ReplyToShoutInVoidUpdateManyWithoutShoutInVoidInput>;
+  echoEdges?: Maybe<EchoEdgeUpdateManyWithoutShoutInVoidInput>;
 }
 
 export interface ShoutInVoidUpdateManyMutationInput {
@@ -611,6 +4682,23 @@ export interface UserUpdateInput {
   password?: Maybe<String>;
   currentLocationGeohash?: Maybe<String>;
   shoutsInVoids?: Maybe<ShoutInVoidUpdateManyWithoutShoutedByInput>;
+  savedShouts?: Maybe<SavedShoutUpdateManyWithoutSavedByUserInput>;
+  echosInVoids?: Maybe<EchoInVoidUpdateManyWithoutEchoedByInput>;
+  savedEchos?: Maybe<SavedEchoUpdateManyWithoutSavedByInput>;
+  repliesToShoutsInVoids?: Maybe<
+    ReplyToShoutInVoidUpdateManyWithoutCreatedByInput
+  >;
+  savedRepliesToShoutsInVoids?: Maybe<
+    SavedReplyToShoutInVoidUpdateManyWithoutSavedByInput
+  >;
+  repliesToEchosInVoids?: Maybe<
+    ReplyToEchoInVoidUpdateManyWithoutCreatedByInput
+  >;
+  savedRepliesToEchosInVoids?: Maybe<
+    SavedReplyToEchoInVoidUpdateManyWithoutSavedByInput
+  >;
+  createdVoids?: Maybe<NVoidUpdateManyWithoutCreatedByInput>;
+  savedVoids?: Maybe<SavedVoidUpdateManyWithoutCreatedByInput>;
 }
 
 export interface UserUpdateManyMutationInput {
@@ -628,6 +4716,180 @@ export interface ContentSubscriptionWhereInput {
   AND?: Maybe<ContentSubscriptionWhereInput[] | ContentSubscriptionWhereInput>;
   OR?: Maybe<ContentSubscriptionWhereInput[] | ContentSubscriptionWhereInput>;
   NOT?: Maybe<ContentSubscriptionWhereInput[] | ContentSubscriptionWhereInput>;
+}
+
+export interface EchoEdgeSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<EchoEdgeWhereInput>;
+  AND?: Maybe<
+    EchoEdgeSubscriptionWhereInput[] | EchoEdgeSubscriptionWhereInput
+  >;
+  OR?: Maybe<EchoEdgeSubscriptionWhereInput[] | EchoEdgeSubscriptionWhereInput>;
+  NOT?: Maybe<
+    EchoEdgeSubscriptionWhereInput[] | EchoEdgeSubscriptionWhereInput
+  >;
+}
+
+export interface EchoInVoidSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<EchoInVoidWhereInput>;
+  AND?: Maybe<
+    EchoInVoidSubscriptionWhereInput[] | EchoInVoidSubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    EchoInVoidSubscriptionWhereInput[] | EchoInVoidSubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    EchoInVoidSubscriptionWhereInput[] | EchoInVoidSubscriptionWhereInput
+  >;
+}
+
+export interface NVoidSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<NVoidWhereInput>;
+  AND?: Maybe<NVoidSubscriptionWhereInput[] | NVoidSubscriptionWhereInput>;
+  OR?: Maybe<NVoidSubscriptionWhereInput[] | NVoidSubscriptionWhereInput>;
+  NOT?: Maybe<NVoidSubscriptionWhereInput[] | NVoidSubscriptionWhereInput>;
+}
+
+export interface ReplyToEchoInVoidSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<ReplyToEchoInVoidWhereInput>;
+  AND?: Maybe<
+    | ReplyToEchoInVoidSubscriptionWhereInput[]
+    | ReplyToEchoInVoidSubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    | ReplyToEchoInVoidSubscriptionWhereInput[]
+    | ReplyToEchoInVoidSubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    | ReplyToEchoInVoidSubscriptionWhereInput[]
+    | ReplyToEchoInVoidSubscriptionWhereInput
+  >;
+}
+
+export interface ReplyToShoutInVoidSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<ReplyToShoutInVoidWhereInput>;
+  AND?: Maybe<
+    | ReplyToShoutInVoidSubscriptionWhereInput[]
+    | ReplyToShoutInVoidSubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    | ReplyToShoutInVoidSubscriptionWhereInput[]
+    | ReplyToShoutInVoidSubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    | ReplyToShoutInVoidSubscriptionWhereInput[]
+    | ReplyToShoutInVoidSubscriptionWhereInput
+  >;
+}
+
+export interface SavedEchoSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<SavedEchoWhereInput>;
+  AND?: Maybe<
+    SavedEchoSubscriptionWhereInput[] | SavedEchoSubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    SavedEchoSubscriptionWhereInput[] | SavedEchoSubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    SavedEchoSubscriptionWhereInput[] | SavedEchoSubscriptionWhereInput
+  >;
+}
+
+export interface SavedReplyToEchoInVoidSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<SavedReplyToEchoInVoidWhereInput>;
+  AND?: Maybe<
+    | SavedReplyToEchoInVoidSubscriptionWhereInput[]
+    | SavedReplyToEchoInVoidSubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    | SavedReplyToEchoInVoidSubscriptionWhereInput[]
+    | SavedReplyToEchoInVoidSubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    | SavedReplyToEchoInVoidSubscriptionWhereInput[]
+    | SavedReplyToEchoInVoidSubscriptionWhereInput
+  >;
+}
+
+export interface SavedReplyToShoutInVoidSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<SavedReplyToShoutInVoidWhereInput>;
+  AND?: Maybe<
+    | SavedReplyToShoutInVoidSubscriptionWhereInput[]
+    | SavedReplyToShoutInVoidSubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    | SavedReplyToShoutInVoidSubscriptionWhereInput[]
+    | SavedReplyToShoutInVoidSubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    | SavedReplyToShoutInVoidSubscriptionWhereInput[]
+    | SavedReplyToShoutInVoidSubscriptionWhereInput
+  >;
+}
+
+export interface SavedShoutSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<SavedShoutWhereInput>;
+  AND?: Maybe<
+    SavedShoutSubscriptionWhereInput[] | SavedShoutSubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    SavedShoutSubscriptionWhereInput[] | SavedShoutSubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    SavedShoutSubscriptionWhereInput[] | SavedShoutSubscriptionWhereInput
+  >;
+}
+
+export interface SavedVoidSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<SavedVoidWhereInput>;
+  AND?: Maybe<
+    SavedVoidSubscriptionWhereInput[] | SavedVoidSubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    SavedVoidSubscriptionWhereInput[] | SavedVoidSubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    SavedVoidSubscriptionWhereInput[] | SavedVoidSubscriptionWhereInput
+  >;
 }
 
 export interface ShoutInVoidSubscriptionWhereInput {
@@ -720,6 +4982,91 @@ export interface UserPromise extends Promise<User>, Fragmentable {
     first?: Int;
     last?: Int;
   }) => T;
+  savedShouts: <T = FragmentableArray<SavedShout>>(args?: {
+    where?: SavedShoutWhereInput;
+    orderBy?: SavedShoutOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  echosInVoids: <T = FragmentableArray<EchoInVoid>>(args?: {
+    where?: EchoInVoidWhereInput;
+    orderBy?: EchoInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  savedEchos: <T = FragmentableArray<SavedEcho>>(args?: {
+    where?: SavedEchoWhereInput;
+    orderBy?: SavedEchoOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  repliesToShoutsInVoids: <T = FragmentableArray<ReplyToShoutInVoid>>(args?: {
+    where?: ReplyToShoutInVoidWhereInput;
+    orderBy?: ReplyToShoutInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  savedRepliesToShoutsInVoids: <
+    T = FragmentableArray<SavedReplyToShoutInVoid>
+  >(args?: {
+    where?: SavedReplyToShoutInVoidWhereInput;
+    orderBy?: SavedReplyToShoutInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  repliesToEchosInVoids: <T = FragmentableArray<ReplyToEchoInVoid>>(args?: {
+    where?: ReplyToEchoInVoidWhereInput;
+    orderBy?: ReplyToEchoInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  savedRepliesToEchosInVoids: <
+    T = FragmentableArray<SavedReplyToEchoInVoid>
+  >(args?: {
+    where?: SavedReplyToEchoInVoidWhereInput;
+    orderBy?: SavedReplyToEchoInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  createdVoids: <T = FragmentableArray<NVoid>>(args?: {
+    where?: NVoidWhereInput;
+    orderBy?: NVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  savedVoids: <T = FragmentableArray<SavedVoid>>(args?: {
+    where?: SavedVoidWhereInput;
+    orderBy?: SavedVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
 export interface UserSubscription
@@ -733,6 +5080,95 @@ export interface UserSubscription
   shoutsInVoids: <T = Promise<AsyncIterator<ShoutInVoidSubscription>>>(args?: {
     where?: ShoutInVoidWhereInput;
     orderBy?: ShoutInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  savedShouts: <T = Promise<AsyncIterator<SavedShoutSubscription>>>(args?: {
+    where?: SavedShoutWhereInput;
+    orderBy?: SavedShoutOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  echosInVoids: <T = Promise<AsyncIterator<EchoInVoidSubscription>>>(args?: {
+    where?: EchoInVoidWhereInput;
+    orderBy?: EchoInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  savedEchos: <T = Promise<AsyncIterator<SavedEchoSubscription>>>(args?: {
+    where?: SavedEchoWhereInput;
+    orderBy?: SavedEchoOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  repliesToShoutsInVoids: <
+    T = Promise<AsyncIterator<ReplyToShoutInVoidSubscription>>
+  >(args?: {
+    where?: ReplyToShoutInVoidWhereInput;
+    orderBy?: ReplyToShoutInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  savedRepliesToShoutsInVoids: <
+    T = Promise<AsyncIterator<SavedReplyToShoutInVoidSubscription>>
+  >(args?: {
+    where?: SavedReplyToShoutInVoidWhereInput;
+    orderBy?: SavedReplyToShoutInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  repliesToEchosInVoids: <
+    T = Promise<AsyncIterator<ReplyToEchoInVoidSubscription>>
+  >(args?: {
+    where?: ReplyToEchoInVoidWhereInput;
+    orderBy?: ReplyToEchoInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  savedRepliesToEchosInVoids: <
+    T = Promise<AsyncIterator<SavedReplyToEchoInVoidSubscription>>
+  >(args?: {
+    where?: SavedReplyToEchoInVoidWhereInput;
+    orderBy?: SavedReplyToEchoInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  createdVoids: <T = Promise<AsyncIterator<NVoidSubscription>>>(args?: {
+    where?: NVoidWhereInput;
+    orderBy?: NVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  savedVoids: <T = Promise<AsyncIterator<SavedVoidSubscription>>>(args?: {
+    where?: SavedVoidWhereInput;
+    orderBy?: SavedVoidOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -758,6 +5194,91 @@ export interface UserNullablePromise
     first?: Int;
     last?: Int;
   }) => T;
+  savedShouts: <T = FragmentableArray<SavedShout>>(args?: {
+    where?: SavedShoutWhereInput;
+    orderBy?: SavedShoutOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  echosInVoids: <T = FragmentableArray<EchoInVoid>>(args?: {
+    where?: EchoInVoidWhereInput;
+    orderBy?: EchoInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  savedEchos: <T = FragmentableArray<SavedEcho>>(args?: {
+    where?: SavedEchoWhereInput;
+    orderBy?: SavedEchoOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  repliesToShoutsInVoids: <T = FragmentableArray<ReplyToShoutInVoid>>(args?: {
+    where?: ReplyToShoutInVoidWhereInput;
+    orderBy?: ReplyToShoutInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  savedRepliesToShoutsInVoids: <
+    T = FragmentableArray<SavedReplyToShoutInVoid>
+  >(args?: {
+    where?: SavedReplyToShoutInVoidWhereInput;
+    orderBy?: SavedReplyToShoutInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  repliesToEchosInVoids: <T = FragmentableArray<ReplyToEchoInVoid>>(args?: {
+    where?: ReplyToEchoInVoidWhereInput;
+    orderBy?: ReplyToEchoInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  savedRepliesToEchosInVoids: <
+    T = FragmentableArray<SavedReplyToEchoInVoid>
+  >(args?: {
+    where?: SavedReplyToEchoInVoidWhereInput;
+    orderBy?: SavedReplyToEchoInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  createdVoids: <T = FragmentableArray<NVoid>>(args?: {
+    where?: NVoidWhereInput;
+    orderBy?: NVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  savedVoids: <T = FragmentableArray<SavedVoid>>(args?: {
+    where?: SavedVoidWhereInput;
+    orderBy?: SavedVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
 export interface ShoutInVoid {
@@ -772,6 +5293,34 @@ export interface ShoutInVoidPromise extends Promise<ShoutInVoid>, Fragmentable {
   shoutedBy: <T = UserPromise>() => T;
   content: <T = ContentPromise>() => T;
   voteCount: () => Promise<Int>;
+  nvoid: <T = NVoidPromise>() => T;
+  savedShouts: <T = FragmentableArray<SavedShout>>(args?: {
+    where?: SavedShoutWhereInput;
+    orderBy?: SavedShoutOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  replies: <T = FragmentableArray<ReplyToShoutInVoid>>(args?: {
+    where?: ReplyToShoutInVoidWhereInput;
+    orderBy?: ReplyToShoutInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  echoEdges: <T = FragmentableArray<EchoEdge>>(args?: {
+    where?: EchoEdgeWhereInput;
+    orderBy?: EchoEdgeOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
 export interface ShoutInVoidSubscription
@@ -782,6 +5331,34 @@ export interface ShoutInVoidSubscription
   shoutedBy: <T = UserSubscription>() => T;
   content: <T = ContentSubscription>() => T;
   voteCount: () => Promise<AsyncIterator<Int>>;
+  nvoid: <T = NVoidSubscription>() => T;
+  savedShouts: <T = Promise<AsyncIterator<SavedShoutSubscription>>>(args?: {
+    where?: SavedShoutWhereInput;
+    orderBy?: SavedShoutOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  replies: <T = Promise<AsyncIterator<ReplyToShoutInVoidSubscription>>>(args?: {
+    where?: ReplyToShoutInVoidWhereInput;
+    orderBy?: ReplyToShoutInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  echoEdges: <T = Promise<AsyncIterator<EchoEdgeSubscription>>>(args?: {
+    where?: EchoEdgeWhereInput;
+    orderBy?: EchoEdgeOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
 export interface ShoutInVoidNullablePromise
@@ -792,6 +5369,602 @@ export interface ShoutInVoidNullablePromise
   shoutedBy: <T = UserPromise>() => T;
   content: <T = ContentPromise>() => T;
   voteCount: () => Promise<Int>;
+  nvoid: <T = NVoidPromise>() => T;
+  savedShouts: <T = FragmentableArray<SavedShout>>(args?: {
+    where?: SavedShoutWhereInput;
+    orderBy?: SavedShoutOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  replies: <T = FragmentableArray<ReplyToShoutInVoid>>(args?: {
+    where?: ReplyToShoutInVoidWhereInput;
+    orderBy?: ReplyToShoutInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  echoEdges: <T = FragmentableArray<EchoEdge>>(args?: {
+    where?: EchoEdgeWhereInput;
+    orderBy?: EchoEdgeOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface NVoid {
+  voidId: ID_Output;
+  createdAt: DateTimeOutput;
+  voidGeohash: String;
+}
+
+export interface NVoidPromise extends Promise<NVoid>, Fragmentable {
+  voidId: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  createdBy: <T = UserPromise>() => T;
+  voidGeohash: () => Promise<String>;
+  shouts: <T = FragmentableArray<ShoutInVoid>>(args?: {
+    where?: ShoutInVoidWhereInput;
+    orderBy?: ShoutInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  echos: <T = FragmentableArray<EchoInVoid>>(args?: {
+    where?: EchoInVoidWhereInput;
+    orderBy?: EchoInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface NVoidSubscription
+  extends Promise<AsyncIterator<NVoid>>,
+    Fragmentable {
+  voidId: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  createdBy: <T = UserSubscription>() => T;
+  voidGeohash: () => Promise<AsyncIterator<String>>;
+  shouts: <T = Promise<AsyncIterator<ShoutInVoidSubscription>>>(args?: {
+    where?: ShoutInVoidWhereInput;
+    orderBy?: ShoutInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  echos: <T = Promise<AsyncIterator<EchoInVoidSubscription>>>(args?: {
+    where?: EchoInVoidWhereInput;
+    orderBy?: EchoInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface NVoidNullablePromise
+  extends Promise<NVoid | null>,
+    Fragmentable {
+  voidId: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  createdBy: <T = UserPromise>() => T;
+  voidGeohash: () => Promise<String>;
+  shouts: <T = FragmentableArray<ShoutInVoid>>(args?: {
+    where?: ShoutInVoidWhereInput;
+    orderBy?: ShoutInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  echos: <T = FragmentableArray<EchoInVoid>>(args?: {
+    where?: EchoInVoidWhereInput;
+    orderBy?: EchoInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface EchoInVoid {
+  echoInVoidId: ID_Output;
+  createdAt: DateTimeOutput;
+  voteCount: Int;
+  originalShoutVoidGeohash: String;
+}
+
+export interface EchoInVoidPromise extends Promise<EchoInVoid>, Fragmentable {
+  echoInVoidId: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  echoedBy: <T = UserPromise>() => T;
+  originalContent: <T = ContentPromise>() => T;
+  voteCount: () => Promise<Int>;
+  originalShoutVoidGeohash: () => Promise<String>;
+  nvoid: <T = NVoidPromise>() => T;
+  savedEchos: <T = FragmentableArray<SavedEcho>>(args?: {
+    where?: SavedEchoWhereInput;
+    orderBy?: SavedEchoOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  replies: <T = FragmentableArray<ReplyToEchoInVoid>>(args?: {
+    where?: ReplyToEchoInVoidWhereInput;
+    orderBy?: ReplyToEchoInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  echoEdge: <T = EchoEdgePromise>() => T;
+}
+
+export interface EchoInVoidSubscription
+  extends Promise<AsyncIterator<EchoInVoid>>,
+    Fragmentable {
+  echoInVoidId: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  echoedBy: <T = UserSubscription>() => T;
+  originalContent: <T = ContentSubscription>() => T;
+  voteCount: () => Promise<AsyncIterator<Int>>;
+  originalShoutVoidGeohash: () => Promise<AsyncIterator<String>>;
+  nvoid: <T = NVoidSubscription>() => T;
+  savedEchos: <T = Promise<AsyncIterator<SavedEchoSubscription>>>(args?: {
+    where?: SavedEchoWhereInput;
+    orderBy?: SavedEchoOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  replies: <T = Promise<AsyncIterator<ReplyToEchoInVoidSubscription>>>(args?: {
+    where?: ReplyToEchoInVoidWhereInput;
+    orderBy?: ReplyToEchoInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  echoEdge: <T = EchoEdgeSubscription>() => T;
+}
+
+export interface EchoInVoidNullablePromise
+  extends Promise<EchoInVoid | null>,
+    Fragmentable {
+  echoInVoidId: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  echoedBy: <T = UserPromise>() => T;
+  originalContent: <T = ContentPromise>() => T;
+  voteCount: () => Promise<Int>;
+  originalShoutVoidGeohash: () => Promise<String>;
+  nvoid: <T = NVoidPromise>() => T;
+  savedEchos: <T = FragmentableArray<SavedEcho>>(args?: {
+    where?: SavedEchoWhereInput;
+    orderBy?: SavedEchoOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  replies: <T = FragmentableArray<ReplyToEchoInVoid>>(args?: {
+    where?: ReplyToEchoInVoidWhereInput;
+    orderBy?: ReplyToEchoInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  echoEdge: <T = EchoEdgePromise>() => T;
+}
+
+export interface SavedEcho {
+  savedEcho: ID_Output;
+  createdAt: DateTimeOutput;
+  originalShoutVoidGeohash: String;
+  originalEchoVoidGeohash: String;
+}
+
+export interface SavedEchoPromise extends Promise<SavedEcho>, Fragmentable {
+  savedEcho: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  savedBy: <T = UserPromise>() => T;
+  originalContent: <T = ContentPromise>() => T;
+  originalShoutVoidGeohash: () => Promise<String>;
+  originalEchoVoidGeohash: () => Promise<String>;
+  echoInVoid: <T = EchoInVoidPromise>() => T;
+}
+
+export interface SavedEchoSubscription
+  extends Promise<AsyncIterator<SavedEcho>>,
+    Fragmentable {
+  savedEcho: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  savedBy: <T = UserSubscription>() => T;
+  originalContent: <T = ContentSubscription>() => T;
+  originalShoutVoidGeohash: () => Promise<AsyncIterator<String>>;
+  originalEchoVoidGeohash: () => Promise<AsyncIterator<String>>;
+  echoInVoid: <T = EchoInVoidSubscription>() => T;
+}
+
+export interface SavedEchoNullablePromise
+  extends Promise<SavedEcho | null>,
+    Fragmentable {
+  savedEcho: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  savedBy: <T = UserPromise>() => T;
+  originalContent: <T = ContentPromise>() => T;
+  originalShoutVoidGeohash: () => Promise<String>;
+  originalEchoVoidGeohash: () => Promise<String>;
+  echoInVoid: <T = EchoInVoidPromise>() => T;
+}
+
+export interface ReplyToEchoInVoid {
+  replyToEchoInVoidId: ID_Output;
+  createdAt: DateTimeOutput;
+  voteCount: Int;
+}
+
+export interface ReplyToEchoInVoidPromise
+  extends Promise<ReplyToEchoInVoid>,
+    Fragmentable {
+  replyToEchoInVoidId: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  createdBy: <T = UserPromise>() => T;
+  content: <T = ContentPromise>() => T;
+  voteCount: () => Promise<Int>;
+  echoInVoid: <T = EchoInVoidPromise>() => T;
+  savedReplies: <T = FragmentableArray<SavedReplyToEchoInVoid>>(args?: {
+    where?: SavedReplyToEchoInVoidWhereInput;
+    orderBy?: SavedReplyToEchoInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface ReplyToEchoInVoidSubscription
+  extends Promise<AsyncIterator<ReplyToEchoInVoid>>,
+    Fragmentable {
+  replyToEchoInVoidId: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  createdBy: <T = UserSubscription>() => T;
+  content: <T = ContentSubscription>() => T;
+  voteCount: () => Promise<AsyncIterator<Int>>;
+  echoInVoid: <T = EchoInVoidSubscription>() => T;
+  savedReplies: <
+    T = Promise<AsyncIterator<SavedReplyToEchoInVoidSubscription>>
+  >(args?: {
+    where?: SavedReplyToEchoInVoidWhereInput;
+    orderBy?: SavedReplyToEchoInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface ReplyToEchoInVoidNullablePromise
+  extends Promise<ReplyToEchoInVoid | null>,
+    Fragmentable {
+  replyToEchoInVoidId: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  createdBy: <T = UserPromise>() => T;
+  content: <T = ContentPromise>() => T;
+  voteCount: () => Promise<Int>;
+  echoInVoid: <T = EchoInVoidPromise>() => T;
+  savedReplies: <T = FragmentableArray<SavedReplyToEchoInVoid>>(args?: {
+    where?: SavedReplyToEchoInVoidWhereInput;
+    orderBy?: SavedReplyToEchoInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface SavedReplyToEchoInVoid {
+  savedReplyToEchoInVoid: ID_Output;
+  createdAt: DateTimeOutput;
+  originalVoidGeohash: String;
+}
+
+export interface SavedReplyToEchoInVoidPromise
+  extends Promise<SavedReplyToEchoInVoid>,
+    Fragmentable {
+  savedReplyToEchoInVoid: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  savedBy: <T = UserPromise>() => T;
+  originalReplyContent: <T = ContentPromise>() => T;
+  originalShoutContent: <T = ContentPromise>() => T;
+  originalVoidGeohash: () => Promise<String>;
+  replyToEchoInVoid: <T = ReplyToEchoInVoidPromise>() => T;
+}
+
+export interface SavedReplyToEchoInVoidSubscription
+  extends Promise<AsyncIterator<SavedReplyToEchoInVoid>>,
+    Fragmentable {
+  savedReplyToEchoInVoid: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  savedBy: <T = UserSubscription>() => T;
+  originalReplyContent: <T = ContentSubscription>() => T;
+  originalShoutContent: <T = ContentSubscription>() => T;
+  originalVoidGeohash: () => Promise<AsyncIterator<String>>;
+  replyToEchoInVoid: <T = ReplyToEchoInVoidSubscription>() => T;
+}
+
+export interface SavedReplyToEchoInVoidNullablePromise
+  extends Promise<SavedReplyToEchoInVoid | null>,
+    Fragmentable {
+  savedReplyToEchoInVoid: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  savedBy: <T = UserPromise>() => T;
+  originalReplyContent: <T = ContentPromise>() => T;
+  originalShoutContent: <T = ContentPromise>() => T;
+  originalVoidGeohash: () => Promise<String>;
+  replyToEchoInVoid: <T = ReplyToEchoInVoidPromise>() => T;
+}
+
+export interface EchoEdge {
+  echoEdegId: ID_Output;
+}
+
+export interface EchoEdgePromise extends Promise<EchoEdge>, Fragmentable {
+  echoEdegId: () => Promise<ID_Output>;
+  shoutInVoid: <T = ShoutInVoidPromise>() => T;
+  savedShout: <T = SavedShoutPromise>() => T;
+  echoInVoid: <T = EchoInVoidPromise>() => T;
+}
+
+export interface EchoEdgeSubscription
+  extends Promise<AsyncIterator<EchoEdge>>,
+    Fragmentable {
+  echoEdegId: () => Promise<AsyncIterator<ID_Output>>;
+  shoutInVoid: <T = ShoutInVoidSubscription>() => T;
+  savedShout: <T = SavedShoutSubscription>() => T;
+  echoInVoid: <T = EchoInVoidSubscription>() => T;
+}
+
+export interface EchoEdgeNullablePromise
+  extends Promise<EchoEdge | null>,
+    Fragmentable {
+  echoEdegId: () => Promise<ID_Output>;
+  shoutInVoid: <T = ShoutInVoidPromise>() => T;
+  savedShout: <T = SavedShoutPromise>() => T;
+  echoInVoid: <T = EchoInVoidPromise>() => T;
+}
+
+export interface SavedShout {
+  savedShoutId: ID_Output;
+  createdAt: DateTimeOutput;
+  originalShoutVoidGeohash: String;
+}
+
+export interface SavedShoutPromise extends Promise<SavedShout>, Fragmentable {
+  savedShoutId: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  savedByUser: <T = UserPromise>() => T;
+  originalContent: <T = ContentPromise>() => T;
+  originalShoutVoidGeohash: () => Promise<String>;
+  shoutInVoid: <T = ShoutInVoidPromise>() => T;
+  echoEdges: <T = FragmentableArray<EchoEdge>>(args?: {
+    where?: EchoEdgeWhereInput;
+    orderBy?: EchoEdgeOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface SavedShoutSubscription
+  extends Promise<AsyncIterator<SavedShout>>,
+    Fragmentable {
+  savedShoutId: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  savedByUser: <T = UserSubscription>() => T;
+  originalContent: <T = ContentSubscription>() => T;
+  originalShoutVoidGeohash: () => Promise<AsyncIterator<String>>;
+  shoutInVoid: <T = ShoutInVoidSubscription>() => T;
+  echoEdges: <T = Promise<AsyncIterator<EchoEdgeSubscription>>>(args?: {
+    where?: EchoEdgeWhereInput;
+    orderBy?: EchoEdgeOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface SavedShoutNullablePromise
+  extends Promise<SavedShout | null>,
+    Fragmentable {
+  savedShoutId: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  savedByUser: <T = UserPromise>() => T;
+  originalContent: <T = ContentPromise>() => T;
+  originalShoutVoidGeohash: () => Promise<String>;
+  shoutInVoid: <T = ShoutInVoidPromise>() => T;
+  echoEdges: <T = FragmentableArray<EchoEdge>>(args?: {
+    where?: EchoEdgeWhereInput;
+    orderBy?: EchoEdgeOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface ReplyToShoutInVoid {
+  replyToShoutInVoidId: ID_Output;
+  createdAt: DateTimeOutput;
+  voteCount: Int;
+}
+
+export interface ReplyToShoutInVoidPromise
+  extends Promise<ReplyToShoutInVoid>,
+    Fragmentable {
+  replyToShoutInVoidId: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  createdBy: <T = UserPromise>() => T;
+  content: <T = ContentPromise>() => T;
+  voteCount: () => Promise<Int>;
+  shoutInVoid: <T = ShoutInVoidPromise>() => T;
+  savedReplies: <T = FragmentableArray<SavedReplyToShoutInVoid>>(args?: {
+    where?: SavedReplyToShoutInVoidWhereInput;
+    orderBy?: SavedReplyToShoutInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface ReplyToShoutInVoidSubscription
+  extends Promise<AsyncIterator<ReplyToShoutInVoid>>,
+    Fragmentable {
+  replyToShoutInVoidId: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  createdBy: <T = UserSubscription>() => T;
+  content: <T = ContentSubscription>() => T;
+  voteCount: () => Promise<AsyncIterator<Int>>;
+  shoutInVoid: <T = ShoutInVoidSubscription>() => T;
+  savedReplies: <
+    T = Promise<AsyncIterator<SavedReplyToShoutInVoidSubscription>>
+  >(args?: {
+    where?: SavedReplyToShoutInVoidWhereInput;
+    orderBy?: SavedReplyToShoutInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface ReplyToShoutInVoidNullablePromise
+  extends Promise<ReplyToShoutInVoid | null>,
+    Fragmentable {
+  replyToShoutInVoidId: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  createdBy: <T = UserPromise>() => T;
+  content: <T = ContentPromise>() => T;
+  voteCount: () => Promise<Int>;
+  shoutInVoid: <T = ShoutInVoidPromise>() => T;
+  savedReplies: <T = FragmentableArray<SavedReplyToShoutInVoid>>(args?: {
+    where?: SavedReplyToShoutInVoidWhereInput;
+    orderBy?: SavedReplyToShoutInVoidOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+}
+
+export interface SavedReplyToShoutInVoid {
+  savedReplyToShoutInVoidId: ID_Output;
+  createdAt: DateTimeOutput;
+  originalVoidGeohash: String;
+}
+
+export interface SavedReplyToShoutInVoidPromise
+  extends Promise<SavedReplyToShoutInVoid>,
+    Fragmentable {
+  savedReplyToShoutInVoidId: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  savedBy: <T = UserPromise>() => T;
+  originalReplyContent: <T = ContentPromise>() => T;
+  originalShoutContent: <T = ContentPromise>() => T;
+  originalVoidGeohash: () => Promise<String>;
+  replyToShoutInVoid: <T = ReplyToShoutInVoidPromise>() => T;
+}
+
+export interface SavedReplyToShoutInVoidSubscription
+  extends Promise<AsyncIterator<SavedReplyToShoutInVoid>>,
+    Fragmentable {
+  savedReplyToShoutInVoidId: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  savedBy: <T = UserSubscription>() => T;
+  originalReplyContent: <T = ContentSubscription>() => T;
+  originalShoutContent: <T = ContentSubscription>() => T;
+  originalVoidGeohash: () => Promise<AsyncIterator<String>>;
+  replyToShoutInVoid: <T = ReplyToShoutInVoidSubscription>() => T;
+}
+
+export interface SavedReplyToShoutInVoidNullablePromise
+  extends Promise<SavedReplyToShoutInVoid | null>,
+    Fragmentable {
+  savedReplyToShoutInVoidId: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  savedBy: <T = UserPromise>() => T;
+  originalReplyContent: <T = ContentPromise>() => T;
+  originalShoutContent: <T = ContentPromise>() => T;
+  originalVoidGeohash: () => Promise<String>;
+  replyToShoutInVoid: <T = ReplyToShoutInVoidPromise>() => T;
+}
+
+export interface SavedVoid {
+  savedVoidId: ID_Output;
+  createdAt: DateTimeOutput;
+  voidGeohash: String;
+}
+
+export interface SavedVoidPromise extends Promise<SavedVoid>, Fragmentable {
+  savedVoidId: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  createdBy: <T = UserPromise>() => T;
+  voidGeohash: () => Promise<String>;
+}
+
+export interface SavedVoidSubscription
+  extends Promise<AsyncIterator<SavedVoid>>,
+    Fragmentable {
+  savedVoidId: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  createdBy: <T = UserSubscription>() => T;
+  voidGeohash: () => Promise<AsyncIterator<String>>;
+}
+
+export interface SavedVoidNullablePromise
+  extends Promise<SavedVoid | null>,
+    Fragmentable {
+  savedVoidId: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  createdBy: <T = UserPromise>() => T;
+  voidGeohash: () => Promise<String>;
 }
 
 export interface ContentConnection {
@@ -867,6 +6040,570 @@ export interface AggregateContentPromise
 
 export interface AggregateContentSubscription
   extends Promise<AsyncIterator<AggregateContent>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface EchoEdgeConnection {
+  pageInfo: PageInfo;
+  edges: EchoEdgeEdge[];
+}
+
+export interface EchoEdgeConnectionPromise
+  extends Promise<EchoEdgeConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<EchoEdgeEdge>>() => T;
+  aggregate: <T = AggregateEchoEdgePromise>() => T;
+}
+
+export interface EchoEdgeConnectionSubscription
+  extends Promise<AsyncIterator<EchoEdgeConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<EchoEdgeEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateEchoEdgeSubscription>() => T;
+}
+
+export interface EchoEdgeEdge {
+  node: EchoEdge;
+  cursor: String;
+}
+
+export interface EchoEdgeEdgePromise
+  extends Promise<EchoEdgeEdge>,
+    Fragmentable {
+  node: <T = EchoEdgePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface EchoEdgeEdgeSubscription
+  extends Promise<AsyncIterator<EchoEdgeEdge>>,
+    Fragmentable {
+  node: <T = EchoEdgeSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateEchoEdge {
+  count: Int;
+}
+
+export interface AggregateEchoEdgePromise
+  extends Promise<AggregateEchoEdge>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateEchoEdgeSubscription
+  extends Promise<AsyncIterator<AggregateEchoEdge>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface EchoInVoidConnection {
+  pageInfo: PageInfo;
+  edges: EchoInVoidEdge[];
+}
+
+export interface EchoInVoidConnectionPromise
+  extends Promise<EchoInVoidConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<EchoInVoidEdge>>() => T;
+  aggregate: <T = AggregateEchoInVoidPromise>() => T;
+}
+
+export interface EchoInVoidConnectionSubscription
+  extends Promise<AsyncIterator<EchoInVoidConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<EchoInVoidEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateEchoInVoidSubscription>() => T;
+}
+
+export interface EchoInVoidEdge {
+  node: EchoInVoid;
+  cursor: String;
+}
+
+export interface EchoInVoidEdgePromise
+  extends Promise<EchoInVoidEdge>,
+    Fragmentable {
+  node: <T = EchoInVoidPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface EchoInVoidEdgeSubscription
+  extends Promise<AsyncIterator<EchoInVoidEdge>>,
+    Fragmentable {
+  node: <T = EchoInVoidSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateEchoInVoid {
+  count: Int;
+}
+
+export interface AggregateEchoInVoidPromise
+  extends Promise<AggregateEchoInVoid>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateEchoInVoidSubscription
+  extends Promise<AsyncIterator<AggregateEchoInVoid>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface NVoidConnection {
+  pageInfo: PageInfo;
+  edges: NVoidEdge[];
+}
+
+export interface NVoidConnectionPromise
+  extends Promise<NVoidConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<NVoidEdge>>() => T;
+  aggregate: <T = AggregateNVoidPromise>() => T;
+}
+
+export interface NVoidConnectionSubscription
+  extends Promise<AsyncIterator<NVoidConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<NVoidEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateNVoidSubscription>() => T;
+}
+
+export interface NVoidEdge {
+  node: NVoid;
+  cursor: String;
+}
+
+export interface NVoidEdgePromise extends Promise<NVoidEdge>, Fragmentable {
+  node: <T = NVoidPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface NVoidEdgeSubscription
+  extends Promise<AsyncIterator<NVoidEdge>>,
+    Fragmentable {
+  node: <T = NVoidSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateNVoid {
+  count: Int;
+}
+
+export interface AggregateNVoidPromise
+  extends Promise<AggregateNVoid>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateNVoidSubscription
+  extends Promise<AsyncIterator<AggregateNVoid>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface ReplyToEchoInVoidConnection {
+  pageInfo: PageInfo;
+  edges: ReplyToEchoInVoidEdge[];
+}
+
+export interface ReplyToEchoInVoidConnectionPromise
+  extends Promise<ReplyToEchoInVoidConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<ReplyToEchoInVoidEdge>>() => T;
+  aggregate: <T = AggregateReplyToEchoInVoidPromise>() => T;
+}
+
+export interface ReplyToEchoInVoidConnectionSubscription
+  extends Promise<AsyncIterator<ReplyToEchoInVoidConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<ReplyToEchoInVoidEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateReplyToEchoInVoidSubscription>() => T;
+}
+
+export interface ReplyToEchoInVoidEdge {
+  node: ReplyToEchoInVoid;
+  cursor: String;
+}
+
+export interface ReplyToEchoInVoidEdgePromise
+  extends Promise<ReplyToEchoInVoidEdge>,
+    Fragmentable {
+  node: <T = ReplyToEchoInVoidPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface ReplyToEchoInVoidEdgeSubscription
+  extends Promise<AsyncIterator<ReplyToEchoInVoidEdge>>,
+    Fragmentable {
+  node: <T = ReplyToEchoInVoidSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateReplyToEchoInVoid {
+  count: Int;
+}
+
+export interface AggregateReplyToEchoInVoidPromise
+  extends Promise<AggregateReplyToEchoInVoid>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateReplyToEchoInVoidSubscription
+  extends Promise<AsyncIterator<AggregateReplyToEchoInVoid>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface ReplyToShoutInVoidConnection {
+  pageInfo: PageInfo;
+  edges: ReplyToShoutInVoidEdge[];
+}
+
+export interface ReplyToShoutInVoidConnectionPromise
+  extends Promise<ReplyToShoutInVoidConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<ReplyToShoutInVoidEdge>>() => T;
+  aggregate: <T = AggregateReplyToShoutInVoidPromise>() => T;
+}
+
+export interface ReplyToShoutInVoidConnectionSubscription
+  extends Promise<AsyncIterator<ReplyToShoutInVoidConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <
+    T = Promise<AsyncIterator<ReplyToShoutInVoidEdgeSubscription>>
+  >() => T;
+  aggregate: <T = AggregateReplyToShoutInVoidSubscription>() => T;
+}
+
+export interface ReplyToShoutInVoidEdge {
+  node: ReplyToShoutInVoid;
+  cursor: String;
+}
+
+export interface ReplyToShoutInVoidEdgePromise
+  extends Promise<ReplyToShoutInVoidEdge>,
+    Fragmentable {
+  node: <T = ReplyToShoutInVoidPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface ReplyToShoutInVoidEdgeSubscription
+  extends Promise<AsyncIterator<ReplyToShoutInVoidEdge>>,
+    Fragmentable {
+  node: <T = ReplyToShoutInVoidSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateReplyToShoutInVoid {
+  count: Int;
+}
+
+export interface AggregateReplyToShoutInVoidPromise
+  extends Promise<AggregateReplyToShoutInVoid>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateReplyToShoutInVoidSubscription
+  extends Promise<AsyncIterator<AggregateReplyToShoutInVoid>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface SavedEchoConnection {
+  pageInfo: PageInfo;
+  edges: SavedEchoEdge[];
+}
+
+export interface SavedEchoConnectionPromise
+  extends Promise<SavedEchoConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<SavedEchoEdge>>() => T;
+  aggregate: <T = AggregateSavedEchoPromise>() => T;
+}
+
+export interface SavedEchoConnectionSubscription
+  extends Promise<AsyncIterator<SavedEchoConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<SavedEchoEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateSavedEchoSubscription>() => T;
+}
+
+export interface SavedEchoEdge {
+  node: SavedEcho;
+  cursor: String;
+}
+
+export interface SavedEchoEdgePromise
+  extends Promise<SavedEchoEdge>,
+    Fragmentable {
+  node: <T = SavedEchoPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface SavedEchoEdgeSubscription
+  extends Promise<AsyncIterator<SavedEchoEdge>>,
+    Fragmentable {
+  node: <T = SavedEchoSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateSavedEcho {
+  count: Int;
+}
+
+export interface AggregateSavedEchoPromise
+  extends Promise<AggregateSavedEcho>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateSavedEchoSubscription
+  extends Promise<AsyncIterator<AggregateSavedEcho>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface SavedReplyToEchoInVoidConnection {
+  pageInfo: PageInfo;
+  edges: SavedReplyToEchoInVoidEdge[];
+}
+
+export interface SavedReplyToEchoInVoidConnectionPromise
+  extends Promise<SavedReplyToEchoInVoidConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<SavedReplyToEchoInVoidEdge>>() => T;
+  aggregate: <T = AggregateSavedReplyToEchoInVoidPromise>() => T;
+}
+
+export interface SavedReplyToEchoInVoidConnectionSubscription
+  extends Promise<AsyncIterator<SavedReplyToEchoInVoidConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <
+    T = Promise<AsyncIterator<SavedReplyToEchoInVoidEdgeSubscription>>
+  >() => T;
+  aggregate: <T = AggregateSavedReplyToEchoInVoidSubscription>() => T;
+}
+
+export interface SavedReplyToEchoInVoidEdge {
+  node: SavedReplyToEchoInVoid;
+  cursor: String;
+}
+
+export interface SavedReplyToEchoInVoidEdgePromise
+  extends Promise<SavedReplyToEchoInVoidEdge>,
+    Fragmentable {
+  node: <T = SavedReplyToEchoInVoidPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface SavedReplyToEchoInVoidEdgeSubscription
+  extends Promise<AsyncIterator<SavedReplyToEchoInVoidEdge>>,
+    Fragmentable {
+  node: <T = SavedReplyToEchoInVoidSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateSavedReplyToEchoInVoid {
+  count: Int;
+}
+
+export interface AggregateSavedReplyToEchoInVoidPromise
+  extends Promise<AggregateSavedReplyToEchoInVoid>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateSavedReplyToEchoInVoidSubscription
+  extends Promise<AsyncIterator<AggregateSavedReplyToEchoInVoid>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface SavedReplyToShoutInVoidConnection {
+  pageInfo: PageInfo;
+  edges: SavedReplyToShoutInVoidEdge[];
+}
+
+export interface SavedReplyToShoutInVoidConnectionPromise
+  extends Promise<SavedReplyToShoutInVoidConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<SavedReplyToShoutInVoidEdge>>() => T;
+  aggregate: <T = AggregateSavedReplyToShoutInVoidPromise>() => T;
+}
+
+export interface SavedReplyToShoutInVoidConnectionSubscription
+  extends Promise<AsyncIterator<SavedReplyToShoutInVoidConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <
+    T = Promise<AsyncIterator<SavedReplyToShoutInVoidEdgeSubscription>>
+  >() => T;
+  aggregate: <T = AggregateSavedReplyToShoutInVoidSubscription>() => T;
+}
+
+export interface SavedReplyToShoutInVoidEdge {
+  node: SavedReplyToShoutInVoid;
+  cursor: String;
+}
+
+export interface SavedReplyToShoutInVoidEdgePromise
+  extends Promise<SavedReplyToShoutInVoidEdge>,
+    Fragmentable {
+  node: <T = SavedReplyToShoutInVoidPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface SavedReplyToShoutInVoidEdgeSubscription
+  extends Promise<AsyncIterator<SavedReplyToShoutInVoidEdge>>,
+    Fragmentable {
+  node: <T = SavedReplyToShoutInVoidSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateSavedReplyToShoutInVoid {
+  count: Int;
+}
+
+export interface AggregateSavedReplyToShoutInVoidPromise
+  extends Promise<AggregateSavedReplyToShoutInVoid>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateSavedReplyToShoutInVoidSubscription
+  extends Promise<AsyncIterator<AggregateSavedReplyToShoutInVoid>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface SavedShoutConnection {
+  pageInfo: PageInfo;
+  edges: SavedShoutEdge[];
+}
+
+export interface SavedShoutConnectionPromise
+  extends Promise<SavedShoutConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<SavedShoutEdge>>() => T;
+  aggregate: <T = AggregateSavedShoutPromise>() => T;
+}
+
+export interface SavedShoutConnectionSubscription
+  extends Promise<AsyncIterator<SavedShoutConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<SavedShoutEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateSavedShoutSubscription>() => T;
+}
+
+export interface SavedShoutEdge {
+  node: SavedShout;
+  cursor: String;
+}
+
+export interface SavedShoutEdgePromise
+  extends Promise<SavedShoutEdge>,
+    Fragmentable {
+  node: <T = SavedShoutPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface SavedShoutEdgeSubscription
+  extends Promise<AsyncIterator<SavedShoutEdge>>,
+    Fragmentable {
+  node: <T = SavedShoutSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateSavedShout {
+  count: Int;
+}
+
+export interface AggregateSavedShoutPromise
+  extends Promise<AggregateSavedShout>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateSavedShoutSubscription
+  extends Promise<AsyncIterator<AggregateSavedShout>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface SavedVoidConnection {
+  pageInfo: PageInfo;
+  edges: SavedVoidEdge[];
+}
+
+export interface SavedVoidConnectionPromise
+  extends Promise<SavedVoidConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<SavedVoidEdge>>() => T;
+  aggregate: <T = AggregateSavedVoidPromise>() => T;
+}
+
+export interface SavedVoidConnectionSubscription
+  extends Promise<AsyncIterator<SavedVoidConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<SavedVoidEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateSavedVoidSubscription>() => T;
+}
+
+export interface SavedVoidEdge {
+  node: SavedVoid;
+  cursor: String;
+}
+
+export interface SavedVoidEdgePromise
+  extends Promise<SavedVoidEdge>,
+    Fragmentable {
+  node: <T = SavedVoidPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface SavedVoidEdgeSubscription
+  extends Promise<AsyncIterator<SavedVoidEdge>>,
+    Fragmentable {
+  node: <T = SavedVoidSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateSavedVoid {
+  count: Int;
+}
+
+export interface AggregateSavedVoidPromise
+  extends Promise<AggregateSavedVoid>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateSavedVoidSubscription
+  extends Promise<AsyncIterator<AggregateSavedVoid>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
@@ -1047,6 +6784,478 @@ export interface ContentPreviousValuesSubscription
   includeUsername: () => Promise<AsyncIterator<Boolean>>;
 }
 
+export interface EchoEdgeSubscriptionPayload {
+  mutation: MutationType;
+  node: EchoEdge;
+  updatedFields: String[];
+  previousValues: EchoEdgePreviousValues;
+}
+
+export interface EchoEdgeSubscriptionPayloadPromise
+  extends Promise<EchoEdgeSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = EchoEdgePromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = EchoEdgePreviousValuesPromise>() => T;
+}
+
+export interface EchoEdgeSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<EchoEdgeSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = EchoEdgeSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = EchoEdgePreviousValuesSubscription>() => T;
+}
+
+export interface EchoEdgePreviousValues {
+  echoEdegId: ID_Output;
+}
+
+export interface EchoEdgePreviousValuesPromise
+  extends Promise<EchoEdgePreviousValues>,
+    Fragmentable {
+  echoEdegId: () => Promise<ID_Output>;
+}
+
+export interface EchoEdgePreviousValuesSubscription
+  extends Promise<AsyncIterator<EchoEdgePreviousValues>>,
+    Fragmentable {
+  echoEdegId: () => Promise<AsyncIterator<ID_Output>>;
+}
+
+export interface EchoInVoidSubscriptionPayload {
+  mutation: MutationType;
+  node: EchoInVoid;
+  updatedFields: String[];
+  previousValues: EchoInVoidPreviousValues;
+}
+
+export interface EchoInVoidSubscriptionPayloadPromise
+  extends Promise<EchoInVoidSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = EchoInVoidPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = EchoInVoidPreviousValuesPromise>() => T;
+}
+
+export interface EchoInVoidSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<EchoInVoidSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = EchoInVoidSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = EchoInVoidPreviousValuesSubscription>() => T;
+}
+
+export interface EchoInVoidPreviousValues {
+  echoInVoidId: ID_Output;
+  createdAt: DateTimeOutput;
+  voteCount: Int;
+  originalShoutVoidGeohash: String;
+}
+
+export interface EchoInVoidPreviousValuesPromise
+  extends Promise<EchoInVoidPreviousValues>,
+    Fragmentable {
+  echoInVoidId: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  voteCount: () => Promise<Int>;
+  originalShoutVoidGeohash: () => Promise<String>;
+}
+
+export interface EchoInVoidPreviousValuesSubscription
+  extends Promise<AsyncIterator<EchoInVoidPreviousValues>>,
+    Fragmentable {
+  echoInVoidId: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  voteCount: () => Promise<AsyncIterator<Int>>;
+  originalShoutVoidGeohash: () => Promise<AsyncIterator<String>>;
+}
+
+export interface NVoidSubscriptionPayload {
+  mutation: MutationType;
+  node: NVoid;
+  updatedFields: String[];
+  previousValues: NVoidPreviousValues;
+}
+
+export interface NVoidSubscriptionPayloadPromise
+  extends Promise<NVoidSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = NVoidPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = NVoidPreviousValuesPromise>() => T;
+}
+
+export interface NVoidSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<NVoidSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = NVoidSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = NVoidPreviousValuesSubscription>() => T;
+}
+
+export interface NVoidPreviousValues {
+  voidId: ID_Output;
+  createdAt: DateTimeOutput;
+  voidGeohash: String;
+}
+
+export interface NVoidPreviousValuesPromise
+  extends Promise<NVoidPreviousValues>,
+    Fragmentable {
+  voidId: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  voidGeohash: () => Promise<String>;
+}
+
+export interface NVoidPreviousValuesSubscription
+  extends Promise<AsyncIterator<NVoidPreviousValues>>,
+    Fragmentable {
+  voidId: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  voidGeohash: () => Promise<AsyncIterator<String>>;
+}
+
+export interface ReplyToEchoInVoidSubscriptionPayload {
+  mutation: MutationType;
+  node: ReplyToEchoInVoid;
+  updatedFields: String[];
+  previousValues: ReplyToEchoInVoidPreviousValues;
+}
+
+export interface ReplyToEchoInVoidSubscriptionPayloadPromise
+  extends Promise<ReplyToEchoInVoidSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = ReplyToEchoInVoidPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = ReplyToEchoInVoidPreviousValuesPromise>() => T;
+}
+
+export interface ReplyToEchoInVoidSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<ReplyToEchoInVoidSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = ReplyToEchoInVoidSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = ReplyToEchoInVoidPreviousValuesSubscription>() => T;
+}
+
+export interface ReplyToEchoInVoidPreviousValues {
+  replyToEchoInVoidId: ID_Output;
+  createdAt: DateTimeOutput;
+  voteCount: Int;
+}
+
+export interface ReplyToEchoInVoidPreviousValuesPromise
+  extends Promise<ReplyToEchoInVoidPreviousValues>,
+    Fragmentable {
+  replyToEchoInVoidId: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  voteCount: () => Promise<Int>;
+}
+
+export interface ReplyToEchoInVoidPreviousValuesSubscription
+  extends Promise<AsyncIterator<ReplyToEchoInVoidPreviousValues>>,
+    Fragmentable {
+  replyToEchoInVoidId: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  voteCount: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface ReplyToShoutInVoidSubscriptionPayload {
+  mutation: MutationType;
+  node: ReplyToShoutInVoid;
+  updatedFields: String[];
+  previousValues: ReplyToShoutInVoidPreviousValues;
+}
+
+export interface ReplyToShoutInVoidSubscriptionPayloadPromise
+  extends Promise<ReplyToShoutInVoidSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = ReplyToShoutInVoidPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = ReplyToShoutInVoidPreviousValuesPromise>() => T;
+}
+
+export interface ReplyToShoutInVoidSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<ReplyToShoutInVoidSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = ReplyToShoutInVoidSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = ReplyToShoutInVoidPreviousValuesSubscription>() => T;
+}
+
+export interface ReplyToShoutInVoidPreviousValues {
+  replyToShoutInVoidId: ID_Output;
+  createdAt: DateTimeOutput;
+  voteCount: Int;
+}
+
+export interface ReplyToShoutInVoidPreviousValuesPromise
+  extends Promise<ReplyToShoutInVoidPreviousValues>,
+    Fragmentable {
+  replyToShoutInVoidId: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  voteCount: () => Promise<Int>;
+}
+
+export interface ReplyToShoutInVoidPreviousValuesSubscription
+  extends Promise<AsyncIterator<ReplyToShoutInVoidPreviousValues>>,
+    Fragmentable {
+  replyToShoutInVoidId: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  voteCount: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface SavedEchoSubscriptionPayload {
+  mutation: MutationType;
+  node: SavedEcho;
+  updatedFields: String[];
+  previousValues: SavedEchoPreviousValues;
+}
+
+export interface SavedEchoSubscriptionPayloadPromise
+  extends Promise<SavedEchoSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = SavedEchoPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = SavedEchoPreviousValuesPromise>() => T;
+}
+
+export interface SavedEchoSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<SavedEchoSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = SavedEchoSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = SavedEchoPreviousValuesSubscription>() => T;
+}
+
+export interface SavedEchoPreviousValues {
+  savedEcho: ID_Output;
+  createdAt: DateTimeOutput;
+  originalShoutVoidGeohash: String;
+  originalEchoVoidGeohash: String;
+}
+
+export interface SavedEchoPreviousValuesPromise
+  extends Promise<SavedEchoPreviousValues>,
+    Fragmentable {
+  savedEcho: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  originalShoutVoidGeohash: () => Promise<String>;
+  originalEchoVoidGeohash: () => Promise<String>;
+}
+
+export interface SavedEchoPreviousValuesSubscription
+  extends Promise<AsyncIterator<SavedEchoPreviousValues>>,
+    Fragmentable {
+  savedEcho: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  originalShoutVoidGeohash: () => Promise<AsyncIterator<String>>;
+  originalEchoVoidGeohash: () => Promise<AsyncIterator<String>>;
+}
+
+export interface SavedReplyToEchoInVoidSubscriptionPayload {
+  mutation: MutationType;
+  node: SavedReplyToEchoInVoid;
+  updatedFields: String[];
+  previousValues: SavedReplyToEchoInVoidPreviousValues;
+}
+
+export interface SavedReplyToEchoInVoidSubscriptionPayloadPromise
+  extends Promise<SavedReplyToEchoInVoidSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = SavedReplyToEchoInVoidPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = SavedReplyToEchoInVoidPreviousValuesPromise>() => T;
+}
+
+export interface SavedReplyToEchoInVoidSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<SavedReplyToEchoInVoidSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = SavedReplyToEchoInVoidSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = SavedReplyToEchoInVoidPreviousValuesSubscription>() => T;
+}
+
+export interface SavedReplyToEchoInVoidPreviousValues {
+  savedReplyToEchoInVoid: ID_Output;
+  createdAt: DateTimeOutput;
+  originalVoidGeohash: String;
+}
+
+export interface SavedReplyToEchoInVoidPreviousValuesPromise
+  extends Promise<SavedReplyToEchoInVoidPreviousValues>,
+    Fragmentable {
+  savedReplyToEchoInVoid: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  originalVoidGeohash: () => Promise<String>;
+}
+
+export interface SavedReplyToEchoInVoidPreviousValuesSubscription
+  extends Promise<AsyncIterator<SavedReplyToEchoInVoidPreviousValues>>,
+    Fragmentable {
+  savedReplyToEchoInVoid: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  originalVoidGeohash: () => Promise<AsyncIterator<String>>;
+}
+
+export interface SavedReplyToShoutInVoidSubscriptionPayload {
+  mutation: MutationType;
+  node: SavedReplyToShoutInVoid;
+  updatedFields: String[];
+  previousValues: SavedReplyToShoutInVoidPreviousValues;
+}
+
+export interface SavedReplyToShoutInVoidSubscriptionPayloadPromise
+  extends Promise<SavedReplyToShoutInVoidSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = SavedReplyToShoutInVoidPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = SavedReplyToShoutInVoidPreviousValuesPromise>() => T;
+}
+
+export interface SavedReplyToShoutInVoidSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<SavedReplyToShoutInVoidSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = SavedReplyToShoutInVoidSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <
+    T = SavedReplyToShoutInVoidPreviousValuesSubscription
+  >() => T;
+}
+
+export interface SavedReplyToShoutInVoidPreviousValues {
+  savedReplyToShoutInVoidId: ID_Output;
+  createdAt: DateTimeOutput;
+  originalVoidGeohash: String;
+}
+
+export interface SavedReplyToShoutInVoidPreviousValuesPromise
+  extends Promise<SavedReplyToShoutInVoidPreviousValues>,
+    Fragmentable {
+  savedReplyToShoutInVoidId: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  originalVoidGeohash: () => Promise<String>;
+}
+
+export interface SavedReplyToShoutInVoidPreviousValuesSubscription
+  extends Promise<AsyncIterator<SavedReplyToShoutInVoidPreviousValues>>,
+    Fragmentable {
+  savedReplyToShoutInVoidId: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  originalVoidGeohash: () => Promise<AsyncIterator<String>>;
+}
+
+export interface SavedShoutSubscriptionPayload {
+  mutation: MutationType;
+  node: SavedShout;
+  updatedFields: String[];
+  previousValues: SavedShoutPreviousValues;
+}
+
+export interface SavedShoutSubscriptionPayloadPromise
+  extends Promise<SavedShoutSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = SavedShoutPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = SavedShoutPreviousValuesPromise>() => T;
+}
+
+export interface SavedShoutSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<SavedShoutSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = SavedShoutSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = SavedShoutPreviousValuesSubscription>() => T;
+}
+
+export interface SavedShoutPreviousValues {
+  savedShoutId: ID_Output;
+  createdAt: DateTimeOutput;
+  originalShoutVoidGeohash: String;
+}
+
+export interface SavedShoutPreviousValuesPromise
+  extends Promise<SavedShoutPreviousValues>,
+    Fragmentable {
+  savedShoutId: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  originalShoutVoidGeohash: () => Promise<String>;
+}
+
+export interface SavedShoutPreviousValuesSubscription
+  extends Promise<AsyncIterator<SavedShoutPreviousValues>>,
+    Fragmentable {
+  savedShoutId: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  originalShoutVoidGeohash: () => Promise<AsyncIterator<String>>;
+}
+
+export interface SavedVoidSubscriptionPayload {
+  mutation: MutationType;
+  node: SavedVoid;
+  updatedFields: String[];
+  previousValues: SavedVoidPreviousValues;
+}
+
+export interface SavedVoidSubscriptionPayloadPromise
+  extends Promise<SavedVoidSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = SavedVoidPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = SavedVoidPreviousValuesPromise>() => T;
+}
+
+export interface SavedVoidSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<SavedVoidSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = SavedVoidSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = SavedVoidPreviousValuesSubscription>() => T;
+}
+
+export interface SavedVoidPreviousValues {
+  savedVoidId: ID_Output;
+  createdAt: DateTimeOutput;
+  voidGeohash: String;
+}
+
+export interface SavedVoidPreviousValuesPromise
+  extends Promise<SavedVoidPreviousValues>,
+    Fragmentable {
+  savedVoidId: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  voidGeohash: () => Promise<String>;
+}
+
+export interface SavedVoidPreviousValuesSubscription
+  extends Promise<AsyncIterator<SavedVoidPreviousValues>>,
+    Fragmentable {
+  savedVoidId: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  voidGeohash: () => Promise<AsyncIterator<String>>;
+}
+
 export interface ShoutInVoidSubscriptionPayload {
   mutation: MutationType;
   node: ShoutInVoid;
@@ -1195,6 +7404,46 @@ export const models: Model[] = [
   },
   {
     name: "ShoutInVoid",
+    embedded: false
+  },
+  {
+    name: "ReplyToShoutInVoid",
+    embedded: false
+  },
+  {
+    name: "SavedReplyToShoutInVoid",
+    embedded: false
+  },
+  {
+    name: "SavedShout",
+    embedded: false
+  },
+  {
+    name: "EchoEdge",
+    embedded: false
+  },
+  {
+    name: "EchoInVoid",
+    embedded: false
+  },
+  {
+    name: "ReplyToEchoInVoid",
+    embedded: false
+  },
+  {
+    name: "SavedReplyToEchoInVoid",
+    embedded: false
+  },
+  {
+    name: "SavedEcho",
+    embedded: false
+  },
+  {
+    name: "NVoid",
+    embedded: false
+  },
+  {
+    name: "SavedVoid",
     embedded: false
   }
 ];
