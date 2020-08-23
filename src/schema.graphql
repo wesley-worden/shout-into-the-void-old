@@ -1,112 +1,163 @@
-type Shout {
-    voteCount: Int!
-    shoutId: ID!
-    #geohash: String!
-    createdAt: String!
-    content: String! 
-    postedBy: User!
-    #echos: [Echo!]
-    savedShouts: [SavedShout!]
-    nvoid: NVoid!
-    replies: [Reply!]
-}
-type ShoutReply {
-    originalShout: Shout!
-    voteCount: Int!
-    shoutReplyId: ID! 
-    createdAt: String! 
-    content: String!
-    postedBy: User!
-    #void: Void! #get from shout
-}
-type EchoReply {
-    originalEcho: Echo!
-    voteCount: Int!
-    echoReplyId: ID!
-    createdAt: String!
-    content: String!
-    postedBy: User!
-}
-type EchoShout {
-    echoId: ID!
-    nvoid: NVoid!
-    originalShout: Shout!
-    savedShout: SavedShout!
+# container of all post messages, such as shout, echo, and replies
+# designed so that these are created when an original shout or reply is created
+# saves space since all saved shouts, echos, saved echos, and saved replies will
+# connect to this and it will only be created once
+# also will present unique deletion method where when a user deletes their own shout,
+# they can choose to delete the shout and the reference content
+# this will cause any that uses this like saved shouts, echos, and saved replies 
+# will no longer have the content, very similar to reddits delete function and users
+# will see a placeholder. a refernce will be made if this user choses to delete all
+# of their content in the future, in a deeper menu to be made
+type Content {
+    contentId: ID!
     createdAt: String!
     createdBy: User!
+    message: String!
+    includeUsername: Boolean!
+}
+type User {
+    userId: ID!
+    createdAt: String!
+    username: String!
+    password: String!
+    currentLocationGeohash: String!
+    shoutsInVoids: [ShoutInVoid!]
+    savedShouts: [SavedShout!]
+    echosInVoids: [EchoInVoid!]
+    savedEchos: [SavedEcho!]
+    repliesToShoutsInVoids: [ReplyToShoutInVoid!]
+    savedRepliesToShoutsInVoids: [SavedReplyToShoutInVoid!]
+    repliesToEchosInVoids: [ReplyToEchoInVoid!]
+    savedRepliesToEchosInVoids: [SavedReplyToEchoInVoid!]
+    savedVoids: [SavedVoid!]
+}
+type ShoutInVoid {
+    shoutInVoidId: ID!
+    createdAt: String!
+    shoutedBy: User!
+    content: Content!
+    voteCount: Int!ReplyToEchoInVoid
+    nvoid: NVoid!
+    savedShouts: [SavedShout!]
+    replies: [ReplyToShoutInVoid!]
+}
+type ReplyToShoutInVoid {
+    replyToShoutInVoidId: ID!
+    createdAt: String!
+    createdBy: User!
+    content: Content!
+    voteCount: Int!
+    shoutInVoid: ShoutInVoid!
+    savedReplies: [SavedReplyToShoutInVoid!]
+}
+type SavedReplyToShoutInVoid {
+    savedReplyToShoutInVoidId: ID!
+    createdAt: String!
+    savedBy: User!
+    originalReplyContent: Content!
+    originalShoutContent: Content!
+    originalVoidGeohash: String!
+    replyToShoutInVoid: ReplyToShoutInVoid!
+}
+# user saves a shout in void
+type SavedShout {
+    savedShoutId: ID!
+    createdAt: String!
+    savedByUser: User!
+    originalContent: Content!
+    originalShoutVoidGeohash: String!
+    shoutInVoid: ShoutInVoid!
+}
+# echo of a saved shout
+type EchoInVoid {
+    echoInVoidId: ID!
+    createdAt: String!
     echoedBy: User!
+    originalContent: Content!
+    voteCount: Int!
+    originalShoutVoidGeohash: String!
+    nvoid: NVoid!
+    savedEchos: [SavedEcho!]
+    replies: [ReplyToEchoInVoid!]
+}
+type ReplyToEchoInVoid {
+    replyToEchoInVoidId: ID!
+    createdAt: String!
+    createdBy: User!
+    content: Content!
+    voteCount: Int!
+    echoInVoid: EchoInVoid!
+    savedReplies: [SavedReplyToEchoInVoid!]
+}
+type SavedReplyToEchoInVoid {
+    savedReplyToEchoInVoid: ID!
+    createdAt: String!
+    savedBy: User!
+    originalReplyContent: Content!
+    originalShoutContent: Content!
+    originalVoidGeohash: String!
+    replyToEchoInVoid: ReplyToEchoInVoid!
+}
+type SavedEcho {
+    savedEcho: ID!
+    createdAt: String!
+    savedBy: User!
+    originalContent: Content!
+    originalShoutVoidGeohash: String!
+    originalEchoVoidGeohash: String!
+    echoInVoid: EchoInVoid!
 }
 type NVoid {
     voidId: ID!
-    geohash: String!
     createdAt: String!
-    shouts: [Shout!]
     createdBy: User!
-    savedVoids: [SavedVoid!]
-    #add save count
-    echos: [Echo!]
+    voidGeohash: String!
+    shouts: [ShoutInVoid!]
+    echos: [EchoInVoid!]
 }
 type SavedVoid {
     savedVoidId: ID!
-    originalGeohash: String!
     createdAt: String!
-    originalVoid: Void!
-}
-type User {
-    createdAt: String!
-    userId: ID!
-    createdShouts: [Shout!]
-    savedShouts: [Shout!]
-    echos: [Echo!]
-    savedVoids: [NVoid!]
-    currentLocationGeohash: String!
-    lastLocationUpdate: String!
-    username: String!
-    password: String!
-    replies: [Reply!]
-    createdVoids: [NVoid!]
+    createdBy: User!
+    voidGeohash: String!
 }
 type AuthPayload {
     token: String
     user: User
-    #currentLocationGeohash: String!
 }
 type Query {
     getUser(userId: ID!): User
     getVoidById(voidId: ID!): NVoid
     getVoidByLocation(geohash: String!): NVoid
-    getEcho(echoId: ID!): Echo
-    getShout(shoutId: ID!): Shout
-    getReply(replayId: ID!): Reply
-}
-type SavedShout {
-    originalShout: Shout! 
-    savedShoutId: ID! 
-    originalShoutCreatedAt: String!
-    originalContent: String!
-    originalPostedBy: User!
-    echos: [Echo!] 
-    originalVoid: NVoid! 
-    originalVoidGeohash: String!
+    #getEchoInVoid(echoInVoidId: ID!): Echo
+    #getShout(shoutId: ID!): Shout
+    #getReply(replayId: ID!): Reply
 }
 type Mutation {
-    #getUser(userId: ID!): User
-    #getVoidById(voidId: ID!): Void
-    #getVoidByLocation(geohash: String!): Void
-    #getEcho(echoId: ID!): Echo
-    #getShout(shoutId: ID!): Shout
+    #todo: add all unsave mutations
     login(username: String!, password: String!): AuthPayload
     signup(username: String!, password: String!, currentLocationGeohash: String!): AuthPayload
-    shout(content: String!): Shout
-    upvoteShout(shoutId: ID!): Shout!
-    downvoteShout(shoutId: ID!): Shout!
-    reply(shoutId: ID!, shoutId: ID!): Reply
-    upvoteReply(replyId: ID!): Reply! 
-    downvoteReply(replyId: ID!): Reply!
-    saveShout(shoutId: ID!): User!
-    saveVoid(voidId: ID!): User!
-    echo(shoutId: ID!): Echo
     updateLocation(currentLocationGeohash: String!): User!
+    shoutInVoid(content: String!): ShoutInVoid
+    upvoteShout(shoutInVoidId: ID!): ShoutInVoid!
+    downvoteShout(shoutInVoidId: ID!): ShoutInVoid!
+    saveShout(shoutInVoidId: ID!): SavedShoutInVoid!
+    replyToShout(shoutInVoidId: ID!): ReplyToShoutInVoid
+    upvoteReplyToShout(replyToShoutInVoidId: ID!): ReplyToShoutInVoid! 
+    downvoteReplyToShout(replyToShoutInVoidId: ID!): ReplyToShoutInVoid!
+    saveReplyToShout(replyToShoutInVoidId: ID!): SavedReplyToShoutInVoid!
+    unsaveReplyToShout(savedReplyToShoutInVoidId: ID!): User! #what should this be
+    saveShoutAndEchoInVoid(shoutInVoidId: ID!): EchoInVoid!
+    echoInVoid(savedShoutId: ID!): EchoInVoid!
+    upvoteEcho(echoInVoidId: ID!): EchoInVoid!
+    downvoteEcho(echoInVoidId: ID!): EchoInVoid!
+    saveEcho(echoInVoidId: ID!): SavedEcho!
+    saveReplyToEcho(replyToEchoInVoidId: ID!); SavedReplyToEchoInVoid!
+    upvoteReplyToEcho(replyToEchoInVoidId: ID!); ReplyToEchoInVoid!
+    downvoteReplyToEcho(replyToEchoInVoidId: ID!); ReplyToEchoInVoid!
+    #todo: did i get em all?
+    saveVoid(voidId: ID!): User!
+    #todo: echo replies? seems crazy...
 }
 #type Shitpost {
 #    shitpostId: ID! 
