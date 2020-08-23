@@ -29,6 +29,7 @@ type User {
     savedRepliesToShoutsInVoids: [SavedReplyToShoutInVoid!]
     repliesToEchosInVoids: [ReplyToEchoInVoid!]
     savedRepliesToEchosInVoids: [SavedReplyToEchoInVoid!]
+    createdVoids: [NVoid!]
     savedVoids: [SavedVoid!]
 }
 type ShoutInVoid {
@@ -138,8 +139,9 @@ type AuthPayload {
 }
 type Query {
     getUser(userId: ID!): User
-    getVoidById(voidId: ID!): NVoid
-    getVoidByLocation(geohash: String!): NVoid
+    #getVoidById(voidId: ID!): NVoid
+    getClosestVoidByLocation(geohash: String!): NVoid
+    getVoidsWithinRange: [NVoid!]
     # shouldnt actually need anythign else, otherwise its for admin clients
     #adminGetShout(shoutId: ID!): Shout
     #adminGetVoid(voidId: ID!); NVoid
@@ -155,7 +157,7 @@ type Mutation {
     shoutInVoid(content: String!): ShoutInVoid
     upvoteShout(shoutInVoidId: ID!): ShoutInVoid!
     downvoteShout(shoutInVoidId: ID!): ShoutInVoid!
-    saveShout(shoutInVoidId: ID!): SavedShoutInVoid!
+    saveShout(shoutInVoidId: ID!): SavedShout!
     replyToShout(shoutInVoidId: ID!): ReplyToShoutInVoid
     upvoteReplyToShout(replyToShoutInVoidId: ID!): ReplyToShoutInVoid! 
     downvoteReplyToShout(replyToShoutInVoidId: ID!): ReplyToShoutInVoid!
@@ -166,9 +168,9 @@ type Mutation {
     upvoteEcho(echoInVoidId: ID!): EchoInVoid!
     downvoteEcho(echoInVoidId: ID!): EchoInVoid!
     saveEcho(echoInVoidId: ID!): SavedEcho!
-    saveReplyToEcho(replyToEchoInVoidId: ID!); SavedReplyToEchoInVoid!
-    upvoteReplyToEcho(replyToEchoInVoidId: ID!); ReplyToEchoInVoid!
-    downvoteReplyToEcho(replyToEchoInVoidId: ID!); ReplyToEchoInVoid!
+    saveReplyToEcho(replyToEchoInVoidId: ID!): SavedReplyToEchoInVoid!
+    upvoteReplyToEcho(replyToEchoInVoidId: ID!): ReplyToEchoInVoid!
+    downvoteReplyToEcho(replyToEchoInVoidId: ID!): ReplyToEchoInVoid!
     #todo: did i get em all?
     saveVoid(voidId: ID!): User!
     #todo: echo replies? seems crazy...

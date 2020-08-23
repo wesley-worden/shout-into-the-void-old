@@ -1,4 +1,11 @@
-const { ensureAuthorized, debug_settings, shoutIdIsPostedByUserId } = require('./../utils');
+const { 
+    ensureAuthorized,
+    flattenGeohashToVoidGeohash,
+    getCurrentLocationFromUserId,
+    getVoidIdsWithinRange
+} = require('./../utils');
+
+//todo: needs hella more permissions
 
 const getUser = async function(parent, args, context, info) {
     const userIdFromToken = ensureAuthorized(context);
@@ -11,45 +18,24 @@ const getUser = async function(parent, args, context, info) {
         throw new Error("you are not authorized to view this user");
     }
 };
-
-const getShout = async function(parent, args, context, info) {
-    return await context.prisma.shout({ shoutId: args.shoutId });
-    const userIdFromToken = ensureAuthorized(context);
-    const shout = await context.prisma.shout({ shoutId: args.shoutId });
-    if(shoutIdIsPostedByUserId(context, shout.shoutId, userIdFromToken)) {
-        return shout;
-    } else {
-        throw new Error("you are not the creator of this shout");
-    }
+const getClosestVoidByLocation = function (parent, args, context, info) {
+    const userIdFromToken = ensureAuthorized();
+    const voidGeohash = flattenGeohashToVoidGeohash(parent.geohash);
+    return context.prisma.nVoid( {voidGeohash: voidGeohash });
+};
+const getVoidsWithinRange = function(parent, args, context, info) {
+    const userIdFromToken = ensureAuthorized();
+    const currentLocationGeohash = getCurrentLocationFromUserId(userIdFromToken);
+    const voidIds = getVoidIdsWithinRange(currentLocationGeohash);
+    const voids = [];
+    voidIds.forEach(function(voidId) {
+        voids.push(context.prisma.nVoid({ voidId: voidId }));
+    });
+    return voids;
 }
-/*
-const getShitpost = async function(parent, args, context, info) {
-    ensureAuthenticated(context);
-    return await context.prisma.shitpost({
-        shitpostId: args.shitpostId
-    });
-};
 
-const getChannel = async function(parent, args, context, info) {
-    ensureAuthenticated(context);
-    return await context.prisma.channel({
-        channelId: args.channelId
-    });
-};
-
-const getUser = async function(parent, args, context, info) {
-    ensureAuthenticated(context);
-    return await context.prisma.user({
-        userId: args.userId
-    });
-};
-*/
 module.exports = {
     getUser,
-    getShout
-    /*
-    getShitpost,
-    getChannel,
-    getUser
-    */
+    getClosestVoidByLocation,
+    getVoidsWithinRange,
 };

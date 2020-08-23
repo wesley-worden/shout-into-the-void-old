@@ -19,7 +19,7 @@ type Content {
 type User {
     userId: ID! @id
     createdAt: DateTime! @createdAt
-    username: String!
+    username: String! @unique
     password: String!
     currentLocationGeohash: String!
     shoutsInVoids: [ShoutInVoid!] @relation(name: "UsersShoutsInVoids", link: INLINE)
@@ -126,7 +126,7 @@ type NVoid {
     voidId: ID! @id
     createdAt: DateTime! @createdAt
     createdBy: User! @relation(name: "UsersCreatedVoids")
-    voidGeohash: String!
+    voidGeohash: String! @unique
     shouts: [ShoutInVoid!] @relation(name: "ShoutsInVoid", link: INLINE)
     echos: [EchoInVoid!] @relation(name: "EchosInVoid", link: INLINE)
 }

@@ -1,4 +1,4 @@
-const { ensureAuthorized } = require('../utils');
+const { ensureAuthorized } = require('./../utils');
 
 //todo: create permissions for all individual resolvers
 
@@ -14,14 +14,9 @@ const echoInVoid = function(parent, args, context, info) {
     return context.prisma.savedEcho({ contentId: parent.contentId })
         .echoInVoid();
 }
-const echoEdges = function(parent, args, context, info) {
-    return context.prisma.savedEcho({ contentId: parent.contentId })
-        .echoEdges();
-}
 
 module.exports = {
     savedBy,
     originalContent,
     echoInVoid,
-    echoEdges
 };

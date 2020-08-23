@@ -6,6 +6,7 @@ const User = require('./resolvers/User');
 const ShoutInVoid = require('./resolvers/ShoutInVoid');
 const ReplyToShoutInVoid = require('./resolvers/ReplyToShoutInVoid');
 const SavedReplyToShoutInVoid = require('./resolvers/SavedReplyToShoutInVoid');
+const SavedShout = require('./resolvers/SavedShout');
 const EchoEdge = require('./resolvers/EchoEdge');
 const EchoInVoid = require('./resolvers/EchoInVoid');
 const ReplyToEchoInVoid = require('./resolvers/ReplyToEchoInVoid');
@@ -15,7 +16,7 @@ const NVoid = require('./resolvers/NVoid');
 const SavedVoid = require('./resolvers/SavedVoid');
 
 const Query = require('./resolvers/Query');
-const Mutation = require('./resolvers/Mutation');
+//const Mutation = require('./resolvers/Mutation');
 
 const resolvers = {
     Content,
@@ -32,7 +33,7 @@ const resolvers = {
     NVoid,
     SavedVoid,
     Query,
-    Mutation
+    //Mutation
 };
 
 const server = new GraphQLServer({

@@ -1,4 +1,4 @@
-const { ensureAuthorized } = require('../utils');
+const { ensureAuthorized } = require('./../utils');
 
 //todo: create permissions for all individual resolvers
 
