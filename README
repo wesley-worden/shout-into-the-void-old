@@ -1,0 +1,6 @@
+required node modules:
+graphql-yoga
+prisma-client-lib
+clipboardy
+ngeohash
+geohashes-near
