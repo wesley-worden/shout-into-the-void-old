@@ -1,16 +1,30 @@
-.header {
-    background-color: #0fff00;
+body {
+    padding: 0px;
+    margin: 0px;
 }
-.header h {
+.seperator {
+    width: 100%;
+    border-top: 6px solid purple;
+}
+.header {
+    position: fixed;
+    background-color: #0fff00;
+    width: 100%;
+}
+.header.title {
     font-size: 25px;
     font-family: "Cantarell"
 }
-
 .bottom {
+    width: 100%;
+    position: fixed;
+    bottom: 0px;
+    background-color: #ffffff;
+}
+.bottom-button-box {
     display: flex;
     background-color: #0feeee;
-    position: absolute;
-    bottom: 0px;
+    justify-content: space-between;
 }
 .bottom-button {
     margin: 10px
