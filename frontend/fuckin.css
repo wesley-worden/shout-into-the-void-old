@@ -1,0 +1,17 @@
+.header {
+    background-color: #0fff00;
+}
+.header h {
+    font-size: 25px;
+    font-family: "Cantarell"
+}
+
+.bottom {
+    display: flex;
+    background-color: #0feeee;
+    position: absolute;
+    bottom: 0px;
+}
+.bottom-button {
+    margin: 10px
+}
