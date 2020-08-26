@@ -1,0 +1,15 @@
+body {
+    margin: auto;
+}
+.header {
+    background-color: pink;
+    position: fixed;
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+}
+.main-content {
+    padding: 90px 5px 0;
+    overflow-x: hidden; 
+    overflow-y: scroll; 
+}
