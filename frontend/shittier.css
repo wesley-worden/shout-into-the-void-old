@@ -1,0 +1,45 @@
+html, body {
+	height: 100%;
+}
+* {
+	margin:0;
+	padding:0
+}
+h1, h2, p {
+	margin:0 0 1em 0
+}
+h1 {
+	text-align:center
+}
+body {
+	background:#ffffcc;
+}
+#header {
+	position:fixed;
+	top:0;
+	right:0;
+	left:0;
+	z-index:999;
+}
+.head-inner {
+	width:100%;
+	height: 100px;
+	background:url(images/transp4.png) repeat-x 0 0;
+}
+#outer {
+	position: relative;
+	width:100%;
+}
+#content {
+	margin:auto;
+	width:760px;
+	padding:100px 0;
+}
+#footer {
+	position:fixed;
+	left:0;
+	width:100%;
+	height:100px;
+	bottom:0px;
+	background:url(images/transp3.png) repeat-x 0 0;
+}
