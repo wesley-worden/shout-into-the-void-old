@@ -26,11 +26,8 @@ type User {
     createdShoutsInVoids: [ShoutInVoid!]
     activatedEchosOfShouts: [UserActivatedEchoOfShout!]
     createdEchosOfShoutsInVoid: [EchoOfShoutInVoid!]
-    activatedEchosOfEchos: [UserActivatedEchoOfEcho!]
-    createdEchosOfEchosInVoid: [EchoOfEchoInVoid!]
     repliesToShoutsInVoid: [ReplyToShoutInVoid!]
     repliesToEchosOfShoutsInVoid: [ReplyToEchoOfShoutInVoid!]
-    repliesToEchosOfEchosInVoid: [ReplyToEchoOfEchoInVoid!]
 }
 type ShoutInVoid {
     shoutInVoidId: ID!
@@ -39,7 +36,7 @@ type ShoutInVoid {
     content: Content!
     nvoid: NVoid!
     voteCount: Int!
-    echosOfShoutInVoid: [EchoOfShoutInVoid!]
+    echos: [EchoOfShoutInVoid!]
     replies: [ReplyToShoutInVoid!]
 }
 type ReplyToShoutInVoid {
@@ -56,14 +53,7 @@ type UserActivatedEchoOfShout {
     createdBy: User!
     originalShoutContent: Content!
     originalShoutVoidGeohash: String!
-}
-type UserActivatedEchoOfEcho {
-    userActivatedEchoOfEcho: ID!
-    createdAt: String!
-    createdBy: User!
-    originalShoutContent: Content!
-    originalShoutVoidGeohash: String!
-    originalEchoVoidGeohash: String!
+    originalEchoOfShoutInVoid: EchoOfShoutInVoid
 }
 type EchoOfShoutInVoid {
     echoOfShoutInVoidId: ID!
@@ -72,9 +62,10 @@ type EchoOfShoutInVoid {
     originalShoutContent: Content!
     originalShoutVoidGeohash: String!
     originalShoutInVoid: ShoutInVoid!
-    nvoid: NVoid! @relation(link: INLINE)
+    originalEchoOfShoutInVoid: EchoOfShoutInVoid
+    nvoid: NVoid! 
     voteCount: Int!
-    echosOfEchoInVoid: [EchoOfEchoInVoid!]
+    echosOfEchos: [EchoOfShoutInVoid!]
     replies: [ReplyToEchoOfShoutInVoid!]
 }
 type ReplyToEchoOfShoutInVoid {
@@ -85,26 +76,6 @@ type ReplyToEchoOfShoutInVoid {
     voteCount: Int!
     originalEchoOfShoutInVoid: EchoOfShoutInVoid!
 }
-type EchoOfEchoInVoid {
-    echoOfShoutInVoidId: ID!
-    createdAt: String!
-    createdBy: User!
-    originalShoutContent: Content!
-    originalShoutVoidGeohash: String!
-    originalEchoVoidGeohash: String!
-    originalEchoOfShoutInVoid: EchoOfShoutInVoid!
-    nvoid: NVoid!
-    voteCount: Int!
-    replies: [ReplyToEchoOfEchoInVoid!]
-}
-type ReplyToEchoOfEchoInVoid {
-    replyToEchoOfEchoInVoidId: ID!
-    createdAt: String!
-    createdBy: User!
-    content: Content!
-    voteCount: Int!
-    originalEchoOfEchoInVoid: EchoOfEchoInVoid!
-}
 type NVoid {
     voidId: ID!
     createdAt: String!
@@ -112,7 +83,6 @@ type NVoid {
     voidGeohash: String!
     shouts: [ShoutInVoid!]
     echosOfShouts: [EchoOfShoutInVoid!]
-    echosOfEchos: [EchoOfEchoInVoid!]
 }
 type UserSavedVoid {
     userSavedVoidId: ID!
@@ -120,8 +90,47 @@ type UserSavedVoid {
     createdBy: User!
     originalVoidGeohash: String!
 }
-
-
+type AuthPayload {
+    token: String
+    user: User
+}
+#type Query {
+#    getUser(userId: ID!): User
+#    getVoidById(voidId: ID!): NVoid
+#    getVoidByLocation(geohash: String!): NVoid
+#    # shouldnt actually need anythign else, otherwise its for admin clients
+#    #adminGetShout(shoutId: ID!): Shout
+#    #adminGetVoid(voidId: ID!); NVoid
+#    #getEchoInVoid(echoInVoidId: ID!): Echo
+#    #getShout(shoutId: ID!): Shout
+#    #getReply(replayId: ID!): Reply
+#}
+type Mutation {
+#    #todo: add all unsave mutations
+    login(username: String!, password: String!): AuthPayload
+    signup(username: String!, password: String!, currentLocationGeohash: String!): AuthPayload
+#    updateLocation(currentLocationGeohash: String!): User!
+#    shoutInVoid(content: String!): ShoutInVoid
+#    upvoteShout(shoutInVoidId: ID!): ShoutInVoid!
+#    downvoteShout(shoutInVoidId: ID!): ShoutInVoid!
+#    saveShout(shoutInVoidId: ID!): SavedShoutInVoid!
+#    replyToShout(shoutInVoidId: ID!): ReplyToShoutInVoid
+#    upvoteReplyToShout(replyToShoutInVoidId: ID!): ReplyToShoutInVoid! 
+#    downvoteReplyToShout(replyToShoutInVoidId: ID!): ReplyToShoutInVoid!
+#    saveReplyToShout(replyToShoutInVoidId: ID!): SavedReplyToShoutInVoid!
+#    unsaveReplyToShout(savedReplyToShoutInVoidId: ID!): User! #what should this be
+#    saveShoutAndEchoInVoid(shoutInVoidId: ID!): EchoInVoid!
+#    echoInVoid(savedShoutId: ID!): EchoInVoid!
+#    upvoteEcho(echoInVoidId: ID!): EchoInVoid!
+#    downvoteEcho(echoInVoidId: ID!): EchoInVoid!
+#    saveEcho(echoInVoidId: ID!): SavedEcho!
+#    saveReplyToEcho(replyToEchoInVoidId: ID!); SavedReplyToEchoInVoid!
+#    upvoteReplyToEcho(replyToEchoInVoidId: ID!); ReplyToEchoInVoid!
+#    downvoteReplyToEcho(replyToEchoInVoidId: ID!); ReplyToEchoInVoid!
+#    #todo: did i get em all?
+#    saveVoid(voidId: ID!): User!
+#    #todo: echo replies? seems crazy...
+}
 
 
 

@@ -26,11 +26,8 @@ type User {
     createdShoutsInVoids: [ShoutInVoid!] @relation(link: INLINE)
     activatedEchosOfShouts: [UserActivatedEchoOfShout!] @relation(link: INLINE)
     createdEchosOfShoutsInVoid: [EchoOfShoutInVoid!] @relation(link: INLINE)
-    activatedEchosOfEchos: [UserActivatedEchoOfEcho!] @relation(link: INLINE)
-    createdEchosOfEchosInVoid: [EchoOfEchoInVoid!] @relation(link: INLINE)
     repliesToShoutsInVoid: [ReplyToShoutInVoid!] @relation(link: INLINE)
     repliesToEchosOfShoutsInVoid: [ReplyToEchoOfShoutInVoid!] @relation(link: INLINE)
-    repliesToEchosOfEchosInVoid: [ReplyToEchoOfEchoInVoid!] @relation(link: INLINE)
 }
 type ShoutInVoid {
     shoutInVoidId: ID! @id
@@ -39,7 +36,7 @@ type ShoutInVoid {
     content: Content! @relation(link: INLINE)
     nvoid: NVoid! @relation(link: INLINE)
     voteCount: Int!
-    echosOfShoutInVoid: [EchoOfShoutInVoid!] @relation(link: INLINE)
+    echos: [EchoOfShoutInVoid!] @relation(link: INLINE)
     replies: [ReplyToShoutInVoid!] @relation(link: INLINE)
 }
 type ReplyToShoutInVoid {
@@ -56,14 +53,7 @@ type UserActivatedEchoOfShout {
     createdBy: User!
     originalShoutContent: Content! @relation(link: INLINE)
     originalShoutVoidGeohash: String!
-}
-type UserActivatedEchoOfEcho {
-    userActivatedEchoOfEcho: ID! @id
-    createdAt: DateTime! @createdAt
-    createdBy: User!
-    originalShoutContent: Content! @relation(link: INLINE)
-    originalShoutVoidGeohash: String!
-    originalEchoVoidGeohash: String!
+    originalEchoOfShoutInVoid: EchoOfShoutInVoid @relation(link: INLINE)
 }
 type EchoOfShoutInVoid {
     echoOfShoutInVoidId: ID! @id
@@ -72,9 +62,10 @@ type EchoOfShoutInVoid {
     originalShoutContent: Content! @relation(link: INLINE)
     originalShoutVoidGeohash: String!
     originalShoutInVoid: ShoutInVoid!
+    originalEchoOfShoutInVoid: EchoOfShoutInVoid @relation(name: "OriginalEchoOfShoutToEchoOfEchoEdge", link: INLINE) # used if echo of echo
     nvoid: NVoid! @relation(link: INLINE)
     voteCount: Int!
-    echosOfEchoInVoid: [EchoOfEchoInVoid!] @relation(link: INLINE)
+    echosOfEchos: [EchoOfShoutInVoid!] @relation(name: "OriginalEchoOfShoutToEchoOfEchoEdge") # used to find echos of echo
     replies: [ReplyToEchoOfShoutInVoid!] @relation(link: INLINE)
 }
 type ReplyToEchoOfShoutInVoid {
@@ -85,26 +76,6 @@ type ReplyToEchoOfShoutInVoid {
     voteCount: Int!
     originalEchoOfShoutInVoid: EchoOfShoutInVoid!
 }
-type EchoOfEchoInVoid {
-    echoOfShoutInVoidId: ID! @id
-    createdAt: DateTime! @createdAt
-    createdBy: User!
-    originalShoutContent: Content! @relation(link: INLINE)
-    originalShoutVoidGeohash: String!
-    originalEchoVoidGeohash: String!
-    originalEchoOfShoutInVoid: EchoOfShoutInVoid!
-    nvoid: NVoid! @relation(link: INLINE)
-    voteCount: Int!
-    replies: [ReplyToEchoOfEchoInVoid!] @relation(link: INLINE)
-}
-type ReplyToEchoOfEchoInVoid {
-    replyToEchoOfEchoInVoidId: ID! @id
-    createdAt: DateTime! @createdAt
-    createdBy: User!
-    content: Content! @relation(link: INLINE)
-    voteCount: Int!
-    originalEchoOfEchoInVoid: EchoOfEchoInVoid! 
-}
 type NVoid {
     voidId: ID! @id
     createdAt: DateTime! @createdAt
@@ -112,7 +83,6 @@ type NVoid {
     voidGeohash: String!
     shouts: [ShoutInVoid!]
     echosOfShouts: [EchoOfShoutInVoid!]
-    echosOfEchos: [EchoOfEchoInVoid!] 
 }
 type UserSavedVoid {
     userSavedVoidId: ID! @id
