@@ -21,31 +21,27 @@ var models = [
     embedded: false
   },
   {
-    name: "SavedReplyToShoutInVoid",
+    name: "UserActivatedEchoOfShout",
     embedded: false
   },
   {
-    name: "SavedShout",
+    name: "UserActivatedEchoOfEcho",
     embedded: false
   },
   {
-    name: "EchoEdge",
+    name: "EchoOfShoutInVoid",
     embedded: false
   },
   {
-    name: "EchoInVoid",
+    name: "ReplyToEchoOfShoutInVoid",
     embedded: false
   },
   {
-    name: "ReplyToEchoInVoid",
+    name: "EchoOfEchoInVoid",
     embedded: false
   },
   {
-    name: "SavedReplyToEchoInVoid",
-    embedded: false
-  },
-  {
-    name: "SavedEcho",
+    name: "ReplyToEchoOfEchoInVoid",
     embedded: false
   },
   {
@@ -53,7 +49,7 @@ var models = [
     embedded: false
   },
   {
-    name: "SavedVoid",
+    name: "UserSavedVoid",
     embedded: false
   }
 ];

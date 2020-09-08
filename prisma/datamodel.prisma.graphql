@@ -11,128 +11,320 @@
 type Content {
     contentId: ID! @id
     createdAt: DateTime! @createdAt
-    createdBy: User! @relation(link: INLINE)
+    createdBy: User!
     message: String!
-    includeUsername: Boolean!
 }
-
 type User {
     userId: ID! @id
     createdAt: DateTime! @createdAt
     username: String!
     password: String!
     currentLocationGeohash: String!
-    shoutsInVoids: [ShoutInVoid!] @relation(name: "UsersShoutsInVoids", link: INLINE)
-    savedShouts: [SavedShout!] @relation(name: "UsersSavedShouts", link: INLINE)
-    echosInVoids: [EchoInVoid!] @relation(name: "UsersEchosInVoids", link: INLINE)
-    savedEchos: [SavedEcho!] @relation(name: "UsersSavedEchos", link: INLINE)
-    repliesToShoutsInVoids: [ReplyToShoutInVoid!] @relation(name: "UsersRepliesToShouts", link: INLINE)
-    savedRepliesToShoutsInVoids: [SavedReplyToShoutInVoid!] @relation(name: "UsersSavedRepliesToShouts", link: INLINE)
-    repliesToEchosInVoids: [ReplyToEchoInVoid!] @relation(name: "UsersRepliesToEchos", link: INLINE)
-    savedRepliesToEchosInVoids: [SavedReplyToEchoInVoid!] @relation(name: "UsersSavedRepliesToEchos", link: INLINE)
-    createdVoids: [NVoid!] @relation(name: "UsersCreatedVoids", link: INLINE)
-    savedVoids: [SavedVoid!] @relation(name: "UsersSavedVoids", link: INLINE)
+    createdContent: [Content!] @relation(link: INLINE)
+    createdVoids: [NVoid!] @relation(link: INLINE)
+    savedVoids: [UserSavedVoid!] @relation(link: INLINE)
+    createdShoutsInVoids: [ShoutInVoid!] @relation(link: INLINE)
+    activatedEchosOfShouts: [UserActivatedEchoOfShout!] @relation(link: INLINE)
+    createdEchosOfShoutsInVoid: [EchoOfShoutInVoid!] @relation(link: INLINE)
+    activatedEchosOfEchos: [UserActivatedEchoOfEcho!] @relation(link: INLINE)
+    createdEchosOfEchosInVoid: [EchoOfEchoInVoid!] @relation(link: INLINE)
+    repliesToShoutsInVoid: [ReplyToShoutInVoid!] @relation(link: INLINE)
+    repliesToEchosOfShoutsInVoid: [ReplyToEchoOfShoutInVoid!] @relation(link: INLINE)
+    repliesToEchosOfEchosInVoid: [ReplyToEchoOfEchoInVoid!] @relation(link: INLINE)
 }
 type ShoutInVoid {
     shoutInVoidId: ID! @id
     createdAt: DateTime! @createdAt
-    shoutedBy: User! @relation(name: "UsersShoutsInVoids")
+    createdBy: User!
     content: Content! @relation(link: INLINE)
+    nvoid: NVoid! @relation(link: INLINE)
     voteCount: Int!
-    nvoid: NVoid! @relation(name: "ShoutsInVoid")
-    savedShouts: [SavedShout!] @relation(name: "OriginalShoutToSavedShoutEdge", link: INLINE)
-    replies: [ReplyToShoutInVoid!] @relation(name: "OriginalShoutToReplyEdge", link: INLINE)
-    # would only be used if no one has the shout still saved but want to see if an echo still has its original shout
-    echoEdges: [EchoEdge!] @relation(name: "OriginalShoutToEchoEdgeEdge", link: INLINE)
+    echosOfShoutInVoid: [EchoOfShoutInVoid!] @relation(link: INLINE)
+    replies: [ReplyToShoutInVoid!] @relation(link: INLINE)
 }
 type ReplyToShoutInVoid {
     replyToShoutInVoidId: ID! @id
     createdAt: DateTime! @createdAt
-    createdBy: User! @relation(name: "UsersRepliesToShouts")
+    createdBy: User!
     content: Content! @relation(link: INLINE)
     voteCount: Int!
-    shoutInVoid: ShoutInVoid! @relation(name: "OriginalShoutToReplyEdge")
-    savedReplies: [SavedReplyToShoutInVoid!] @relation(name: "OriginalReplyToSavedReplyToShoutEdge", link: INLINE)
+    originalShoutInVoid: ShoutInVoid!
 }
-type SavedReplyToShoutInVoid {
-    savedReplyToShoutInVoidId: ID! @id
+type UserActivatedEchoOfShout {
+    userActivatedEchoOfShoutId: ID! @id
     createdAt: DateTime! @createdAt
-    savedBy: User! @relation(name: "UsersSavedRepliesToShouts")
-    originalReplyContent: Content! @relation(name: "ReplyContentToSavedReplyToShoutInVoid", link: INLINE)
-    originalShoutContent: Content! @relation(name: "ShoutContentToSavedReplyToShoutInVoid", link: INLINE)
-    originalVoidGeohash: String!
-    replyToShoutInVoid: ReplyToShoutInVoid! @relation(name: "OriginalReplyToSavedReplyToShoutEdge")
-}
-# user saves a shout in void
-type SavedShout {
-    savedShoutId: ID! @id
-    createdAt: DateTime! @createdAt
-    savedBy: User! @relation(name: "UsersSavedShouts")
-    originalContent: Content! @relation(link: INLINE)
+    createdBy: User!
+    originalShoutContent: Content! @relation(link: INLINE)
     originalShoutVoidGeohash: String!
-    shoutInVoid: ShoutInVoid! @relation(name: "OriginalShoutToSavedShoutEdge")
-    echoEdges: [EchoEdge!] @relation(name: "SavedShoutToEchoEdge", link: INLINE)
 }
-type EchoEdge { # used soo that when a saved shout is deleted or shout is deleted we can still see if it was echoed
-    echoEdegId: ID! @id
-    shoutInVoid: ShoutInVoid @relation(name: "OriginalShoutInVoidToEchoEdgeEdge", link: INLINE)
-    savedShout: SavedShout @relation(name: "SavedShoutToEchoEdgeEdge", link: INLINE)
-    echoInVoid: EchoInVoid @relation(name: "EchoInVoidToEchoEdgeEdge", link: INLINE)
-    # the following may be genius or pointless
-    savedEcho: SavedEcho @relation(name: "SavedEchotoEchoEdgeEdge", link: INLINE)
-}
-# echo of a saved shout
-type EchoInVoid {
-    echoInVoidId: ID! @id
+type UserActivatedEchoOfEcho {
+    userActivatedEchoOfEcho: ID! @id
     createdAt: DateTime! @createdAt
-    echoedBy: User! @relation(name: "UsersEchosInVoids")
-    originalContent: Content! @relation(link: INLINE)
-    voteCount: Int!
-    originalShoutVoidGeohash: String!
-    nvoid: NVoid! @relation(name: "EchosInVoid")
-    savedEchos: [SavedEcho!] @relation(name: "OriginalEchoToSavedEchoEdge", link: INLINE)
-    replies: [ReplyToEchoInVoid!] @relation(name: "OriginalEchoToReplyToEchoEdge", link: INLINE)
-    echoEdge: EchoEdge @relation(name: "EchoInVoidToEchoEdgeEdge")
-}
-type ReplyToEchoInVoid {
-    replyToEchoInVoidId: ID! @id
-    createdAt: DateTime! @createdAt
-    createdBy: User! @relation(name: "UsersRepliesToEchos")
-    content: Content! @relation(link: INLINE)
-    voteCount: Int!
-    echoInVoid: EchoInVoid! @relation(name: "OriginalEchoToReplyToEchoEdge")
-    savedReplies: [SavedReplyToEchoInVoid!] @relation(name: "OriginalReplyToSavedReplyToEchoEdge", link: INLINE)
-}
-type SavedReplyToEchoInVoid {
-    savedReplyToEchoInVoid: ID! @id
-    createdAt: DateTime! @createdAt
-    savedBy: User! @relation(name: "UsersSavedRepliesToEchos")
-    originalReplyContent: Content! @relation(name: "ReplyContentToSavedReplyToEchoInVoid", link: INLINE)
-    originalShoutContent: Content! @relation(name: "ShoutContentToSavedReplyToEchoInVoid", link: INLINE)
-    originalVoidGeohash: String!
-    replyToEchoInVoid: ReplyToEchoInVoid! @relation(name: "OriginalReplyToSavedReplyToEchoEdge")
-}
-type SavedEcho {
-    savedEcho: ID! @id
-    createdAt: DateTime! @createdAt
-    savedBy: User! @relation(name: "UsersSavedEchos")
-    originalContent: Content! @relation(link: INLINE)
+    createdBy: User!
+    originalShoutContent: Content! @relation(link: INLINE)
     originalShoutVoidGeohash: String!
     originalEchoVoidGeohash: String!
-    echoInVoid: EchoInVoid @relation(name: "OriginalEchoToSavedEchoEdge")
-    echoEdge: EchoEdge @relation(name: "SavedEchotoEchoEdgeEdge")
+}
+type EchoOfShoutInVoid {
+    echoOfShoutInVoidId: ID! @id
+    createdAt: DateTime! @createdAt
+    createdBy: User!
+    originalShoutContent: Content! @relation(link: INLINE)
+    originalShoutVoidGeohash: String!
+    originalShoutInVoid: ShoutInVoid!
+    nvoid: NVoid! @relation(link: INLINE)
+    voteCount: Int!
+    echosOfEchoInVoid: [EchoOfEchoInVoid!] @relation(link: INLINE)
+    replies: [ReplyToEchoOfShoutInVoid!] @relation(link: INLINE)
+}
+type ReplyToEchoOfShoutInVoid {
+    replyToEchoOfShoutInVoidId: ID! @id
+    createdAt: DateTime! @createdAt
+    createdBy: User!
+    content: Content! @relation(link: INLINE)
+    voteCount: Int!
+    originalEchoOfShoutInVoid: EchoOfShoutInVoid!
+}
+type EchoOfEchoInVoid {
+    echoOfShoutInVoidId: ID! @id
+    createdAt: DateTime! @createdAt
+    createdBy: User!
+    originalShoutContent: Content! @relation(link: INLINE)
+    originalShoutVoidGeohash: String!
+    originalEchoVoidGeohash: String!
+    originalEchoOfShoutInVoid: EchoOfShoutInVoid!
+    nvoid: NVoid! @relation(link: INLINE)
+    voteCount: Int!
+    replies: [ReplyToEchoOfEchoInVoid!] @relation(link: INLINE)
+}
+type ReplyToEchoOfEchoInVoid {
+    replyToEchoOfEchoInVoidId: ID! @id
+    createdAt: DateTime! @createdAt
+    createdBy: User!
+    content: Content! @relation(link: INLINE)
+    voteCount: Int!
+    originalEchoOfEchoInVoid: EchoOfEchoInVoid! 
 }
 type NVoid {
     voidId: ID! @id
     createdAt: DateTime! @createdAt
-    createdBy: User! @relation(name: "UsersCreatedVoids")
+    createdBy: User!
     voidGeohash: String!
-    shouts: [ShoutInVoid!] @relation(name: "ShoutsInVoid", link: INLINE)
-    echos: [EchoInVoid!] @relation(name: "EchosInVoid", link: INLINE)
+    shouts: [ShoutInVoid!]
+    echosOfShouts: [EchoOfShoutInVoid!]
+    echosOfEchos: [EchoOfEchoInVoid!] 
 }
-type SavedVoid {
-    savedVoidId: ID! @id
+type UserSavedVoid {
+    userSavedVoidId: ID! @id
     createdAt: DateTime! @createdAt
-    createdBy: User! @relation(name: "UsersSavedVoids")
-    voidGeohash: String!
+    createdBy: User!
+    originalVoidGeohash: String!
 }
+
+
+
+
+
+
+
+
+
+
+
+
+# container of all post messages, such as shout, echo, and replies
+# designed so that these are created when an original shout or reply is created
+# saves space since all saved shouts, echos, saved echos, and saved replies will
+# connect to this and it will only be created once
+# also will present unique deletion method where when a user deletes their own shout,
+# they can choose to delete the shout and the reference content
+# this will cause any that uses this like saved shouts, echos, and saved replies 
+# will no longer have the content, very similar to reddits delete function and users
+# will see a placeholder. a refernce will be made if this user choses to delete all
+# of their content in the future, in a deeper menu to be made
+#type Content {
+#    contentId: ID! @id
+#    createdAt: DateTime! @createdAt
+#    createdBy: User! @relation(link: INLINE)
+#    message: String!
+#    includeUsername: Boolean!
+#}
+#type User {
+#    userId: ID! @id
+#    createdAt: DateTime! @createdAt
+#    username: String!
+#    password: String!
+#    currentLocationGeohash: String!
+#    createdVoids: [NVoid!] @relation(name: "UserCreatedVoids", link: INLINE)
+#    savedVoids: [NVoid!] @relation(name: "UserSavedVoids", link: INLINE)
+#    createdShouts: [Shout!] @relation(name: "UserCreatedShouts", link: INLINE)
+#    activeEchos: [ActiveEcho!] @relation(name: "UserActivatedEchos", link: INLINE)
+#    createdEchos: [Echo!] @relation(name: "UserCreatedEchos", link: INLINE)
+#}
+#type Shout {
+#    shoutId: ID! @id
+#    createdAt: DateTime! @createdAt
+#    createdBy: User! @relation(name: "UserCreatedShouts")
+#    content: Content! @relation(link: INLINE)
+#    voteCount: Int!
+#    nvoid: NVoid! @relation(name: "ShoutsInVoid")
+#    activeEchos: [ActiveEcho!] @relation(name: "ActiveEchoToShoutEdge")
+#}
+#type ActiveEchoOfShout {
+#    activeEchoId: ID! @id
+#    createdAt: DateTime! @createdAt
+#    createdBy: User! @relation(name: "UserActivatedEchos")
+#    originalShoutContent: Content! @relation(link: INLINE)
+#    originalShout: Shout! @relation(name: "ActiveEchoToShoutEdge", link: INLINE)
+#    originalVoidGeohash: String!
+#    createdEchos: [Echo!] @relation(name: "ActiveEchoToEchoEdge", link: INLINE)
+#}
+#type EchoOfShout {
+#    echoOfShoutId: ID! @id
+#    createdAt: DateTime! @createdAt
+#    createdBy: User! @relation(name: "UserCreatedEchos")
+#    activeEcho: ActiveEcho! @relation(name: "ActiveEchoToEchoEdge")
+#    originalShoutContent: Content! @relation(link: INLINE)
+#    originalShout: Shout! @relation(name: "EchoToShoutEdge", link: INLINE)
+#}
+#type NVoid {
+#    voidId: ID! @id
+#    createdAt: DateTime! @createdAt
+#    createdBy: User! @relation(name: "UserCreatedVoids")
+#    shouts: [Shout!] @relation(name: "ShoutsInVoid", link: INLINE)
+#}
+#type SavedVoid {
+#    savedVoidId: ID! @id
+#    createdAt: DateTime! @createdAt
+#    createdBy: User! @relation(name: "UserSavedVoids")
+#    originalVoidGeohash: String!
+#}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#type User {
+#    userId: ID! @id
+#    createdAt: DateTime! @createdAt
+#    username: String!
+#    password: String!
+#    currentLocationGeohash: String!
+#    shoutsInVoids: [ShoutInVoid!] @relation(name: "UsersShoutsInVoids", link: INLINE)
+#    savedShouts: [SavedShout!] @relation(name: "UsersSavedShouts", link: INLINE)
+#    echosInVoids: [EchoInVoid!] @relation(name: "UsersEchosInVoids", link: INLINE)
+#    savedEchos: [SavedEcho!] @relation(name: "UsersSavedEchos", link: INLINE)
+#    repliesToShoutsInVoids: [ReplyToShoutInVoid!] @relation(name: "UsersRepliesToShouts", link: INLINE)
+#    savedRepliesToShoutsInVoids: [SavedReplyToShoutInVoid!] @relation(name: "UsersSavedRepliesToShouts", link: INLINE)
+#    repliesToEchosInVoids: [ReplyToEchoInVoid!] @relation(name: "UsersRepliesToEchos", link: INLINE)
+#    savedRepliesToEchosInVoids: [SavedReplyToEchoInVoid!] @relation(name: "UsersSavedRepliesToEchos", link: INLINE)
+#    createdVoids: [NVoid!] @relation(name: "UsersCreatedVoids", link: INLINE)
+#    savedVoids: [SavedVoid!] @relation(name: "UsersSavedVoids", link: INLINE)
+#}
+#type ShoutInVoid {
+#    shoutInVoidId: ID! @id
+#    createdAt: DateTime! @createdAt
+#    shoutedBy: User! @relation(name: "UsersShoutsInVoids")
+#    content: Content! @relation(link: INLINE)
+#    voteCount: Int!
+#    nvoid: NVoid! @relation(name: "ShoutsInVoid")
+#    savedShouts: [SavedShout!] @relation(name: "OriginalShoutToSavedShoutEdge", link: INLINE)
+#    replies: [ReplyToShoutInVoid!] @relation(name: "OriginalShoutToReplyEdge", link: INLINE)
+#    # would only be used if no one has the shout still saved but want to see if an echo still has its original shout
+#    echoEdges: [EchoEdge!] @relation(name: "OriginalShoutToEchoEdgeEdge", link: INLINE)
+#}
+#type ReplyToShoutInVoid {
+#    replyToShoutInVoidId: ID! @id
+#    createdAt: DateTime! @createdAt
+#    createdBy: User! @relation(name: "UsersRepliesToShouts")
+#    content: Content! @relation(link: INLINE)
+#    voteCount: Int!
+#    shoutInVoid: ShoutInVoid! @relation(name: "OriginalShoutToReplyEdge")
+#    savedReplies: [SavedReplyToShoutInVoid!] @relation(name: "OriginalReplyToSavedReplyToShoutEdge", link: INLINE)
+#}
+#type SavedReplyToShoutInVoid {
+#    savedReplyToShoutInVoidId: ID! @id
+#    createdAt: DateTime! @createdAt
+#    savedBy: User! @relation(name: "UsersSavedRepliesToShouts")
+#    originalReplyContent: Content! @relation(name: "ReplyContentToSavedReplyToShoutInVoid", link: INLINE)
+#    originalShoutContent: Content! @relation(name: "ShoutContentToSavedReplyToShoutInVoid", link: INLINE)
+#    originalVoidGeohash: String!
+#    replyToShoutInVoid: ReplyToShoutInVoid! @relation(name: "OriginalReplyToSavedReplyToShoutEdge")
+#}
+## user saves a shout in void
+#type SavedShout {
+#    savedShoutId: ID! @id
+#    createdAt: DateTime! @createdAt
+#    savedBy: User! @relation(name: "UsersSavedShouts")
+#    originalContent: Content! @relation(link: INLINE)
+#    originalShoutVoidGeohash: String!
+#    shoutInVoid: ShoutInVoid! @relation(name: "OriginalShoutToSavedShoutEdge")
+#    echoEdges: [EchoEdge!] @relation(name: "SavedShoutToEchoEdge", link: INLINE)
+#}
+#type EchoEdge { # used soo that when a saved shout is deleted or shout is deleted we can still see if it was echoed
+#    echoEdegId: ID! @id
+#    shoutInVoid: ShoutInVoid @relation(name: "OriginalShoutInVoidToEchoEdgeEdge", link: INLINE)
+#    savedShout: SavedShout @relation(name: "SavedShoutToEchoEdgeEdge", link: INLINE)
+#    echoInVoid: EchoInVoid @relation(name: "EchoInVoidToEchoEdgeEdge", link: INLINE)
+#    # the following may be genius or pointless
+#    savedEcho: SavedEcho @relation(name: "SavedEchotoEchoEdgeEdge", link: INLINE)
+#}
+## echo of a saved shout
+#type EchoInVoid {
+#    echoInVoidId: ID! @id
+#    createdAt: DateTime! @createdAt
+#    echoedBy: User! @relation(name: "UsersEchosInVoids")
+#    originalContent: Content! @relation(link: INLINE)
+#    voteCount: Int!
+#    originalShoutVoidGeohash: String!
+#    nvoid: NVoid! @relation(name: "EchosInVoid")
+#    savedEchos: [SavedEcho!] @relation(name: "OriginalEchoToSavedEchoEdge", link: INLINE)
+#    replies: [ReplyToEchoInVoid!] @relation(name: "OriginalEchoToReplyToEchoEdge", link: INLINE)
+#    echoEdge: EchoEdge @relation(name: "EchoInVoidToEchoEdgeEdge")
+#}
+#type ReplyToEchoInVoid {
+#    replyToEchoInVoidId: ID! @id
+#    createdAt: DateTime! @createdAt
+#    createdBy: User! @relation(name: "UsersRepliesToEchos")
+#    content: Content! @relation(link: INLINE)
+#    voteCount: Int!
+#    echoInVoid: EchoInVoid! @relation(name: "OriginalEchoToReplyToEchoEdge")
+#    savedReplies: [SavedReplyToEchoInVoid!] @relation(name: "OriginalReplyToSavedReplyToEchoEdge", link: INLINE)
+#}
+#type SavedReplyToEchoInVoid {
+#    savedReplyToEchoInVoid: ID! @id
+#    createdAt: DateTime! @createdAt
+#    savedBy: User! @relation(name: "UsersSavedRepliesToEchos")
+#    originalReplyContent: Content! @relation(name: "ReplyContentToSavedReplyToEchoInVoid", link: INLINE)
+#    originalShoutContent: Content! @relation(name: "ShoutContentToSavedReplyToEchoInVoid", link: INLINE)
+#    originalVoidGeohash: String!
+#    replyToEchoInVoid: ReplyToEchoInVoid! @relation(name: "OriginalReplyToSavedReplyToEchoEdge")
+#}
+#type SavedEcho {
+#    savedEcho: ID! @id
+#    createdAt: DateTime! @createdAt
+#    savedBy: User! @relation(name: "UsersSavedEchos")
+#    originalContent: Content! @relation(link: INLINE)
+#    originalShoutVoidGeohash: String!
+#    originalEchoVoidGeohash: String!
+#    echoInVoid: EchoInVoid @relation(name: "OriginalEchoToSavedEchoEdge")
+#    echoEdge: EchoEdge @relation(name: "SavedEchotoEchoEdgeEdge")
+#}
+#type NVoid {
+#    voidId: ID! @id
+#    createdAt: DateTime! @createdAt
+#    createdBy: User! @relation(name: "UsersCreatedVoids")
+#    voidGeohash: String!
+#    shouts: [ShoutInVoid!] @relation(name: "ShoutsInVoid", link: INLINE)
+#    echos: [EchoInVoid!] @relation(name: "EchosInVoid", link: INLINE)
+#}
+#type SavedVoid {
+#    savedVoidId: ID! @id
+#    createdAt: DateTime! @createdAt
+#    createdBy: User! @relation(name: "UsersSavedVoids")
+#    voidGeohash: String!
+###############}
