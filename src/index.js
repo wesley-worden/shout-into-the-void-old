@@ -5,14 +5,11 @@ const Content = require('./resolvers/Content');
 const User = require('./resolvers/User');
 const ShoutInVoid = require('./resolvers/ShoutInVoid');
 const ReplyToShoutInVoid = require('./resolvers/ReplyToShoutInVoid');
-const SavedReplyToShoutInVoid = require('./resolvers/SavedReplyToShoutInVoid');
-const EchoEdge = require('./resolvers/EchoEdge');
-const EchoInVoid = require('./resolvers/EchoInVoid');
-const ReplyToEchoInVoid = require('./resolvers/ReplyToEchoInVoid');
-const SavedReplyToEchoInVoid = require('./resolvers/SavedReplyToEchoInVoid');
-const SavedEcho = require('./resolvers/SavedEcho');
+const UserActivatedEchoOfShout = require('./resolvers/UserActivatedEchoOfShout');
+const EchoOfShoutInVoid = require('./resolvers/EchoOfShoutInVoid');
+const ReplyToEchoOfShoutInVoid = require('./resolvers/ReplyToEchoOfShoutInVoid');
 const NVoid = require('./resolvers/NVoid');
-const SavedVoid = require('./resolvers/SavedVoid');
+const UserSavedVoid = require('./resolvers/UserSavedVoid');
 
 const Query = require('./resolvers/Query');
 const Mutation = require('./resolvers/Mutation');
@@ -22,15 +19,12 @@ const resolvers = {
     User,
     ShoutInVoid,
     ReplyToShoutInVoid,
-    SavedReplyToShoutInVoid,
-    SavedShout,
-    EchoEdge,
-    EchoInVoid,
-    ReplyToEchoInVoid,
-    SavedReplyToEchoInVoid,
-    SavedEcho,
+    UserActivatedEchoOfShout,
+    EchoOfShoutInVoid,
+    ReplyToEchoOfShoutInVoid,
     NVoid,
-    SavedVoid,
+    UserSavedVoid,
+
     Query,
     Mutation
 };

@@ -1,5 +1,5 @@
-const { ensureAuthorized } = require('./../utils');
-
+//const { ensureAuthorized } = require('./../utils');
+/*
 const userRequestCanViewPrivateInfo = function(parent, context) {
     const userIdFromToken = ensureAuthorized(context);
     if(userIdFromToken === parent.userId) {
@@ -8,40 +8,13 @@ const userRequestCanViewPrivateInfo = function(parent, context) {
         return false;
     }
 };
+*/
 
 //todo: create permissions for all individual user info
 
-const shoutsInVoids = function(parent, args, context, info) {
+const createdContent = function(parent, args, context, info) {
     return context.prisma.user({ contentId: parent.contentId })
-        .shoutsInVoids();
-}
-const savedShouts = function(parent, args, context, info) {
-    return context.prisma.user({ contentId: parent.contentId })
-        .savedShouts();
-}
-const echosInVoids = function(parent, args, context, info) {
-    return context.prisma.user({ contentId: parent.contentId })
-        .echosInVoids();
-}
-const savedEchos = function(parent, args, context, info) {
-    return context.prisma.user({ contentId: parent.contentId })
-        .savedEchos();
-}
-const repliesToShoutsInVoids = function(parent, args, context, info) {
-    return context.prisma.user({ contentId: parent.contentId })
-        .repliesToShoutsInVoids();
-}
-const savedRepliesToShoutsInVoids= function(parent, args, context, info) {
-    return context.prisma.user({ contentId: parent.contentId })
-        .savedRepliesToShoutsInVoids();
-}
-const repliesToEchosInVoids = function(parent, args, context, info) {
-    return context.prisma.user({ contentId: parent.contentId })
-        .repliesToEchosInVoids();
-}
-const savedRepliesToEchosInVoids = function(parent, args, context, info) {
-    return context.prisma.user({ contentId: parent.contentId })
-        .savedRepliesToEchosInVoids();
+        .createdContent();
 }
 const createdVoids = function(parent, args, context, info) {
     return context.prisma.user({ contentId: parent.contentId })
@@ -51,16 +24,34 @@ const savedVoids = function(parent, args, context, info) {
     return context.prisma.user({ contentId: parent.contentId })
         .savedVoids();
 }
+const createdShoutsInVoids = function(parent, args, context, info) {
+    return context.prisma.user({ contentId: parent.contentId })
+        .createdShoutsInVoids();
+}
+const activatedEchosOfShouts = function(parent, args, context, info) {
+    return context.prisma.user({ contentId: parent.contentId })
+        .activatedEchosOfShouts();
+}
+const createdEchosOfShoutsInVoid= function(parent, args, context, info) {
+    return context.prisma.user({ contentId: parent.contentId })
+        .createdEchosOfShoutsInVoid();
+}
+const repliesToShoutsInVoid = function(parent, args, context, info) {
+    return context.prisma.user({ contentId: parent.contentId })
+        .repliesToShoutsInVoid();
+}
+const repliesToEchosOfShoutsInVoid = function(parent, args, context, info) {
+    return context.prisma.user({ contentId: parent.contentId })
+        .repliesToEchosOfShoutsInVoid();
+}
 
 module.exports = {
-    shoutsInVoids,
-    savedShouts,
-    echosInVoids,
-    savedEchos,
-    repliesToShoutsInVoids,
-    savedRepliesToShoutsInVoids,
-    repliesToEchosInVoids,
-    savedRepliesToEchosInVoids,
+    createdContent,
     createdVoids,
-    savedVoids
+    savedVoids,
+    createdShoutsInVoids,
+    activatedEchosOfShouts,
+    createdEchosOfShoutsInVoid,
+    repliesToShoutsInVoid,
+    repliesToEchosOfShoutsInVoid,
 };

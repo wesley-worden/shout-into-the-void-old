@@ -1,6 +1,34 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { APP_SECRET, VOID_GEOHASH_PRECISION, getVoteCountForShoutId, showMe, getCurrentLocationGeohashForUserId, getClosestVoidGeohashForUserId, createVoid, voidExists, showToken, getUserId, ensureAuthorized, ensureUserExists, ensureChannelExists, ensureShitpostExists, ensureUserIsChannelOwner, getChannelMembers, flattenGeohashToUserGeohash, getRepliesIdsToShoutId, getVoidIdFromShoutId, getShoutCreatedAt, getShoutContent, shoutIdIsPostedByUserId, getVoidGeohashFromVoidId } = require('./../utils');
+const { 
+    APP_SECRET, 
+    //VOID_GEOHASH_PRECISION, 
+    //getVoteCountForShoutId,
+    //showMe, 
+    //getCurrentLocationGeohashForUserId, 
+    //getClosestVoidGeohashForUserId, 
+    //createVoid, 
+    //voidExists, 
+    showToken, 
+    //getUserId, 
+    ensureAuthorized, 
+    /*
+    ensureUserExists, 
+    ensureChannelExists, 
+    ensureShitpostExists, 
+    ensureUserIsChannelOwner, 
+    getChannelMembers, 
+    */
+    flattenGeohashToUserGeohash, 
+    /*
+    getRepliesIdsToShoutId, 
+    getVoidIdFromShoutId, 
+    getShoutCreatedAt, 
+    getShoutContent, 
+    shoutIdIsPostedByUserId, 
+    getVoidGeohashFromVoidId 
+    */
+} = require('./../utils');
 const { debug_settings } = require('./../../config.json');
 const clipboardy = require('clipboardy');
 
@@ -22,7 +50,6 @@ const login = async function(parent, args, context, info) {
     //return AuthPayload object according to schema
     return { token, user };
 };
-
 const signup = async function(parent, args, context, info) {
     const hashedPassword = await bcrypt.hash(args.password, 10); //todo: wait wut
     //bro whats destructuring
@@ -37,13 +64,16 @@ const signup = async function(parent, args, context, info) {
 };
 const updateLocation = async function(parent, args, context, info) {
     const userIdFromToken = ensureAuthorized(context);
-    const flattenedGeohash = flattenGeohashToUserGeohash(args.currentLocationGeohash);
+    // todo: flatten geohash to user geohash
+    //const flattenedGeohash = flattenGeohashToUserGeohash(args.currentLocationGeohash);
+    const flattenedGeohash = args.currentLocationGeohash;
     const updatedUser = await context.prisma.updateUser({
         where: { userId: userIdFromToken },
         data: { currentLocationGeohash: flattenedGeohash }
     });
     return updatedUser;
 };
+/*
 const upvoteReply = async function(parent, args, context, info) {
     const userIdFromToken = ensureAuthorized(context);
     const newVoteCount = await getVoteCountForReplyId(context, args.replyId) + 1;
@@ -153,6 +183,7 @@ const shout = async function(parent, args, context, info) {
     });
     return createdShout;
 };
+*/
 /*
 const createChannel = async function(parent, args, context, info) {
     const userId = getUserId(context);
@@ -271,7 +302,7 @@ module.exports = {
     login,
     signup,
     updateLocation,
-    upvoteShout,
+    /*upvoteShout,
     downvoteShout,
     shout,
     reply,
@@ -279,7 +310,7 @@ module.exports = {
     downvoteReply,
     saveShout,
     saveVoid,
-    echo,
+    echo,*/
     //createChannel,
     //addMember,
     //shitpost,

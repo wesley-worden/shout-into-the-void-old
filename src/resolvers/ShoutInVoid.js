@@ -1,10 +1,10 @@
-const { ensureAuthorized } = require('../utils');
+//const { ensureAuthorized } = require('../utils');
 
 //todo: create permissions for all individual resolvers
 
-const shoutedBy = function(parent, args, context, info) {
+const createdBy = function(parent, args, context, info) {
     return context.prisma.shoutInVoid({ contentId: parent.contentId })
-        .shoutedBy();
+        .createdBy();
 }
 const content = function(parent, args, context, info) {
     return context.prisma.shoutInVoid({ contentId: parent.contentId })
@@ -14,24 +14,19 @@ const nvoid = function(parent, args, context, info) {
     return context.prisma.shoutInVoid({ contentId: parent.contentId })
         .nvoid();
 }
-const savedShouts = function(parent, args, context, info) {
+const echos= function(parent, args, context, info) {
     return context.prisma.shoutInVoid({ contentId: parent.contentId })
-        .savedShouts();
+        .echos();
 }
 const replies = function(parent, args, context, info) {
     return context.prisma.shoutInVoid({ contentId: parent.contentId })
         .replies();
 }
-const echoEdges = function(parent, args, context, info) {
-    return context.prisma.shoutInVoid({ contentId: parent.contentId })
-        .echoEdges();
-}
 
 module.exports = {
-    shoutedBy,
+    createdBy,
     content,
     nvoid,
-    savedShouts,
+    echos,
     replies,
-    echoEdges
 };

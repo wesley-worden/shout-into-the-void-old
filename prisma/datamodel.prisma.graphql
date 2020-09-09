@@ -20,6 +20,7 @@ type User {
     username: String!
     password: String!
     currentLocationGeohash: String!
+    lastLocationUpdateTime: String!
     createdContent: [Content!] @relation(link: INLINE)
     createdVoids: [NVoid!] @relation(link: INLINE)
     savedVoids: [UserSavedVoid!] @relation(link: INLINE)
@@ -82,7 +83,7 @@ type NVoid {
     createdBy: User!
     voidGeohash: String!
     shouts: [ShoutInVoid!]
-    echosOfShouts: [EchoOfShoutInVoid!]
+    echos: [EchoOfShoutInVoid!]
 }
 type UserSavedVoid {
     userSavedVoidId: ID! @id

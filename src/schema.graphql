@@ -20,6 +20,7 @@ type User {
     username: String!
     password: String!
     currentLocationGeohash: String!
+    lastLocationUpdateTime: String!
     createdContent: [Content!]
     createdVoids: [NVoid!]
     savedVoids: [UserSavedVoid!]
@@ -82,7 +83,7 @@ type NVoid {
     createdBy: User!
     voidGeohash: String!
     shouts: [ShoutInVoid!]
-    echosOfShouts: [EchoOfShoutInVoid!]
+    echos: [EchoOfShoutInVoid!]
 }
 type UserSavedVoid {
     userSavedVoidId: ID!
@@ -94,8 +95,8 @@ type AuthPayload {
     token: String
     user: User
 }
-#type Query {
-#    getUser(userId: ID!): User
+type Query {
+    getUser(userId: ID!): User
 #    getVoidById(voidId: ID!): NVoid
 #    getVoidByLocation(geohash: String!): NVoid
 #    # shouldnt actually need anythign else, otherwise its for admin clients
@@ -104,12 +105,12 @@ type AuthPayload {
 #    #getEchoInVoid(echoInVoidId: ID!): Echo
 #    #getShout(shoutId: ID!): Shout
 #    #getReply(replayId: ID!): Reply
-#}
+}
 type Mutation {
 #    #todo: add all unsave mutations
     login(username: String!, password: String!): AuthPayload
     signup(username: String!, password: String!, currentLocationGeohash: String!): AuthPayload
-#    updateLocation(currentLocationGeohash: String!): User!
+    updateLocation(currentLocationGeohash: String!): User!
 #    shoutInVoid(content: String!): ShoutInVoid
 #    upvoteShout(shoutInVoidId: ID!): ShoutInVoid!
 #    downvoteShout(shoutInVoidId: ID!): ShoutInVoid!

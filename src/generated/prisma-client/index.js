@@ -25,23 +25,11 @@ var models = [
     embedded: false
   },
   {
-    name: "UserActivatedEchoOfEcho",
-    embedded: false
-  },
-  {
     name: "EchoOfShoutInVoid",
     embedded: false
   },
   {
     name: "ReplyToEchoOfShoutInVoid",
-    embedded: false
-  },
-  {
-    name: "EchoOfEchoInVoid",
-    embedded: false
-  },
-  {
-    name: "ReplyToEchoOfEchoInVoid",
     embedded: false
   },
   {

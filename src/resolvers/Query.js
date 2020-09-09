@@ -1,4 +1,8 @@
-const { ensureAuthorized, debug_settings, shoutIdIsPostedByUserId } = require('./../utils');
+const { 
+    ensureAuthorized, 
+    debug_settings, 
+    //shoutIdIsPostedByUserId 
+} = require('./../utils');
 
 const getUser = async function(parent, args, context, info) {
     const userIdFromToken = ensureAuthorized(context);
@@ -11,7 +15,7 @@ const getUser = async function(parent, args, context, info) {
         throw new Error("you are not authorized to view this user");
     }
 };
-
+/*
 const getShout = async function(parent, args, context, info) {
     return await context.prisma.shout({ shoutId: args.shoutId });
     const userIdFromToken = ensureAuthorized(context);
@@ -22,6 +26,7 @@ const getShout = async function(parent, args, context, info) {
         throw new Error("you are not the creator of this shout");
     }
 }
+*/
 /*
 const getShitpost = async function(parent, args, context, info) {
     ensureAuthenticated(context);
@@ -46,7 +51,7 @@ const getUser = async function(parent, args, context, info) {
 */
 module.exports = {
     getUser,
-    getShout
+    //getShout
     /*
     getShitpost,
     getChannel,
