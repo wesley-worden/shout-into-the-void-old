@@ -1,0 +1,29 @@
+body {
+    margin: auto;
+}
+.header {
+    background-color: pink;
+    position: fixed;
+    padding: 2vh 2vw;
+    text-align: center;
+    width: 100%;
+    clear: both;
+}
+.main-content {
+    padding: 5vh 5vw 0;
+    overflow-x: hidden; 
+    overflow-y: scroll; 
+}
+
+.title {
+    font-size: 24px;
+    display: inline-block;
+}
+
+.hamburger {
+    float: left;
+}
+
+.footer {
+    text-align: center;
+}

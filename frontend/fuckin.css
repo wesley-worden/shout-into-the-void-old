@@ -4,19 +4,26 @@ body {
 .header {
     background-color: pink;
     position: fixed;
-    padding: 10px;
-    /*text-align: center;*/
+    padding: 2vh 2vw;
+    /* padding: 10px; */
+    text-align: center;
     width: 100%;
+    clear: both;
 }
 .hamburger-icon {
-    width: 25px;
+    /* width: 25px; */
+    float: left;
 }
+
+
 .header-title {
     font-size: 20px;
     text-align: center;
+    display: inline-block;
 }
 .main-content {
-    padding: 90px 5px 0;
+    padding: 5vh 5vw 0;
+    /* padding: 90px 5px 0; */
     overflow-x: hidden; 
     overflow-y: scroll; 
 }
@@ -30,4 +37,24 @@ body {
 }
 .footer-button {
     padding: 10px;
+}
+
+.btn-group{
+    display: flex;
+    align-items: center;
+    font-size: 0;
+}
+.smol-btn {
+    margin: 0;
+    font-size: 17px;
+    background: forestgreen;
+    border: 1px solid black;
+}
+
+.left-btn {
+    border-radius: 5px 0 0 5px;
+}
+
+.right-btn {
+    border-radius: 0 10px 10px 0;
 }
