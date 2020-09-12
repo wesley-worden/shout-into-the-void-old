@@ -14,13 +14,20 @@ type Content {
     createdBy: User!
     message: String!
 }
+type UserLocation {
+    userLocationId: ID!
+    userGeohash: String!
+    createdAt: String!
+    createdBy: User!
+}
 type User {
     userId: ID!
     createdAt: String!
     username: String!
     password: String!
-    currentLocationGeohash: String!
-    lastLocationUpdateTime: String!
+    #currentLocationGeohash: String!
+    currentLocation: UserLocation
+    #lastLocationUpdateTime: String!
     createdContent: [Content!]
     createdVoids: [NVoid!]
     savedVoids: [UserSavedVoid!]
@@ -109,7 +116,7 @@ type Query {
 type Mutation {
 #    #todo: add all unsave mutations
     login(username: String!, password: String!): AuthPayload
-    signup(username: String!, password: String!, currentLocationGeohash: String!): AuthPayload
+    signup(username: String!, password: String!): AuthPayload
     updateLocation(currentLocationGeohash: String!): User!
 #    shoutInVoid(content: String!): ShoutInVoid
 #    upvoteShout(shoutInVoidId: ID!): ShoutInVoid!

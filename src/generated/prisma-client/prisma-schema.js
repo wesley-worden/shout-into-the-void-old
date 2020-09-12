@@ -35,6 +35,10 @@ type AggregateUserActivatedEchoOfShout {
   count: Int!
 }
 
+type AggregateUserLocation {
+  count: Int!
+}
+
 type AggregateUserSavedVoid {
   count: Int!
 }
@@ -852,6 +856,12 @@ type Mutation {
   upsertUserActivatedEchoOfShout(where: UserActivatedEchoOfShoutWhereUniqueInput!, create: UserActivatedEchoOfShoutCreateInput!, update: UserActivatedEchoOfShoutUpdateInput!): UserActivatedEchoOfShout!
   deleteUserActivatedEchoOfShout(where: UserActivatedEchoOfShoutWhereUniqueInput!): UserActivatedEchoOfShout
   deleteManyUserActivatedEchoOfShouts(where: UserActivatedEchoOfShoutWhereInput): BatchPayload!
+  createUserLocation(data: UserLocationCreateInput!): UserLocation!
+  updateUserLocation(data: UserLocationUpdateInput!, where: UserLocationWhereUniqueInput!): UserLocation
+  updateManyUserLocations(data: UserLocationUpdateManyMutationInput!, where: UserLocationWhereInput): BatchPayload!
+  upsertUserLocation(where: UserLocationWhereUniqueInput!, create: UserLocationCreateInput!, update: UserLocationUpdateInput!): UserLocation!
+  deleteUserLocation(where: UserLocationWhereUniqueInput!): UserLocation
+  deleteManyUserLocations(where: UserLocationWhereInput): BatchPayload!
   createUserSavedVoid(data: UserSavedVoidCreateInput!): UserSavedVoid!
   updateUserSavedVoid(data: UserSavedVoidUpdateInput!, where: UserSavedVoidWhereUniqueInput!): UserSavedVoid
   updateManyUserSavedVoids(data: UserSavedVoidUpdateManyMutationInput!, where: UserSavedVoidWhereInput): BatchPayload!
@@ -1179,6 +1189,9 @@ type Query {
   userActivatedEchoOfShout(where: UserActivatedEchoOfShoutWhereUniqueInput!): UserActivatedEchoOfShout
   userActivatedEchoOfShouts(where: UserActivatedEchoOfShoutWhereInput, orderBy: UserActivatedEchoOfShoutOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [UserActivatedEchoOfShout]!
   userActivatedEchoOfShoutsConnection(where: UserActivatedEchoOfShoutWhereInput, orderBy: UserActivatedEchoOfShoutOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserActivatedEchoOfShoutConnection!
+  userLocation(where: UserLocationWhereUniqueInput!): UserLocation
+  userLocations(where: UserLocationWhereInput, orderBy: UserLocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [UserLocation]!
+  userLocationsConnection(where: UserLocationWhereInput, orderBy: UserLocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserLocationConnection!
   userSavedVoid(where: UserSavedVoidWhereUniqueInput!): UserSavedVoid
   userSavedVoids(where: UserSavedVoidWhereInput, orderBy: UserSavedVoidOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [UserSavedVoid]!
   userSavedVoidsConnection(where: UserSavedVoidWhereInput, orderBy: UserSavedVoidOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserSavedVoidConnection!
@@ -2008,6 +2021,7 @@ type Subscription {
   shoutInVoid(where: ShoutInVoidSubscriptionWhereInput): ShoutInVoidSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   userActivatedEchoOfShout(where: UserActivatedEchoOfShoutSubscriptionWhereInput): UserActivatedEchoOfShoutSubscriptionPayload
+  userLocation(where: UserLocationSubscriptionWhereInput): UserLocationSubscriptionPayload
   userSavedVoid(where: UserSavedVoidSubscriptionWhereInput): UserSavedVoidSubscriptionPayload
 }
 
@@ -2016,8 +2030,7 @@ type User {
   createdAt: DateTime!
   username: String!
   password: String!
-  currentLocationGeohash: String!
-  lastLocationUpdateTime: String!
+  currentLocation: UserLocation!
   createdContent(where: ContentWhereInput, orderBy: ContentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Content!]
   createdVoids(where: NVoidWhereInput, orderBy: NVoidOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [NVoid!]
   savedVoids(where: UserSavedVoidWhereInput, orderBy: UserSavedVoidOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [UserSavedVoid!]
@@ -2251,8 +2264,7 @@ input UserCreateInput {
   userId: ID
   username: String!
   password: String!
-  currentLocationGeohash: String!
-  lastLocationUpdateTime: String!
+  currentLocation: UserLocationCreateOneWithoutCreatedByInput!
   createdContent: ContentCreateManyWithoutCreatedByInput
   createdVoids: NVoidCreateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidCreateManyWithoutCreatedByInput
@@ -2288,6 +2300,11 @@ input UserCreateOneWithoutCreatedVoidsInput {
   connect: UserWhereUniqueInput
 }
 
+input UserCreateOneWithoutCurrentLocationInput {
+  create: UserCreateWithoutCurrentLocationInput
+  connect: UserWhereUniqueInput
+}
+
 input UserCreateOneWithoutRepliesToEchosOfShoutsInVoidInput {
   create: UserCreateWithoutRepliesToEchosOfShoutsInVoidInput
   connect: UserWhereUniqueInput
@@ -2307,8 +2324,7 @@ input UserCreateWithoutActivatedEchosOfShoutsInput {
   userId: ID
   username: String!
   password: String!
-  currentLocationGeohash: String!
-  lastLocationUpdateTime: String!
+  currentLocation: UserLocationCreateOneWithoutCreatedByInput!
   createdContent: ContentCreateManyWithoutCreatedByInput
   createdVoids: NVoidCreateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidCreateManyWithoutCreatedByInput
@@ -2322,8 +2338,7 @@ input UserCreateWithoutCreatedContentInput {
   userId: ID
   username: String!
   password: String!
-  currentLocationGeohash: String!
-  lastLocationUpdateTime: String!
+  currentLocation: UserLocationCreateOneWithoutCreatedByInput!
   createdVoids: NVoidCreateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidCreateManyWithoutCreatedByInput
   createdShoutsInVoids: ShoutInVoidCreateManyWithoutCreatedByInput
@@ -2337,8 +2352,7 @@ input UserCreateWithoutCreatedEchosOfShoutsInVoidInput {
   userId: ID
   username: String!
   password: String!
-  currentLocationGeohash: String!
-  lastLocationUpdateTime: String!
+  currentLocation: UserLocationCreateOneWithoutCreatedByInput!
   createdContent: ContentCreateManyWithoutCreatedByInput
   createdVoids: NVoidCreateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidCreateManyWithoutCreatedByInput
@@ -2352,8 +2366,7 @@ input UserCreateWithoutCreatedShoutsInVoidsInput {
   userId: ID
   username: String!
   password: String!
-  currentLocationGeohash: String!
-  lastLocationUpdateTime: String!
+  currentLocation: UserLocationCreateOneWithoutCreatedByInput!
   createdContent: ContentCreateManyWithoutCreatedByInput
   createdVoids: NVoidCreateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidCreateManyWithoutCreatedByInput
@@ -2367,9 +2380,22 @@ input UserCreateWithoutCreatedVoidsInput {
   userId: ID
   username: String!
   password: String!
-  currentLocationGeohash: String!
-  lastLocationUpdateTime: String!
+  currentLocation: UserLocationCreateOneWithoutCreatedByInput!
   createdContent: ContentCreateManyWithoutCreatedByInput
+  savedVoids: UserSavedVoidCreateManyWithoutCreatedByInput
+  createdShoutsInVoids: ShoutInVoidCreateManyWithoutCreatedByInput
+  activatedEchosOfShouts: UserActivatedEchoOfShoutCreateManyWithoutCreatedByInput
+  createdEchosOfShoutsInVoid: EchoOfShoutInVoidCreateManyWithoutCreatedByInput
+  repliesToShoutsInVoid: ReplyToShoutInVoidCreateManyWithoutCreatedByInput
+  repliesToEchosOfShoutsInVoid: ReplyToEchoOfShoutInVoidCreateManyWithoutCreatedByInput
+}
+
+input UserCreateWithoutCurrentLocationInput {
+  userId: ID
+  username: String!
+  password: String!
+  createdContent: ContentCreateManyWithoutCreatedByInput
+  createdVoids: NVoidCreateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidCreateManyWithoutCreatedByInput
   createdShoutsInVoids: ShoutInVoidCreateManyWithoutCreatedByInput
   activatedEchosOfShouts: UserActivatedEchoOfShoutCreateManyWithoutCreatedByInput
@@ -2382,8 +2408,7 @@ input UserCreateWithoutRepliesToEchosOfShoutsInVoidInput {
   userId: ID
   username: String!
   password: String!
-  currentLocationGeohash: String!
-  lastLocationUpdateTime: String!
+  currentLocation: UserLocationCreateOneWithoutCreatedByInput!
   createdContent: ContentCreateManyWithoutCreatedByInput
   createdVoids: NVoidCreateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidCreateManyWithoutCreatedByInput
@@ -2397,8 +2422,7 @@ input UserCreateWithoutRepliesToShoutsInVoidInput {
   userId: ID
   username: String!
   password: String!
-  currentLocationGeohash: String!
-  lastLocationUpdateTime: String!
+  currentLocation: UserLocationCreateOneWithoutCreatedByInput!
   createdContent: ContentCreateManyWithoutCreatedByInput
   createdVoids: NVoidCreateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidCreateManyWithoutCreatedByInput
@@ -2412,8 +2436,7 @@ input UserCreateWithoutSavedVoidsInput {
   userId: ID
   username: String!
   password: String!
-  currentLocationGeohash: String!
-  lastLocationUpdateTime: String!
+  currentLocation: UserLocationCreateOneWithoutCreatedByInput!
   createdContent: ContentCreateManyWithoutCreatedByInput
   createdVoids: NVoidCreateManyWithoutCreatedByInput
   createdShoutsInVoids: ShoutInVoidCreateManyWithoutCreatedByInput
@@ -2428,6 +2451,157 @@ type UserEdge {
   cursor: String!
 }
 
+type UserLocation {
+  userLocationId: ID!
+  userGeohash: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: User!
+}
+
+type UserLocationConnection {
+  pageInfo: PageInfo!
+  edges: [UserLocationEdge]!
+  aggregate: AggregateUserLocation!
+}
+
+input UserLocationCreateInput {
+  userLocationId: ID
+  userGeohash: String!
+  createdBy: UserCreateOneWithoutCurrentLocationInput!
+}
+
+input UserLocationCreateOneWithoutCreatedByInput {
+  create: UserLocationCreateWithoutCreatedByInput
+  connect: UserLocationWhereUniqueInput
+}
+
+input UserLocationCreateWithoutCreatedByInput {
+  userLocationId: ID
+  userGeohash: String!
+}
+
+type UserLocationEdge {
+  node: UserLocation!
+  cursor: String!
+}
+
+enum UserLocationOrderByInput {
+  userLocationId_ASC
+  userLocationId_DESC
+  userGeohash_ASC
+  userGeohash_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type UserLocationPreviousValues {
+  userLocationId: ID!
+  userGeohash: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type UserLocationSubscriptionPayload {
+  mutation: MutationType!
+  node: UserLocation
+  updatedFields: [String!]
+  previousValues: UserLocationPreviousValues
+}
+
+input UserLocationSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: UserLocationWhereInput
+  AND: [UserLocationSubscriptionWhereInput!]
+  OR: [UserLocationSubscriptionWhereInput!]
+  NOT: [UserLocationSubscriptionWhereInput!]
+}
+
+input UserLocationUpdateInput {
+  userGeohash: String
+  createdBy: UserUpdateOneRequiredWithoutCurrentLocationInput
+}
+
+input UserLocationUpdateManyMutationInput {
+  userGeohash: String
+}
+
+input UserLocationUpdateOneRequiredWithoutCreatedByInput {
+  create: UserLocationCreateWithoutCreatedByInput
+  update: UserLocationUpdateWithoutCreatedByDataInput
+  upsert: UserLocationUpsertWithoutCreatedByInput
+  connect: UserLocationWhereUniqueInput
+}
+
+input UserLocationUpdateWithoutCreatedByDataInput {
+  userGeohash: String
+}
+
+input UserLocationUpsertWithoutCreatedByInput {
+  update: UserLocationUpdateWithoutCreatedByDataInput!
+  create: UserLocationCreateWithoutCreatedByInput!
+}
+
+input UserLocationWhereInput {
+  userLocationId: ID
+  userLocationId_not: ID
+  userLocationId_in: [ID!]
+  userLocationId_not_in: [ID!]
+  userLocationId_lt: ID
+  userLocationId_lte: ID
+  userLocationId_gt: ID
+  userLocationId_gte: ID
+  userLocationId_contains: ID
+  userLocationId_not_contains: ID
+  userLocationId_starts_with: ID
+  userLocationId_not_starts_with: ID
+  userLocationId_ends_with: ID
+  userLocationId_not_ends_with: ID
+  userGeohash: String
+  userGeohash_not: String
+  userGeohash_in: [String!]
+  userGeohash_not_in: [String!]
+  userGeohash_lt: String
+  userGeohash_lte: String
+  userGeohash_gt: String
+  userGeohash_gte: String
+  userGeohash_contains: String
+  userGeohash_not_contains: String
+  userGeohash_starts_with: String
+  userGeohash_not_starts_with: String
+  userGeohash_ends_with: String
+  userGeohash_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdBy: UserWhereInput
+  AND: [UserLocationWhereInput!]
+  OR: [UserLocationWhereInput!]
+  NOT: [UserLocationWhereInput!]
+}
+
+input UserLocationWhereUniqueInput {
+  userLocationId: ID
+}
+
 enum UserOrderByInput {
   userId_ASC
   userId_DESC
@@ -2437,10 +2611,6 @@ enum UserOrderByInput {
   username_DESC
   password_ASC
   password_DESC
-  currentLocationGeohash_ASC
-  currentLocationGeohash_DESC
-  lastLocationUpdateTime_ASC
-  lastLocationUpdateTime_DESC
 }
 
 type UserPreviousValues {
@@ -2448,8 +2618,6 @@ type UserPreviousValues {
   createdAt: DateTime!
   username: String!
   password: String!
-  currentLocationGeohash: String!
-  lastLocationUpdateTime: String!
 }
 
 type UserSavedVoid {
@@ -2674,8 +2842,7 @@ input UserSubscriptionWhereInput {
 input UserUpdateInput {
   username: String
   password: String
-  currentLocationGeohash: String
-  lastLocationUpdateTime: String
+  currentLocation: UserLocationUpdateOneRequiredWithoutCreatedByInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
   createdVoids: NVoidUpdateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidUpdateManyWithoutCreatedByInput
@@ -2689,8 +2856,6 @@ input UserUpdateInput {
 input UserUpdateManyMutationInput {
   username: String
   password: String
-  currentLocationGeohash: String
-  lastLocationUpdateTime: String
 }
 
 input UserUpdateOneRequiredWithoutActivatedEchosOfShoutsInput {
@@ -2728,6 +2893,13 @@ input UserUpdateOneRequiredWithoutCreatedVoidsInput {
   connect: UserWhereUniqueInput
 }
 
+input UserUpdateOneRequiredWithoutCurrentLocationInput {
+  create: UserCreateWithoutCurrentLocationInput
+  update: UserUpdateWithoutCurrentLocationDataInput
+  upsert: UserUpsertWithoutCurrentLocationInput
+  connect: UserWhereUniqueInput
+}
+
 input UserUpdateOneRequiredWithoutRepliesToEchosOfShoutsInVoidInput {
   create: UserCreateWithoutRepliesToEchosOfShoutsInVoidInput
   update: UserUpdateWithoutRepliesToEchosOfShoutsInVoidDataInput
@@ -2752,8 +2924,7 @@ input UserUpdateOneRequiredWithoutSavedVoidsInput {
 input UserUpdateWithoutActivatedEchosOfShoutsDataInput {
   username: String
   password: String
-  currentLocationGeohash: String
-  lastLocationUpdateTime: String
+  currentLocation: UserLocationUpdateOneRequiredWithoutCreatedByInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
   createdVoids: NVoidUpdateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidUpdateManyWithoutCreatedByInput
@@ -2766,8 +2937,7 @@ input UserUpdateWithoutActivatedEchosOfShoutsDataInput {
 input UserUpdateWithoutCreatedContentDataInput {
   username: String
   password: String
-  currentLocationGeohash: String
-  lastLocationUpdateTime: String
+  currentLocation: UserLocationUpdateOneRequiredWithoutCreatedByInput
   createdVoids: NVoidUpdateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidUpdateManyWithoutCreatedByInput
   createdShoutsInVoids: ShoutInVoidUpdateManyWithoutCreatedByInput
@@ -2780,8 +2950,7 @@ input UserUpdateWithoutCreatedContentDataInput {
 input UserUpdateWithoutCreatedEchosOfShoutsInVoidDataInput {
   username: String
   password: String
-  currentLocationGeohash: String
-  lastLocationUpdateTime: String
+  currentLocation: UserLocationUpdateOneRequiredWithoutCreatedByInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
   createdVoids: NVoidUpdateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidUpdateManyWithoutCreatedByInput
@@ -2794,8 +2963,7 @@ input UserUpdateWithoutCreatedEchosOfShoutsInVoidDataInput {
 input UserUpdateWithoutCreatedShoutsInVoidsDataInput {
   username: String
   password: String
-  currentLocationGeohash: String
-  lastLocationUpdateTime: String
+  currentLocation: UserLocationUpdateOneRequiredWithoutCreatedByInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
   createdVoids: NVoidUpdateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidUpdateManyWithoutCreatedByInput
@@ -2808,9 +2976,21 @@ input UserUpdateWithoutCreatedShoutsInVoidsDataInput {
 input UserUpdateWithoutCreatedVoidsDataInput {
   username: String
   password: String
-  currentLocationGeohash: String
-  lastLocationUpdateTime: String
+  currentLocation: UserLocationUpdateOneRequiredWithoutCreatedByInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
+  savedVoids: UserSavedVoidUpdateManyWithoutCreatedByInput
+  createdShoutsInVoids: ShoutInVoidUpdateManyWithoutCreatedByInput
+  activatedEchosOfShouts: UserActivatedEchoOfShoutUpdateManyWithoutCreatedByInput
+  createdEchosOfShoutsInVoid: EchoOfShoutInVoidUpdateManyWithoutCreatedByInput
+  repliesToShoutsInVoid: ReplyToShoutInVoidUpdateManyWithoutCreatedByInput
+  repliesToEchosOfShoutsInVoid: ReplyToEchoOfShoutInVoidUpdateManyWithoutCreatedByInput
+}
+
+input UserUpdateWithoutCurrentLocationDataInput {
+  username: String
+  password: String
+  createdContent: ContentUpdateManyWithoutCreatedByInput
+  createdVoids: NVoidUpdateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidUpdateManyWithoutCreatedByInput
   createdShoutsInVoids: ShoutInVoidUpdateManyWithoutCreatedByInput
   activatedEchosOfShouts: UserActivatedEchoOfShoutUpdateManyWithoutCreatedByInput
@@ -2822,8 +3002,7 @@ input UserUpdateWithoutCreatedVoidsDataInput {
 input UserUpdateWithoutRepliesToEchosOfShoutsInVoidDataInput {
   username: String
   password: String
-  currentLocationGeohash: String
-  lastLocationUpdateTime: String
+  currentLocation: UserLocationUpdateOneRequiredWithoutCreatedByInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
   createdVoids: NVoidUpdateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidUpdateManyWithoutCreatedByInput
@@ -2836,8 +3015,7 @@ input UserUpdateWithoutRepliesToEchosOfShoutsInVoidDataInput {
 input UserUpdateWithoutRepliesToShoutsInVoidDataInput {
   username: String
   password: String
-  currentLocationGeohash: String
-  lastLocationUpdateTime: String
+  currentLocation: UserLocationUpdateOneRequiredWithoutCreatedByInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
   createdVoids: NVoidUpdateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidUpdateManyWithoutCreatedByInput
@@ -2850,8 +3028,7 @@ input UserUpdateWithoutRepliesToShoutsInVoidDataInput {
 input UserUpdateWithoutSavedVoidsDataInput {
   username: String
   password: String
-  currentLocationGeohash: String
-  lastLocationUpdateTime: String
+  currentLocation: UserLocationUpdateOneRequiredWithoutCreatedByInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
   createdVoids: NVoidUpdateManyWithoutCreatedByInput
   createdShoutsInVoids: ShoutInVoidUpdateManyWithoutCreatedByInput
@@ -2884,6 +3061,11 @@ input UserUpsertWithoutCreatedShoutsInVoidsInput {
 input UserUpsertWithoutCreatedVoidsInput {
   update: UserUpdateWithoutCreatedVoidsDataInput!
   create: UserCreateWithoutCreatedVoidsInput!
+}
+
+input UserUpsertWithoutCurrentLocationInput {
+  update: UserUpdateWithoutCurrentLocationDataInput!
+  create: UserCreateWithoutCurrentLocationInput!
 }
 
 input UserUpsertWithoutRepliesToEchosOfShoutsInVoidInput {
@@ -2952,34 +3134,7 @@ input UserWhereInput {
   password_not_starts_with: String
   password_ends_with: String
   password_not_ends_with: String
-  currentLocationGeohash: String
-  currentLocationGeohash_not: String
-  currentLocationGeohash_in: [String!]
-  currentLocationGeohash_not_in: [String!]
-  currentLocationGeohash_lt: String
-  currentLocationGeohash_lte: String
-  currentLocationGeohash_gt: String
-  currentLocationGeohash_gte: String
-  currentLocationGeohash_contains: String
-  currentLocationGeohash_not_contains: String
-  currentLocationGeohash_starts_with: String
-  currentLocationGeohash_not_starts_with: String
-  currentLocationGeohash_ends_with: String
-  currentLocationGeohash_not_ends_with: String
-  lastLocationUpdateTime: String
-  lastLocationUpdateTime_not: String
-  lastLocationUpdateTime_in: [String!]
-  lastLocationUpdateTime_not_in: [String!]
-  lastLocationUpdateTime_lt: String
-  lastLocationUpdateTime_lte: String
-  lastLocationUpdateTime_gt: String
-  lastLocationUpdateTime_gte: String
-  lastLocationUpdateTime_contains: String
-  lastLocationUpdateTime_not_contains: String
-  lastLocationUpdateTime_starts_with: String
-  lastLocationUpdateTime_not_starts_with: String
-  lastLocationUpdateTime_ends_with: String
-  lastLocationUpdateTime_not_ends_with: String
+  currentLocation: UserLocationWhereInput
   createdContent_every: ContentWhereInput
   createdContent_some: ContentWhereInput
   createdContent_none: ContentWhereInput

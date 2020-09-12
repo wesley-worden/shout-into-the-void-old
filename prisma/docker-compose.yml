@@ -8,19 +8,27 @@ services:
     environment:
       PRISMA_CONFIG: |
         port: 4466
+        managementApiSecret: my-server-secret-42 
         databases:
           default:
-            connector: mongo
-            uri: mongodb://prisma:prisma@mongo
-  mongo:
-    image: mongo:3.6
+            connector: postgres
+            host: postgres-db
+            port: 5432
+            user: prisma
+            password: prisma
+            connectionLimit: 2
+  postgres-db:
+    image: postgres:10.3
     restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: prisma
-      MONGO_INITDB_ROOT_PASSWORD: prisma
-    ports:
-      - '27017:27017'
+      POSTGRES_USER: prisma
+      POSTGRES_PASSWORD: prisma
     volumes:
-      - mongo:/var/lib/mongo
+      - postgres:/var/lib/postgresql/data
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
 volumes:
-  mongo: ~
+  postgres: ~
