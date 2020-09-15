@@ -75,48 +75,16 @@ const updateLocation = async function(parent, args, context, info) {
     //flatten geohash to user geohash
     // todo: flatten geohash to user geohash
     //const flattenedGeohash = flattenGeohashToUserGeohash(args.currentLocationGeohash);
-    const flattenedGeohash = args.currentLocationGeohash;
-    //for now not deleting old userLOcation
-    //const userLocationIdToDelete = user_utils.getCurrentUserLocationId(userIdFromToken);
-    //the following is because prisma cant do create nested writes with mongo connector
+    const flattenedUserGeohash = args.currentLocationGeohash;
     const createdUserLocation = await context.prisma.createUserLocation({
-        userGeohash: flattenedGeohash,
+        userGeohash: flattenedUserGeohash,
         createdBy: {
             connect: {
-                userIdFromToken
+                userId: userIdFromToken
             }
         }
     });
-    const createdUserLocationId = createdUserLocation.userLocationId;
-    const updatedUser = await context.prisma.updateUser({
-        where: {
-            userId: userIdFromToken
-        },
-        data: {
-            currentLocation: {
-                connect: {
-                    userLocationId: createdUserLocationId
-                }
-            }
-        }
-    });
-    /*
-    const updatedUser = await context.prisma.updateUser({
-        where: { userId: userIdFromToken },
-        data: {
-            currentLocation: {
-                create: {
-                    userGeohash: flattenedGeohash,
-                    createdBy: {
-                        connect: {
-                            userId: userIdFromToken
-                        }
-                    }
-                }
-            }
-        }
-    });
-    */
+    const updatedUser = await context.prisma.user({ userId: userIdFromToken });
     //not deleting user location for now
     /*
     const deletedUserLocation = await context.prisma.deleteUserLocation({

@@ -18,7 +18,6 @@ type UserLocation {
     userLocationId: ID! @id
     userGeohash: String!
     createdAt: DateTime! @createdAt
-    updatedAt: DateTime! @updatedAt
     createdBy: User! @relation(link: INLINE)
 }
 type User {
@@ -27,7 +26,7 @@ type User {
     username: String! @unique
     password: String!
     #currentLocationGeohash: String!
-    currentLocation: UserLocation! 
+    locationHistory: [UserLocation!]
     #lastLocationUpdateTime: String!
     createdContent: [Content!]
     createdVoids: [NVoid!]!
