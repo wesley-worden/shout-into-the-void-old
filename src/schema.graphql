@@ -9,24 +9,25 @@
 # will see a placeholder. a refernce will be made if this user choses to delete all
 # of their content in the future, in a deeper menu to be made
 type Content {
-    contentId: ID!
-    createdAt: String!
-    createdBy: User!
+    contentId: ID! 
+    createdAt: String! 
+    createdBy: User! 
     message: String!
 }
 type UserLocation {
-    userLocationId: ID!
+    userLocationId: ID! 
     userGeohash: String!
-    createdAt: String!
-    createdBy: User!
+    createdAt: String! 
+    updatedAt: String! 
+    createdBy: User! 
 }
 type User {
-    userId: ID!
-    createdAt: String!
+    userId: ID! 
+    createdAt: String! 
     username: String!
     password: String!
     #currentLocationGeohash: String!
-    currentLocation: UserLocation
+    currentLocation: UserLocation! 
     #lastLocationUpdateTime: String!
     createdContent: [Content!]
     createdVoids: [NVoid!]
@@ -35,67 +36,67 @@ type User {
     activatedEchosOfShouts: [UserActivatedEchoOfShout!]
     createdEchosOfShoutsInVoid: [EchoOfShoutInVoid!]
     repliesToShoutsInVoid: [ReplyToShoutInVoid!]
-    repliesToEchosOfShoutsInVoid: [ReplyToEchoOfShoutInVoid!]
+    repliesToEchosOfShoutsInVoid: [ReplyToEchoOfShoutInVoid!] 
 }
 type ShoutInVoid {
-    shoutInVoidId: ID!
-    createdAt: String!
-    createdBy: User!
-    content: Content!
-    nvoid: NVoid!
+    shoutInVoidId: ID! 
+    createdAt: String! 
+    createdBy: User! 
+    content: Content! 
+    nvoid: NVoid! 
     voteCount: Int!
     echos: [EchoOfShoutInVoid!]
     replies: [ReplyToShoutInVoid!]
 }
 type ReplyToShoutInVoid {
-    replyToShoutInVoidId: ID!
-    createdAt: String!
-    createdBy: User!
-    content: Content!
+    replyToShoutInVoidId: ID! 
+    createdAt: String! 
+    createdBy: User! 
+    content: Content! 
     voteCount: Int!
-    originalShoutInVoid: ShoutInVoid!
+    originalShoutInVoid: ShoutInVoid! 
 }
 type UserActivatedEchoOfShout {
-    userActivatedEchoOfShoutId: ID!
-    createdAt: String!
-    createdBy: User!
-    originalShoutContent: Content!
+    userActivatedEchoOfShoutId: ID! 
+    createdAt: String! 
+    createdBy: User! 
+    originalShoutContent: Content! 
     originalShoutVoidGeohash: String!
-    originalEchoOfShoutInVoid: EchoOfShoutInVoid
+    originalEchoOfShoutInVoid: EchoOfShoutInVoid 
 }
 type EchoOfShoutInVoid {
-    echoOfShoutInVoidId: ID!
-    createdAt: String!
-    createdBy: User!
-    originalShoutContent: Content!
+    echoOfShoutInVoidId: ID! 
+    createdAt: String! 
+    createdBy: User! 
+    originalShoutContent: Content! 
     originalShoutVoidGeohash: String!
-    originalShoutInVoid: ShoutInVoid!
-    originalEchoOfShoutInVoid: EchoOfShoutInVoid
+    originalShoutInVoid: ShoutInVoid! 
+    originalEchoOfShoutInVoid: EchoOfShoutInVoid # used if echo of echo
     nvoid: NVoid! 
     voteCount: Int!
-    echosOfEchos: [EchoOfShoutInVoid!]
-    replies: [ReplyToEchoOfShoutInVoid!]
+    echosOfEchos: [EchoOfShoutInVoid!] # used to find echos of echo
+    replies: [ReplyToEchoOfShoutInVoid!] 
 }
 type ReplyToEchoOfShoutInVoid {
-    replyToEchoOfShoutInVoidId: ID!
-    createdAt: String!
-    createdBy: User!
-    content: Content!
+    replyToEchoOfShoutInVoidId: ID! 
+    createdAt: String! 
+    createdBy: User! 
+    content: Content! 
     voteCount: Int!
-    originalEchoOfShoutInVoid: EchoOfShoutInVoid!
+    originalEchoOfShoutInVoid: EchoOfShoutInVoid! 
 }
 type NVoid {
-    voidId: ID!
-    createdAt: String!
-    createdBy: User!
+    voidId: ID! 
+    createdAt: String! 
+    createdBy: User! 
     voidGeohash: String!
     shouts: [ShoutInVoid!]
     echos: [EchoOfShoutInVoid!]
 }
 type UserSavedVoid {
-    userSavedVoidId: ID!
-    createdAt: String!
-    createdBy: User!
+    userSavedVoidId: ID! 
+    createdAt: String! 
+    createdBy: User! 
     originalVoidGeohash: String!
 }
 type AuthPayload {

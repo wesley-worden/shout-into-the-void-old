@@ -1155,6 +1155,7 @@ input NVoidWhereInput {
 
 input NVoidWhereUniqueInput {
   voidId: ID
+  voidGeohash: String
 }
 
 type PageInfo {
@@ -3166,6 +3167,7 @@ input UserWhereInput {
 
 input UserWhereUniqueInput {
   userId: ID
+  username: String
 }
 `
       }

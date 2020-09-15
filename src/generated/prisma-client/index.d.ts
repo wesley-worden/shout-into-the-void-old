@@ -1334,6 +1334,7 @@ export interface UserSavedVoidUpdateManyWithoutCreatedByInput {
 
 export type NVoidWhereUniqueInput = AtLeastOne<{
   voidId: Maybe<ID_Input>;
+  voidGeohash?: Maybe<String>;
 }>;
 
 export interface UserSavedVoidUpdateWithWhereUniqueWithoutCreatedByInput {
@@ -1497,6 +1498,7 @@ export interface UserActivatedEchoOfShoutUpdateWithWhereUniqueWithoutCreatedByIn
 
 export type UserWhereUniqueInput = AtLeastOne<{
   userId: Maybe<ID_Input>;
+  username?: Maybe<String>;
 }>;
 
 export interface UserActivatedEchoOfShoutUpdateWithoutCreatedByDataInput {

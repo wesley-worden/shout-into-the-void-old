@@ -29,8 +29,10 @@ const {
     getVoidGeohashFromVoidId 
     */
 } = require('./../utils');
+const user_utils = require('./../resolvers/utils/user-utils');
 const { debug_settings } = require('./../../config.json');
 const clipboardy = require('clipboardy');
+const { asyncFromGen } = require('optimism');
 
 const login = async function(parent, args, context, info) {
     //get existing user from prisma database
@@ -54,6 +56,11 @@ const signup = async function(parent, args, context, info) {
     const hashedPassword = await bcrypt.hash(args.password, 10); //todo: wait wut
     //bro whats destructuring
     const { password, ...user } = await context.prisma.createUser({ ...args, password: hashedPassword });
+    /*const createdUser = await context.prisma.createUser({
+        username: args.username,
+        password: hashedPassword,
+        
+    });*/
     const token = jwt.sign({ userId: user.userId }, APP_SECRET);
     // showMe(token);
     if (debug_settings.log) {
@@ -64,13 +71,58 @@ const signup = async function(parent, args, context, info) {
 };
 const updateLocation = async function(parent, args, context, info) {
     const userIdFromToken = ensureAuthorized(context);
+    
+    //flatten geohash to user geohash
     // todo: flatten geohash to user geohash
     //const flattenedGeohash = flattenGeohashToUserGeohash(args.currentLocationGeohash);
     const flattenedGeohash = args.currentLocationGeohash;
+    //for now not deleting old userLOcation
+    //const userLocationIdToDelete = user_utils.getCurrentUserLocationId(userIdFromToken);
+    //the following is because prisma cant do create nested writes with mongo connector
+    const createdUserLocation = await context.prisma.createUserLocation({
+        userGeohash: flattenedGeohash,
+        createdBy: {
+            connect: {
+                userIdFromToken
+            }
+        }
+    });
+    const createdUserLocationId = createdUserLocation.userLocationId;
+    const updatedUser = await context.prisma.updateUser({
+        where: {
+            userId: userIdFromToken
+        },
+        data: {
+            currentLocation: {
+                connect: {
+                    userLocationId: createdUserLocationId
+                }
+            }
+        }
+    });
+    /*
     const updatedUser = await context.prisma.updateUser({
         where: { userId: userIdFromToken },
-        data: { currentLocationGeohash: flattenedGeohash }
+        data: {
+            currentLocation: {
+                create: {
+                    userGeohash: flattenedGeohash,
+                    createdBy: {
+                        connect: {
+                            userId: userIdFromToken
+                        }
+                    }
+                }
+            }
+        }
     });
+    */
+    //not deleting user location for now
+    /*
+    const deletedUserLocation = await context.prisma.deleteUserLocation({
+        userLocationId: userLocationIdToDelete
+    });
+    */
     return updatedUser;
 };
 /*
@@ -239,9 +291,9 @@ const addMember = async function(parent, args, context, info) {
                 channelId: channelId
             }
         });
-        console.log("createdEdge: ", createdEdge);
-        wackyWavyMembersArray = [{
-            connect: createdEdge.edgeId
+        console.log("creconst createUser = function(args, context, ) {
+
+}atedEdge.edgeId
         }];
     }
     const updatedUser = await context.prisma.updateUser({

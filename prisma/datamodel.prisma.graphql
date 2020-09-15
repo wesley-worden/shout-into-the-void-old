@@ -24,7 +24,7 @@ type UserLocation {
 type User {
     userId: ID! @id
     createdAt: DateTime! @createdAt
-    username: String!
+    username: String! @unique
     password: String!
     #currentLocationGeohash: String!
     currentLocation: UserLocation! 
@@ -89,7 +89,7 @@ type NVoid {
     voidId: ID! @id
     createdAt: DateTime! @createdAt
     createdBy: User! @relation(link: INLINE)
-    voidGeohash: String!
+    voidGeohash: String! @unique
     shouts: [ShoutInVoid!]
     echos: [EchoOfShoutInVoid!]
 }
