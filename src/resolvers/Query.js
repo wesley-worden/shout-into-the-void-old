@@ -4,16 +4,23 @@ const {
     //shoutIdIsPostedByUserId 
 } = require('./../utils');
 
-const getUser = async function(parent, args, context, info) {
+const myUser = async function(parent, args, context, info) {
     const userIdFromToken = ensureAuthorized(context);
     const user = await context.prisma.user({
-        userId: args.userId
+        userId: userIdFromToken 
     });
-    if(user.userId === userIdFromToken /* || isAdmin(userIdFromToken) */) {
-        return user;
-    } else {
-        throw new Error("you are not authorized to view this user");
-    }
+    return user;
+    // todo: move to an admin specific query
+    // if(user.userId === userIdFromToken /* || isAdmin(userIdFromToken) */) {
+    //     return user;
+    // } else {
+    //     throw new Error("you are not authorized to view this user");
+    // }
+};
+
+const nearbyVoids = async function(parent, args, context, info) {
+    const userIdFromToken = ensureAuthorized(context);
+    // const currentLocationUserGeohash = ge
 };
 /*
 const getShout = async function(parent, args, context, info) {
@@ -50,7 +57,7 @@ const getUser = async function(parent, args, context, info) {
 };
 */
 module.exports = {
-    getUser,
+    myUser,
     //getShout
     /*
     getShitpost,

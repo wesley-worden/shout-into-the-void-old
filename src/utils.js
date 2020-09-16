@@ -5,6 +5,11 @@ const clipboardy = require('clipboardy');
 const ngeohash = require('ngeohash');
 const { getHashesNear, isInRadius } = require('geohashes-near');
 
+const VOID_GEOHASH_PRECISION = 5;
+const USER_GEOHASH_PRECISION = 6;
+const VOID_VIEW_RADIUS = 5;
+const VOID_VIEW_UNITS = "miles";
+
 const showToken = function(token) {
     console.log("please place into http headers");
     const prettyToken = `{ "Authorization": "Bearer ${token}" }`;
@@ -29,16 +34,34 @@ const ensureAuthorized = function(context) {
     throw new Error("Bruh you ain't authenticated bro");
 };
 
-const getUserId = function(context) {
-    return ensureAuthorized();
-    //return ensureAuthorized(context)[0];
+const flattenGeohash = function(geohash, precision) {
+    const coordinate = ngeohash.decode(geohash);
+    const voidGeohash = ngeohash.encode(coordinate.latitude, coordinate.longitude, precision);
+    return voidGeohash;
 };
+
+const flattenGeohashToUserGeohash = function(geohash) {
+    return flattenGeohash(geohash, USER_GEOHASH_PRECISION);
+};
+
+const getUserCurrentLocationUserGeohash = function() {
+    
+}
+// const getUserId = function(context) {
+//     //return ensureAuthorized();
+//     //return ensureAuthorized(context)[0];
+// };
 
 module.exports = { 
     APP_SECRET,
     debug_settings, //are these bad?
-    getUserId, 
+    //getUserId, 
+    VOID_GEOHASH_PRECISION,
+    USER_GEOHASH_PRECISION,
+    VOID_VIEW_RADIUS,
+    VOID_VIEW_UNITS, 
     ensureAuthorized,
+    flattenGeohashToUserGeohash,
     /*
     getCurrentLocationGeohashForUserId,
     userIdIsAllowedToViewVoidGeohash,

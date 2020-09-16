@@ -11,6 +11,10 @@ const userRequestCanViewPrivateInfo = function(parent, context) {
 */
 
 //todo: create permissions for all individual user info
+const lastLocation = function(parent, args, context, info) {
+    return context.prisma.user({ userId: parent.userId })
+        .lastLocation();
+}
 const locationHistory = function(parent, args, context, info) {
     return context.prisma.user({ userId: parent.userId })
         .locationHistory();
@@ -49,6 +53,7 @@ const repliesToEchosOfShoutsInVoid = function(parent, args, context, info) {
 }
 
 module.exports = {
+    lastLocation,
     locationHistory,
     createdContent,
     createdVoids,

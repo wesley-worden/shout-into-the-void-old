@@ -19,6 +19,7 @@ const {
     ensureUserIsChannelOwner, 
     getChannelMembers, 
     */
+   VOID_GEOHASH_PRECISION,
     flattenGeohashToUserGeohash, 
     /*
     getRepliesIdsToShoutId, 
@@ -52,6 +53,7 @@ const login = async function(parent, args, context, info) {
     //return AuthPayload object according to schema
     return { token, user };
 };
+
 const signup = async function(parent, args, context, info) {
     const hashedPassword = await bcrypt.hash(args.password, 10); //todo: wait wut
     //bro whats destructuring
@@ -69,13 +71,16 @@ const signup = async function(parent, args, context, info) {
     }
     return { token, user }; // AuthPayload object
 };
+
 const updateLocation = async function(parent, args, context, info) {
     const userIdFromToken = ensureAuthorized(context);
-    
-    //flatten geohash to user geohash
-    // todo: flatten geohash to user geohash
-    //const flattenedGeohash = flattenGeohashToUserGeohash(args.currentLocationGeohash);
-    const flattenedUserGeohash = args.currentLocationGeohash;
+    // check if geohash has enough precision
+    if(args.currentLocationGeohash.length < VOID_GEOHASH_PRECISION) {
+        throw new Error("You must updateLocation with a geohash with a precision higher than 5 characters");
+    }
+    // flatten geohash to user geohash precision
+    const flattenedUserGeohash = flattenGeohashToUserGeohash(args.currentLocationGeohash);
+    // create UserLocation, connecting it to user thus updating locationHistory for User
     const createdUserLocation = await context.prisma.createUserLocation({
         userGeohash: flattenedUserGeohash,
         createdBy: {
@@ -84,14 +89,31 @@ const updateLocation = async function(parent, args, context, info) {
             }
         }
     });
-    const updatedUser = await context.prisma.user({ userId: userIdFromToken });
-    //not deleting user location for now
-    /*
-    const deletedUserLocation = await context.prisma.deleteUserLocation({
-        userLocationId: userLocationIdToDelete
+    // set connection for lastLocation for User
+    const createdUserLocationId = createdUserLocation.userLocationId;
+    const updatedUser = await context.prisma.updateUser({
+        where: {
+            userId: userIdFromToken
+        },
+        data: {
+            lastLocation: {
+                connect: {
+                    userLocationId: createdUserLocationId
+                }
+            }
+        }
     });
-    */
+    // get updated User
+    //const user = await context.prisma.user({ userId: userIdFromToken });
+    // return updated User object
+    // todo: should we return new UserLocation?
     return updatedUser;
+    // return user;
+};
+
+const shoutIntoTheVoid = async function(parent, args, context, info) {
+    const userIdFromToken = ensureAuthorized(context);
+
 };
 /*
 const upvoteReply = async function(parent, args, context, info) {

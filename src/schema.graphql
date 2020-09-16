@@ -26,6 +26,7 @@ type User {
     username: String!
     password: String!
     #currentLocationGeohash: String!
+    lastLocation: UserLocation
     locationHistory: [UserLocation!]
     #lastLocationUpdateTime: String!
     createdContent: [Content!]
@@ -103,7 +104,8 @@ type AuthPayload {
     user: User
 }
 type Query {
-    getUser(userId: ID!): User
+    myUser: User
+    nearbyVoids: [NVoid!]
 #    getVoidById(voidId: ID!): NVoid
 #    getVoidByLocation(geohash: String!): NVoid
 #    # shouldnt actually need anythign else, otherwise its for admin clients
@@ -117,7 +119,8 @@ type Mutation {
 #    #todo: add all unsave mutations
     login(username: String!, password: String!): AuthPayload
     signup(username: String!, password: String!): AuthPayload
-    updateLocation(currentLocationGeohash: String!): User!
+    updateLocation(currentLocationGeohash: String!): User! # todo: should this return UserLocaton to optimize?
+    shoutIntoTheVoid(message: String!): ShoutInVoid
 #    shoutInVoid(content: String!): ShoutInVoid
 #    upvoteShout(shoutInVoidId: ID!): ShoutInVoid!
 #    downvoteShout(shoutInVoidId: ID!): ShoutInVoid!

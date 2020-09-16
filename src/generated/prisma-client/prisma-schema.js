@@ -2031,6 +2031,7 @@ type User {
   createdAt: DateTime!
   username: String!
   password: String!
+  lastLocation: UserLocation
   locationHistory(where: UserLocationWhereInput, orderBy: UserLocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [UserLocation!]
   createdContent(where: ContentWhereInput, orderBy: ContentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Content!]
   createdVoids(where: NVoidWhereInput, orderBy: NVoidOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [NVoid!]
@@ -2265,6 +2266,7 @@ input UserCreateInput {
   userId: ID
   username: String!
   password: String!
+  lastLocation: UserLocationCreateOneInput
   locationHistory: UserLocationCreateManyWithoutCreatedByInput
   createdContent: ContentCreateManyWithoutCreatedByInput
   createdVoids: NVoidCreateManyWithoutCreatedByInput
@@ -2325,6 +2327,7 @@ input UserCreateWithoutActivatedEchosOfShoutsInput {
   userId: ID
   username: String!
   password: String!
+  lastLocation: UserLocationCreateOneInput
   locationHistory: UserLocationCreateManyWithoutCreatedByInput
   createdContent: ContentCreateManyWithoutCreatedByInput
   createdVoids: NVoidCreateManyWithoutCreatedByInput
@@ -2339,6 +2342,7 @@ input UserCreateWithoutCreatedContentInput {
   userId: ID
   username: String!
   password: String!
+  lastLocation: UserLocationCreateOneInput
   locationHistory: UserLocationCreateManyWithoutCreatedByInput
   createdVoids: NVoidCreateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidCreateManyWithoutCreatedByInput
@@ -2353,6 +2357,7 @@ input UserCreateWithoutCreatedEchosOfShoutsInVoidInput {
   userId: ID
   username: String!
   password: String!
+  lastLocation: UserLocationCreateOneInput
   locationHistory: UserLocationCreateManyWithoutCreatedByInput
   createdContent: ContentCreateManyWithoutCreatedByInput
   createdVoids: NVoidCreateManyWithoutCreatedByInput
@@ -2367,6 +2372,7 @@ input UserCreateWithoutCreatedShoutsInVoidsInput {
   userId: ID
   username: String!
   password: String!
+  lastLocation: UserLocationCreateOneInput
   locationHistory: UserLocationCreateManyWithoutCreatedByInput
   createdContent: ContentCreateManyWithoutCreatedByInput
   createdVoids: NVoidCreateManyWithoutCreatedByInput
@@ -2381,6 +2387,7 @@ input UserCreateWithoutCreatedVoidsInput {
   userId: ID
   username: String!
   password: String!
+  lastLocation: UserLocationCreateOneInput
   locationHistory: UserLocationCreateManyWithoutCreatedByInput
   createdContent: ContentCreateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidCreateManyWithoutCreatedByInput
@@ -2395,6 +2402,7 @@ input UserCreateWithoutLocationHistoryInput {
   userId: ID
   username: String!
   password: String!
+  lastLocation: UserLocationCreateOneInput
   createdContent: ContentCreateManyWithoutCreatedByInput
   createdVoids: NVoidCreateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidCreateManyWithoutCreatedByInput
@@ -2409,6 +2417,7 @@ input UserCreateWithoutRepliesToEchosOfShoutsInVoidInput {
   userId: ID
   username: String!
   password: String!
+  lastLocation: UserLocationCreateOneInput
   locationHistory: UserLocationCreateManyWithoutCreatedByInput
   createdContent: ContentCreateManyWithoutCreatedByInput
   createdVoids: NVoidCreateManyWithoutCreatedByInput
@@ -2423,6 +2432,7 @@ input UserCreateWithoutRepliesToShoutsInVoidInput {
   userId: ID
   username: String!
   password: String!
+  lastLocation: UserLocationCreateOneInput
   locationHistory: UserLocationCreateManyWithoutCreatedByInput
   createdContent: ContentCreateManyWithoutCreatedByInput
   createdVoids: NVoidCreateManyWithoutCreatedByInput
@@ -2437,6 +2447,7 @@ input UserCreateWithoutSavedVoidsInput {
   userId: ID
   username: String!
   password: String!
+  lastLocation: UserLocationCreateOneInput
   locationHistory: UserLocationCreateManyWithoutCreatedByInput
   createdContent: ContentCreateManyWithoutCreatedByInput
   createdVoids: NVoidCreateManyWithoutCreatedByInput
@@ -2474,6 +2485,11 @@ input UserLocationCreateInput {
 input UserLocationCreateManyWithoutCreatedByInput {
   create: [UserLocationCreateWithoutCreatedByInput!]
   connect: [UserLocationWhereUniqueInput!]
+}
+
+input UserLocationCreateOneInput {
+  create: UserLocationCreateInput
+  connect: UserLocationWhereUniqueInput
 }
 
 input UserLocationCreateWithoutCreatedByInput {
@@ -2561,6 +2577,11 @@ input UserLocationSubscriptionWhereInput {
   NOT: [UserLocationSubscriptionWhereInput!]
 }
 
+input UserLocationUpdateDataInput {
+  userGeohash: String
+  createdBy: UserUpdateOneRequiredWithoutLocationHistoryInput
+}
+
 input UserLocationUpdateInput {
   userGeohash: String
   createdBy: UserUpdateOneRequiredWithoutLocationHistoryInput
@@ -2591,6 +2612,15 @@ input UserLocationUpdateManyWithWhereNestedInput {
   data: UserLocationUpdateManyDataInput!
 }
 
+input UserLocationUpdateOneInput {
+  create: UserLocationCreateInput
+  update: UserLocationUpdateDataInput
+  upsert: UserLocationUpsertNestedInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: UserLocationWhereUniqueInput
+}
+
 input UserLocationUpdateWithoutCreatedByDataInput {
   userGeohash: String
 }
@@ -2598,6 +2628,11 @@ input UserLocationUpdateWithoutCreatedByDataInput {
 input UserLocationUpdateWithWhereUniqueWithoutCreatedByInput {
   where: UserLocationWhereUniqueInput!
   data: UserLocationUpdateWithoutCreatedByDataInput!
+}
+
+input UserLocationUpsertNestedInput {
+  update: UserLocationUpdateDataInput!
+  create: UserLocationCreateInput!
 }
 
 input UserLocationUpsertWithWhereUniqueWithoutCreatedByInput {
@@ -2893,6 +2928,7 @@ input UserSubscriptionWhereInput {
 input UserUpdateInput {
   username: String
   password: String
+  lastLocation: UserLocationUpdateOneInput
   locationHistory: UserLocationUpdateManyWithoutCreatedByInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
   createdVoids: NVoidUpdateManyWithoutCreatedByInput
@@ -2975,6 +3011,7 @@ input UserUpdateOneRequiredWithoutSavedVoidsInput {
 input UserUpdateWithoutActivatedEchosOfShoutsDataInput {
   username: String
   password: String
+  lastLocation: UserLocationUpdateOneInput
   locationHistory: UserLocationUpdateManyWithoutCreatedByInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
   createdVoids: NVoidUpdateManyWithoutCreatedByInput
@@ -2988,6 +3025,7 @@ input UserUpdateWithoutActivatedEchosOfShoutsDataInput {
 input UserUpdateWithoutCreatedContentDataInput {
   username: String
   password: String
+  lastLocation: UserLocationUpdateOneInput
   locationHistory: UserLocationUpdateManyWithoutCreatedByInput
   createdVoids: NVoidUpdateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidUpdateManyWithoutCreatedByInput
@@ -3001,6 +3039,7 @@ input UserUpdateWithoutCreatedContentDataInput {
 input UserUpdateWithoutCreatedEchosOfShoutsInVoidDataInput {
   username: String
   password: String
+  lastLocation: UserLocationUpdateOneInput
   locationHistory: UserLocationUpdateManyWithoutCreatedByInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
   createdVoids: NVoidUpdateManyWithoutCreatedByInput
@@ -3014,6 +3053,7 @@ input UserUpdateWithoutCreatedEchosOfShoutsInVoidDataInput {
 input UserUpdateWithoutCreatedShoutsInVoidsDataInput {
   username: String
   password: String
+  lastLocation: UserLocationUpdateOneInput
   locationHistory: UserLocationUpdateManyWithoutCreatedByInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
   createdVoids: NVoidUpdateManyWithoutCreatedByInput
@@ -3027,6 +3067,7 @@ input UserUpdateWithoutCreatedShoutsInVoidsDataInput {
 input UserUpdateWithoutCreatedVoidsDataInput {
   username: String
   password: String
+  lastLocation: UserLocationUpdateOneInput
   locationHistory: UserLocationUpdateManyWithoutCreatedByInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidUpdateManyWithoutCreatedByInput
@@ -3040,6 +3081,7 @@ input UserUpdateWithoutCreatedVoidsDataInput {
 input UserUpdateWithoutLocationHistoryDataInput {
   username: String
   password: String
+  lastLocation: UserLocationUpdateOneInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
   createdVoids: NVoidUpdateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidUpdateManyWithoutCreatedByInput
@@ -3053,6 +3095,7 @@ input UserUpdateWithoutLocationHistoryDataInput {
 input UserUpdateWithoutRepliesToEchosOfShoutsInVoidDataInput {
   username: String
   password: String
+  lastLocation: UserLocationUpdateOneInput
   locationHistory: UserLocationUpdateManyWithoutCreatedByInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
   createdVoids: NVoidUpdateManyWithoutCreatedByInput
@@ -3066,6 +3109,7 @@ input UserUpdateWithoutRepliesToEchosOfShoutsInVoidDataInput {
 input UserUpdateWithoutRepliesToShoutsInVoidDataInput {
   username: String
   password: String
+  lastLocation: UserLocationUpdateOneInput
   locationHistory: UserLocationUpdateManyWithoutCreatedByInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
   createdVoids: NVoidUpdateManyWithoutCreatedByInput
@@ -3079,6 +3123,7 @@ input UserUpdateWithoutRepliesToShoutsInVoidDataInput {
 input UserUpdateWithoutSavedVoidsDataInput {
   username: String
   password: String
+  lastLocation: UserLocationUpdateOneInput
   locationHistory: UserLocationUpdateManyWithoutCreatedByInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
   createdVoids: NVoidUpdateManyWithoutCreatedByInput
@@ -3185,6 +3230,7 @@ input UserWhereInput {
   password_not_starts_with: String
   password_ends_with: String
   password_not_ends_with: String
+  lastLocation: UserLocationWhereInput
   locationHistory_every: UserLocationWhereInput
   locationHistory_some: UserLocationWhereInput
   locationHistory_none: UserLocationWhereInput
