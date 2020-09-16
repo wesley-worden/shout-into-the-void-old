@@ -1688,6 +1688,7 @@ type ShoutInVoid {
   createdAt: DateTime!
   createdBy: User!
   content: Content!
+  contentMessageHash: String
   nVoid: NVoid!
   voteCount: Int!
   echos(where: EchoOfShoutInVoidWhereInput, orderBy: EchoOfShoutInVoidOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [EchoOfShoutInVoid!]
@@ -1704,6 +1705,7 @@ input ShoutInVoidCreateInput {
   shoutInVoidId: ID
   createdBy: UserCreateOneWithoutCreatedShoutsInVoidsInput!
   content: ContentCreateOneInput!
+  contentMessageHash: String
   nVoid: NVoidCreateOneWithoutShoutsInput!
   voteCount: Int!
   echos: EchoOfShoutInVoidCreateManyWithoutOriginalShoutInVoidInput
@@ -1733,6 +1735,7 @@ input ShoutInVoidCreateOneWithoutRepliesInput {
 input ShoutInVoidCreateWithoutCreatedByInput {
   shoutInVoidId: ID
   content: ContentCreateOneInput!
+  contentMessageHash: String
   nVoid: NVoidCreateOneWithoutShoutsInput!
   voteCount: Int!
   echos: EchoOfShoutInVoidCreateManyWithoutOriginalShoutInVoidInput
@@ -1743,6 +1746,7 @@ input ShoutInVoidCreateWithoutEchosInput {
   shoutInVoidId: ID
   createdBy: UserCreateOneWithoutCreatedShoutsInVoidsInput!
   content: ContentCreateOneInput!
+  contentMessageHash: String
   nVoid: NVoidCreateOneWithoutShoutsInput!
   voteCount: Int!
   replies: ReplyToShoutInVoidCreateManyWithoutOriginalShoutInVoidInput
@@ -1752,6 +1756,7 @@ input ShoutInVoidCreateWithoutNVoidInput {
   shoutInVoidId: ID
   createdBy: UserCreateOneWithoutCreatedShoutsInVoidsInput!
   content: ContentCreateOneInput!
+  contentMessageHash: String
   voteCount: Int!
   echos: EchoOfShoutInVoidCreateManyWithoutOriginalShoutInVoidInput
   replies: ReplyToShoutInVoidCreateManyWithoutOriginalShoutInVoidInput
@@ -1761,6 +1766,7 @@ input ShoutInVoidCreateWithoutRepliesInput {
   shoutInVoidId: ID
   createdBy: UserCreateOneWithoutCreatedShoutsInVoidsInput!
   content: ContentCreateOneInput!
+  contentMessageHash: String
   nVoid: NVoidCreateOneWithoutShoutsInput!
   voteCount: Int!
   echos: EchoOfShoutInVoidCreateManyWithoutOriginalShoutInVoidInput
@@ -1776,6 +1782,8 @@ enum ShoutInVoidOrderByInput {
   shoutInVoidId_DESC
   createdAt_ASC
   createdAt_DESC
+  contentMessageHash_ASC
+  contentMessageHash_DESC
   voteCount_ASC
   voteCount_DESC
 }
@@ -1783,6 +1791,7 @@ enum ShoutInVoidOrderByInput {
 type ShoutInVoidPreviousValues {
   shoutInVoidId: ID!
   createdAt: DateTime!
+  contentMessageHash: String
   voteCount: Int!
 }
 
@@ -1809,6 +1818,20 @@ input ShoutInVoidScalarWhereInput {
   createdAt_lte: DateTime
   createdAt_gt: DateTime
   createdAt_gte: DateTime
+  contentMessageHash: String
+  contentMessageHash_not: String
+  contentMessageHash_in: [String!]
+  contentMessageHash_not_in: [String!]
+  contentMessageHash_lt: String
+  contentMessageHash_lte: String
+  contentMessageHash_gt: String
+  contentMessageHash_gte: String
+  contentMessageHash_contains: String
+  contentMessageHash_not_contains: String
+  contentMessageHash_starts_with: String
+  contentMessageHash_not_starts_with: String
+  contentMessageHash_ends_with: String
+  contentMessageHash_not_ends_with: String
   voteCount: Int
   voteCount_not: Int
   voteCount_in: [Int!]
@@ -1843,6 +1866,7 @@ input ShoutInVoidSubscriptionWhereInput {
 input ShoutInVoidUpdateInput {
   createdBy: UserUpdateOneRequiredWithoutCreatedShoutsInVoidsInput
   content: ContentUpdateOneRequiredInput
+  contentMessageHash: String
   nVoid: NVoidUpdateOneRequiredWithoutShoutsInput
   voteCount: Int
   echos: EchoOfShoutInVoidUpdateManyWithoutOriginalShoutInVoidInput
@@ -1850,10 +1874,12 @@ input ShoutInVoidUpdateInput {
 }
 
 input ShoutInVoidUpdateManyDataInput {
+  contentMessageHash: String
   voteCount: Int
 }
 
 input ShoutInVoidUpdateManyMutationInput {
+  contentMessageHash: String
   voteCount: Int
 }
 
@@ -1902,6 +1928,7 @@ input ShoutInVoidUpdateOneRequiredWithoutRepliesInput {
 
 input ShoutInVoidUpdateWithoutCreatedByDataInput {
   content: ContentUpdateOneRequiredInput
+  contentMessageHash: String
   nVoid: NVoidUpdateOneRequiredWithoutShoutsInput
   voteCount: Int
   echos: EchoOfShoutInVoidUpdateManyWithoutOriginalShoutInVoidInput
@@ -1911,6 +1938,7 @@ input ShoutInVoidUpdateWithoutCreatedByDataInput {
 input ShoutInVoidUpdateWithoutEchosDataInput {
   createdBy: UserUpdateOneRequiredWithoutCreatedShoutsInVoidsInput
   content: ContentUpdateOneRequiredInput
+  contentMessageHash: String
   nVoid: NVoidUpdateOneRequiredWithoutShoutsInput
   voteCount: Int
   replies: ReplyToShoutInVoidUpdateManyWithoutOriginalShoutInVoidInput
@@ -1919,6 +1947,7 @@ input ShoutInVoidUpdateWithoutEchosDataInput {
 input ShoutInVoidUpdateWithoutNVoidDataInput {
   createdBy: UserUpdateOneRequiredWithoutCreatedShoutsInVoidsInput
   content: ContentUpdateOneRequiredInput
+  contentMessageHash: String
   voteCount: Int
   echos: EchoOfShoutInVoidUpdateManyWithoutOriginalShoutInVoidInput
   replies: ReplyToShoutInVoidUpdateManyWithoutOriginalShoutInVoidInput
@@ -1927,6 +1956,7 @@ input ShoutInVoidUpdateWithoutNVoidDataInput {
 input ShoutInVoidUpdateWithoutRepliesDataInput {
   createdBy: UserUpdateOneRequiredWithoutCreatedShoutsInVoidsInput
   content: ContentUpdateOneRequiredInput
+  contentMessageHash: String
   nVoid: NVoidUpdateOneRequiredWithoutShoutsInput
   voteCount: Int
   echos: EchoOfShoutInVoidUpdateManyWithoutOriginalShoutInVoidInput
@@ -1989,6 +2019,20 @@ input ShoutInVoidWhereInput {
   createdAt_gte: DateTime
   createdBy: UserWhereInput
   content: ContentWhereInput
+  contentMessageHash: String
+  contentMessageHash_not: String
+  contentMessageHash_in: [String!]
+  contentMessageHash_not_in: [String!]
+  contentMessageHash_lt: String
+  contentMessageHash_lte: String
+  contentMessageHash_gt: String
+  contentMessageHash_gte: String
+  contentMessageHash_contains: String
+  contentMessageHash_not_contains: String
+  contentMessageHash_starts_with: String
+  contentMessageHash_not_starts_with: String
+  contentMessageHash_ends_with: String
+  contentMessageHash_not_ends_with: String
   nVoid: NVoidWhereInput
   voteCount: Int
   voteCount_not: Int
@@ -2011,6 +2055,7 @@ input ShoutInVoidWhereInput {
 
 input ShoutInVoidWhereUniqueInput {
   shoutInVoidId: ID
+  contentMessageHash: String
 }
 
 type Subscription {

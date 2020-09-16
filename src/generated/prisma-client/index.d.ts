@@ -543,6 +543,8 @@ export type ShoutInVoidOrderByInput =
   | "shoutInVoidId_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
+  | "contentMessageHash_ASC"
+  | "contentMessageHash_DESC"
   | "voteCount_ASC"
   | "voteCount_DESC";
 
@@ -840,6 +842,20 @@ export interface ShoutInVoidWhereInput {
   createdAt_gte?: Maybe<DateTimeInput>;
   createdBy?: Maybe<UserWhereInput>;
   content?: Maybe<ContentWhereInput>;
+  contentMessageHash?: Maybe<String>;
+  contentMessageHash_not?: Maybe<String>;
+  contentMessageHash_in?: Maybe<String[] | String>;
+  contentMessageHash_not_in?: Maybe<String[] | String>;
+  contentMessageHash_lt?: Maybe<String>;
+  contentMessageHash_lte?: Maybe<String>;
+  contentMessageHash_gt?: Maybe<String>;
+  contentMessageHash_gte?: Maybe<String>;
+  contentMessageHash_contains?: Maybe<String>;
+  contentMessageHash_not_contains?: Maybe<String>;
+  contentMessageHash_starts_with?: Maybe<String>;
+  contentMessageHash_not_starts_with?: Maybe<String>;
+  contentMessageHash_ends_with?: Maybe<String>;
+  contentMessageHash_not_ends_with?: Maybe<String>;
   nVoid?: Maybe<NVoidWhereInput>;
   voteCount?: Maybe<Int>;
   voteCount_not?: Maybe<Int>;
@@ -1212,6 +1228,7 @@ export interface UserUpsertWithoutSavedVoidsInput {
 export interface ShoutInVoidUpdateWithoutNVoidDataInput {
   createdBy?: Maybe<UserUpdateOneRequiredWithoutCreatedShoutsInVoidsInput>;
   content?: Maybe<ContentUpdateOneRequiredInput>;
+  contentMessageHash?: Maybe<String>;
   voteCount?: Maybe<Int>;
   echos?: Maybe<EchoOfShoutInVoidUpdateManyWithoutOriginalShoutInVoidInput>;
   replies?: Maybe<ReplyToShoutInVoidUpdateManyWithoutOriginalShoutInVoidInput>;
@@ -1497,6 +1514,7 @@ export interface UserSavedVoidUpdateWithoutCreatedByDataInput {
 }
 
 export interface ShoutInVoidUpdateManyMutationInput {
+  contentMessageHash?: Maybe<String>;
   voteCount?: Maybe<Int>;
 }
 
@@ -1916,6 +1934,7 @@ export interface UserActivatedEchoOfShoutCreateManyWithoutCreatedByInput {
 
 export interface ShoutInVoidUpdateWithoutCreatedByDataInput {
   content?: Maybe<ContentUpdateOneRequiredInput>;
+  contentMessageHash?: Maybe<String>;
   nVoid?: Maybe<NVoidUpdateOneRequiredWithoutShoutsInput>;
   voteCount?: Maybe<Int>;
   echos?: Maybe<EchoOfShoutInVoidUpdateManyWithoutOriginalShoutInVoidInput>;
@@ -1990,6 +2009,7 @@ export interface UserUpdateOneRequiredWithoutCreatedVoidsInput {
 export interface ShoutInVoidCreateWithoutCreatedByInput {
   shoutInVoidId?: Maybe<ID_Input>;
   content: ContentCreateOneInput;
+  contentMessageHash?: Maybe<String>;
   nVoid: NVoidCreateOneWithoutShoutsInput;
   voteCount: Int;
   echos?: Maybe<EchoOfShoutInVoidCreateManyWithoutOriginalShoutInVoidInput>;
@@ -2126,6 +2146,7 @@ export interface ShoutInVoidCreateWithoutEchosInput {
   shoutInVoidId?: Maybe<ID_Input>;
   createdBy: UserCreateOneWithoutCreatedShoutsInVoidsInput;
   content: ContentCreateOneInput;
+  contentMessageHash?: Maybe<String>;
   nVoid: NVoidCreateOneWithoutShoutsInput;
   voteCount: Int;
   replies?: Maybe<ReplyToShoutInVoidCreateManyWithoutOriginalShoutInVoidInput>;
@@ -2148,6 +2169,7 @@ export interface ReplyToShoutInVoidCreateWithoutOriginalShoutInVoidInput {
 export interface ShoutInVoidUpdateWithoutEchosDataInput {
   createdBy?: Maybe<UserUpdateOneRequiredWithoutCreatedShoutsInVoidsInput>;
   content?: Maybe<ContentUpdateOneRequiredInput>;
+  contentMessageHash?: Maybe<String>;
   nVoid?: Maybe<NVoidUpdateOneRequiredWithoutShoutsInput>;
   voteCount?: Maybe<Int>;
   replies?: Maybe<ReplyToShoutInVoidUpdateManyWithoutOriginalShoutInVoidInput>;
@@ -2383,6 +2405,7 @@ export interface ShoutInVoidCreateWithoutRepliesInput {
   shoutInVoidId?: Maybe<ID_Input>;
   createdBy: UserCreateOneWithoutCreatedShoutsInVoidsInput;
   content: ContentCreateOneInput;
+  contentMessageHash?: Maybe<String>;
   nVoid: NVoidCreateOneWithoutShoutsInput;
   voteCount: Int;
   echos?: Maybe<EchoOfShoutInVoidCreateManyWithoutOriginalShoutInVoidInput>;
@@ -2807,6 +2830,7 @@ export interface UserActivatedEchoOfShoutUpdateInput {
 export interface ShoutInVoidUpdateWithoutRepliesDataInput {
   createdBy?: Maybe<UserUpdateOneRequiredWithoutCreatedShoutsInVoidsInput>;
   content?: Maybe<ContentUpdateOneRequiredInput>;
+  contentMessageHash?: Maybe<String>;
   nVoid?: Maybe<NVoidUpdateOneRequiredWithoutShoutsInput>;
   voteCount?: Maybe<Int>;
   echos?: Maybe<EchoOfShoutInVoidUpdateManyWithoutOriginalShoutInVoidInput>;
@@ -2887,6 +2911,7 @@ export interface ShoutInVoidCreateInput {
   shoutInVoidId?: Maybe<ID_Input>;
   createdBy: UserCreateOneWithoutCreatedShoutsInVoidsInput;
   content: ContentCreateOneInput;
+  contentMessageHash?: Maybe<String>;
   nVoid: NVoidCreateOneWithoutShoutsInput;
   voteCount: Int;
   echos?: Maybe<EchoOfShoutInVoidCreateManyWithoutOriginalShoutInVoidInput>;
@@ -3067,6 +3092,7 @@ export interface ShoutInVoidCreateWithoutNVoidInput {
   shoutInVoidId?: Maybe<ID_Input>;
   createdBy: UserCreateOneWithoutCreatedShoutsInVoidsInput;
   content: ContentCreateOneInput;
+  contentMessageHash?: Maybe<String>;
   voteCount: Int;
   echos?: Maybe<EchoOfShoutInVoidCreateManyWithoutOriginalShoutInVoidInput>;
   replies?: Maybe<ReplyToShoutInVoidCreateManyWithoutOriginalShoutInVoidInput>;
@@ -3437,6 +3463,7 @@ export interface ShoutInVoidUpsertWithoutEchosInput {
 
 export type ShoutInVoidWhereUniqueInput = AtLeastOne<{
   shoutInVoidId: Maybe<ID_Input>;
+  contentMessageHash?: Maybe<String>;
 }>;
 
 export interface EchoOfShoutInVoidUpsertWithWhereUniqueWithoutCreatedByInput {
@@ -3448,6 +3475,7 @@ export interface EchoOfShoutInVoidUpsertWithWhereUniqueWithoutCreatedByInput {
 export interface ShoutInVoidUpdateInput {
   createdBy?: Maybe<UserUpdateOneRequiredWithoutCreatedShoutsInVoidsInput>;
   content?: Maybe<ContentUpdateOneRequiredInput>;
+  contentMessageHash?: Maybe<String>;
   nVoid?: Maybe<NVoidUpdateOneRequiredWithoutShoutsInput>;
   voteCount?: Maybe<Int>;
   echos?: Maybe<EchoOfShoutInVoidUpdateManyWithoutOriginalShoutInVoidInput>;
@@ -3621,6 +3649,20 @@ export interface ShoutInVoidScalarWhereInput {
   createdAt_lte?: Maybe<DateTimeInput>;
   createdAt_gt?: Maybe<DateTimeInput>;
   createdAt_gte?: Maybe<DateTimeInput>;
+  contentMessageHash?: Maybe<String>;
+  contentMessageHash_not?: Maybe<String>;
+  contentMessageHash_in?: Maybe<String[] | String>;
+  contentMessageHash_not_in?: Maybe<String[] | String>;
+  contentMessageHash_lt?: Maybe<String>;
+  contentMessageHash_lte?: Maybe<String>;
+  contentMessageHash_gt?: Maybe<String>;
+  contentMessageHash_gte?: Maybe<String>;
+  contentMessageHash_contains?: Maybe<String>;
+  contentMessageHash_not_contains?: Maybe<String>;
+  contentMessageHash_starts_with?: Maybe<String>;
+  contentMessageHash_not_starts_with?: Maybe<String>;
+  contentMessageHash_ends_with?: Maybe<String>;
+  contentMessageHash_not_ends_with?: Maybe<String>;
   voteCount?: Maybe<Int>;
   voteCount_not?: Maybe<Int>;
   voteCount_in?: Maybe<Int[] | Int>;
@@ -3655,6 +3697,7 @@ export interface EchoOfShoutInVoidCreateManyWithoutOriginalEchoOfShoutInVoidInpu
 }
 
 export interface ShoutInVoidUpdateManyDataInput {
+  contentMessageHash?: Maybe<String>;
   voteCount?: Maybe<Int>;
 }
 
@@ -4131,6 +4174,7 @@ export interface UserLocationSubscriptionPayloadSubscription
 export interface ShoutInVoid {
   shoutInVoidId: ID_Output;
   createdAt: DateTimeOutput;
+  contentMessageHash?: String;
   voteCount: Int;
 }
 
@@ -4139,6 +4183,7 @@ export interface ShoutInVoidPromise extends Promise<ShoutInVoid>, Fragmentable {
   createdAt: () => Promise<DateTimeOutput>;
   createdBy: <T = UserPromise>() => T;
   content: <T = ContentPromise>() => T;
+  contentMessageHash: () => Promise<String>;
   nVoid: <T = NVoidPromise>() => T;
   voteCount: () => Promise<Int>;
   echos: <T = FragmentableArray<EchoOfShoutInVoid>>(args?: {
@@ -4168,6 +4213,7 @@ export interface ShoutInVoidSubscription
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdBy: <T = UserSubscription>() => T;
   content: <T = ContentSubscription>() => T;
+  contentMessageHash: () => Promise<AsyncIterator<String>>;
   nVoid: <T = NVoidSubscription>() => T;
   voteCount: () => Promise<AsyncIterator<Int>>;
   echos: <T = Promise<AsyncIterator<EchoOfShoutInVoidSubscription>>>(args?: {
@@ -4197,6 +4243,7 @@ export interface ShoutInVoidNullablePromise
   createdAt: () => Promise<DateTimeOutput>;
   createdBy: <T = UserPromise>() => T;
   content: <T = ContentPromise>() => T;
+  contentMessageHash: () => Promise<String>;
   nVoid: <T = NVoidPromise>() => T;
   voteCount: () => Promise<Int>;
   echos: <T = FragmentableArray<EchoOfShoutInVoid>>(args?: {
@@ -5376,6 +5423,7 @@ export interface ReplyToEchoOfShoutInVoidEdgeSubscription
 export interface ShoutInVoidPreviousValues {
   shoutInVoidId: ID_Output;
   createdAt: DateTimeOutput;
+  contentMessageHash?: String;
   voteCount: Int;
 }
 
@@ -5384,6 +5432,7 @@ export interface ShoutInVoidPreviousValuesPromise
     Fragmentable {
   shoutInVoidId: () => Promise<ID_Output>;
   createdAt: () => Promise<DateTimeOutput>;
+  contentMessageHash: () => Promise<String>;
   voteCount: () => Promise<Int>;
 }
 
@@ -5392,6 +5441,7 @@ export interface ShoutInVoidPreviousValuesSubscription
     Fragmentable {
   shoutInVoidId: () => Promise<AsyncIterator<ID_Output>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  contentMessageHash: () => Promise<AsyncIterator<String>>;
   voteCount: () => Promise<AsyncIterator<Int>>;
 }
 

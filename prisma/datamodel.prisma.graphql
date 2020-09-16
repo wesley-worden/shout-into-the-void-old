@@ -43,6 +43,7 @@ type ShoutInVoid {
     createdAt: DateTime! @createdAt
     createdBy: User! @relation(link: INLINE)
     content: Content! @relation(link: INLINE) #todo: should this be unique?
+    contentMessageHash: String @unique # to make shout message unique
     nVoid: NVoid! @relation(link: INLINE)
     voteCount: Int!
     echos: [EchoOfShoutInVoid!]

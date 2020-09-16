@@ -9,7 +9,7 @@ const utils = require('./../utils');
 const { VOID_GEOHASH_PRECISION } = require('./../utils');
 
 const myUser = async function(parent, args, context, info) {
-    const userIdFromToken = utils.ensureAuthorized(context);
+    const userIdFromToken = await utils.ensureAuthorized(context);
     const user = await context.prisma.user({
         userId: userIdFromToken 
     });
@@ -23,14 +23,14 @@ const myUser = async function(parent, args, context, info) {
 };
 
 const nearbyVoidGeohashes = async function(parent, args, context, info) {
-    const userIdFromToken = utils.ensureAuthorized(context);
+    const userIdFromToken = await utils.ensureAuthorized(context);
     const lastLocationUserGeohash = await utils.getLastLocationUserGeohashForUserId(context, userIdFromToken);
     const nearbyVoidGeohashes = utils.getNearbyVoidGeohashes(lastLocationUserGeohash);
     return nearbyVoidGeohashes;
 };
 
 const getNearbyVoidGeohashesByLocation = async function(parent, args, context, info) {
-    const userIdFromToken = utils.ensureAuthorized(context);
+    const userIdFromToken = await utils.ensureAuthorized(context);
     // check that geohash is at least user precision
     utils.ensureGeohashIsUserPrecision(args.geohash);
     const nearbyVoidGeohashes = utils.getNearbyVoidGeohashes(args.geohash);
@@ -38,7 +38,7 @@ const getNearbyVoidGeohashesByLocation = async function(parent, args, context, i
 }
 
 const getVoidByVoidGeohash = async function(parent, args, context, info) {
-    const userIdFromToken = utils.ensureAuthorized(context);
+    const userIdFromToken = await utils.ensureAuthorized(context);
     // check that geohash is at least void precision
     utils.ensureGeohashIsVoidPrecision(args.geohash);
     // make sure geohash is exactly void precision
@@ -55,7 +55,7 @@ const getVoidByVoidGeohash = async function(parent, args, context, info) {
 /*
 const getShout = async function(parent, args, context, info) {
     return await context.prisma.shout({ shoutId: args.shoutId });
-    const userIdFromToken = utils.ensureAuthorized(context);
+    const userIdFromToken = await utils.ensureAuthorized(context);
     const shout = await context.prisma.shout({ shoutId: args.shoutId });
     if(shoutIdIsPostedByUserId(context, shout.shoutId, userIdFromToken)) {
         return shout;

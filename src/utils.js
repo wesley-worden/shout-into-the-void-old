@@ -1,15 +1,21 @@
 const jwt = require('jsonwebtoken');
-const { APP_SECRET, debug_settings } = require('./../config.json');
+const bcrypt = require('bcryptjs');
+const { APP_SECRET, debug_settings,
+VOID_GEOHASH_PRECISION, USER_GEOHASH_PRECISION,
+VOID_VIEW_RADIUS, VOID_VIEW_UNITS,
+LOCATION_UPDATE_MINIMUM_SECS,
+MESSAGE_HASH_SALT } = require('./../config.json');
 const clipboardy = require('clipboardy');
 const ngeohash = require('ngeohash');
 const getHashesNear = require('geohashes-near');
 const { mintcream } = require('color-name');
+const crypto = require('crypto');
 
-const VOID_GEOHASH_PRECISION = 5;
-const USER_GEOHASH_PRECISION = 6;
-const VOID_VIEW_RADIUS = 5;
-const VOID_VIEW_UNITS = "miles";
-const LOCATION_UPDATE_MINIMUM_SECS = 15 * 60; //15 mins
+// const VOID_GEOHASH_PRECISION = 5;
+// const USER_GEOHASH_PRECISION = 6;
+// const VOID_VIEW_RADIUS = 5;
+// const VOID_VIEW_UNITS = "miles";
+// const LOCATION_UPDATE_MINIMUM_SECS = 15 * 60; //15 mins
 
 const showToken = function(token) {
     console.log("please place into http headers");
@@ -21,11 +27,14 @@ const showToken = function(token) {
     }
 }
 
-const ensureAuthorized = function(context) {
+const ensureAuthorized = async function(context) {
     const Authorization = context.request.get('Authorization');
     if (Authorization) {
         const token = Authorization.replace('Bearer ', '');
         const { userId } = jwt.verify(token, APP_SECRET);
+        // if ((await checkIfUserExistsById(context, userId))) {
+        //     return userId;
+        // }
         return userId;
     }
     throw new Error("Bruh you ain't authenticated bro");
@@ -57,8 +66,22 @@ const getTimeInEpochSeconds = function() {
     const date = new Date();
     return convertDateToEpochSeconds(date);
 };
+const fragmentUserLastLocation = `
+fragment LastLocation on User {
+    lastLocation
+}`
+const ensureLastLocationExists = async function(context, userId) {
+    const lastLocationUserLocationId = await getLastLocationUserLocationIdForUserId(context, userId);
+    const lastLocation = await context.prisma.userLocation({
+        userLocationId: lastLocationUserLocationId
+    });
+    if(!exists(lastLocation)) {
+        throw new Error("location must be updated at least once");
+    }
+}
 const ensureLastLocationIsCurrent = async function(context, userId) {
-    const lastLocationCreatedAt = await getLastLocationCreatedAtForUserId(context, userId);
+    const lastLocationCreatedAt = await getLastLocationCreatedAtForUserId(context, userId); 
+    console.log(`lastLocationCreatedAt: ${lastLocationCreatedAt}`)
     const createdAtEpochSeconds = convertDateTimeStringToEpochSeconds(lastLocationCreatedAt);
     const nowEpochSeconds = getTimeInEpochSeconds();
     if(nowEpochSeconds - createdAtEpochSeconds > LOCATION_UPDATE_MINIMUM_SECS) {
@@ -70,15 +93,34 @@ const ensureMessageIsNotProfane = function(message) {
     //todo: implement filter and statiscits
 };
 
+const exists = function(object) {
+    if(object == null || object == undefined) {
+        return false;
+    }
+    return true;
+}
 const checkIfVoidExistsByVoidGeohash = async function(context, voidGeohash) {
     const nVoid = await context.prisma.nVoid({
         voidGeohash: voidGeohash
     });
-    if(nVoid == null || nVoid == undefined) {
-        return false;
-    } else {
-        return true;
-    }
+    return exists(nVoid);
+    // if(nVoid == null || nVoid == undefined) {
+    //     return false;
+    // } else {
+    //     return true;
+    // }
+}
+
+const checkIfUserExistsById = async function(context, userId) {
+    const user = await context.prisma.user({
+        userId: userId
+    });
+    return exists(user);
+    // if(user == null || user == undefined) {
+    //     return false;
+    // } else {
+    //     return true;
+    // }
 }
 
 const flattenGeohash = function(geohash, precision) {
@@ -109,6 +151,25 @@ const getLastLocationUserGeohashForUserId = async function(context, userId) {
     return userGeohash;
 }
 
+const fragmentUserLastLocationUserLocationId = `
+fragment LastLocationUserLocationId on User {
+    lastLocation {
+        userLocationId
+    }
+}`;
+const getLastLocationUserLocationIdForUserId = async function(context, userId) {
+    const userFragment = await context.prisma.user({
+        userId: userId
+    }).$fragment(fragmentUserLastLocationUserLocationId);
+    console.log(`userFragment2: ${JSON.stringify(userFragment)}`);
+    let lastLocationUserLocationId;
+    if(!exists(userFragment.lastLocation)) {
+        throw new Error("location must be updated at least once");
+    }
+    lastLocationUserLocationId = userFragment.lastLocation.userLocationId;
+    return lastLocationUserLocationId;
+}
+
 const fragmentNVoidVoidId = `
 fragment VoidId on NVoid {
     voidId
@@ -118,6 +179,7 @@ const getVoidIdFromVoidGeohash = async function(context, voidGeohash) {
     const voidFragment = await context.prisma.nVoid({
         voidGeohash: voidGeohash
     }).$fragment(fragmentNVoidVoidId);
+    console.log(`voidFragment: ${voidFragment}`)
     const voidId = voidFragment.voidId;
     return voidId;
 }
@@ -132,6 +194,7 @@ const getLastLocationCreatedAtForUserId = async function(context, userId) {
     const userFragment = await context.prisma.user({
         userId: userId
     }).$fragment(fragmentUserLastLocationCreatedAt);
+    console.log(`userFragment: ${JSON.stringify(userFragment)}`);
     const createdAt = userFragment.lastLocation.createdAt;
     return createdAt;
 }
@@ -140,6 +203,13 @@ const getNearbyVoidGeohashes = function(userGeohash) {
     const coordinate = ngeohash.decode(userGeohash);
     const nearbyVoidGeohashes = getHashesNear(coordinate, VOID_GEOHASH_PRECISION, VOID_VIEW_RADIUS, VOID_VIEW_UNITS);
     return nearbyVoidGeohashes;
+}
+
+const messageHash = async function(message) {
+    // const hash = await bcrypt.hash(message, MESSAGE_HASH_SALT);
+    // todo: probably needs to be better
+    const hash = crypto.createHash('sha1').update(message).digest('hex');
+    return hash; 
 }
 
 module.exports = { 
@@ -152,6 +222,7 @@ module.exports = {
     ensureAuthorized,
     ensureGeohashIsUserPrecision,
     ensureGeohashIsVoidPrecision,
+    ensureLastLocationExists,
     ensureLastLocationIsCurrent,
     ensureMessageIsNotProfane,
     checkIfVoidExistsByVoidGeohash,
@@ -161,5 +232,6 @@ module.exports = {
     getVoidIdFromVoidGeohash,
     // getLastLocationCreatedAtForUserId,
     getNearbyVoidGeohashes,
+    messageHash,
     showToken
 };

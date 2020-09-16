@@ -42,7 +42,8 @@ type ShoutInVoid {
     shoutInVoidId: ID! 
     createdAt: String! 
     createdBy: User! 
-    content: Content! 
+    content: Content!
+    contenMessageHash: String # to make shout message unique
     nVoid: NVoid! 
     voteCount: Int!
     echos: [EchoOfShoutInVoid!]

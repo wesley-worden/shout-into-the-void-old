@@ -47,7 +47,7 @@ const login = async function(parent, args, context, info) {
     if (!valid) {
         throw new Error('Invalid password');
     }
-    const token = jwt.sign({ userId: user.userId }, APP_SECRET);
+    const token = jwt.sign({ userId: user.userId }, utils.APP_SECRET);
     if (debug_settings.log) {
         utils.showToken(token);
     }
@@ -64,7 +64,7 @@ const signup = async function(parent, args, context, info) {
         password: hashedPassword,
         
     });*/
-    const token = jwt.sign({ userId: user.userId }, APP_SECRET);
+    const token = jwt.sign({ userId: user.userId }, utils.APP_SECRET);
     // showMe(token);
     if (debug_settings.log) {
         console.log(`created user: ${user.userId}`);
@@ -74,7 +74,7 @@ const signup = async function(parent, args, context, info) {
 };
 
 const updateLocation = async function(parent, args, context, info) {
-    const userIdFromToken = utils.ensureAuthorized(context);
+    const userIdFromToken = await utils.ensureAuthorized(context);
     // check if geohash has enough precision
     await utils.ensureGeohashIsUserPrecision(args.geohash);
     // flatten geohash to user geohash precision
@@ -108,9 +108,9 @@ const updateLocation = async function(parent, args, context, info) {
 };
 
 const shoutIntoTheVoid = async function(parent, args, context, info) {
-    const userIdFromToken = utils.ensureAuthorized(context);
-    console.log(`userIdFromToken: ${userIdFromToken}`);
+    const userIdFromToken = await utils.ensureAuthorized(context);
     // check that the last location for user is recent
+    await utils.ensureLastLocationExists(context, userIdFromToken);
     await utils.ensureLastLocationIsCurrent(context, userIdFromToken);
     const userGeohash = await utils.getLastLocationUserGeohashForUserId(context, userIdFromToken);
     const voidGeohash = utils.flattenGeohashToVoidGeohash(userGeohash);
@@ -119,7 +119,7 @@ const shoutIntoTheVoid = async function(parent, args, context, info) {
     utils.ensureMessageIsNotProfane(args.message);
     // check if the void exists and if not create it
     // let voidId;
-    if(!(await utils.checkIfVoidExistsByVoidGeohash(voidGeohash))) {
+    if(!(await utils.checkIfVoidExistsByVoidGeohash(context, voidGeohash))) {
         const createdVoid = await context.prisma.createNVoid({
             createdBy: {
                 connect: {
@@ -128,7 +128,7 @@ const shoutIntoTheVoid = async function(parent, args, context, info) {
             },
             voidGeohash: voidGeohash,
         });
-        voidId = createdVoid.nVoidId;
+        // voidId = createdVoid.nVoidId;
     }
     // } else {
     //     const nVoid = await context.prisma.nVoid({
@@ -136,9 +136,12 @@ const shoutIntoTheVoid = async function(parent, args, context, info) {
     //     });
     //     voidId = nVoid.nVoidId;
     // }
+    // calculate the content message hash
+    const contentMessageHash = await utils.messageHash(args.message);
     // get voidId from existing NVoid from voidGeohash
-    const voidId = await utils.getVoidIdFromVoidGeohash(voidGeohash);
+    const voidId = await utils.getVoidIdFromVoidGeohash(context, voidGeohash);
     // create shout and connect it to void
+    // todo: seems janky as shit
     const createdShoutInVoid = await context.prisma.createShoutInVoid({
         createdBy: {
             connect: {
@@ -148,14 +151,17 @@ const shoutIntoTheVoid = async function(parent, args, context, info) {
         content: {
             create: {
                 createdBy: {
-                    userId: userIdFromToken,
-                    message: args.message
-                }
+                    connect: {
+                        userId: userIdFromToken
+                    }
+                },
+                message: args.message
             }
         },
-        nvoid: {
+        contentMessageHash: contentMessageHash,
+        nVoid: {
             connect: {
-                nVoidId: nVoidId
+                voidId: voidId 
             }
         },
         voteCount: 0
@@ -164,7 +170,7 @@ const shoutIntoTheVoid = async function(parent, args, context, info) {
 };
 /*
 const upvoteReply = async function(parent, args, context, info) {
-    const userIdFromToken = utils.ensureAuthorized(context);
+    const userIdFromToken = await utils.ensureAuthorized(context);
     const newVoteCount = await getVoteCountForReplyId(context, args.replyId) + 1;
     const updatedReply = await context.prisma.updateReply({
         where: { replyId: args.replyId },
@@ -173,7 +179,7 @@ const upvoteReply = async function(parent, args, context, info) {
     return updatedReply;
 };
 const upvoteShout = async function(parent, args, context, info) {
-    const userIdFromToken = utils.ensureAuthorized(context);
+    const userIdFromToken = await utils.ensureAuthorized(context);
     const newVoteCount = await getVoteCountForShoutId(context, args.shoutId) + 1;
     const updatedShout = await context.prisma.updateShout({
         where: { shoutId: args.shoutId },
@@ -182,7 +188,7 @@ const upvoteShout = async function(parent, args, context, info) {
     return updatedShout;
 };
 const downvoteReply = async function(parent, args, context, info) {
-    const userIdFromToken = utils.ensureAuthorized(context);
+    const userIdFromToken = await utils.ensureAuthorized(context);
     const newVoteCount = await getVoteCountForReplyId(context, args.replyId) - 1;
     if(newVoteCount <= -4) {
         //delete reply
@@ -197,7 +203,7 @@ const downvoteReply = async function(parent, args, context, info) {
     }
 };
 const downvoteShout = async function(parent, args, context, info) {
-    const userIdFromToken = utils.ensureAuthorized(context);
+    const userIdFromToken = await utils.ensureAuthorized(context);
     const newVoteCount = await getVoteCountForShoutId(context, args.shoutId) - 1;
     if(newVoteCount <= -4) { //todo this prolly doesnt work
         //delete shout, delete replies
@@ -220,7 +226,7 @@ const downvoteShout = async function(parent, args, context, info) {
     return updatedShout;
 };
 const reply = async function(parent, args, context, info) {
-    const userIdFromToken = utils.ensureAuthorized(context);
+    const userIdFromToken = await utils.ensureAuthorized(context);
     //lot didnt need it
     //const shoutVoidId = await getVoidIdFromShoutId(context, userIdFromToken, args.shoutId);
     const createdReply = await context.prisma.createReply({
@@ -232,7 +238,7 @@ const reply = async function(parent, args, context, info) {
     return createdReply;
 };
 const saveShout = async function(parent, args, context, info) {
-    const userIdFromToken = utils.ensureAuthorized(context);
+    const userIdFromToken = await utils.ensureAuthorized(context);
     const shoutCreatedAt = getShoutCreatedAt(context, args.shoutId);
     const shoutContent = getShoutContent(context, args.shoutId);
     const shoutPostedByUserId = shoutIdIsPostedByUserId(context, args.shoutId);
@@ -250,7 +256,7 @@ const saveShout = async function(parent, args, context, info) {
     return createdSavedShout;
 };
 const shout = async function(parent, args, context, info) {
-    const userIdFromToken = utils.ensureAuthorized(context);
+    const userIdFromToken = await utils.ensureAuthorized(context);
     //todo: content filter
     const closestVoidGeohash = await getClosestVoidGeohashForUserId(context, userIdFromToken);
     console.log(`using closestVoidGeohash: ${closestVoidGeohash}`);

@@ -1,4 +1,4 @@
-const { ensureAuthorized } = require('./../utils');
+//const { ensureAuthorized } = require('./../utils');
 
 //todo: permissions for everything
 const createdBy = function(parent, args, context, info) {
