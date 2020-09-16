@@ -12,7 +12,7 @@ type Content {
     contentId: ID! @id
     createdAt: DateTime! @createdAt
     createdBy: User! @relation(link: INLINE)
-    message: String!
+    message: String! # todo: crazy, but should this be unique?
 }
 type UserLocation {
     userLocationId: ID! @id
@@ -42,8 +42,8 @@ type ShoutInVoid {
     shoutInVoidId: ID! @id
     createdAt: DateTime! @createdAt
     createdBy: User! @relation(link: INLINE)
-    content: Content! @relation(link: INLINE)
-    nvoid: NVoid! @relation(link: INLINE)
+    content: Content! @relation(link: INLINE) #todo: should this be unique?
+    nVoid: NVoid! @relation(link: INLINE)
     voteCount: Int!
     echos: [EchoOfShoutInVoid!]
     replies: [ReplyToShoutInVoid!]
@@ -72,7 +72,7 @@ type EchoOfShoutInVoid {
     originalShoutVoidGeohash: String!
     originalShoutInVoid: ShoutInVoid! @relation(link: INLINE)
     originalEchoOfShoutInVoid: EchoOfShoutInVoid @relation(name: "OriginalEchoOfShoutToEchoOfEchoEdge", link: INLINE) # used if echo of echo
-    nvoid: NVoid! @relation(link: INLINE)
+    nVoid: NVoid! @relation(link: INLINE)
     voteCount: Int!
     echosOfEchos: [EchoOfShoutInVoid!] @relation(name: "OriginalEchoOfShoutToEchoOfEchoEdge") # used to find echos of echo
     replies: [ReplyToEchoOfShoutInVoid!] 
@@ -146,7 +146,7 @@ type UserSavedVoid {
 #    createdBy: User! @relation(name: "UserCreatedShouts")
 #    content: Content! @relation(link: INLINE)
 #    voteCount: Int!
-#    nvoid: NVoid! @relation(name: "ShoutsInVoid")
+#    nVoid: NVoid! @relation(name: "ShoutsInVoid")
 #    activeEchos: [ActiveEcho!] @relation(name: "ActiveEchoToShoutEdge")
 #}
 #type ActiveEchoOfShout {
@@ -210,7 +210,7 @@ type UserSavedVoid {
 #    shoutedBy: User! @relation(name: "UsersShoutsInVoids")
 #    content: Content! @relation(link: INLINE)
 #    voteCount: Int!
-#    nvoid: NVoid! @relation(name: "ShoutsInVoid")
+#    nVoid: NVoid! @relation(name: "ShoutsInVoid")
 #    savedShouts: [SavedShout!] @relation(name: "OriginalShoutToSavedShoutEdge", link: INLINE)
 #    replies: [ReplyToShoutInVoid!] @relation(name: "OriginalShoutToReplyEdge", link: INLINE)
 #    # would only be used if no one has the shout still saved but want to see if an echo still has its original shout
@@ -260,7 +260,7 @@ type UserSavedVoid {
 #    originalContent: Content! @relation(link: INLINE)
 #    voteCount: Int!
 #    originalShoutVoidGeohash: String!
-#    nvoid: NVoid! @relation(name: "EchosInVoid")
+#    nVoid: NVoid! @relation(name: "EchosInVoid")
 #    savedEchos: [SavedEcho!] @relation(name: "OriginalEchoToSavedEchoEdge", link: INLINE)
 #    replies: [ReplyToEchoInVoid!] @relation(name: "OriginalEchoToReplyToEchoEdge", link: INLINE)
 #    echoEdge: EchoEdge @relation(name: "EchoInVoidToEchoEdgeEdge")

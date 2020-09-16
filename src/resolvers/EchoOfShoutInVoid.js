@@ -18,9 +18,9 @@ const originalEchoOfShoutInVoid = function(parent, args, context, info) {
     return context.prisma.echoOfShoutInVoid({ echoOfShoutInVoidId: parent.echoOfShoutInVoidId })
         .originalEchoOfShoutInVoid();
 }
-const nvoid = function(parent, args, context, info) {
+const nVoid = function(parent, args, context, info) {
     return context.prisma.echoOfShoutInVoid({ echoOfShoutInVoidId: parent.echoOfShoutInVoidId })
-        .nvoid();
+        .nVoid();
 }
 const echosOfEchos = function(parent, args, context, info) {
     return context.prisma.echoOfShoutInVoid({ echoOfShoutInVoidId: parent.echoOfShoutInVoidId })
@@ -36,7 +36,7 @@ module.exports = {
     originalShoutContent,
     originalShoutInVoid,
     originalEchoOfShoutInVoid,
-    nvoid,
+    nVoid,
     echosOfEchos,
     replies,
 };
