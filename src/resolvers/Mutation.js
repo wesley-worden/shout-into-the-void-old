@@ -164,9 +164,144 @@ const shoutIntoTheVoid = async function(parent, args, context, info) {
                 voidId: voidId 
             }
         },
-        voteCount: 0
+        voteBucket: {
+            create: {
+                voteCount: 0
+            }
+        }
     });
     return createdShoutInVoid;
+    // todo handle cascade on delete for vote bucket and shit
+};
+
+const upvoteShout = async function(parent, args, context, info) {
+    const userIdFromToken = await utils.ensureAuthorized(context);
+    // todo check graphql existence errors
+    // await utils.shout.ensureShoutExistsById(args.shoutInVoidId);
+    // get upvote bucket id
+    const voteBucketId = await utils.shout.getVoteBucketIdByShoutId(args.shoutInVoidId);
+    // check if vote exists as upvote
+    const upvoteHash = await utils.voteHash(userIdFromToken, voteBucketId, true);
+    const upvoteExists = await context.prisma.$exists.vote({
+        uniqueHash: upvoteHash
+    });
+    if(upvoteExists) {
+        // do nothing
+        // gtfo
+        return await context.prisma.voteBucket({
+            voteBucketId: voteBucketId
+        });
+    } else {
+        // get vote count, we will need it if downvote exists or creating upvote
+        const currentVoteCount = await utils.shout.getVoteCount(context, args.shoutInVoidId);
+        // check if vote exists as downvote
+        const downvoteHash = await utils.voteHash(userIdFromToken, voteBucketId, false);
+        const downvoteExists = await context.prisma.$exists.vote({
+            uniqueHash: downvoteHash
+        });
+        if(downvoteExists) {
+            // change downvote to upvote and update vote count
+            await context.prisma.updateVote({
+                where: {
+                    uniqueHash: downvoteHash
+                },
+                data: {
+                    isUpvote: true,
+                    uniqueHash: upvoteHash
+                }
+            });
+            const updatedVoteBucket = await utils.vote.updateVoteCount(context, voteBucketId, currentVoteCount + 2);
+            return updatedVoteBucket;
+        } else {
+            // just create a new vote as upvote and update vote count
+            await context.prisma.createVote({
+                createdBy: {
+                    connect: {
+                        userId: userIdFromToken
+                    }
+                },
+                voteBucket: {
+                    connect: {
+                        voteBucketId: voteBucketId
+                    }
+                },
+                isUpvote: true,
+                uniqueHash: upvoteHash
+            });
+            const updatedVoteBucket = await utils.vote.updateVoteCount(context, voteBucketId, currentVoteCount + 1);
+            return updatedVoteBucket;
+        }
+    }
+    
+};
+const downvoteShout = async function(parent, args, context, info) {
+    const userIdFromToken = await utils.ensureAuthorized(context);
+    // todo check graphql existence errors
+    // await utils.shout.ensureShoutExistsById(args.shoutInVoidId);
+    // get vote bucket id
+    const voteBucketId = await utils.shout.getVoteBucketIdByShoutId(args.shoutInVoidId);
+    // check if vote exists as downvote
+    const downvoteHash = await utils.voteHash(userIdFromToken, voteBucketId, true);
+    const downvoteExists = await context.prisma.$exists.vote({
+        uniqueHash: downvoteHash
+    });
+    if(downvoteExists) {
+        // do nothing
+        // gtfo
+        return await context.prisma.voteBucket({
+            voteBucketId: voteBucketId
+        });
+    } else {
+        // get vote count, we will need it if upvote exists or creating downvote
+        const currentVoteCount = await utils.shout.getVoteCount(context, args.shoutInVoidId);
+        // check if we need to delete shout
+        if(currentVoteCount == -4) {
+            await context.prisma.deleteShoutInVoid({
+                shoutInVoidId: args.shoutInVoidId
+            });
+            return null; //vote bucket should be deleted
+            // todo: investigate cascade on delete for vote bucket and votes
+        }
+
+        // check if vote exists as upvote
+        const upvoteHash = await utils.voteHash(userIdFromToken, voteBucketId, false);
+        const upvoteExists = await context.prisma.$exists.vote({
+            uniqueHash: upvoteHash
+        });
+        if(upvoteExists) {
+            // change upvote to downvote and update vote count
+            await context.prisma.updateVote({
+                where: {
+                    uniqueHash: upvoteHash
+                },
+                data: {
+                    isUpvote: false,
+                    uniqueHash: downvoteHash
+                }
+            });
+            const updatedVoteBucket = await utils.vote.updateVoteCount(context, voteBucketId, currentVoteCount - 2);
+            return updatedVoteBucket;
+        } else {
+            // just create a new vote as downvote and update vote count
+            await context.prisma.createVote({
+                createdBy: {
+                    connect: {
+                        userId: userIdFromToken
+                    }
+                },
+                voteBucket: {
+                    connect: {
+                        voteBucketId: voteBucketId
+                    }
+                },
+                isUpvote: false,
+                uniqueHash: downvoteHash
+            });
+            const updatedVoteBucket = await utils.vote.updateVoteCount(context, voteBucketId, currentVoteCount - 1);
+            return updatedVoteBucket;
+        }
+    }
+    
 };
 /*
 const upvoteReply = async function(parent, args, context, info) {
@@ -180,9 +315,9 @@ const upvoteReply = async function(parent, args, context, info) {
 };
 const upvoteShout = async function(parent, args, context, info) {
     const userIdFromToken = await utils.ensureAuthorized(context);
-    const newVoteCount = await getVoteCountForShoutId(context, args.shoutId) + 1;
+    const newVoteCount = await getVoteCountForShoutId(context, args.shoutInVoidId) + 1;
     const updatedShout = await context.prisma.updateShout({
-        where: { shoutId: args.shoutId },
+        where: { shoutId: args.shoutInVoidId },
         data: { voteCount: newVoteCount }
     });
     return updatedShout;
@@ -204,13 +339,13 @@ const downvoteReply = async function(parent, args, context, info) {
 };
 const downvoteShout = async function(parent, args, context, info) {
     const userIdFromToken = await utils.ensureAuthorized(context);
-    const newVoteCount = await getVoteCountForShoutId(context, args.shoutId) - 1;
+    const newVoteCount = await getVoteCountForShoutId(context, args.shoutInVoidId) - 1;
     if(newVoteCount <= -4) { //todo this prolly doesnt work
         //delete shout, delete replies
         const deletedShout = await context.prisma.deleteShout({
-            shoutId: args.shoutId
+            shoutId: args.shoutInVoidId
         });
-        const shoutRepliesIds = getRepliesIdsToShoutId(context, args.shoutId);
+        const shoutRepliesIds = getRepliesIdsToShoutId(context, args.shoutInVoidId);
         shoutRepliesIds.forEach(replyId => {
             const deletedReply = await context.prisma.deleteReply({
                 replyId: replyId
@@ -219,7 +354,7 @@ const downvoteShout = async function(parent, args, context, info) {
         return deletedShout;
     } else {
         const updatedShout = await context.prisma.updateShout({
-            where: { shoutId: args.shoutId },
+            where: { shoutId: args.shoutInVoidId },
             data: { voteCount: newVoteCount }
         });
     }
@@ -228,9 +363,9 @@ const downvoteShout = async function(parent, args, context, info) {
 const reply = async function(parent, args, context, info) {
     const userIdFromToken = await utils.ensureAuthorized(context);
     //lot didnt need it
-    //const shoutVoidId = await getVoidIdFromShoutId(context, userIdFromToken, args.shoutId);
+    //const shoutVoidId = await getVoidIdFromShoutId(context, userIdFromToken, args.shoutInVoidId);
     const createdReply = await context.prisma.createReply({
-        originalShout: { connect: { shoutId: args.shoutId }},
+        originalShout: { connect: { shoutId: args.shoutInVoidId }},
         voteCount: 1,
         content: args.content,
         postedBy: { connect: { userId: userIdFromToken }}
@@ -239,14 +374,14 @@ const reply = async function(parent, args, context, info) {
 };
 const saveShout = async function(parent, args, context, info) {
     const userIdFromToken = await utils.ensureAuthorized(context);
-    const shoutCreatedAt = getShoutCreatedAt(context, args.shoutId);
-    const shoutContent = getShoutContent(context, args.shoutId);
-    const shoutPostedByUserId = shoutIdIsPostedByUserId(context, args.shoutId);
-    const shoutOriginalVoidId = getVoidIdFromShoutId(context, args.shoutId);
+    const shoutCreatedAt = getShoutCreatedAt(context, args.shoutInVoidId);
+    const shoutContent = getShoutContent(context, args.shoutInVoidId);
+    const shoutPostedByUserId = shoutIdIsPostedByUserId(context, args.shoutInVoidId);
+    const shoutOriginalVoidId = getVoidIdFromShoutId(context, args.shoutInVoidId);
     const shoutOriginalVoidGeohash = getVoidGeohashFromVoidId(context, shoutOriginalVoidId);
     const createdSavedShout = await context.prisma.createSavedShout({
-        originalShout: { connect: { shoutId: args.shoutId }},
-        savedShoutId: args.shoutId,
+        originalShout: { connect: { shoutId: args.shoutInVoidId }},
+        savedShoutId: args.shoutInVoidId,
         originalShoutCreatedAt: shoutCreatedAt,
         originalContent: shoutContent,
         originalPostedBy:  { connect: { userId: shoutPostedByUserId }},
@@ -397,9 +532,10 @@ module.exports = {
     login,
     signup,
     updateLocation,
-    shoutIntoTheVoid
-    /*upvoteShout,
-    downvoteShout,
+    shoutIntoTheVoid,
+    upvoteShout, //todo: needs thoroughly tested
+    downvoteShout, //todo needs tested badly
+    /*
     shout,
     reply,
     upvoteReply,

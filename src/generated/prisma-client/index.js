@@ -9,6 +9,14 @@ var models = [
     embedded: false
   },
   {
+    name: "VoteBucket",
+    embedded: false
+  },
+  {
+    name: "Vote",
+    embedded: false
+  },
+  {
     name: "UserLocation",
     embedded: false
   },

@@ -54,9 +54,9 @@ const getVoidByVoidGeohash = async function(parent, args, context, info) {
 };
 /*
 const getShout = async function(parent, args, context, info) {
-    return await context.prisma.shout({ shoutId: args.shoutId });
+    return await context.prisma.shout({ shoutId: args.shoutInVoidId });
     const userIdFromToken = await utils.ensureAuthorized(context);
-    const shout = await context.prisma.shout({ shoutId: args.shoutId });
+    const shout = await context.prisma.shout({ shoutId: args.shoutInVoidId });
     if(shoutIdIsPostedByUserId(context, shout.shoutId, userIdFromToken)) {
         return shout;
     } else {
@@ -89,8 +89,8 @@ const getUser = async function(parent, args, context, info) {
 module.exports = {
     myUser,
     nearbyVoidGeohashes,
-    getNearbyVoidGeohashesByLocation,
-    getVoidByVoidGeohash,
+    // getNearbyVoidGeohashesByLocation,
+    // getVoidByVoidGeohash,
     //getShout
     /*
     getShitpost,

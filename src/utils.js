@@ -122,6 +122,54 @@ const checkIfUserExistsById = async function(context, userId) {
     //     return true;
     // }
 }
+const vote = {
+    updateVoteCount: async function(context, voteBucketId, newVoteCount) {
+        const updatedVoteBucket = await context.prisma.updateVoteBucket({
+            where: {
+                voteBucketId: voteBucketId
+            },
+            data: {
+                voteCount: newVoteCount 
+            }
+        });
+        return updatedVoteBucket;
+    }
+}
+const shout = {
+    // ensureShoutExistsById: function(context, shoutId) {
+    //     const shoutExists = await context.prisma.$exists.shoutInVoid({
+    //         shoutId: shoutId
+    //     });
+    //     if(!shoutExists) {
+    //     }
+    // }
+    getVoteBucketIdByShoutId: async function(context, shoutId) {
+        const fragment = `
+        fragment VoteBucketId on ShoutInVoid {
+            voteBucket {
+                voteBucketId
+            }
+        }`;
+        const shoutFragment = await context.prisma.shoutInVoid({
+            shoutId: shoutId
+        }).$fragment(fragment);
+        const voteBucketId = shoutFragment.voteBucket.voteBucketId;
+        return voteBucketId;
+    },
+    getVoteCount: async function(context, shoutId) {
+        const fragment = `
+        fragment VoteCount on ShoutInVoid {
+            voteBucket {
+                voteCount
+            }
+        }`;
+        const shoutFragment = await context.prisma.shoutInVoid({
+            shoutId: shoutId
+        }).$fragment(fragment);
+        const voteCount = shoutFragment.voteBucket.voteCount;
+        return voteCount;
+    }
+}
 
 const flattenGeohash = function(geohash, precision) {
     const coordinate = ngeohash.decode(geohash);
@@ -147,6 +195,9 @@ const getLastLocationUserGeohashForUserId = async function(context, userId) {
     const userFragment = await context.prisma.user({
         userId: userId
     }).$fragment(fragmentUserLastLocationUserGeohash);
+    if(!exists(userFragment.lastLocation)) {
+        throw new Error('you gotto update location firist bro');
+    }
     const userGeohash = userFragment.lastLocation.userGeohash;
     return userGeohash;
 }
@@ -212,6 +263,19 @@ const messageHash = async function(message) {
     return hash; 
 }
 
+const voteHash = async function(userId, voteBucketId, isUpvote) {
+    const isUpvoteChar = isUpvote ? 't' : 'f';
+    const stringToHash = `${userId}${voteBucketId}${isUpvoteChar}`;
+    const hash = crypto.createHash('sha1').update(stringToHash).digest('hex');
+    return hash;
+}
+
+const fragmentShoutInVoidVoteCount = `
+`
+const getVoteCountForShoutId = async function(context, shoutId) {
+
+}
+
 module.exports = { 
     APP_SECRET,
     debug_settings, //are these bad?
@@ -219,6 +283,9 @@ module.exports = {
     USER_GEOHASH_PRECISION,
     VOID_VIEW_RADIUS,
     VOID_VIEW_UNITS, 
+    shout,
+    vote,
+    voteHash,
     ensureAuthorized,
     ensureGeohashIsUserPrecision,
     ensureGeohashIsVoidPrecision,

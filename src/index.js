@@ -2,6 +2,8 @@ const { GraphQLServer } = require('graphql-yoga');
 const { prisma } = require('./generated/prisma-client');
 
 const Content = require('./resolvers/Content');
+const VoteBucket = require('./resolvers/VoteBucket');
+const Vote = require('./resolvers/Vote');
 const UserLocation = require('./resolvers/UserLocation');
 const User = require('./resolvers/User');
 const ShoutInVoid = require('./resolvers/ShoutInVoid');
@@ -17,6 +19,8 @@ const Mutation = require('./resolvers/Mutation');
 
 const resolvers = {
     Content,
+    VoteBucket,
+    Vote,
     User,
     UserLocation,
     ShoutInVoid,

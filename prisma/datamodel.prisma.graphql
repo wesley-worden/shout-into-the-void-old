@@ -14,6 +14,21 @@ type Content {
     createdBy: User! @relation(link: INLINE)
     message: String! # todo: crazy, but should this be unique?
 }
+type VoteBucket {
+    voteBucketId: ID! @id
+    createdAt: DateTime! @createdAt # for database cleanup
+    voteCount: Int!
+    votes: [Vote!] @relation(onDelete: CASCADE)
+}
+type Vote {
+    voteId: ID! @id
+    #createdAt: DateTime! @createdAt
+    updatedAt: DateTime! @updatedAt # for database clearneup
+    createdBy: User! @relation(link: INLINE)
+    voteBucket: Vote! @relation(link: INLINE)
+    isUpvote: Boolean!
+    uniqueHash: String! @unique # based on userId, voteBucketId, and upvote
+}
 type UserLocation {
     userLocationId: ID! @id
     userGeohash: String!
@@ -30,6 +45,7 @@ type User {
     locationHistory: [UserLocation!] @relation(name: "UserToUserLocationCreatedBy")
     #lastLocationUpdateTime: String!
     createdContent: [Content!]
+    createdVotes: [Vote!]
     createdVoids: [NVoid!]!
     savedVoids: [UserSavedVoid!]
     createdShoutsInVoids: [ShoutInVoid!]
@@ -45,7 +61,8 @@ type ShoutInVoid {
     content: Content! @relation(link: INLINE) #todo: should this be unique?
     contentMessageHash: String @unique # to make shout message unique
     nVoid: NVoid! @relation(link: INLINE)
-    voteCount: Int!
+    voteBucket: VoteBucket! @relation(onDelete: CASCADE)
+    #voteCount: Int!
     echos: [EchoOfShoutInVoid!]
     replies: [ReplyToShoutInVoid!]
 }
@@ -54,7 +71,8 @@ type ReplyToShoutInVoid {
     createdAt: DateTime! @createdAt
     createdBy: User! @relation(link: INLINE)
     content: Content! @relation(link: INLINE)
-    voteCount: Int!
+    voteBucket: VoteBucket!
+    #voteCount: Int!
     originalShoutInVoid: ShoutInVoid! @relation(link: INLINE)
 }
 type UserActivatedEchoOfShout {
@@ -74,7 +92,8 @@ type EchoOfShoutInVoid {
     originalShoutInVoid: ShoutInVoid! @relation(link: INLINE)
     originalEchoOfShoutInVoid: EchoOfShoutInVoid @relation(name: "OriginalEchoOfShoutToEchoOfEchoEdge", link: INLINE) # used if echo of echo
     nVoid: NVoid! @relation(link: INLINE)
-    voteCount: Int!
+    voteBucket: VoteBucket!
+    #voteCount: Int!
     echosOfEchos: [EchoOfShoutInVoid!] @relation(name: "OriginalEchoOfShoutToEchoOfEchoEdge") # used to find echos of echo
     replies: [ReplyToEchoOfShoutInVoid!] 
 }
@@ -83,7 +102,8 @@ type ReplyToEchoOfShoutInVoid {
     createdAt: DateTime! @createdAt
     createdBy: User! @relation(link: INLINE)
     content: Content! @relation(link: INLINE)
-    voteCount: Int!
+    voteBucket: VoteBucket!
+    #voteCount: Int!
     originalEchoOfShoutInVoid: EchoOfShoutInVoid! @relation(link: INLINE)
 }
 type NVoid {

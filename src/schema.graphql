@@ -14,6 +14,21 @@ type Content {
     createdBy: User! 
     message: String!
 }
+type VoteBucket {
+    voteBucketId: ID!
+    #createdAt: String!
+    voteCount: Int!
+    votes: [Vote!]
+}
+type Vote {
+    voteId: ID!
+    #createdAt: String!
+    updatedAt: String!
+    createdBy: User!
+    voteBucket: Vote!
+    upvote: Boolean!
+    uniqueHash: String!
+}
 type UserLocation {
     userLocationId: ID! 
     userGeohash: String!
@@ -25,11 +40,10 @@ type User {
     createdAt: String! 
     username: String!
     password: String!
-    #currentLocationGeohash: String!
     lastLocation: UserLocation
     locationHistory: [UserLocation!]
-    #lastLocationUpdateTime: String!
     createdContent: [Content!]
+    createdVotes: [Vote!]
     createdVoids: [NVoid!]
     savedVoids: [UserSavedVoid!]
     createdShoutsInVoids: [ShoutInVoid!]
@@ -45,7 +59,8 @@ type ShoutInVoid {
     content: Content!
     contenMessageHash: String # to make shout message unique
     nVoid: NVoid! 
-    voteCount: Int!
+    voteBucket: VoteBucket!
+    #voteCount: Int!
     echos: [EchoOfShoutInVoid!]
     replies: [ReplyToShoutInVoid!]
 }
@@ -54,7 +69,8 @@ type ReplyToShoutInVoid {
     createdAt: String! 
     createdBy: User! 
     content: Content! 
-    voteCount: Int!
+    voteBucket: VoteBucket!
+    #voteCount: Int!
     originalShoutInVoid: ShoutInVoid! 
 }
 type UserActivatedEchoOfShout {
@@ -74,7 +90,8 @@ type EchoOfShoutInVoid {
     originalShoutInVoid: ShoutInVoid! 
     originalEchoOfShoutInVoid: EchoOfShoutInVoid # used if echo of echo
     nVoid: NVoid! 
-    voteCount: Int!
+    voteBucket: VoteBucket!
+    #voteCount: Int!
     echosOfEchos: [EchoOfShoutInVoid!] # used to find echos of echo
     replies: [ReplyToEchoOfShoutInVoid!] 
 }
@@ -83,7 +100,8 @@ type ReplyToEchoOfShoutInVoid {
     createdAt: String! 
     createdBy: User! 
     content: Content! 
-    voteCount: Int!
+    voteBucket: VoteBucket!
+    #voteCount: Int!
     originalEchoOfShoutInVoid: EchoOfShoutInVoid! 
 }
 type NVoid {
@@ -107,8 +125,9 @@ type AuthPayload {
 type Query {
     myUser: User
     nearbyVoidGeohashes: [String!]
-    getNearbyVoidGeohashesByLocation(geohash: String!): [String!]
-    getVoidByVoidGeohash(voidGeohash: String!): NVoid
+    # todo: querys for users to explore outside of location
+    # getNearbyVoidGeohashesByLocation(geohash: String!): [NVoid!]
+    # getVoidByVoidGeohash(voidGeohash: String!): NVoid
 #    getVoidById(voidId: ID!): NVoid
 #    getVoidByLocation(geohash: String!): NVoid
 #    # shouldnt actually need anythign else, otherwise its for admin clients
@@ -124,6 +143,8 @@ type Mutation {
     signup(username: String!, password: String!): AuthPayload
     updateLocation(geohash: String!): User! # todo: should this return UserLocaton to optimize?
     shoutIntoTheVoid(message: String!): ShoutInVoid
+    upvoteShout(shoutInVoidId: ID!): VoteBucket!
+    downvoteShout(shoutInVoidId: ID!): VoteBucket 
 #    shoutInVoid(content: String!): ShoutInVoid
 #    upvoteShout(shoutInVoidId: ID!): ShoutInVoid!
 #    downvoteShout(shoutInVoidId: ID!): ShoutInVoid!

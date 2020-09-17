@@ -43,6 +43,14 @@ type AggregateUserSavedVoid {
   count: Int!
 }
 
+type AggregateVote {
+  count: Int!
+}
+
+type AggregateVoteBucket {
+  count: Int!
+}
+
 type BatchPayload {
   count: Long!
 }
@@ -281,7 +289,7 @@ type EchoOfShoutInVoid {
   originalShoutInVoid: ShoutInVoid!
   originalEchoOfShoutInVoid: EchoOfShoutInVoid
   nVoid: NVoid!
-  voteCount: Int!
+  voteBucket: VoteBucket!
   echosOfEchos(where: EchoOfShoutInVoidWhereInput, orderBy: EchoOfShoutInVoidOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [EchoOfShoutInVoid!]
   replies(where: ReplyToEchoOfShoutInVoidWhereInput, orderBy: ReplyToEchoOfShoutInVoidOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ReplyToEchoOfShoutInVoid!]
 }
@@ -300,7 +308,7 @@ input EchoOfShoutInVoidCreateInput {
   originalShoutInVoid: ShoutInVoidCreateOneWithoutEchosInput!
   originalEchoOfShoutInVoid: EchoOfShoutInVoidCreateOneWithoutEchosOfEchosInput
   nVoid: NVoidCreateOneWithoutEchosInput!
-  voteCount: Int!
+  voteBucket: VoteBucketCreateOneInput!
   echosOfEchos: EchoOfShoutInVoidCreateManyWithoutOriginalEchoOfShoutInVoidInput
   replies: ReplyToEchoOfShoutInVoidCreateManyWithoutOriginalEchoOfShoutInVoidInput
 }
@@ -347,7 +355,7 @@ input EchoOfShoutInVoidCreateWithoutCreatedByInput {
   originalShoutInVoid: ShoutInVoidCreateOneWithoutEchosInput!
   originalEchoOfShoutInVoid: EchoOfShoutInVoidCreateOneWithoutEchosOfEchosInput
   nVoid: NVoidCreateOneWithoutEchosInput!
-  voteCount: Int!
+  voteBucket: VoteBucketCreateOneInput!
   echosOfEchos: EchoOfShoutInVoidCreateManyWithoutOriginalEchoOfShoutInVoidInput
   replies: ReplyToEchoOfShoutInVoidCreateManyWithoutOriginalEchoOfShoutInVoidInput
 }
@@ -360,7 +368,7 @@ input EchoOfShoutInVoidCreateWithoutEchosOfEchosInput {
   originalShoutInVoid: ShoutInVoidCreateOneWithoutEchosInput!
   originalEchoOfShoutInVoid: EchoOfShoutInVoidCreateOneWithoutEchosOfEchosInput
   nVoid: NVoidCreateOneWithoutEchosInput!
-  voteCount: Int!
+  voteBucket: VoteBucketCreateOneInput!
   replies: ReplyToEchoOfShoutInVoidCreateManyWithoutOriginalEchoOfShoutInVoidInput
 }
 
@@ -371,7 +379,7 @@ input EchoOfShoutInVoidCreateWithoutNVoidInput {
   originalShoutVoidGeohash: String!
   originalShoutInVoid: ShoutInVoidCreateOneWithoutEchosInput!
   originalEchoOfShoutInVoid: EchoOfShoutInVoidCreateOneWithoutEchosOfEchosInput
-  voteCount: Int!
+  voteBucket: VoteBucketCreateOneInput!
   echosOfEchos: EchoOfShoutInVoidCreateManyWithoutOriginalEchoOfShoutInVoidInput
   replies: ReplyToEchoOfShoutInVoidCreateManyWithoutOriginalEchoOfShoutInVoidInput
 }
@@ -383,7 +391,7 @@ input EchoOfShoutInVoidCreateWithoutOriginalEchoOfShoutInVoidInput {
   originalShoutVoidGeohash: String!
   originalShoutInVoid: ShoutInVoidCreateOneWithoutEchosInput!
   nVoid: NVoidCreateOneWithoutEchosInput!
-  voteCount: Int!
+  voteBucket: VoteBucketCreateOneInput!
   echosOfEchos: EchoOfShoutInVoidCreateManyWithoutOriginalEchoOfShoutInVoidInput
   replies: ReplyToEchoOfShoutInVoidCreateManyWithoutOriginalEchoOfShoutInVoidInput
 }
@@ -395,7 +403,7 @@ input EchoOfShoutInVoidCreateWithoutOriginalShoutInVoidInput {
   originalShoutVoidGeohash: String!
   originalEchoOfShoutInVoid: EchoOfShoutInVoidCreateOneWithoutEchosOfEchosInput
   nVoid: NVoidCreateOneWithoutEchosInput!
-  voteCount: Int!
+  voteBucket: VoteBucketCreateOneInput!
   echosOfEchos: EchoOfShoutInVoidCreateManyWithoutOriginalEchoOfShoutInVoidInput
   replies: ReplyToEchoOfShoutInVoidCreateManyWithoutOriginalEchoOfShoutInVoidInput
 }
@@ -408,7 +416,7 @@ input EchoOfShoutInVoidCreateWithoutRepliesInput {
   originalShoutInVoid: ShoutInVoidCreateOneWithoutEchosInput!
   originalEchoOfShoutInVoid: EchoOfShoutInVoidCreateOneWithoutEchosOfEchosInput
   nVoid: NVoidCreateOneWithoutEchosInput!
-  voteCount: Int!
+  voteBucket: VoteBucketCreateOneInput!
   echosOfEchos: EchoOfShoutInVoidCreateManyWithoutOriginalEchoOfShoutInVoidInput
 }
 
@@ -424,15 +432,12 @@ enum EchoOfShoutInVoidOrderByInput {
   createdAt_DESC
   originalShoutVoidGeohash_ASC
   originalShoutVoidGeohash_DESC
-  voteCount_ASC
-  voteCount_DESC
 }
 
 type EchoOfShoutInVoidPreviousValues {
   echoOfShoutInVoidId: ID!
   createdAt: DateTime!
   originalShoutVoidGeohash: String!
-  voteCount: Int!
 }
 
 input EchoOfShoutInVoidScalarWhereInput {
@@ -472,14 +477,6 @@ input EchoOfShoutInVoidScalarWhereInput {
   originalShoutVoidGeohash_not_starts_with: String
   originalShoutVoidGeohash_ends_with: String
   originalShoutVoidGeohash_not_ends_with: String
-  voteCount: Int
-  voteCount_not: Int
-  voteCount_in: [Int!]
-  voteCount_not_in: [Int!]
-  voteCount_lt: Int
-  voteCount_lte: Int
-  voteCount_gt: Int
-  voteCount_gte: Int
   AND: [EchoOfShoutInVoidScalarWhereInput!]
   OR: [EchoOfShoutInVoidScalarWhereInput!]
   NOT: [EchoOfShoutInVoidScalarWhereInput!]
@@ -510,7 +507,7 @@ input EchoOfShoutInVoidUpdateDataInput {
   originalShoutInVoid: ShoutInVoidUpdateOneRequiredWithoutEchosInput
   originalEchoOfShoutInVoid: EchoOfShoutInVoidUpdateOneWithoutEchosOfEchosInput
   nVoid: NVoidUpdateOneRequiredWithoutEchosInput
-  voteCount: Int
+  voteBucket: VoteBucketUpdateOneRequiredInput
   echosOfEchos: EchoOfShoutInVoidUpdateManyWithoutOriginalEchoOfShoutInVoidInput
   replies: ReplyToEchoOfShoutInVoidUpdateManyWithoutOriginalEchoOfShoutInVoidInput
 }
@@ -522,19 +519,17 @@ input EchoOfShoutInVoidUpdateInput {
   originalShoutInVoid: ShoutInVoidUpdateOneRequiredWithoutEchosInput
   originalEchoOfShoutInVoid: EchoOfShoutInVoidUpdateOneWithoutEchosOfEchosInput
   nVoid: NVoidUpdateOneRequiredWithoutEchosInput
-  voteCount: Int
+  voteBucket: VoteBucketUpdateOneRequiredInput
   echosOfEchos: EchoOfShoutInVoidUpdateManyWithoutOriginalEchoOfShoutInVoidInput
   replies: ReplyToEchoOfShoutInVoidUpdateManyWithoutOriginalEchoOfShoutInVoidInput
 }
 
 input EchoOfShoutInVoidUpdateManyDataInput {
   originalShoutVoidGeohash: String
-  voteCount: Int
 }
 
 input EchoOfShoutInVoidUpdateManyMutationInput {
   originalShoutVoidGeohash: String
-  voteCount: Int
 }
 
 input EchoOfShoutInVoidUpdateManyWithoutCreatedByInput {
@@ -621,7 +616,7 @@ input EchoOfShoutInVoidUpdateWithoutCreatedByDataInput {
   originalShoutInVoid: ShoutInVoidUpdateOneRequiredWithoutEchosInput
   originalEchoOfShoutInVoid: EchoOfShoutInVoidUpdateOneWithoutEchosOfEchosInput
   nVoid: NVoidUpdateOneRequiredWithoutEchosInput
-  voteCount: Int
+  voteBucket: VoteBucketUpdateOneRequiredInput
   echosOfEchos: EchoOfShoutInVoidUpdateManyWithoutOriginalEchoOfShoutInVoidInput
   replies: ReplyToEchoOfShoutInVoidUpdateManyWithoutOriginalEchoOfShoutInVoidInput
 }
@@ -633,7 +628,7 @@ input EchoOfShoutInVoidUpdateWithoutEchosOfEchosDataInput {
   originalShoutInVoid: ShoutInVoidUpdateOneRequiredWithoutEchosInput
   originalEchoOfShoutInVoid: EchoOfShoutInVoidUpdateOneWithoutEchosOfEchosInput
   nVoid: NVoidUpdateOneRequiredWithoutEchosInput
-  voteCount: Int
+  voteBucket: VoteBucketUpdateOneRequiredInput
   replies: ReplyToEchoOfShoutInVoidUpdateManyWithoutOriginalEchoOfShoutInVoidInput
 }
 
@@ -643,7 +638,7 @@ input EchoOfShoutInVoidUpdateWithoutNVoidDataInput {
   originalShoutVoidGeohash: String
   originalShoutInVoid: ShoutInVoidUpdateOneRequiredWithoutEchosInput
   originalEchoOfShoutInVoid: EchoOfShoutInVoidUpdateOneWithoutEchosOfEchosInput
-  voteCount: Int
+  voteBucket: VoteBucketUpdateOneRequiredInput
   echosOfEchos: EchoOfShoutInVoidUpdateManyWithoutOriginalEchoOfShoutInVoidInput
   replies: ReplyToEchoOfShoutInVoidUpdateManyWithoutOriginalEchoOfShoutInVoidInput
 }
@@ -654,7 +649,7 @@ input EchoOfShoutInVoidUpdateWithoutOriginalEchoOfShoutInVoidDataInput {
   originalShoutVoidGeohash: String
   originalShoutInVoid: ShoutInVoidUpdateOneRequiredWithoutEchosInput
   nVoid: NVoidUpdateOneRequiredWithoutEchosInput
-  voteCount: Int
+  voteBucket: VoteBucketUpdateOneRequiredInput
   echosOfEchos: EchoOfShoutInVoidUpdateManyWithoutOriginalEchoOfShoutInVoidInput
   replies: ReplyToEchoOfShoutInVoidUpdateManyWithoutOriginalEchoOfShoutInVoidInput
 }
@@ -665,7 +660,7 @@ input EchoOfShoutInVoidUpdateWithoutOriginalShoutInVoidDataInput {
   originalShoutVoidGeohash: String
   originalEchoOfShoutInVoid: EchoOfShoutInVoidUpdateOneWithoutEchosOfEchosInput
   nVoid: NVoidUpdateOneRequiredWithoutEchosInput
-  voteCount: Int
+  voteBucket: VoteBucketUpdateOneRequiredInput
   echosOfEchos: EchoOfShoutInVoidUpdateManyWithoutOriginalEchoOfShoutInVoidInput
   replies: ReplyToEchoOfShoutInVoidUpdateManyWithoutOriginalEchoOfShoutInVoidInput
 }
@@ -677,7 +672,7 @@ input EchoOfShoutInVoidUpdateWithoutRepliesDataInput {
   originalShoutInVoid: ShoutInVoidUpdateOneRequiredWithoutEchosInput
   originalEchoOfShoutInVoid: EchoOfShoutInVoidUpdateOneWithoutEchosOfEchosInput
   nVoid: NVoidUpdateOneRequiredWithoutEchosInput
-  voteCount: Int
+  voteBucket: VoteBucketUpdateOneRequiredInput
   echosOfEchos: EchoOfShoutInVoidUpdateManyWithoutOriginalEchoOfShoutInVoidInput
 }
 
@@ -782,14 +777,7 @@ input EchoOfShoutInVoidWhereInput {
   originalShoutInVoid: ShoutInVoidWhereInput
   originalEchoOfShoutInVoid: EchoOfShoutInVoidWhereInput
   nVoid: NVoidWhereInput
-  voteCount: Int
-  voteCount_not: Int
-  voteCount_in: [Int!]
-  voteCount_not_in: [Int!]
-  voteCount_lt: Int
-  voteCount_lte: Int
-  voteCount_gt: Int
-  voteCount_gte: Int
+  voteBucket: VoteBucketWhereInput
   echosOfEchos_every: EchoOfShoutInVoidWhereInput
   echosOfEchos_some: EchoOfShoutInVoidWhereInput
   echosOfEchos_none: EchoOfShoutInVoidWhereInput
@@ -828,13 +816,11 @@ type Mutation {
   deleteManyNVoids(where: NVoidWhereInput): BatchPayload!
   createReplyToEchoOfShoutInVoid(data: ReplyToEchoOfShoutInVoidCreateInput!): ReplyToEchoOfShoutInVoid!
   updateReplyToEchoOfShoutInVoid(data: ReplyToEchoOfShoutInVoidUpdateInput!, where: ReplyToEchoOfShoutInVoidWhereUniqueInput!): ReplyToEchoOfShoutInVoid
-  updateManyReplyToEchoOfShoutInVoids(data: ReplyToEchoOfShoutInVoidUpdateManyMutationInput!, where: ReplyToEchoOfShoutInVoidWhereInput): BatchPayload!
   upsertReplyToEchoOfShoutInVoid(where: ReplyToEchoOfShoutInVoidWhereUniqueInput!, create: ReplyToEchoOfShoutInVoidCreateInput!, update: ReplyToEchoOfShoutInVoidUpdateInput!): ReplyToEchoOfShoutInVoid!
   deleteReplyToEchoOfShoutInVoid(where: ReplyToEchoOfShoutInVoidWhereUniqueInput!): ReplyToEchoOfShoutInVoid
   deleteManyReplyToEchoOfShoutInVoids(where: ReplyToEchoOfShoutInVoidWhereInput): BatchPayload!
   createReplyToShoutInVoid(data: ReplyToShoutInVoidCreateInput!): ReplyToShoutInVoid!
   updateReplyToShoutInVoid(data: ReplyToShoutInVoidUpdateInput!, where: ReplyToShoutInVoidWhereUniqueInput!): ReplyToShoutInVoid
-  updateManyReplyToShoutInVoids(data: ReplyToShoutInVoidUpdateManyMutationInput!, where: ReplyToShoutInVoidWhereInput): BatchPayload!
   upsertReplyToShoutInVoid(where: ReplyToShoutInVoidWhereUniqueInput!, create: ReplyToShoutInVoidCreateInput!, update: ReplyToShoutInVoidUpdateInput!): ReplyToShoutInVoid!
   deleteReplyToShoutInVoid(where: ReplyToShoutInVoidWhereUniqueInput!): ReplyToShoutInVoid
   deleteManyReplyToShoutInVoids(where: ReplyToShoutInVoidWhereInput): BatchPayload!
@@ -868,6 +854,18 @@ type Mutation {
   upsertUserSavedVoid(where: UserSavedVoidWhereUniqueInput!, create: UserSavedVoidCreateInput!, update: UserSavedVoidUpdateInput!): UserSavedVoid!
   deleteUserSavedVoid(where: UserSavedVoidWhereUniqueInput!): UserSavedVoid
   deleteManyUserSavedVoids(where: UserSavedVoidWhereInput): BatchPayload!
+  createVote(data: VoteCreateInput!): Vote!
+  updateVote(data: VoteUpdateInput!, where: VoteWhereUniqueInput!): Vote
+  updateManyVotes(data: VoteUpdateManyMutationInput!, where: VoteWhereInput): BatchPayload!
+  upsertVote(where: VoteWhereUniqueInput!, create: VoteCreateInput!, update: VoteUpdateInput!): Vote!
+  deleteVote(where: VoteWhereUniqueInput!): Vote
+  deleteManyVotes(where: VoteWhereInput): BatchPayload!
+  createVoteBucket(data: VoteBucketCreateInput!): VoteBucket!
+  updateVoteBucket(data: VoteBucketUpdateInput!, where: VoteBucketWhereUniqueInput!): VoteBucket
+  updateManyVoteBuckets(data: VoteBucketUpdateManyMutationInput!, where: VoteBucketWhereInput): BatchPayload!
+  upsertVoteBucket(where: VoteBucketWhereUniqueInput!, create: VoteBucketCreateInput!, update: VoteBucketUpdateInput!): VoteBucket!
+  deleteVoteBucket(where: VoteBucketWhereUniqueInput!): VoteBucket
+  deleteManyVoteBuckets(where: VoteBucketWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -1196,6 +1194,12 @@ type Query {
   userSavedVoid(where: UserSavedVoidWhereUniqueInput!): UserSavedVoid
   userSavedVoids(where: UserSavedVoidWhereInput, orderBy: UserSavedVoidOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [UserSavedVoid]!
   userSavedVoidsConnection(where: UserSavedVoidWhereInput, orderBy: UserSavedVoidOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserSavedVoidConnection!
+  vote(where: VoteWhereUniqueInput!): Vote
+  votes(where: VoteWhereInput, orderBy: VoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Vote]!
+  votesConnection(where: VoteWhereInput, orderBy: VoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VoteConnection!
+  voteBucket(where: VoteBucketWhereUniqueInput!): VoteBucket
+  voteBuckets(where: VoteBucketWhereInput, orderBy: VoteBucketOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VoteBucket]!
+  voteBucketsConnection(where: VoteBucketWhereInput, orderBy: VoteBucketOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VoteBucketConnection!
   node(id: ID!): Node
 }
 
@@ -1204,7 +1208,7 @@ type ReplyToEchoOfShoutInVoid {
   createdAt: DateTime!
   createdBy: User!
   content: Content!
-  voteCount: Int!
+  voteBucket: VoteBucket!
   originalEchoOfShoutInVoid: EchoOfShoutInVoid!
 }
 
@@ -1218,7 +1222,7 @@ input ReplyToEchoOfShoutInVoidCreateInput {
   replyToEchoOfShoutInVoidId: ID
   createdBy: UserCreateOneWithoutRepliesToEchosOfShoutsInVoidInput!
   content: ContentCreateOneInput!
-  voteCount: Int!
+  voteBucket: VoteBucketCreateOneInput!
   originalEchoOfShoutInVoid: EchoOfShoutInVoidCreateOneWithoutRepliesInput!
 }
 
@@ -1235,7 +1239,7 @@ input ReplyToEchoOfShoutInVoidCreateManyWithoutOriginalEchoOfShoutInVoidInput {
 input ReplyToEchoOfShoutInVoidCreateWithoutCreatedByInput {
   replyToEchoOfShoutInVoidId: ID
   content: ContentCreateOneInput!
-  voteCount: Int!
+  voteBucket: VoteBucketCreateOneInput!
   originalEchoOfShoutInVoid: EchoOfShoutInVoidCreateOneWithoutRepliesInput!
 }
 
@@ -1243,7 +1247,7 @@ input ReplyToEchoOfShoutInVoidCreateWithoutOriginalEchoOfShoutInVoidInput {
   replyToEchoOfShoutInVoidId: ID
   createdBy: UserCreateOneWithoutRepliesToEchosOfShoutsInVoidInput!
   content: ContentCreateOneInput!
-  voteCount: Int!
+  voteBucket: VoteBucketCreateOneInput!
 }
 
 type ReplyToEchoOfShoutInVoidEdge {
@@ -1256,14 +1260,11 @@ enum ReplyToEchoOfShoutInVoidOrderByInput {
   replyToEchoOfShoutInVoidId_DESC
   createdAt_ASC
   createdAt_DESC
-  voteCount_ASC
-  voteCount_DESC
 }
 
 type ReplyToEchoOfShoutInVoidPreviousValues {
   replyToEchoOfShoutInVoidId: ID!
   createdAt: DateTime!
-  voteCount: Int!
 }
 
 input ReplyToEchoOfShoutInVoidScalarWhereInput {
@@ -1289,14 +1290,6 @@ input ReplyToEchoOfShoutInVoidScalarWhereInput {
   createdAt_lte: DateTime
   createdAt_gt: DateTime
   createdAt_gte: DateTime
-  voteCount: Int
-  voteCount_not: Int
-  voteCount_in: [Int!]
-  voteCount_not_in: [Int!]
-  voteCount_lt: Int
-  voteCount_lte: Int
-  voteCount_gt: Int
-  voteCount_gte: Int
   AND: [ReplyToEchoOfShoutInVoidScalarWhereInput!]
   OR: [ReplyToEchoOfShoutInVoidScalarWhereInput!]
   NOT: [ReplyToEchoOfShoutInVoidScalarWhereInput!]
@@ -1323,16 +1316,8 @@ input ReplyToEchoOfShoutInVoidSubscriptionWhereInput {
 input ReplyToEchoOfShoutInVoidUpdateInput {
   createdBy: UserUpdateOneRequiredWithoutRepliesToEchosOfShoutsInVoidInput
   content: ContentUpdateOneRequiredInput
-  voteCount: Int
+  voteBucket: VoteBucketUpdateOneRequiredInput
   originalEchoOfShoutInVoid: EchoOfShoutInVoidUpdateOneRequiredWithoutRepliesInput
-}
-
-input ReplyToEchoOfShoutInVoidUpdateManyDataInput {
-  voteCount: Int
-}
-
-input ReplyToEchoOfShoutInVoidUpdateManyMutationInput {
-  voteCount: Int
 }
 
 input ReplyToEchoOfShoutInVoidUpdateManyWithoutCreatedByInput {
@@ -1344,7 +1329,6 @@ input ReplyToEchoOfShoutInVoidUpdateManyWithoutCreatedByInput {
   update: [ReplyToEchoOfShoutInVoidUpdateWithWhereUniqueWithoutCreatedByInput!]
   upsert: [ReplyToEchoOfShoutInVoidUpsertWithWhereUniqueWithoutCreatedByInput!]
   deleteMany: [ReplyToEchoOfShoutInVoidScalarWhereInput!]
-  updateMany: [ReplyToEchoOfShoutInVoidUpdateManyWithWhereNestedInput!]
 }
 
 input ReplyToEchoOfShoutInVoidUpdateManyWithoutOriginalEchoOfShoutInVoidInput {
@@ -1356,24 +1340,18 @@ input ReplyToEchoOfShoutInVoidUpdateManyWithoutOriginalEchoOfShoutInVoidInput {
   update: [ReplyToEchoOfShoutInVoidUpdateWithWhereUniqueWithoutOriginalEchoOfShoutInVoidInput!]
   upsert: [ReplyToEchoOfShoutInVoidUpsertWithWhereUniqueWithoutOriginalEchoOfShoutInVoidInput!]
   deleteMany: [ReplyToEchoOfShoutInVoidScalarWhereInput!]
-  updateMany: [ReplyToEchoOfShoutInVoidUpdateManyWithWhereNestedInput!]
-}
-
-input ReplyToEchoOfShoutInVoidUpdateManyWithWhereNestedInput {
-  where: ReplyToEchoOfShoutInVoidScalarWhereInput!
-  data: ReplyToEchoOfShoutInVoidUpdateManyDataInput!
 }
 
 input ReplyToEchoOfShoutInVoidUpdateWithoutCreatedByDataInput {
   content: ContentUpdateOneRequiredInput
-  voteCount: Int
+  voteBucket: VoteBucketUpdateOneRequiredInput
   originalEchoOfShoutInVoid: EchoOfShoutInVoidUpdateOneRequiredWithoutRepliesInput
 }
 
 input ReplyToEchoOfShoutInVoidUpdateWithoutOriginalEchoOfShoutInVoidDataInput {
   createdBy: UserUpdateOneRequiredWithoutRepliesToEchosOfShoutsInVoidInput
   content: ContentUpdateOneRequiredInput
-  voteCount: Int
+  voteBucket: VoteBucketUpdateOneRequiredInput
 }
 
 input ReplyToEchoOfShoutInVoidUpdateWithWhereUniqueWithoutCreatedByInput {
@@ -1423,14 +1401,7 @@ input ReplyToEchoOfShoutInVoidWhereInput {
   createdAt_gte: DateTime
   createdBy: UserWhereInput
   content: ContentWhereInput
-  voteCount: Int
-  voteCount_not: Int
-  voteCount_in: [Int!]
-  voteCount_not_in: [Int!]
-  voteCount_lt: Int
-  voteCount_lte: Int
-  voteCount_gt: Int
-  voteCount_gte: Int
+  voteBucket: VoteBucketWhereInput
   originalEchoOfShoutInVoid: EchoOfShoutInVoidWhereInput
   AND: [ReplyToEchoOfShoutInVoidWhereInput!]
   OR: [ReplyToEchoOfShoutInVoidWhereInput!]
@@ -1446,7 +1417,7 @@ type ReplyToShoutInVoid {
   createdAt: DateTime!
   createdBy: User!
   content: Content!
-  voteCount: Int!
+  voteBucket: VoteBucket!
   originalShoutInVoid: ShoutInVoid!
 }
 
@@ -1460,7 +1431,7 @@ input ReplyToShoutInVoidCreateInput {
   replyToShoutInVoidId: ID
   createdBy: UserCreateOneWithoutRepliesToShoutsInVoidInput!
   content: ContentCreateOneInput!
-  voteCount: Int!
+  voteBucket: VoteBucketCreateOneInput!
   originalShoutInVoid: ShoutInVoidCreateOneWithoutRepliesInput!
 }
 
@@ -1477,7 +1448,7 @@ input ReplyToShoutInVoidCreateManyWithoutOriginalShoutInVoidInput {
 input ReplyToShoutInVoidCreateWithoutCreatedByInput {
   replyToShoutInVoidId: ID
   content: ContentCreateOneInput!
-  voteCount: Int!
+  voteBucket: VoteBucketCreateOneInput!
   originalShoutInVoid: ShoutInVoidCreateOneWithoutRepliesInput!
 }
 
@@ -1485,7 +1456,7 @@ input ReplyToShoutInVoidCreateWithoutOriginalShoutInVoidInput {
   replyToShoutInVoidId: ID
   createdBy: UserCreateOneWithoutRepliesToShoutsInVoidInput!
   content: ContentCreateOneInput!
-  voteCount: Int!
+  voteBucket: VoteBucketCreateOneInput!
 }
 
 type ReplyToShoutInVoidEdge {
@@ -1498,14 +1469,11 @@ enum ReplyToShoutInVoidOrderByInput {
   replyToShoutInVoidId_DESC
   createdAt_ASC
   createdAt_DESC
-  voteCount_ASC
-  voteCount_DESC
 }
 
 type ReplyToShoutInVoidPreviousValues {
   replyToShoutInVoidId: ID!
   createdAt: DateTime!
-  voteCount: Int!
 }
 
 input ReplyToShoutInVoidScalarWhereInput {
@@ -1531,14 +1499,6 @@ input ReplyToShoutInVoidScalarWhereInput {
   createdAt_lte: DateTime
   createdAt_gt: DateTime
   createdAt_gte: DateTime
-  voteCount: Int
-  voteCount_not: Int
-  voteCount_in: [Int!]
-  voteCount_not_in: [Int!]
-  voteCount_lt: Int
-  voteCount_lte: Int
-  voteCount_gt: Int
-  voteCount_gte: Int
   AND: [ReplyToShoutInVoidScalarWhereInput!]
   OR: [ReplyToShoutInVoidScalarWhereInput!]
   NOT: [ReplyToShoutInVoidScalarWhereInput!]
@@ -1565,16 +1525,8 @@ input ReplyToShoutInVoidSubscriptionWhereInput {
 input ReplyToShoutInVoidUpdateInput {
   createdBy: UserUpdateOneRequiredWithoutRepliesToShoutsInVoidInput
   content: ContentUpdateOneRequiredInput
-  voteCount: Int
+  voteBucket: VoteBucketUpdateOneRequiredInput
   originalShoutInVoid: ShoutInVoidUpdateOneRequiredWithoutRepliesInput
-}
-
-input ReplyToShoutInVoidUpdateManyDataInput {
-  voteCount: Int
-}
-
-input ReplyToShoutInVoidUpdateManyMutationInput {
-  voteCount: Int
 }
 
 input ReplyToShoutInVoidUpdateManyWithoutCreatedByInput {
@@ -1586,7 +1538,6 @@ input ReplyToShoutInVoidUpdateManyWithoutCreatedByInput {
   update: [ReplyToShoutInVoidUpdateWithWhereUniqueWithoutCreatedByInput!]
   upsert: [ReplyToShoutInVoidUpsertWithWhereUniqueWithoutCreatedByInput!]
   deleteMany: [ReplyToShoutInVoidScalarWhereInput!]
-  updateMany: [ReplyToShoutInVoidUpdateManyWithWhereNestedInput!]
 }
 
 input ReplyToShoutInVoidUpdateManyWithoutOriginalShoutInVoidInput {
@@ -1598,24 +1549,18 @@ input ReplyToShoutInVoidUpdateManyWithoutOriginalShoutInVoidInput {
   update: [ReplyToShoutInVoidUpdateWithWhereUniqueWithoutOriginalShoutInVoidInput!]
   upsert: [ReplyToShoutInVoidUpsertWithWhereUniqueWithoutOriginalShoutInVoidInput!]
   deleteMany: [ReplyToShoutInVoidScalarWhereInput!]
-  updateMany: [ReplyToShoutInVoidUpdateManyWithWhereNestedInput!]
-}
-
-input ReplyToShoutInVoidUpdateManyWithWhereNestedInput {
-  where: ReplyToShoutInVoidScalarWhereInput!
-  data: ReplyToShoutInVoidUpdateManyDataInput!
 }
 
 input ReplyToShoutInVoidUpdateWithoutCreatedByDataInput {
   content: ContentUpdateOneRequiredInput
-  voteCount: Int
+  voteBucket: VoteBucketUpdateOneRequiredInput
   originalShoutInVoid: ShoutInVoidUpdateOneRequiredWithoutRepliesInput
 }
 
 input ReplyToShoutInVoidUpdateWithoutOriginalShoutInVoidDataInput {
   createdBy: UserUpdateOneRequiredWithoutRepliesToShoutsInVoidInput
   content: ContentUpdateOneRequiredInput
-  voteCount: Int
+  voteBucket: VoteBucketUpdateOneRequiredInput
 }
 
 input ReplyToShoutInVoidUpdateWithWhereUniqueWithoutCreatedByInput {
@@ -1665,14 +1610,7 @@ input ReplyToShoutInVoidWhereInput {
   createdAt_gte: DateTime
   createdBy: UserWhereInput
   content: ContentWhereInput
-  voteCount: Int
-  voteCount_not: Int
-  voteCount_in: [Int!]
-  voteCount_not_in: [Int!]
-  voteCount_lt: Int
-  voteCount_lte: Int
-  voteCount_gt: Int
-  voteCount_gte: Int
+  voteBucket: VoteBucketWhereInput
   originalShoutInVoid: ShoutInVoidWhereInput
   AND: [ReplyToShoutInVoidWhereInput!]
   OR: [ReplyToShoutInVoidWhereInput!]
@@ -1690,7 +1628,7 @@ type ShoutInVoid {
   content: Content!
   contentMessageHash: String
   nVoid: NVoid!
-  voteCount: Int!
+  voteBucket: VoteBucket!
   echos(where: EchoOfShoutInVoidWhereInput, orderBy: EchoOfShoutInVoidOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [EchoOfShoutInVoid!]
   replies(where: ReplyToShoutInVoidWhereInput, orderBy: ReplyToShoutInVoidOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ReplyToShoutInVoid!]
 }
@@ -1707,7 +1645,7 @@ input ShoutInVoidCreateInput {
   content: ContentCreateOneInput!
   contentMessageHash: String
   nVoid: NVoidCreateOneWithoutShoutsInput!
-  voteCount: Int!
+  voteBucket: VoteBucketCreateOneInput!
   echos: EchoOfShoutInVoidCreateManyWithoutOriginalShoutInVoidInput
   replies: ReplyToShoutInVoidCreateManyWithoutOriginalShoutInVoidInput
 }
@@ -1737,7 +1675,7 @@ input ShoutInVoidCreateWithoutCreatedByInput {
   content: ContentCreateOneInput!
   contentMessageHash: String
   nVoid: NVoidCreateOneWithoutShoutsInput!
-  voteCount: Int!
+  voteBucket: VoteBucketCreateOneInput!
   echos: EchoOfShoutInVoidCreateManyWithoutOriginalShoutInVoidInput
   replies: ReplyToShoutInVoidCreateManyWithoutOriginalShoutInVoidInput
 }
@@ -1748,7 +1686,7 @@ input ShoutInVoidCreateWithoutEchosInput {
   content: ContentCreateOneInput!
   contentMessageHash: String
   nVoid: NVoidCreateOneWithoutShoutsInput!
-  voteCount: Int!
+  voteBucket: VoteBucketCreateOneInput!
   replies: ReplyToShoutInVoidCreateManyWithoutOriginalShoutInVoidInput
 }
 
@@ -1757,7 +1695,7 @@ input ShoutInVoidCreateWithoutNVoidInput {
   createdBy: UserCreateOneWithoutCreatedShoutsInVoidsInput!
   content: ContentCreateOneInput!
   contentMessageHash: String
-  voteCount: Int!
+  voteBucket: VoteBucketCreateOneInput!
   echos: EchoOfShoutInVoidCreateManyWithoutOriginalShoutInVoidInput
   replies: ReplyToShoutInVoidCreateManyWithoutOriginalShoutInVoidInput
 }
@@ -1768,7 +1706,7 @@ input ShoutInVoidCreateWithoutRepliesInput {
   content: ContentCreateOneInput!
   contentMessageHash: String
   nVoid: NVoidCreateOneWithoutShoutsInput!
-  voteCount: Int!
+  voteBucket: VoteBucketCreateOneInput!
   echos: EchoOfShoutInVoidCreateManyWithoutOriginalShoutInVoidInput
 }
 
@@ -1784,15 +1722,12 @@ enum ShoutInVoidOrderByInput {
   createdAt_DESC
   contentMessageHash_ASC
   contentMessageHash_DESC
-  voteCount_ASC
-  voteCount_DESC
 }
 
 type ShoutInVoidPreviousValues {
   shoutInVoidId: ID!
   createdAt: DateTime!
   contentMessageHash: String
-  voteCount: Int!
 }
 
 input ShoutInVoidScalarWhereInput {
@@ -1832,14 +1767,6 @@ input ShoutInVoidScalarWhereInput {
   contentMessageHash_not_starts_with: String
   contentMessageHash_ends_with: String
   contentMessageHash_not_ends_with: String
-  voteCount: Int
-  voteCount_not: Int
-  voteCount_in: [Int!]
-  voteCount_not_in: [Int!]
-  voteCount_lt: Int
-  voteCount_lte: Int
-  voteCount_gt: Int
-  voteCount_gte: Int
   AND: [ShoutInVoidScalarWhereInput!]
   OR: [ShoutInVoidScalarWhereInput!]
   NOT: [ShoutInVoidScalarWhereInput!]
@@ -1868,19 +1795,17 @@ input ShoutInVoidUpdateInput {
   content: ContentUpdateOneRequiredInput
   contentMessageHash: String
   nVoid: NVoidUpdateOneRequiredWithoutShoutsInput
-  voteCount: Int
+  voteBucket: VoteBucketUpdateOneRequiredInput
   echos: EchoOfShoutInVoidUpdateManyWithoutOriginalShoutInVoidInput
   replies: ReplyToShoutInVoidUpdateManyWithoutOriginalShoutInVoidInput
 }
 
 input ShoutInVoidUpdateManyDataInput {
   contentMessageHash: String
-  voteCount: Int
 }
 
 input ShoutInVoidUpdateManyMutationInput {
   contentMessageHash: String
-  voteCount: Int
 }
 
 input ShoutInVoidUpdateManyWithoutCreatedByInput {
@@ -1930,7 +1855,7 @@ input ShoutInVoidUpdateWithoutCreatedByDataInput {
   content: ContentUpdateOneRequiredInput
   contentMessageHash: String
   nVoid: NVoidUpdateOneRequiredWithoutShoutsInput
-  voteCount: Int
+  voteBucket: VoteBucketUpdateOneRequiredInput
   echos: EchoOfShoutInVoidUpdateManyWithoutOriginalShoutInVoidInput
   replies: ReplyToShoutInVoidUpdateManyWithoutOriginalShoutInVoidInput
 }
@@ -1940,7 +1865,7 @@ input ShoutInVoidUpdateWithoutEchosDataInput {
   content: ContentUpdateOneRequiredInput
   contentMessageHash: String
   nVoid: NVoidUpdateOneRequiredWithoutShoutsInput
-  voteCount: Int
+  voteBucket: VoteBucketUpdateOneRequiredInput
   replies: ReplyToShoutInVoidUpdateManyWithoutOriginalShoutInVoidInput
 }
 
@@ -1948,7 +1873,7 @@ input ShoutInVoidUpdateWithoutNVoidDataInput {
   createdBy: UserUpdateOneRequiredWithoutCreatedShoutsInVoidsInput
   content: ContentUpdateOneRequiredInput
   contentMessageHash: String
-  voteCount: Int
+  voteBucket: VoteBucketUpdateOneRequiredInput
   echos: EchoOfShoutInVoidUpdateManyWithoutOriginalShoutInVoidInput
   replies: ReplyToShoutInVoidUpdateManyWithoutOriginalShoutInVoidInput
 }
@@ -1958,7 +1883,7 @@ input ShoutInVoidUpdateWithoutRepliesDataInput {
   content: ContentUpdateOneRequiredInput
   contentMessageHash: String
   nVoid: NVoidUpdateOneRequiredWithoutShoutsInput
-  voteCount: Int
+  voteBucket: VoteBucketUpdateOneRequiredInput
   echos: EchoOfShoutInVoidUpdateManyWithoutOriginalShoutInVoidInput
 }
 
@@ -2034,14 +1959,7 @@ input ShoutInVoidWhereInput {
   contentMessageHash_ends_with: String
   contentMessageHash_not_ends_with: String
   nVoid: NVoidWhereInput
-  voteCount: Int
-  voteCount_not: Int
-  voteCount_in: [Int!]
-  voteCount_not_in: [Int!]
-  voteCount_lt: Int
-  voteCount_lte: Int
-  voteCount_gt: Int
-  voteCount_gte: Int
+  voteBucket: VoteBucketWhereInput
   echos_every: EchoOfShoutInVoidWhereInput
   echos_some: EchoOfShoutInVoidWhereInput
   echos_none: EchoOfShoutInVoidWhereInput
@@ -2069,6 +1987,8 @@ type Subscription {
   userActivatedEchoOfShout(where: UserActivatedEchoOfShoutSubscriptionWhereInput): UserActivatedEchoOfShoutSubscriptionPayload
   userLocation(where: UserLocationSubscriptionWhereInput): UserLocationSubscriptionPayload
   userSavedVoid(where: UserSavedVoidSubscriptionWhereInput): UserSavedVoidSubscriptionPayload
+  vote(where: VoteSubscriptionWhereInput): VoteSubscriptionPayload
+  voteBucket(where: VoteBucketSubscriptionWhereInput): VoteBucketSubscriptionPayload
 }
 
 type User {
@@ -2079,6 +1999,7 @@ type User {
   lastLocation: UserLocation
   locationHistory(where: UserLocationWhereInput, orderBy: UserLocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [UserLocation!]
   createdContent(where: ContentWhereInput, orderBy: ContentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Content!]
+  createdVotes(where: VoteWhereInput, orderBy: VoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Vote!]
   createdVoids(where: NVoidWhereInput, orderBy: NVoidOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [NVoid!]
   savedVoids(where: UserSavedVoidWhereInput, orderBy: UserSavedVoidOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [UserSavedVoid!]
   createdShoutsInVoids(where: ShoutInVoidWhereInput, orderBy: ShoutInVoidOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ShoutInVoid!]
@@ -2314,6 +2235,7 @@ input UserCreateInput {
   lastLocation: UserLocationCreateOneInput
   locationHistory: UserLocationCreateManyWithoutCreatedByInput
   createdContent: ContentCreateManyWithoutCreatedByInput
+  createdVotes: VoteCreateManyWithoutCreatedByInput
   createdVoids: NVoidCreateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidCreateManyWithoutCreatedByInput
   createdShoutsInVoids: ShoutInVoidCreateManyWithoutCreatedByInput
@@ -2348,6 +2270,11 @@ input UserCreateOneWithoutCreatedVoidsInput {
   connect: UserWhereUniqueInput
 }
 
+input UserCreateOneWithoutCreatedVotesInput {
+  create: UserCreateWithoutCreatedVotesInput
+  connect: UserWhereUniqueInput
+}
+
 input UserCreateOneWithoutLocationHistoryInput {
   create: UserCreateWithoutLocationHistoryInput
   connect: UserWhereUniqueInput
@@ -2375,6 +2302,7 @@ input UserCreateWithoutActivatedEchosOfShoutsInput {
   lastLocation: UserLocationCreateOneInput
   locationHistory: UserLocationCreateManyWithoutCreatedByInput
   createdContent: ContentCreateManyWithoutCreatedByInput
+  createdVotes: VoteCreateManyWithoutCreatedByInput
   createdVoids: NVoidCreateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidCreateManyWithoutCreatedByInput
   createdShoutsInVoids: ShoutInVoidCreateManyWithoutCreatedByInput
@@ -2389,6 +2317,7 @@ input UserCreateWithoutCreatedContentInput {
   password: String!
   lastLocation: UserLocationCreateOneInput
   locationHistory: UserLocationCreateManyWithoutCreatedByInput
+  createdVotes: VoteCreateManyWithoutCreatedByInput
   createdVoids: NVoidCreateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidCreateManyWithoutCreatedByInput
   createdShoutsInVoids: ShoutInVoidCreateManyWithoutCreatedByInput
@@ -2405,6 +2334,7 @@ input UserCreateWithoutCreatedEchosOfShoutsInVoidInput {
   lastLocation: UserLocationCreateOneInput
   locationHistory: UserLocationCreateManyWithoutCreatedByInput
   createdContent: ContentCreateManyWithoutCreatedByInput
+  createdVotes: VoteCreateManyWithoutCreatedByInput
   createdVoids: NVoidCreateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidCreateManyWithoutCreatedByInput
   createdShoutsInVoids: ShoutInVoidCreateManyWithoutCreatedByInput
@@ -2420,6 +2350,7 @@ input UserCreateWithoutCreatedShoutsInVoidsInput {
   lastLocation: UserLocationCreateOneInput
   locationHistory: UserLocationCreateManyWithoutCreatedByInput
   createdContent: ContentCreateManyWithoutCreatedByInput
+  createdVotes: VoteCreateManyWithoutCreatedByInput
   createdVoids: NVoidCreateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidCreateManyWithoutCreatedByInput
   activatedEchosOfShouts: UserActivatedEchoOfShoutCreateManyWithoutCreatedByInput
@@ -2435,6 +2366,23 @@ input UserCreateWithoutCreatedVoidsInput {
   lastLocation: UserLocationCreateOneInput
   locationHistory: UserLocationCreateManyWithoutCreatedByInput
   createdContent: ContentCreateManyWithoutCreatedByInput
+  createdVotes: VoteCreateManyWithoutCreatedByInput
+  savedVoids: UserSavedVoidCreateManyWithoutCreatedByInput
+  createdShoutsInVoids: ShoutInVoidCreateManyWithoutCreatedByInput
+  activatedEchosOfShouts: UserActivatedEchoOfShoutCreateManyWithoutCreatedByInput
+  createdEchosOfShoutsInVoid: EchoOfShoutInVoidCreateManyWithoutCreatedByInput
+  repliesToShoutsInVoid: ReplyToShoutInVoidCreateManyWithoutCreatedByInput
+  repliesToEchosOfShoutsInVoid: ReplyToEchoOfShoutInVoidCreateManyWithoutCreatedByInput
+}
+
+input UserCreateWithoutCreatedVotesInput {
+  userId: ID
+  username: String!
+  password: String!
+  lastLocation: UserLocationCreateOneInput
+  locationHistory: UserLocationCreateManyWithoutCreatedByInput
+  createdContent: ContentCreateManyWithoutCreatedByInput
+  createdVoids: NVoidCreateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidCreateManyWithoutCreatedByInput
   createdShoutsInVoids: ShoutInVoidCreateManyWithoutCreatedByInput
   activatedEchosOfShouts: UserActivatedEchoOfShoutCreateManyWithoutCreatedByInput
@@ -2449,6 +2397,7 @@ input UserCreateWithoutLocationHistoryInput {
   password: String!
   lastLocation: UserLocationCreateOneInput
   createdContent: ContentCreateManyWithoutCreatedByInput
+  createdVotes: VoteCreateManyWithoutCreatedByInput
   createdVoids: NVoidCreateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidCreateManyWithoutCreatedByInput
   createdShoutsInVoids: ShoutInVoidCreateManyWithoutCreatedByInput
@@ -2465,6 +2414,7 @@ input UserCreateWithoutRepliesToEchosOfShoutsInVoidInput {
   lastLocation: UserLocationCreateOneInput
   locationHistory: UserLocationCreateManyWithoutCreatedByInput
   createdContent: ContentCreateManyWithoutCreatedByInput
+  createdVotes: VoteCreateManyWithoutCreatedByInput
   createdVoids: NVoidCreateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidCreateManyWithoutCreatedByInput
   createdShoutsInVoids: ShoutInVoidCreateManyWithoutCreatedByInput
@@ -2480,6 +2430,7 @@ input UserCreateWithoutRepliesToShoutsInVoidInput {
   lastLocation: UserLocationCreateOneInput
   locationHistory: UserLocationCreateManyWithoutCreatedByInput
   createdContent: ContentCreateManyWithoutCreatedByInput
+  createdVotes: VoteCreateManyWithoutCreatedByInput
   createdVoids: NVoidCreateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidCreateManyWithoutCreatedByInput
   createdShoutsInVoids: ShoutInVoidCreateManyWithoutCreatedByInput
@@ -2495,6 +2446,7 @@ input UserCreateWithoutSavedVoidsInput {
   lastLocation: UserLocationCreateOneInput
   locationHistory: UserLocationCreateManyWithoutCreatedByInput
   createdContent: ContentCreateManyWithoutCreatedByInput
+  createdVotes: VoteCreateManyWithoutCreatedByInput
   createdVoids: NVoidCreateManyWithoutCreatedByInput
   createdShoutsInVoids: ShoutInVoidCreateManyWithoutCreatedByInput
   activatedEchosOfShouts: UserActivatedEchoOfShoutCreateManyWithoutCreatedByInput
@@ -2976,6 +2928,7 @@ input UserUpdateInput {
   lastLocation: UserLocationUpdateOneInput
   locationHistory: UserLocationUpdateManyWithoutCreatedByInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
+  createdVotes: VoteUpdateManyWithoutCreatedByInput
   createdVoids: NVoidUpdateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidUpdateManyWithoutCreatedByInput
   createdShoutsInVoids: ShoutInVoidUpdateManyWithoutCreatedByInput
@@ -3025,6 +2978,13 @@ input UserUpdateOneRequiredWithoutCreatedVoidsInput {
   connect: UserWhereUniqueInput
 }
 
+input UserUpdateOneRequiredWithoutCreatedVotesInput {
+  create: UserCreateWithoutCreatedVotesInput
+  update: UserUpdateWithoutCreatedVotesDataInput
+  upsert: UserUpsertWithoutCreatedVotesInput
+  connect: UserWhereUniqueInput
+}
+
 input UserUpdateOneRequiredWithoutLocationHistoryInput {
   create: UserCreateWithoutLocationHistoryInput
   update: UserUpdateWithoutLocationHistoryDataInput
@@ -3059,6 +3019,7 @@ input UserUpdateWithoutActivatedEchosOfShoutsDataInput {
   lastLocation: UserLocationUpdateOneInput
   locationHistory: UserLocationUpdateManyWithoutCreatedByInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
+  createdVotes: VoteUpdateManyWithoutCreatedByInput
   createdVoids: NVoidUpdateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidUpdateManyWithoutCreatedByInput
   createdShoutsInVoids: ShoutInVoidUpdateManyWithoutCreatedByInput
@@ -3072,6 +3033,7 @@ input UserUpdateWithoutCreatedContentDataInput {
   password: String
   lastLocation: UserLocationUpdateOneInput
   locationHistory: UserLocationUpdateManyWithoutCreatedByInput
+  createdVotes: VoteUpdateManyWithoutCreatedByInput
   createdVoids: NVoidUpdateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidUpdateManyWithoutCreatedByInput
   createdShoutsInVoids: ShoutInVoidUpdateManyWithoutCreatedByInput
@@ -3087,6 +3049,7 @@ input UserUpdateWithoutCreatedEchosOfShoutsInVoidDataInput {
   lastLocation: UserLocationUpdateOneInput
   locationHistory: UserLocationUpdateManyWithoutCreatedByInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
+  createdVotes: VoteUpdateManyWithoutCreatedByInput
   createdVoids: NVoidUpdateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidUpdateManyWithoutCreatedByInput
   createdShoutsInVoids: ShoutInVoidUpdateManyWithoutCreatedByInput
@@ -3101,6 +3064,7 @@ input UserUpdateWithoutCreatedShoutsInVoidsDataInput {
   lastLocation: UserLocationUpdateOneInput
   locationHistory: UserLocationUpdateManyWithoutCreatedByInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
+  createdVotes: VoteUpdateManyWithoutCreatedByInput
   createdVoids: NVoidUpdateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidUpdateManyWithoutCreatedByInput
   activatedEchosOfShouts: UserActivatedEchoOfShoutUpdateManyWithoutCreatedByInput
@@ -3115,6 +3079,22 @@ input UserUpdateWithoutCreatedVoidsDataInput {
   lastLocation: UserLocationUpdateOneInput
   locationHistory: UserLocationUpdateManyWithoutCreatedByInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
+  createdVotes: VoteUpdateManyWithoutCreatedByInput
+  savedVoids: UserSavedVoidUpdateManyWithoutCreatedByInput
+  createdShoutsInVoids: ShoutInVoidUpdateManyWithoutCreatedByInput
+  activatedEchosOfShouts: UserActivatedEchoOfShoutUpdateManyWithoutCreatedByInput
+  createdEchosOfShoutsInVoid: EchoOfShoutInVoidUpdateManyWithoutCreatedByInput
+  repliesToShoutsInVoid: ReplyToShoutInVoidUpdateManyWithoutCreatedByInput
+  repliesToEchosOfShoutsInVoid: ReplyToEchoOfShoutInVoidUpdateManyWithoutCreatedByInput
+}
+
+input UserUpdateWithoutCreatedVotesDataInput {
+  username: String
+  password: String
+  lastLocation: UserLocationUpdateOneInput
+  locationHistory: UserLocationUpdateManyWithoutCreatedByInput
+  createdContent: ContentUpdateManyWithoutCreatedByInput
+  createdVoids: NVoidUpdateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidUpdateManyWithoutCreatedByInput
   createdShoutsInVoids: ShoutInVoidUpdateManyWithoutCreatedByInput
   activatedEchosOfShouts: UserActivatedEchoOfShoutUpdateManyWithoutCreatedByInput
@@ -3128,6 +3108,7 @@ input UserUpdateWithoutLocationHistoryDataInput {
   password: String
   lastLocation: UserLocationUpdateOneInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
+  createdVotes: VoteUpdateManyWithoutCreatedByInput
   createdVoids: NVoidUpdateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidUpdateManyWithoutCreatedByInput
   createdShoutsInVoids: ShoutInVoidUpdateManyWithoutCreatedByInput
@@ -3143,6 +3124,7 @@ input UserUpdateWithoutRepliesToEchosOfShoutsInVoidDataInput {
   lastLocation: UserLocationUpdateOneInput
   locationHistory: UserLocationUpdateManyWithoutCreatedByInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
+  createdVotes: VoteUpdateManyWithoutCreatedByInput
   createdVoids: NVoidUpdateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidUpdateManyWithoutCreatedByInput
   createdShoutsInVoids: ShoutInVoidUpdateManyWithoutCreatedByInput
@@ -3157,6 +3139,7 @@ input UserUpdateWithoutRepliesToShoutsInVoidDataInput {
   lastLocation: UserLocationUpdateOneInput
   locationHistory: UserLocationUpdateManyWithoutCreatedByInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
+  createdVotes: VoteUpdateManyWithoutCreatedByInput
   createdVoids: NVoidUpdateManyWithoutCreatedByInput
   savedVoids: UserSavedVoidUpdateManyWithoutCreatedByInput
   createdShoutsInVoids: ShoutInVoidUpdateManyWithoutCreatedByInput
@@ -3171,6 +3154,7 @@ input UserUpdateWithoutSavedVoidsDataInput {
   lastLocation: UserLocationUpdateOneInput
   locationHistory: UserLocationUpdateManyWithoutCreatedByInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
+  createdVotes: VoteUpdateManyWithoutCreatedByInput
   createdVoids: NVoidUpdateManyWithoutCreatedByInput
   createdShoutsInVoids: ShoutInVoidUpdateManyWithoutCreatedByInput
   activatedEchosOfShouts: UserActivatedEchoOfShoutUpdateManyWithoutCreatedByInput
@@ -3202,6 +3186,11 @@ input UserUpsertWithoutCreatedShoutsInVoidsInput {
 input UserUpsertWithoutCreatedVoidsInput {
   update: UserUpdateWithoutCreatedVoidsDataInput!
   create: UserCreateWithoutCreatedVoidsInput!
+}
+
+input UserUpsertWithoutCreatedVotesInput {
+  update: UserUpdateWithoutCreatedVotesDataInput!
+  create: UserCreateWithoutCreatedVotesInput!
 }
 
 input UserUpsertWithoutLocationHistoryInput {
@@ -3282,6 +3271,9 @@ input UserWhereInput {
   createdContent_every: ContentWhereInput
   createdContent_some: ContentWhereInput
   createdContent_none: ContentWhereInput
+  createdVotes_every: VoteWhereInput
+  createdVotes_some: VoteWhereInput
+  createdVotes_none: VoteWhereInput
   createdVoids_every: NVoidWhereInput
   createdVoids_some: NVoidWhereInput
   createdVoids_none: NVoidWhereInput
@@ -3311,6 +3303,411 @@ input UserWhereInput {
 input UserWhereUniqueInput {
   userId: ID
   username: String
+}
+
+type Vote {
+  voteId: ID!
+  updatedAt: DateTime!
+  createdBy: User!
+  voteBucket: Vote!
+  isUpvote: Boolean!
+  uniqueHash: String!
+}
+
+type VoteBucket {
+  voteBucketId: ID!
+  createdAt: DateTime!
+  voteCount: Int!
+  votes(where: VoteWhereInput, orderBy: VoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Vote!]
+}
+
+type VoteBucketConnection {
+  pageInfo: PageInfo!
+  edges: [VoteBucketEdge]!
+  aggregate: AggregateVoteBucket!
+}
+
+input VoteBucketCreateInput {
+  voteBucketId: ID
+  voteCount: Int!
+  votes: VoteCreateManyInput
+}
+
+input VoteBucketCreateOneInput {
+  create: VoteBucketCreateInput
+  connect: VoteBucketWhereUniqueInput
+}
+
+type VoteBucketEdge {
+  node: VoteBucket!
+  cursor: String!
+}
+
+enum VoteBucketOrderByInput {
+  voteBucketId_ASC
+  voteBucketId_DESC
+  createdAt_ASC
+  createdAt_DESC
+  voteCount_ASC
+  voteCount_DESC
+}
+
+type VoteBucketPreviousValues {
+  voteBucketId: ID!
+  createdAt: DateTime!
+  voteCount: Int!
+}
+
+type VoteBucketSubscriptionPayload {
+  mutation: MutationType!
+  node: VoteBucket
+  updatedFields: [String!]
+  previousValues: VoteBucketPreviousValues
+}
+
+input VoteBucketSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: VoteBucketWhereInput
+  AND: [VoteBucketSubscriptionWhereInput!]
+  OR: [VoteBucketSubscriptionWhereInput!]
+  NOT: [VoteBucketSubscriptionWhereInput!]
+}
+
+input VoteBucketUpdateDataInput {
+  voteCount: Int
+  votes: VoteUpdateManyInput
+}
+
+input VoteBucketUpdateInput {
+  voteCount: Int
+  votes: VoteUpdateManyInput
+}
+
+input VoteBucketUpdateManyMutationInput {
+  voteCount: Int
+}
+
+input VoteBucketUpdateOneRequiredInput {
+  create: VoteBucketCreateInput
+  update: VoteBucketUpdateDataInput
+  upsert: VoteBucketUpsertNestedInput
+  connect: VoteBucketWhereUniqueInput
+}
+
+input VoteBucketUpsertNestedInput {
+  update: VoteBucketUpdateDataInput!
+  create: VoteBucketCreateInput!
+}
+
+input VoteBucketWhereInput {
+  voteBucketId: ID
+  voteBucketId_not: ID
+  voteBucketId_in: [ID!]
+  voteBucketId_not_in: [ID!]
+  voteBucketId_lt: ID
+  voteBucketId_lte: ID
+  voteBucketId_gt: ID
+  voteBucketId_gte: ID
+  voteBucketId_contains: ID
+  voteBucketId_not_contains: ID
+  voteBucketId_starts_with: ID
+  voteBucketId_not_starts_with: ID
+  voteBucketId_ends_with: ID
+  voteBucketId_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  voteCount: Int
+  voteCount_not: Int
+  voteCount_in: [Int!]
+  voteCount_not_in: [Int!]
+  voteCount_lt: Int
+  voteCount_lte: Int
+  voteCount_gt: Int
+  voteCount_gte: Int
+  votes_every: VoteWhereInput
+  votes_some: VoteWhereInput
+  votes_none: VoteWhereInput
+  AND: [VoteBucketWhereInput!]
+  OR: [VoteBucketWhereInput!]
+  NOT: [VoteBucketWhereInput!]
+}
+
+input VoteBucketWhereUniqueInput {
+  voteBucketId: ID
+}
+
+type VoteConnection {
+  pageInfo: PageInfo!
+  edges: [VoteEdge]!
+  aggregate: AggregateVote!
+}
+
+input VoteCreateInput {
+  voteId: ID
+  createdBy: UserCreateOneWithoutCreatedVotesInput!
+  voteBucket: VoteCreateOneInput!
+  isUpvote: Boolean!
+  uniqueHash: String!
+}
+
+input VoteCreateManyInput {
+  create: [VoteCreateInput!]
+  connect: [VoteWhereUniqueInput!]
+}
+
+input VoteCreateManyWithoutCreatedByInput {
+  create: [VoteCreateWithoutCreatedByInput!]
+  connect: [VoteWhereUniqueInput!]
+}
+
+input VoteCreateOneInput {
+  create: VoteCreateInput
+  connect: VoteWhereUniqueInput
+}
+
+input VoteCreateWithoutCreatedByInput {
+  voteId: ID
+  voteBucket: VoteCreateOneInput!
+  isUpvote: Boolean!
+  uniqueHash: String!
+}
+
+type VoteEdge {
+  node: Vote!
+  cursor: String!
+}
+
+enum VoteOrderByInput {
+  voteId_ASC
+  voteId_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  isUpvote_ASC
+  isUpvote_DESC
+  uniqueHash_ASC
+  uniqueHash_DESC
+}
+
+type VotePreviousValues {
+  voteId: ID!
+  updatedAt: DateTime!
+  isUpvote: Boolean!
+  uniqueHash: String!
+}
+
+input VoteScalarWhereInput {
+  voteId: ID
+  voteId_not: ID
+  voteId_in: [ID!]
+  voteId_not_in: [ID!]
+  voteId_lt: ID
+  voteId_lte: ID
+  voteId_gt: ID
+  voteId_gte: ID
+  voteId_contains: ID
+  voteId_not_contains: ID
+  voteId_starts_with: ID
+  voteId_not_starts_with: ID
+  voteId_ends_with: ID
+  voteId_not_ends_with: ID
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  isUpvote: Boolean
+  isUpvote_not: Boolean
+  uniqueHash: String
+  uniqueHash_not: String
+  uniqueHash_in: [String!]
+  uniqueHash_not_in: [String!]
+  uniqueHash_lt: String
+  uniqueHash_lte: String
+  uniqueHash_gt: String
+  uniqueHash_gte: String
+  uniqueHash_contains: String
+  uniqueHash_not_contains: String
+  uniqueHash_starts_with: String
+  uniqueHash_not_starts_with: String
+  uniqueHash_ends_with: String
+  uniqueHash_not_ends_with: String
+  AND: [VoteScalarWhereInput!]
+  OR: [VoteScalarWhereInput!]
+  NOT: [VoteScalarWhereInput!]
+}
+
+type VoteSubscriptionPayload {
+  mutation: MutationType!
+  node: Vote
+  updatedFields: [String!]
+  previousValues: VotePreviousValues
+}
+
+input VoteSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: VoteWhereInput
+  AND: [VoteSubscriptionWhereInput!]
+  OR: [VoteSubscriptionWhereInput!]
+  NOT: [VoteSubscriptionWhereInput!]
+}
+
+input VoteUpdateDataInput {
+  createdBy: UserUpdateOneRequiredWithoutCreatedVotesInput
+  voteBucket: VoteUpdateOneRequiredInput
+  isUpvote: Boolean
+  uniqueHash: String
+}
+
+input VoteUpdateInput {
+  createdBy: UserUpdateOneRequiredWithoutCreatedVotesInput
+  voteBucket: VoteUpdateOneRequiredInput
+  isUpvote: Boolean
+  uniqueHash: String
+}
+
+input VoteUpdateManyDataInput {
+  isUpvote: Boolean
+  uniqueHash: String
+}
+
+input VoteUpdateManyInput {
+  create: [VoteCreateInput!]
+  update: [VoteUpdateWithWhereUniqueNestedInput!]
+  upsert: [VoteUpsertWithWhereUniqueNestedInput!]
+  delete: [VoteWhereUniqueInput!]
+  connect: [VoteWhereUniqueInput!]
+  set: [VoteWhereUniqueInput!]
+  disconnect: [VoteWhereUniqueInput!]
+  deleteMany: [VoteScalarWhereInput!]
+  updateMany: [VoteUpdateManyWithWhereNestedInput!]
+}
+
+input VoteUpdateManyMutationInput {
+  isUpvote: Boolean
+  uniqueHash: String
+}
+
+input VoteUpdateManyWithoutCreatedByInput {
+  create: [VoteCreateWithoutCreatedByInput!]
+  delete: [VoteWhereUniqueInput!]
+  connect: [VoteWhereUniqueInput!]
+  set: [VoteWhereUniqueInput!]
+  disconnect: [VoteWhereUniqueInput!]
+  update: [VoteUpdateWithWhereUniqueWithoutCreatedByInput!]
+  upsert: [VoteUpsertWithWhereUniqueWithoutCreatedByInput!]
+  deleteMany: [VoteScalarWhereInput!]
+  updateMany: [VoteUpdateManyWithWhereNestedInput!]
+}
+
+input VoteUpdateManyWithWhereNestedInput {
+  where: VoteScalarWhereInput!
+  data: VoteUpdateManyDataInput!
+}
+
+input VoteUpdateOneRequiredInput {
+  create: VoteCreateInput
+  update: VoteUpdateDataInput
+  upsert: VoteUpsertNestedInput
+  connect: VoteWhereUniqueInput
+}
+
+input VoteUpdateWithoutCreatedByDataInput {
+  voteBucket: VoteUpdateOneRequiredInput
+  isUpvote: Boolean
+  uniqueHash: String
+}
+
+input VoteUpdateWithWhereUniqueNestedInput {
+  where: VoteWhereUniqueInput!
+  data: VoteUpdateDataInput!
+}
+
+input VoteUpdateWithWhereUniqueWithoutCreatedByInput {
+  where: VoteWhereUniqueInput!
+  data: VoteUpdateWithoutCreatedByDataInput!
+}
+
+input VoteUpsertNestedInput {
+  update: VoteUpdateDataInput!
+  create: VoteCreateInput!
+}
+
+input VoteUpsertWithWhereUniqueNestedInput {
+  where: VoteWhereUniqueInput!
+  update: VoteUpdateDataInput!
+  create: VoteCreateInput!
+}
+
+input VoteUpsertWithWhereUniqueWithoutCreatedByInput {
+  where: VoteWhereUniqueInput!
+  update: VoteUpdateWithoutCreatedByDataInput!
+  create: VoteCreateWithoutCreatedByInput!
+}
+
+input VoteWhereInput {
+  voteId: ID
+  voteId_not: ID
+  voteId_in: [ID!]
+  voteId_not_in: [ID!]
+  voteId_lt: ID
+  voteId_lte: ID
+  voteId_gt: ID
+  voteId_gte: ID
+  voteId_contains: ID
+  voteId_not_contains: ID
+  voteId_starts_with: ID
+  voteId_not_starts_with: ID
+  voteId_ends_with: ID
+  voteId_not_ends_with: ID
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdBy: UserWhereInput
+  voteBucket: VoteWhereInput
+  isUpvote: Boolean
+  isUpvote_not: Boolean
+  uniqueHash: String
+  uniqueHash_not: String
+  uniqueHash_in: [String!]
+  uniqueHash_not_in: [String!]
+  uniqueHash_lt: String
+  uniqueHash_lte: String
+  uniqueHash_gt: String
+  uniqueHash_gte: String
+  uniqueHash_contains: String
+  uniqueHash_not_contains: String
+  uniqueHash_starts_with: String
+  uniqueHash_not_starts_with: String
+  uniqueHash_ends_with: String
+  uniqueHash_not_ends_with: String
+  AND: [VoteWhereInput!]
+  OR: [VoteWhereInput!]
+  NOT: [VoteWhereInput!]
+}
+
+input VoteWhereUniqueInput {
+  voteId: ID
+  uniqueHash: String
 }
 `
       }
