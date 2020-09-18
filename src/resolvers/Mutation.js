@@ -110,8 +110,9 @@ const updateLocation = async function(parent, args, context, info) {
 const shoutIntoTheVoid = async function(parent, args, context, info) {
     const userIdFromToken = await utils.ensureAuthorized(context);
     // check that the last location for user is recent
-    await utils.ensureLastLocationExists(context, userIdFromToken);
-    await utils.ensureLastLocationIsCurrent(context, userIdFromToken);
+    await utils.user.ensureLocationIsRecent(context, userIdFromToken);
+    // await utils.ensureLastLocationExists(context, userIdFromToken);
+    // await utils.ensureLastLocationIsCurrent(context, userIdFromToken);
     const userGeohash = await utils.getLastLocationUserGeohashForUserId(context, userIdFromToken);
     const voidGeohash = utils.flattenGeohashToVoidGeohash(userGeohash);
     // check if message is profane
@@ -178,8 +179,12 @@ const upvoteShout = async function(parent, args, context, info) {
     const userIdFromToken = await utils.ensureAuthorized(context);
     // todo check graphql existence errors
     // await utils.shout.ensureShoutExistsById(args.shoutInVoidId);
+    // make sure location is good
+    await utils.user.ensureLocationIsRecent(context, userIdFromToken);
+    // make sure shout exists
+    await utils.shout.ensureShoutExists(context, args.shoutInVoidId);
     // get upvote bucket id
-    const voteBucketId = await utils.shout.getVoteBucketIdByShoutId(args.shoutInVoidId);
+    const voteBucketId = await utils.shout.getVoteBucketIdByShoutId(context, args.shoutInVoidId);
     // check if vote exists as upvote
     const upvoteHash = await utils.voteHash(userIdFromToken, voteBucketId, true);
     const upvoteExists = await context.prisma.$exists.vote({
@@ -187,6 +192,8 @@ const upvoteShout = async function(parent, args, context, info) {
     });
     if(upvoteExists) {
         // do nothing
+        console.log('helpmf');
+        console.log(`voteBucketId: ${voteBucketId}`);
         // gtfo
         return await context.prisma.voteBucket({
             voteBucketId: voteBucketId
@@ -214,6 +221,7 @@ const upvoteShout = async function(parent, args, context, info) {
             return updatedVoteBucket;
         } else {
             // just create a new vote as upvote and update vote count
+            console.log('creating vote');
             await context.prisma.createVote({
                 createdBy: {
                     connect: {
@@ -238,10 +246,13 @@ const downvoteShout = async function(parent, args, context, info) {
     const userIdFromToken = await utils.ensureAuthorized(context);
     // todo check graphql existence errors
     // await utils.shout.ensureShoutExistsById(args.shoutInVoidId);
+    // make sure location is good
+    await utils.user.ensureLocationIsRecent(context, userIdFromToken);
+    await utils.shout.ensureShoutExists(context, args.shoutInVoidId);
     // get vote bucket id
-    const voteBucketId = await utils.shout.getVoteBucketIdByShoutId(args.shoutInVoidId);
+    const voteBucketId = await utils.shout.getVoteBucketIdByShoutId(context, args.shoutInVoidId);
     // check if vote exists as downvote
-    const downvoteHash = await utils.voteHash(userIdFromToken, voteBucketId, true);
+    const downvoteHash = await utils.voteHash(userIdFromToken, voteBucketId, false);
     const downvoteExists = await context.prisma.$exists.vote({
         uniqueHash: downvoteHash
     });
@@ -264,7 +275,7 @@ const downvoteShout = async function(parent, args, context, info) {
         }
 
         // check if vote exists as upvote
-        const upvoteHash = await utils.voteHash(userIdFromToken, voteBucketId, false);
+        const upvoteHash = await utils.voteHash(userIdFromToken, voteBucketId, true);
         const upvoteExists = await context.prisma.$exists.vote({
             uniqueHash: upvoteHash
         });

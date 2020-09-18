@@ -14,6 +14,10 @@ const nVoid = function(parent, args, context, info) {
     return context.prisma.shoutInVoid({ shoutInVoidId: parent.shoutInVoidId })
         .nVoid();
 }
+const voteBucket = function(parent, args, context, info) {
+    return context.prisma.shoutInVoid({ shoutInVoidId: parent.shoutInVoidId })
+        .voteBucket();
+}
 const echos = function(parent, args, context, info) {
     return context.prisma.shoutInVoid({ shoutInVoidId: parent.shoutInVoidId })
         .echos();
@@ -27,6 +31,7 @@ module.exports = {
     createdBy,
     content,
     nVoid,
+    voteBucket,
     echos,
     replies,
 };

@@ -3309,7 +3309,7 @@ type Vote {
   voteId: ID!
   updatedAt: DateTime!
   createdBy: User!
-  voteBucket: Vote!
+  voteBucket: VoteBucket!
   isUpvote: Boolean!
   uniqueHash: String!
 }
@@ -3330,12 +3330,22 @@ type VoteBucketConnection {
 input VoteBucketCreateInput {
   voteBucketId: ID
   voteCount: Int!
-  votes: VoteCreateManyInput
+  votes: VoteCreateManyWithoutVoteBucketInput
 }
 
 input VoteBucketCreateOneInput {
   create: VoteBucketCreateInput
   connect: VoteBucketWhereUniqueInput
+}
+
+input VoteBucketCreateOneWithoutVotesInput {
+  create: VoteBucketCreateWithoutVotesInput
+  connect: VoteBucketWhereUniqueInput
+}
+
+input VoteBucketCreateWithoutVotesInput {
+  voteBucketId: ID
+  voteCount: Int!
 }
 
 type VoteBucketEdge {
@@ -3378,12 +3388,12 @@ input VoteBucketSubscriptionWhereInput {
 
 input VoteBucketUpdateDataInput {
   voteCount: Int
-  votes: VoteUpdateManyInput
+  votes: VoteUpdateManyWithoutVoteBucketInput
 }
 
 input VoteBucketUpdateInput {
   voteCount: Int
-  votes: VoteUpdateManyInput
+  votes: VoteUpdateManyWithoutVoteBucketInput
 }
 
 input VoteBucketUpdateManyMutationInput {
@@ -3397,9 +3407,25 @@ input VoteBucketUpdateOneRequiredInput {
   connect: VoteBucketWhereUniqueInput
 }
 
+input VoteBucketUpdateOneRequiredWithoutVotesInput {
+  create: VoteBucketCreateWithoutVotesInput
+  update: VoteBucketUpdateWithoutVotesDataInput
+  upsert: VoteBucketUpsertWithoutVotesInput
+  connect: VoteBucketWhereUniqueInput
+}
+
+input VoteBucketUpdateWithoutVotesDataInput {
+  voteCount: Int
+}
+
 input VoteBucketUpsertNestedInput {
   update: VoteBucketUpdateDataInput!
   create: VoteBucketCreateInput!
+}
+
+input VoteBucketUpsertWithoutVotesInput {
+  update: VoteBucketUpdateWithoutVotesDataInput!
+  create: VoteBucketCreateWithoutVotesInput!
 }
 
 input VoteBucketWhereInput {
@@ -3454,14 +3480,9 @@ type VoteConnection {
 input VoteCreateInput {
   voteId: ID
   createdBy: UserCreateOneWithoutCreatedVotesInput!
-  voteBucket: VoteCreateOneInput!
+  voteBucket: VoteBucketCreateOneWithoutVotesInput!
   isUpvote: Boolean!
   uniqueHash: String!
-}
-
-input VoteCreateManyInput {
-  create: [VoteCreateInput!]
-  connect: [VoteWhereUniqueInput!]
 }
 
 input VoteCreateManyWithoutCreatedByInput {
@@ -3469,14 +3490,21 @@ input VoteCreateManyWithoutCreatedByInput {
   connect: [VoteWhereUniqueInput!]
 }
 
-input VoteCreateOneInput {
-  create: VoteCreateInput
-  connect: VoteWhereUniqueInput
+input VoteCreateManyWithoutVoteBucketInput {
+  create: [VoteCreateWithoutVoteBucketInput!]
+  connect: [VoteWhereUniqueInput!]
 }
 
 input VoteCreateWithoutCreatedByInput {
   voteId: ID
-  voteBucket: VoteCreateOneInput!
+  voteBucket: VoteBucketCreateOneWithoutVotesInput!
+  isUpvote: Boolean!
+  uniqueHash: String!
+}
+
+input VoteCreateWithoutVoteBucketInput {
+  voteId: ID
+  createdBy: UserCreateOneWithoutCreatedVotesInput!
   isUpvote: Boolean!
   uniqueHash: String!
 }
@@ -3566,16 +3594,9 @@ input VoteSubscriptionWhereInput {
   NOT: [VoteSubscriptionWhereInput!]
 }
 
-input VoteUpdateDataInput {
-  createdBy: UserUpdateOneRequiredWithoutCreatedVotesInput
-  voteBucket: VoteUpdateOneRequiredInput
-  isUpvote: Boolean
-  uniqueHash: String
-}
-
 input VoteUpdateInput {
   createdBy: UserUpdateOneRequiredWithoutCreatedVotesInput
-  voteBucket: VoteUpdateOneRequiredInput
+  voteBucket: VoteBucketUpdateOneRequiredWithoutVotesInput
   isUpvote: Boolean
   uniqueHash: String
 }
@@ -3583,18 +3604,6 @@ input VoteUpdateInput {
 input VoteUpdateManyDataInput {
   isUpvote: Boolean
   uniqueHash: String
-}
-
-input VoteUpdateManyInput {
-  create: [VoteCreateInput!]
-  update: [VoteUpdateWithWhereUniqueNestedInput!]
-  upsert: [VoteUpsertWithWhereUniqueNestedInput!]
-  delete: [VoteWhereUniqueInput!]
-  connect: [VoteWhereUniqueInput!]
-  set: [VoteWhereUniqueInput!]
-  disconnect: [VoteWhereUniqueInput!]
-  deleteMany: [VoteScalarWhereInput!]
-  updateMany: [VoteUpdateManyWithWhereNestedInput!]
 }
 
 input VoteUpdateManyMutationInput {
@@ -3614,27 +3623,33 @@ input VoteUpdateManyWithoutCreatedByInput {
   updateMany: [VoteUpdateManyWithWhereNestedInput!]
 }
 
+input VoteUpdateManyWithoutVoteBucketInput {
+  create: [VoteCreateWithoutVoteBucketInput!]
+  delete: [VoteWhereUniqueInput!]
+  connect: [VoteWhereUniqueInput!]
+  set: [VoteWhereUniqueInput!]
+  disconnect: [VoteWhereUniqueInput!]
+  update: [VoteUpdateWithWhereUniqueWithoutVoteBucketInput!]
+  upsert: [VoteUpsertWithWhereUniqueWithoutVoteBucketInput!]
+  deleteMany: [VoteScalarWhereInput!]
+  updateMany: [VoteUpdateManyWithWhereNestedInput!]
+}
+
 input VoteUpdateManyWithWhereNestedInput {
   where: VoteScalarWhereInput!
   data: VoteUpdateManyDataInput!
 }
 
-input VoteUpdateOneRequiredInput {
-  create: VoteCreateInput
-  update: VoteUpdateDataInput
-  upsert: VoteUpsertNestedInput
-  connect: VoteWhereUniqueInput
-}
-
 input VoteUpdateWithoutCreatedByDataInput {
-  voteBucket: VoteUpdateOneRequiredInput
+  voteBucket: VoteBucketUpdateOneRequiredWithoutVotesInput
   isUpvote: Boolean
   uniqueHash: String
 }
 
-input VoteUpdateWithWhereUniqueNestedInput {
-  where: VoteWhereUniqueInput!
-  data: VoteUpdateDataInput!
+input VoteUpdateWithoutVoteBucketDataInput {
+  createdBy: UserUpdateOneRequiredWithoutCreatedVotesInput
+  isUpvote: Boolean
+  uniqueHash: String
 }
 
 input VoteUpdateWithWhereUniqueWithoutCreatedByInput {
@@ -3642,21 +3657,21 @@ input VoteUpdateWithWhereUniqueWithoutCreatedByInput {
   data: VoteUpdateWithoutCreatedByDataInput!
 }
 
-input VoteUpsertNestedInput {
-  update: VoteUpdateDataInput!
-  create: VoteCreateInput!
-}
-
-input VoteUpsertWithWhereUniqueNestedInput {
+input VoteUpdateWithWhereUniqueWithoutVoteBucketInput {
   where: VoteWhereUniqueInput!
-  update: VoteUpdateDataInput!
-  create: VoteCreateInput!
+  data: VoteUpdateWithoutVoteBucketDataInput!
 }
 
 input VoteUpsertWithWhereUniqueWithoutCreatedByInput {
   where: VoteWhereUniqueInput!
   update: VoteUpdateWithoutCreatedByDataInput!
   create: VoteCreateWithoutCreatedByInput!
+}
+
+input VoteUpsertWithWhereUniqueWithoutVoteBucketInput {
+  where: VoteWhereUniqueInput!
+  update: VoteUpdateWithoutVoteBucketDataInput!
+  create: VoteCreateWithoutVoteBucketInput!
 }
 
 input VoteWhereInput {
@@ -3683,7 +3698,7 @@ input VoteWhereInput {
   updatedAt_gt: DateTime
   updatedAt_gte: DateTime
   createdBy: UserWhereInput
-  voteBucket: VoteWhereInput
+  voteBucket: VoteBucketWhereInput
   isUpvote: Boolean
   isUpvote_not: Boolean
   uniqueHash: String

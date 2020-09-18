@@ -81,7 +81,6 @@ const ensureLastLocationExists = async function(context, userId) {
 }
 const ensureLastLocationIsCurrent = async function(context, userId) {
     const lastLocationCreatedAt = await getLastLocationCreatedAtForUserId(context, userId); 
-    console.log(`lastLocationCreatedAt: ${lastLocationCreatedAt}`)
     const createdAtEpochSeconds = convertDateTimeStringToEpochSeconds(lastLocationCreatedAt);
     const nowEpochSeconds = getTimeInEpochSeconds();
     if(nowEpochSeconds - createdAtEpochSeconds > LOCATION_UPDATE_MINIMUM_SECS) {
@@ -122,8 +121,15 @@ const checkIfUserExistsById = async function(context, userId) {
     //     return true;
     // }
 }
+const user = {
+    ensureLocationIsRecent: async function(context, userId) {
+        await ensureLastLocationExists(context, userId);
+        await ensureLastLocationIsCurrent(context, userId);
+    }
+}
 const vote = {
     updateVoteCount: async function(context, voteBucketId, newVoteCount) {
+        console.log(`voteBucketId: ${voteBucketId}`);
         const updatedVoteBucket = await context.prisma.updateVoteBucket({
             where: {
                 voteBucketId: voteBucketId
@@ -136,14 +142,15 @@ const vote = {
     }
 }
 const shout = {
-    // ensureShoutExistsById: function(context, shoutId) {
-    //     const shoutExists = await context.prisma.$exists.shoutInVoid({
-    //         shoutId: shoutId
-    //     });
-    //     if(!shoutExists) {
-    //     }
-    // }
-    getVoteBucketIdByShoutId: async function(context, shoutId) {
+    ensureShoutExists: async function(context, shoutInVoidId) {
+        const shoutExists = await context.prisma.$exists.shoutInVoid({
+            shoutInVoidId
+        });
+        if(!shoutExists) {
+            throw new Error("shout does not exist bra");
+        }
+    },
+    getVoteBucketIdByShoutId: async function(context, shoutInVoidId) {
         const fragment = `
         fragment VoteBucketId on ShoutInVoid {
             voteBucket {
@@ -151,12 +158,12 @@ const shout = {
             }
         }`;
         const shoutFragment = await context.prisma.shoutInVoid({
-            shoutId: shoutId
+            shoutInVoidId: shoutInVoidId
         }).$fragment(fragment);
         const voteBucketId = shoutFragment.voteBucket.voteBucketId;
         return voteBucketId;
     },
-    getVoteCount: async function(context, shoutId) {
+    getVoteCount: async function(context, shoutInVoidId) {
         const fragment = `
         fragment VoteCount on ShoutInVoid {
             voteBucket {
@@ -164,7 +171,7 @@ const shout = {
             }
         }`;
         const shoutFragment = await context.prisma.shoutInVoid({
-            shoutId: shoutId
+            shoutInVoidId: shoutInVoidId
         }).$fragment(fragment);
         const voteCount = shoutFragment.voteBucket.voteCount;
         return voteCount;
@@ -212,10 +219,9 @@ const getLastLocationUserLocationIdForUserId = async function(context, userId) {
     const userFragment = await context.prisma.user({
         userId: userId
     }).$fragment(fragmentUserLastLocationUserLocationId);
-    console.log(`userFragment2: ${JSON.stringify(userFragment)}`);
     let lastLocationUserLocationId;
     if(!exists(userFragment.lastLocation)) {
-        throw new Error("location must be updated at least once");
+        throw new Error("location must be updatd at least once");
     }
     lastLocationUserLocationId = userFragment.lastLocation.userLocationId;
     return lastLocationUserLocationId;
@@ -230,7 +236,6 @@ const getVoidIdFromVoidGeohash = async function(context, voidGeohash) {
     const voidFragment = await context.prisma.nVoid({
         voidGeohash: voidGeohash
     }).$fragment(fragmentNVoidVoidId);
-    console.log(`voidFragment: ${voidFragment}`)
     const voidId = voidFragment.voidId;
     return voidId;
 }
@@ -245,7 +250,6 @@ const getLastLocationCreatedAtForUserId = async function(context, userId) {
     const userFragment = await context.prisma.user({
         userId: userId
     }).$fragment(fragmentUserLastLocationCreatedAt);
-    console.log(`userFragment: ${JSON.stringify(userFragment)}`);
     const createdAt = userFragment.lastLocation.createdAt;
     return createdAt;
 }
@@ -283,6 +287,7 @@ module.exports = {
     USER_GEOHASH_PRECISION,
     VOID_VIEW_RADIUS,
     VOID_VIEW_UNITS, 
+    user,
     shout,
     vote,
     voteHash,

@@ -25,8 +25,8 @@ type Vote {
     #createdAt: String!
     updatedAt: String!
     createdBy: User!
-    voteBucket: Vote!
-    upvote: Boolean!
+    voteBucket: VoteBucket!
+    isUpvote: Boolean!
     uniqueHash: String!
 }
 type UserLocation {
