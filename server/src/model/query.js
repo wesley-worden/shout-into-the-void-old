@@ -1,10 +1,11 @@
 const utils = require('./../utils');
 const config = require(`./../../config.json`);
-const user = require(`./../model/user`);
+
+const userModel = require(`./../model/user`);
 
 const myUser = async function(parent, args, context, info) {
     const userIdFromToken = await utils.ensureAuthorized(context);
-    await user.utils.ensureUserExists(context, userIdFromToken);
+    await userModel.utils.ensureUserExists(context, userIdFromToken);
     const myUser = await context.prisma.user({
         userId: userIdFromToken 
     });
@@ -45,7 +46,7 @@ const myUser = async function(parent, args, context, info) {
 
 const nearbyVoidGeohashes = async function(parent, args, context, info) {
     const userIdFromToken = await utils.ensureAuthorized(context);
-    const lastLocationUserGeohash = await user.utils.getLastLocationUserGeohash(context, userIdFromToken);
+    const lastLocationUserGeohash = await userModel.utils.getLastLocationUserGeohash(context, userIdFromToken);
     const nearbyVoidGeohashes = utils.calculateNearbyVoidGeohashes(lastLocationUserGeohash);
     return nearbyVoidGeohashes;
 };
@@ -60,7 +61,7 @@ const nearbyVoidGeohashes = async function(parent, args, context, info) {
 
 const getVoidByVoidGeohash = async function(parent, args, context, info) {
     const userIdFromToken = await utils.ensureAuthorized(context);
-    await user.utils.ensureUserExists(context, userIdFromToken);
+    await userModel.utils.ensureUserExists(context, userIdFromToken);
     // check that geohash is at least void precision
     utils.ensureGeohashIsVoidPrecision(args.voidGeohash);
     // make sure geohash is exactly void precision

@@ -35,11 +35,19 @@ type UserLocation {
     createdAt: String! 
     createdBy: User! 
 }
+type AdminStatus {
+    adminStatusId: ID!
+    createdAt: String!
+    createdBy: User!
+    user: User!
+}
 type User {
     userId: ID! 
     createdAt: String! 
     username: String!
     password: String!
+    adminStatus: AdminStatus
+    createdAdmins: [AdminStatus!]
     lastLocation: UserLocation
     locationHistory: [UserLocation!]
     createdContent: [Content!]
@@ -105,7 +113,7 @@ type ReplyToEchoOfShoutInVoid {
     originalEchoOfShoutInVoid: EchoOfShoutInVoid! 
 }
 type NVoid {
-    voidId: ID! 
+    nVoidId: ID! 
     createdAt: String! 
     createdBy: User! 
     voidGeohash: String!
@@ -129,11 +137,11 @@ type Query {
     # todo: querys for users to explore outside of location
     # getNearbyVoidGeohashesByLocation(geohash: String!): [NVoid!]
     getVoidByVoidGeohash(voidGeohash: String!): NVoid
-#    getVoidById(voidId: ID!): NVoid
+#    getVoidById(nVoidId: ID!): NVoid
 #    getVoidByLocation(geohash: String!): NVoid
 #    # shouldnt actually need anythign else, otherwise its for admin clients
 #    #adminGetShout(shoutId: ID!): Shout
-#    #adminGetVoid(voidId: ID!); NVoid
+#    #adminGetVoid(nVoidId: ID!); NVoid
 #    #getEchoInVoid(echoInVoidId: ID!): Echo
 #    #getShout(shoutId: ID!): Shout
 #    #getReply(replayId: ID!): Reply
@@ -142,10 +150,16 @@ type Mutation {
 #    #todo: add all unsave mutations
     login(username: String!, password: String!): AuthPayload
     signup(username: String!, password: String!): AuthPayload
+    makeAdmin(userId: String!): User!
     updateLocation(geohash: String!): User! # todo: should this return UserLocaton to optimize?
     shoutIntoTheVoid(message: String!): ShoutInVoid
+    deleteShout(shoutInVoidId: ID!): ShoutInVoid # should we return deleted object?
     upvoteShout(shoutInVoidId: ID!): VoteBucket!
-    downvoteShout(shoutInVoidId: ID!): VoteBucket 
+    downvoteShout(shoutInVoidId: ID!): VoteBucket
+
+    adminDeleteShout(shoutInVoidId: ID!): ShoutInVoid
+    adminDeleteVoid(nVoidId: ID!): NVoid
+
 #    shoutInVoid(content: String!): ShoutInVoid
 #    upvoteShout(shoutInVoidId: ID!): ShoutInVoid!
 #    downvoteShout(shoutInVoidId: ID!): ShoutInVoid!
@@ -164,6 +178,6 @@ type Mutation {
 #    upvoteReplyToEcho(replyToEchoInVoidId: ID!); ReplyToEchoInVoid!
 #    downvoteReplyToEcho(replyToEchoInVoidId: ID!); ReplyToEchoInVoid!
 #    #todo: did i get em all?
-#    saveVoid(voidId: ID!): User!
+#    saveVoid(nVoidId: ID!): User!
 #    #todo: echo replies? seems crazy...
 }

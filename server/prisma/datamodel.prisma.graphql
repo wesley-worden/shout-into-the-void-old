@@ -22,7 +22,6 @@ type VoteBucket {
 }
 type Vote {
     voteId: ID! @id
-    #createdAt: DateTime! @createdAt
     updatedAt: DateTime! @updatedAt # for database clearneup
     createdBy: User! @relation(link: INLINE)
     voteBucket: VoteBucket! @relation(link: INLINE)
@@ -35,15 +34,21 @@ type UserLocation {
     createdAt: DateTime! @createdAt
     createdBy: User! @relation(name: "UserToUserLocationCreatedBy", link: INLINE)
 }
+type AdminStatus {
+    adminStatusId: ID! @id
+    createdAt: DateTime! @createdAt
+    createdBy: User! @relation(name: "UserToAdminStatusCreatedBy", link: INLINE)
+    user: User! @unique @relation(name: "UserToAdminStatusUser", link: INLINE)
+}
 type User { # todo: think more about cascading deletes, should all your content go away?
     userId: ID! @id
     createdAt: DateTime! @createdAt
     username: String! @unique
     password: String!
-    #currentLocationGeohash: String!
+    adminStatus: AdminStatus @relation(name: "UserToAdminStatusUser", onDelete: CASCADE)
+    createdAdmins: [AdminStatus!] @relation(name: "UserToAdminStatusCreatedBy")
     lastLocation: UserLocation @relation(name: "UserToUserLocationLastLocation", link: INLINE, onDelete: CASCADE)
     locationHistory: [UserLocation!] @relation(name: "UserToUserLocationCreatedBy", onDelete: CASCADE)
-    #lastLocationUpdateTime: String!
     createdContent: [Content!] @relation(onDelete: CASCADE)
     createdVotes: [Vote!] @relation(onDelete: CASCADE)
     createdVoids: [NVoid!]!
@@ -103,7 +108,7 @@ type ReplyToEchoOfShoutInVoid {
     originalEchoOfShoutInVoid: EchoOfShoutInVoid! @relation(link: INLINE)
 }
 type NVoid {
-    voidId: ID! @id
+    nVoidId: ID! @id
     createdAt: DateTime! @createdAt
     createdBy: User! @relation(link: INLINE)
     voidGeohash: String! @unique

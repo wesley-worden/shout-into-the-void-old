@@ -3,46 +3,61 @@ const config = require('./../../config.json');
 
 // resolvers
 //todo: create permissions for all individual user info
-const lastLocation = function(parent, args, context, info) {
-    return context.prisma.user({ userId: parent.userId })
-        .lastLocation();
-};
-const locationHistory = function(parent, args, context, info) {
-    return context.prisma.user({ userId: parent.userId })
-        .locationHistory();
-};
-const createdContent = function(parent, args, context, info) {
-    return context.prisma.user({ userId: parent.userId })
-        .createdContent();
-};
-const createdVoids = function(parent, args, context, info) {
-    return context.prisma.user({ userId: parent.userId })
-        .createdVoids();
-};
-const savedVoids = function(parent, args, context, info) {
-    return context.prisma.user({ userId: parent.userId })
-        .savedVoids();
-};
-const createdShoutsInVoids = function(parent, args, context, info) {
-    return context.prisma.user({ userId: parent.userId })
-        .createdShoutsInVoids();
-};
-const activatedEchosOfShouts = function(parent, args, context, info) {
-    return context.prisma.user({ userId: parent.userId })
-        .activatedEchosOfShouts();
-};
-const createdEchosOfShoutsInVoid= function(parent, args, context, info) {
-    return context.prisma.user({ userId: parent.userId })
-        .createdEchosOfShoutsInVoid();
-};
-const repliesToShoutsInVoid = function(parent, args, context, info) {
-    return context.prisma.user({ userId: parent.userId })
-        .repliesToShoutsInVoid();
-};
-const repliesToEchosOfShoutsInVoid = function(parent, args, context, info) {
-    return context.prisma.user({ userId: parent.userId })
-        .repliesToEchosOfShoutsInVoid();
-};
+const genericResolverNames = [
+    'adminStatus',
+    'createdAdmins'
+];
+const genericResolvers = utils.generateGenericResolvers('User', genericResolverNames):
+
+
+// const adminStatus = function(parent, args, context, info) {
+//     return context.prisma.user({ userId: parent.userId })
+//         .adminStatus();
+// };
+// const createdAdmins = function(parent, args, context, info) {
+//     return context.prisma.user({ userId: parent.userId })
+//         .createdAdmins();
+// };
+// const lastLocation = function(parent, args, context, info) {
+//     return context.prisma.user({ userId: parent.userId })
+//         .lastLocation();
+// };
+// const locationHistory = function(parent, args, context, info) {
+//     return context.prisma.user({ userId: parent.userId })
+//         .locationHistory();
+// };
+// const createdContent = function(parent, args, context, info) {
+//     return context.prisma.user({ userId: parent.userId })
+//         .createdContent();
+// };
+// const createdVoids = function(parent, args, context, info) {
+//     return context.prisma.user({ userId: parent.userId })
+//         .createdVoids();
+// };
+// const savedVoids = function(parent, args, context, info) {
+//     return context.prisma.user({ userId: parent.userId })
+//         .savedVoids();
+// };
+// const createdShoutsInVoids = function(parent, args, context, info) {
+//     return context.prisma.user({ userId: parent.userId })
+//         .createdShoutsInVoids();
+// };
+// const activatedEchosOfShouts = function(parent, args, context, info) {
+//     return context.prisma.user({ userId: parent.userId })
+//         .activatedEchosOfShouts();
+// };
+// const createdEchosOfShoutsInVoid= function(parent, args, context, info) {
+//     return context.prisma.user({ userId: parent.userId })
+//         .createdEchosOfShoutsInVoid();
+// };
+// const repliesToShoutsInVoid = function(parent, args, context, info) {
+//     return context.prisma.user({ userId: parent.userId })
+//         .repliesToShoutsInVoid();
+// };
+// const repliesToEchosOfShoutsInVoid = function(parent, args, context, info) {
+//     return context.prisma.user({ userId: parent.userId })
+//         .repliesToEchosOfShoutsInVoid();
+// };
 
 // utils
 // todo: i dont think this function actually works correctly
@@ -126,22 +141,57 @@ const getLastLocationUserGeohash = async function(context, userId) {
     return userGeohash;
 }
 
+const fragmentAdminStatusCreatedByUserId = `
+fragment AdminStatusCreatedByUserId on User {
+    adminStatus {
+        createdBy {
+            userId
+        }
+    }
+}`;
+const adminStatusExists = async function(context, userId) {
+    const userFragment = await context.prisma.user({
+        userId
+    }).$fragment(fragmentAdminStatusCreatedByUserId);
+    if(utils.exists(userFragment.adminStatus) && utils.exists(userFragment.adminStatus.createdBy.UserId)) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
+const isAdmin = async function(context, userId) {
+    return adminStatusExists(context, userId);
+};
+const ensureIsAdmin = async function(context, userId) {
+    const isAdmin = await isAdmin(context, userId);
+    if(!isAdmin) {
+        throw new Error(`User with userId ${userId} is not an admin!`);
+    }
+};
+
 module.exports = {
     resolvers: {
-        lastLocation,
-        locationHistory,
-        createdContent,
-        createdVoids,
-        savedVoids,
-        createdShoutsInVoids,
-        activatedEchosOfShouts,
-        createdEchosOfShoutsInVoid,
-        repliesToShoutsInVoid,
-        repliesToEchosOfShoutsInVoid,
+        ...genericResolvers,
+        // adminStatus,
+        // createdAdmins,
+        // lastLocation,
+        // locationHistory,
+        // createdContent,
+        // createdVoids,
+        // savedVoids,
+        // createdShoutsInVoids,
+        // activatedEchosOfShouts,
+        // createdEchosOfShoutsInVoid,
+        // repliesToShoutsInVoid,
+        // repliesToEchosOfShoutsInVoid,
     },
     utils: {
         ensureUserExists,
         ensureLocationIsUpToDate,
-        getLastLocationUserGeohash
+        getLastLocationUserGeohash,
+        // adminStatusExists
+        isAdmin,
+        ensureIsAdmin
     }
 };

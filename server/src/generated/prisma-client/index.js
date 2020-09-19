@@ -21,6 +21,10 @@ var models = [
     embedded: false
   },
   {
+    name: "AdminStatus",
+    embedded: false
+  },
+  {
     name: "User",
     embedded: false
   },

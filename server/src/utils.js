@@ -4,6 +4,20 @@ const clipboardy = require('clipboardy');
 const ngeohash = require('ngeohash');
 const getHashesNear = require('geohashes-near');
 
+// neato
+const generateGenericResolvers = function(typeName, resolverNames) {
+    const typeIdName = `${typeName.charAt(0).toLowerCase()}${typeName.substring(0)}Id`
+    const resolvers = {};
+    resolversNames.forEach(function(resolverName) {
+        resolvers[`${resolverName}`] = function(parent, args, context, info) {
+            const typeWhere = {};
+            userWhere[`${typeNameId}`] = parent[`${typeNameId}`];
+            return context.prisma[`${typeName}`](typeWhere)[`${resolverName}`];
+        }
+    });
+    return resolvers;
+};
+
 const showToken = function(token) {
     console.log("please place into http headers");
     const prettyToken = `{ "Authorization": "Bearer ${token}" }`;
@@ -54,6 +68,10 @@ const ensureGeohashIsVoidPrecision = function(geohash) {
     }
 };
 
+const ensureUserGeohashIsWithinRangeOfVoidGeohash = function(userGeohash, shoutGeohash) {
+
+}
+
 const exists = function(object) {
     if(object == null || object == undefined) {
         return false;
@@ -81,7 +99,8 @@ const calculateNearbyVoidGeohashes = function(userGeohash) {
     return nearbyVoidGeohashes;
 }
 
-module.exports = { 
+module.exports = {
+    generateGenericResolvers,
     exists,
     convertDateTimeStringToEpochSeconds,
     getTimeInEpochSeconds,

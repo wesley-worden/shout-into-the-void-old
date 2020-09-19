@@ -3,7 +3,196 @@ module.exports = {
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-/* GraphQL */ `type AggregateContent {
+/* GraphQL */ `type AdminStatus {
+  adminStatusId: ID!
+  createdAt: DateTime!
+  createdBy: User!
+  user: User!
+}
+
+type AdminStatusConnection {
+  pageInfo: PageInfo!
+  edges: [AdminStatusEdge]!
+  aggregate: AggregateAdminStatus!
+}
+
+input AdminStatusCreateInput {
+  adminStatusId: ID
+  createdBy: UserCreateOneWithoutCreatedAdminsInput!
+  user: UserCreateOneWithoutAdminStatusInput!
+}
+
+input AdminStatusCreateManyWithoutCreatedByInput {
+  create: [AdminStatusCreateWithoutCreatedByInput!]
+  connect: [AdminStatusWhereUniqueInput!]
+}
+
+input AdminStatusCreateOneWithoutUserInput {
+  create: AdminStatusCreateWithoutUserInput
+  connect: AdminStatusWhereUniqueInput
+}
+
+input AdminStatusCreateWithoutCreatedByInput {
+  adminStatusId: ID
+  user: UserCreateOneWithoutAdminStatusInput!
+}
+
+input AdminStatusCreateWithoutUserInput {
+  adminStatusId: ID
+  createdBy: UserCreateOneWithoutCreatedAdminsInput!
+}
+
+type AdminStatusEdge {
+  node: AdminStatus!
+  cursor: String!
+}
+
+enum AdminStatusOrderByInput {
+  adminStatusId_ASC
+  adminStatusId_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type AdminStatusPreviousValues {
+  adminStatusId: ID!
+  createdAt: DateTime!
+}
+
+input AdminStatusScalarWhereInput {
+  adminStatusId: ID
+  adminStatusId_not: ID
+  adminStatusId_in: [ID!]
+  adminStatusId_not_in: [ID!]
+  adminStatusId_lt: ID
+  adminStatusId_lte: ID
+  adminStatusId_gt: ID
+  adminStatusId_gte: ID
+  adminStatusId_contains: ID
+  adminStatusId_not_contains: ID
+  adminStatusId_starts_with: ID
+  adminStatusId_not_starts_with: ID
+  adminStatusId_ends_with: ID
+  adminStatusId_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  AND: [AdminStatusScalarWhereInput!]
+  OR: [AdminStatusScalarWhereInput!]
+  NOT: [AdminStatusScalarWhereInput!]
+}
+
+type AdminStatusSubscriptionPayload {
+  mutation: MutationType!
+  node: AdminStatus
+  updatedFields: [String!]
+  previousValues: AdminStatusPreviousValues
+}
+
+input AdminStatusSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: AdminStatusWhereInput
+  AND: [AdminStatusSubscriptionWhereInput!]
+  OR: [AdminStatusSubscriptionWhereInput!]
+  NOT: [AdminStatusSubscriptionWhereInput!]
+}
+
+input AdminStatusUpdateInput {
+  createdBy: UserUpdateOneRequiredWithoutCreatedAdminsInput
+  user: UserUpdateOneRequiredWithoutAdminStatusInput
+}
+
+input AdminStatusUpdateManyWithoutCreatedByInput {
+  create: [AdminStatusCreateWithoutCreatedByInput!]
+  delete: [AdminStatusWhereUniqueInput!]
+  connect: [AdminStatusWhereUniqueInput!]
+  set: [AdminStatusWhereUniqueInput!]
+  disconnect: [AdminStatusWhereUniqueInput!]
+  update: [AdminStatusUpdateWithWhereUniqueWithoutCreatedByInput!]
+  upsert: [AdminStatusUpsertWithWhereUniqueWithoutCreatedByInput!]
+  deleteMany: [AdminStatusScalarWhereInput!]
+}
+
+input AdminStatusUpdateOneWithoutUserInput {
+  create: AdminStatusCreateWithoutUserInput
+  update: AdminStatusUpdateWithoutUserDataInput
+  upsert: AdminStatusUpsertWithoutUserInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: AdminStatusWhereUniqueInput
+}
+
+input AdminStatusUpdateWithoutCreatedByDataInput {
+  user: UserUpdateOneRequiredWithoutAdminStatusInput
+}
+
+input AdminStatusUpdateWithoutUserDataInput {
+  createdBy: UserUpdateOneRequiredWithoutCreatedAdminsInput
+}
+
+input AdminStatusUpdateWithWhereUniqueWithoutCreatedByInput {
+  where: AdminStatusWhereUniqueInput!
+  data: AdminStatusUpdateWithoutCreatedByDataInput!
+}
+
+input AdminStatusUpsertWithoutUserInput {
+  update: AdminStatusUpdateWithoutUserDataInput!
+  create: AdminStatusCreateWithoutUserInput!
+}
+
+input AdminStatusUpsertWithWhereUniqueWithoutCreatedByInput {
+  where: AdminStatusWhereUniqueInput!
+  update: AdminStatusUpdateWithoutCreatedByDataInput!
+  create: AdminStatusCreateWithoutCreatedByInput!
+}
+
+input AdminStatusWhereInput {
+  adminStatusId: ID
+  adminStatusId_not: ID
+  adminStatusId_in: [ID!]
+  adminStatusId_not_in: [ID!]
+  adminStatusId_lt: ID
+  adminStatusId_lte: ID
+  adminStatusId_gt: ID
+  adminStatusId_gte: ID
+  adminStatusId_contains: ID
+  adminStatusId_not_contains: ID
+  adminStatusId_starts_with: ID
+  adminStatusId_not_starts_with: ID
+  adminStatusId_ends_with: ID
+  adminStatusId_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  createdBy: UserWhereInput
+  user: UserWhereInput
+  AND: [AdminStatusWhereInput!]
+  OR: [AdminStatusWhereInput!]
+  NOT: [AdminStatusWhereInput!]
+}
+
+input AdminStatusWhereUniqueInput {
+  adminStatusId: ID
+}
+
+type AggregateAdminStatus {
+  count: Int!
+}
+
+type AggregateContent {
   count: Int!
 }
 
@@ -796,6 +985,11 @@ input EchoOfShoutInVoidWhereUniqueInput {
 scalar Long
 
 type Mutation {
+  createAdminStatus(data: AdminStatusCreateInput!): AdminStatus!
+  updateAdminStatus(data: AdminStatusUpdateInput!, where: AdminStatusWhereUniqueInput!): AdminStatus
+  upsertAdminStatus(where: AdminStatusWhereUniqueInput!, create: AdminStatusCreateInput!, update: AdminStatusUpdateInput!): AdminStatus!
+  deleteAdminStatus(where: AdminStatusWhereUniqueInput!): AdminStatus
+  deleteManyAdminStatuses(where: AdminStatusWhereInput): BatchPayload!
   createContent(data: ContentCreateInput!): Content!
   updateContent(data: ContentUpdateInput!, where: ContentWhereUniqueInput!): Content
   updateManyContents(data: ContentUpdateManyMutationInput!, where: ContentWhereInput): BatchPayload!
@@ -1164,6 +1358,9 @@ type PageInfo {
 }
 
 type Query {
+  adminStatus(where: AdminStatusWhereUniqueInput!): AdminStatus
+  adminStatuses(where: AdminStatusWhereInput, orderBy: AdminStatusOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AdminStatus]!
+  adminStatusesConnection(where: AdminStatusWhereInput, orderBy: AdminStatusOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AdminStatusConnection!
   content(where: ContentWhereUniqueInput!): Content
   contents(where: ContentWhereInput, orderBy: ContentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Content]!
   contentsConnection(where: ContentWhereInput, orderBy: ContentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ContentConnection!
@@ -1977,6 +2174,7 @@ input ShoutInVoidWhereUniqueInput {
 }
 
 type Subscription {
+  adminStatus(where: AdminStatusSubscriptionWhereInput): AdminStatusSubscriptionPayload
   content(where: ContentSubscriptionWhereInput): ContentSubscriptionPayload
   echoOfShoutInVoid(where: EchoOfShoutInVoidSubscriptionWhereInput): EchoOfShoutInVoidSubscriptionPayload
   nVoid(where: NVoidSubscriptionWhereInput): NVoidSubscriptionPayload
@@ -1996,6 +2194,8 @@ type User {
   createdAt: DateTime!
   username: String!
   password: String!
+  adminStatus: AdminStatus
+  createdAdmins(where: AdminStatusWhereInput, orderBy: AdminStatusOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AdminStatus!]
   lastLocation: UserLocation
   locationHistory(where: UserLocationWhereInput, orderBy: UserLocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [UserLocation!]
   createdContent(where: ContentWhereInput, orderBy: ContentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Content!]
@@ -2232,6 +2432,8 @@ input UserCreateInput {
   userId: ID
   username: String!
   password: String!
+  adminStatus: AdminStatusCreateOneWithoutUserInput
+  createdAdmins: AdminStatusCreateManyWithoutCreatedByInput
   lastLocation: UserLocationCreateOneInput
   locationHistory: UserLocationCreateManyWithoutCreatedByInput
   createdContent: ContentCreateManyWithoutCreatedByInput
@@ -2247,6 +2449,16 @@ input UserCreateInput {
 
 input UserCreateOneWithoutActivatedEchosOfShoutsInput {
   create: UserCreateWithoutActivatedEchosOfShoutsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutAdminStatusInput {
+  create: UserCreateWithoutAdminStatusInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutCreatedAdminsInput {
+  create: UserCreateWithoutCreatedAdminsInput
   connect: UserWhereUniqueInput
 }
 
@@ -2299,6 +2511,8 @@ input UserCreateWithoutActivatedEchosOfShoutsInput {
   userId: ID
   username: String!
   password: String!
+  adminStatus: AdminStatusCreateOneWithoutUserInput
+  createdAdmins: AdminStatusCreateManyWithoutCreatedByInput
   lastLocation: UserLocationCreateOneInput
   locationHistory: UserLocationCreateManyWithoutCreatedByInput
   createdContent: ContentCreateManyWithoutCreatedByInput
@@ -2311,10 +2525,48 @@ input UserCreateWithoutActivatedEchosOfShoutsInput {
   repliesToEchosOfShoutsInVoid: ReplyToEchoOfShoutInVoidCreateManyWithoutCreatedByInput
 }
 
+input UserCreateWithoutAdminStatusInput {
+  userId: ID
+  username: String!
+  password: String!
+  createdAdmins: AdminStatusCreateManyWithoutCreatedByInput
+  lastLocation: UserLocationCreateOneInput
+  locationHistory: UserLocationCreateManyWithoutCreatedByInput
+  createdContent: ContentCreateManyWithoutCreatedByInput
+  createdVotes: VoteCreateManyWithoutCreatedByInput
+  createdVoids: NVoidCreateManyWithoutCreatedByInput
+  savedVoids: UserSavedVoidCreateManyWithoutCreatedByInput
+  createdShoutsInVoids: ShoutInVoidCreateManyWithoutCreatedByInput
+  activatedEchosOfShouts: UserActivatedEchoOfShoutCreateManyWithoutCreatedByInput
+  createdEchosOfShoutsInVoid: EchoOfShoutInVoidCreateManyWithoutCreatedByInput
+  repliesToShoutsInVoid: ReplyToShoutInVoidCreateManyWithoutCreatedByInput
+  repliesToEchosOfShoutsInVoid: ReplyToEchoOfShoutInVoidCreateManyWithoutCreatedByInput
+}
+
+input UserCreateWithoutCreatedAdminsInput {
+  userId: ID
+  username: String!
+  password: String!
+  adminStatus: AdminStatusCreateOneWithoutUserInput
+  lastLocation: UserLocationCreateOneInput
+  locationHistory: UserLocationCreateManyWithoutCreatedByInput
+  createdContent: ContentCreateManyWithoutCreatedByInput
+  createdVotes: VoteCreateManyWithoutCreatedByInput
+  createdVoids: NVoidCreateManyWithoutCreatedByInput
+  savedVoids: UserSavedVoidCreateManyWithoutCreatedByInput
+  createdShoutsInVoids: ShoutInVoidCreateManyWithoutCreatedByInput
+  activatedEchosOfShouts: UserActivatedEchoOfShoutCreateManyWithoutCreatedByInput
+  createdEchosOfShoutsInVoid: EchoOfShoutInVoidCreateManyWithoutCreatedByInput
+  repliesToShoutsInVoid: ReplyToShoutInVoidCreateManyWithoutCreatedByInput
+  repliesToEchosOfShoutsInVoid: ReplyToEchoOfShoutInVoidCreateManyWithoutCreatedByInput
+}
+
 input UserCreateWithoutCreatedContentInput {
   userId: ID
   username: String!
   password: String!
+  adminStatus: AdminStatusCreateOneWithoutUserInput
+  createdAdmins: AdminStatusCreateManyWithoutCreatedByInput
   lastLocation: UserLocationCreateOneInput
   locationHistory: UserLocationCreateManyWithoutCreatedByInput
   createdVotes: VoteCreateManyWithoutCreatedByInput
@@ -2331,6 +2583,8 @@ input UserCreateWithoutCreatedEchosOfShoutsInVoidInput {
   userId: ID
   username: String!
   password: String!
+  adminStatus: AdminStatusCreateOneWithoutUserInput
+  createdAdmins: AdminStatusCreateManyWithoutCreatedByInput
   lastLocation: UserLocationCreateOneInput
   locationHistory: UserLocationCreateManyWithoutCreatedByInput
   createdContent: ContentCreateManyWithoutCreatedByInput
@@ -2347,6 +2601,8 @@ input UserCreateWithoutCreatedShoutsInVoidsInput {
   userId: ID
   username: String!
   password: String!
+  adminStatus: AdminStatusCreateOneWithoutUserInput
+  createdAdmins: AdminStatusCreateManyWithoutCreatedByInput
   lastLocation: UserLocationCreateOneInput
   locationHistory: UserLocationCreateManyWithoutCreatedByInput
   createdContent: ContentCreateManyWithoutCreatedByInput
@@ -2363,6 +2619,8 @@ input UserCreateWithoutCreatedVoidsInput {
   userId: ID
   username: String!
   password: String!
+  adminStatus: AdminStatusCreateOneWithoutUserInput
+  createdAdmins: AdminStatusCreateManyWithoutCreatedByInput
   lastLocation: UserLocationCreateOneInput
   locationHistory: UserLocationCreateManyWithoutCreatedByInput
   createdContent: ContentCreateManyWithoutCreatedByInput
@@ -2379,6 +2637,8 @@ input UserCreateWithoutCreatedVotesInput {
   userId: ID
   username: String!
   password: String!
+  adminStatus: AdminStatusCreateOneWithoutUserInput
+  createdAdmins: AdminStatusCreateManyWithoutCreatedByInput
   lastLocation: UserLocationCreateOneInput
   locationHistory: UserLocationCreateManyWithoutCreatedByInput
   createdContent: ContentCreateManyWithoutCreatedByInput
@@ -2395,6 +2655,8 @@ input UserCreateWithoutLocationHistoryInput {
   userId: ID
   username: String!
   password: String!
+  adminStatus: AdminStatusCreateOneWithoutUserInput
+  createdAdmins: AdminStatusCreateManyWithoutCreatedByInput
   lastLocation: UserLocationCreateOneInput
   createdContent: ContentCreateManyWithoutCreatedByInput
   createdVotes: VoteCreateManyWithoutCreatedByInput
@@ -2411,6 +2673,8 @@ input UserCreateWithoutRepliesToEchosOfShoutsInVoidInput {
   userId: ID
   username: String!
   password: String!
+  adminStatus: AdminStatusCreateOneWithoutUserInput
+  createdAdmins: AdminStatusCreateManyWithoutCreatedByInput
   lastLocation: UserLocationCreateOneInput
   locationHistory: UserLocationCreateManyWithoutCreatedByInput
   createdContent: ContentCreateManyWithoutCreatedByInput
@@ -2427,6 +2691,8 @@ input UserCreateWithoutRepliesToShoutsInVoidInput {
   userId: ID
   username: String!
   password: String!
+  adminStatus: AdminStatusCreateOneWithoutUserInput
+  createdAdmins: AdminStatusCreateManyWithoutCreatedByInput
   lastLocation: UserLocationCreateOneInput
   locationHistory: UserLocationCreateManyWithoutCreatedByInput
   createdContent: ContentCreateManyWithoutCreatedByInput
@@ -2443,6 +2709,8 @@ input UserCreateWithoutSavedVoidsInput {
   userId: ID
   username: String!
   password: String!
+  adminStatus: AdminStatusCreateOneWithoutUserInput
+  createdAdmins: AdminStatusCreateManyWithoutCreatedByInput
   lastLocation: UserLocationCreateOneInput
   locationHistory: UserLocationCreateManyWithoutCreatedByInput
   createdContent: ContentCreateManyWithoutCreatedByInput
@@ -2925,6 +3193,8 @@ input UserSubscriptionWhereInput {
 input UserUpdateInput {
   username: String
   password: String
+  adminStatus: AdminStatusUpdateOneWithoutUserInput
+  createdAdmins: AdminStatusUpdateManyWithoutCreatedByInput
   lastLocation: UserLocationUpdateOneInput
   locationHistory: UserLocationUpdateManyWithoutCreatedByInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
@@ -2947,6 +3217,20 @@ input UserUpdateOneRequiredWithoutActivatedEchosOfShoutsInput {
   create: UserCreateWithoutActivatedEchosOfShoutsInput
   update: UserUpdateWithoutActivatedEchosOfShoutsDataInput
   upsert: UserUpsertWithoutActivatedEchosOfShoutsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserUpdateOneRequiredWithoutAdminStatusInput {
+  create: UserCreateWithoutAdminStatusInput
+  update: UserUpdateWithoutAdminStatusDataInput
+  upsert: UserUpsertWithoutAdminStatusInput
+  connect: UserWhereUniqueInput
+}
+
+input UserUpdateOneRequiredWithoutCreatedAdminsInput {
+  create: UserCreateWithoutCreatedAdminsInput
+  update: UserUpdateWithoutCreatedAdminsDataInput
+  upsert: UserUpsertWithoutCreatedAdminsInput
   connect: UserWhereUniqueInput
 }
 
@@ -3016,6 +3300,8 @@ input UserUpdateOneRequiredWithoutSavedVoidsInput {
 input UserUpdateWithoutActivatedEchosOfShoutsDataInput {
   username: String
   password: String
+  adminStatus: AdminStatusUpdateOneWithoutUserInput
+  createdAdmins: AdminStatusUpdateManyWithoutCreatedByInput
   lastLocation: UserLocationUpdateOneInput
   locationHistory: UserLocationUpdateManyWithoutCreatedByInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
@@ -3028,9 +3314,45 @@ input UserUpdateWithoutActivatedEchosOfShoutsDataInput {
   repliesToEchosOfShoutsInVoid: ReplyToEchoOfShoutInVoidUpdateManyWithoutCreatedByInput
 }
 
+input UserUpdateWithoutAdminStatusDataInput {
+  username: String
+  password: String
+  createdAdmins: AdminStatusUpdateManyWithoutCreatedByInput
+  lastLocation: UserLocationUpdateOneInput
+  locationHistory: UserLocationUpdateManyWithoutCreatedByInput
+  createdContent: ContentUpdateManyWithoutCreatedByInput
+  createdVotes: VoteUpdateManyWithoutCreatedByInput
+  createdVoids: NVoidUpdateManyWithoutCreatedByInput
+  savedVoids: UserSavedVoidUpdateManyWithoutCreatedByInput
+  createdShoutsInVoids: ShoutInVoidUpdateManyWithoutCreatedByInput
+  activatedEchosOfShouts: UserActivatedEchoOfShoutUpdateManyWithoutCreatedByInput
+  createdEchosOfShoutsInVoid: EchoOfShoutInVoidUpdateManyWithoutCreatedByInput
+  repliesToShoutsInVoid: ReplyToShoutInVoidUpdateManyWithoutCreatedByInput
+  repliesToEchosOfShoutsInVoid: ReplyToEchoOfShoutInVoidUpdateManyWithoutCreatedByInput
+}
+
+input UserUpdateWithoutCreatedAdminsDataInput {
+  username: String
+  password: String
+  adminStatus: AdminStatusUpdateOneWithoutUserInput
+  lastLocation: UserLocationUpdateOneInput
+  locationHistory: UserLocationUpdateManyWithoutCreatedByInput
+  createdContent: ContentUpdateManyWithoutCreatedByInput
+  createdVotes: VoteUpdateManyWithoutCreatedByInput
+  createdVoids: NVoidUpdateManyWithoutCreatedByInput
+  savedVoids: UserSavedVoidUpdateManyWithoutCreatedByInput
+  createdShoutsInVoids: ShoutInVoidUpdateManyWithoutCreatedByInput
+  activatedEchosOfShouts: UserActivatedEchoOfShoutUpdateManyWithoutCreatedByInput
+  createdEchosOfShoutsInVoid: EchoOfShoutInVoidUpdateManyWithoutCreatedByInput
+  repliesToShoutsInVoid: ReplyToShoutInVoidUpdateManyWithoutCreatedByInput
+  repliesToEchosOfShoutsInVoid: ReplyToEchoOfShoutInVoidUpdateManyWithoutCreatedByInput
+}
+
 input UserUpdateWithoutCreatedContentDataInput {
   username: String
   password: String
+  adminStatus: AdminStatusUpdateOneWithoutUserInput
+  createdAdmins: AdminStatusUpdateManyWithoutCreatedByInput
   lastLocation: UserLocationUpdateOneInput
   locationHistory: UserLocationUpdateManyWithoutCreatedByInput
   createdVotes: VoteUpdateManyWithoutCreatedByInput
@@ -3046,6 +3368,8 @@ input UserUpdateWithoutCreatedContentDataInput {
 input UserUpdateWithoutCreatedEchosOfShoutsInVoidDataInput {
   username: String
   password: String
+  adminStatus: AdminStatusUpdateOneWithoutUserInput
+  createdAdmins: AdminStatusUpdateManyWithoutCreatedByInput
   lastLocation: UserLocationUpdateOneInput
   locationHistory: UserLocationUpdateManyWithoutCreatedByInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
@@ -3061,6 +3385,8 @@ input UserUpdateWithoutCreatedEchosOfShoutsInVoidDataInput {
 input UserUpdateWithoutCreatedShoutsInVoidsDataInput {
   username: String
   password: String
+  adminStatus: AdminStatusUpdateOneWithoutUserInput
+  createdAdmins: AdminStatusUpdateManyWithoutCreatedByInput
   lastLocation: UserLocationUpdateOneInput
   locationHistory: UserLocationUpdateManyWithoutCreatedByInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
@@ -3076,6 +3402,8 @@ input UserUpdateWithoutCreatedShoutsInVoidsDataInput {
 input UserUpdateWithoutCreatedVoidsDataInput {
   username: String
   password: String
+  adminStatus: AdminStatusUpdateOneWithoutUserInput
+  createdAdmins: AdminStatusUpdateManyWithoutCreatedByInput
   lastLocation: UserLocationUpdateOneInput
   locationHistory: UserLocationUpdateManyWithoutCreatedByInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
@@ -3091,6 +3419,8 @@ input UserUpdateWithoutCreatedVoidsDataInput {
 input UserUpdateWithoutCreatedVotesDataInput {
   username: String
   password: String
+  adminStatus: AdminStatusUpdateOneWithoutUserInput
+  createdAdmins: AdminStatusUpdateManyWithoutCreatedByInput
   lastLocation: UserLocationUpdateOneInput
   locationHistory: UserLocationUpdateManyWithoutCreatedByInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
@@ -3106,6 +3436,8 @@ input UserUpdateWithoutCreatedVotesDataInput {
 input UserUpdateWithoutLocationHistoryDataInput {
   username: String
   password: String
+  adminStatus: AdminStatusUpdateOneWithoutUserInput
+  createdAdmins: AdminStatusUpdateManyWithoutCreatedByInput
   lastLocation: UserLocationUpdateOneInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
   createdVotes: VoteUpdateManyWithoutCreatedByInput
@@ -3121,6 +3453,8 @@ input UserUpdateWithoutLocationHistoryDataInput {
 input UserUpdateWithoutRepliesToEchosOfShoutsInVoidDataInput {
   username: String
   password: String
+  adminStatus: AdminStatusUpdateOneWithoutUserInput
+  createdAdmins: AdminStatusUpdateManyWithoutCreatedByInput
   lastLocation: UserLocationUpdateOneInput
   locationHistory: UserLocationUpdateManyWithoutCreatedByInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
@@ -3136,6 +3470,8 @@ input UserUpdateWithoutRepliesToEchosOfShoutsInVoidDataInput {
 input UserUpdateWithoutRepliesToShoutsInVoidDataInput {
   username: String
   password: String
+  adminStatus: AdminStatusUpdateOneWithoutUserInput
+  createdAdmins: AdminStatusUpdateManyWithoutCreatedByInput
   lastLocation: UserLocationUpdateOneInput
   locationHistory: UserLocationUpdateManyWithoutCreatedByInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
@@ -3151,6 +3487,8 @@ input UserUpdateWithoutRepliesToShoutsInVoidDataInput {
 input UserUpdateWithoutSavedVoidsDataInput {
   username: String
   password: String
+  adminStatus: AdminStatusUpdateOneWithoutUserInput
+  createdAdmins: AdminStatusUpdateManyWithoutCreatedByInput
   lastLocation: UserLocationUpdateOneInput
   locationHistory: UserLocationUpdateManyWithoutCreatedByInput
   createdContent: ContentUpdateManyWithoutCreatedByInput
@@ -3166,6 +3504,16 @@ input UserUpdateWithoutSavedVoidsDataInput {
 input UserUpsertWithoutActivatedEchosOfShoutsInput {
   update: UserUpdateWithoutActivatedEchosOfShoutsDataInput!
   create: UserCreateWithoutActivatedEchosOfShoutsInput!
+}
+
+input UserUpsertWithoutAdminStatusInput {
+  update: UserUpdateWithoutAdminStatusDataInput!
+  create: UserCreateWithoutAdminStatusInput!
+}
+
+input UserUpsertWithoutCreatedAdminsInput {
+  update: UserUpdateWithoutCreatedAdminsDataInput!
+  create: UserCreateWithoutCreatedAdminsInput!
 }
 
 input UserUpsertWithoutCreatedContentInput {
@@ -3264,6 +3612,10 @@ input UserWhereInput {
   password_not_starts_with: String
   password_ends_with: String
   password_not_ends_with: String
+  adminStatus: AdminStatusWhereInput
+  createdAdmins_every: AdminStatusWhereInput
+  createdAdmins_some: AdminStatusWhereInput
+  createdAdmins_none: AdminStatusWhereInput
   lastLocation: UserLocationWhereInput
   locationHistory_every: UserLocationWhereInput
   locationHistory_some: UserLocationWhereInput

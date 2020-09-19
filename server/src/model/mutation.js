@@ -3,12 +3,12 @@ const jwt = require('jsonwebtoken');
 const utils = require('./../utils');
 const config = require('./../../config.json');
 
-const user = require('./../model/user');
-const content = require('./../model/content');
-const nVoid = require('./../model/nVoid');
-const shoutInVoid = require('./../model/shoutInVoid');
-const voteBucket = require('./../model/voteBucket');
-const vote = require('./../model/vote');
+const userModel = require('./../model/user');
+const contentModel = require('./../model/content');
+const nVoidModel = require('./../model/nVoid');
+const shoutInVoidModel = require('./../model/shoutInVoid');
+const voteBucketModel = require('./../model/voteBucket');
+const voteModel = require('./../model/vote');
 
 const login = async function(parent, args, context, info) {
     //get existing user from prisma database
@@ -44,7 +44,7 @@ const signup = async function(parent, args, context, info) {
 
 const updateLocation = async function(parent, args, context, info) {
     const userIdFromToken = await utils.ensureAuthorized(context);
-    await user.utils.ensureUserExists(context, userIdFromToken);
+    await userModel.utils.ensureUserExists(context, userIdFromToken);
     // check if geohash has enough precision
     await utils.ensureGeohashIsUserPrecision(args.geohash);
     // flatten geohash to user geohash precision
@@ -79,15 +79,15 @@ const updateLocation = async function(parent, args, context, info) {
 
 const shoutIntoTheVoid = async function(parent, args, context, info) {
     const userIdFromToken = await utils.ensureAuthorized(context);
-    await user.utils.ensureUserExists(context, userIdFromToken);
+    await userModel.utils.ensureUserExists(context, userIdFromToken);
     // make sure that the last location for user is recent
-    await user.utils.ensureLocationIsUpToDate(context, userIdFromToken);
+    await userModel.utils.ensureLocationIsUpToDate(context, userIdFromToken);
     // get the users last location
-    const userGeohash = await user.utils.getLastLocationUserGeohash(context, userIdFromToken);
+    const userGeohash = await userModel.utils.getLastLocationUserGeohash(context, userIdFromToken);
     // flatten it to a void geohash
     const flattenedVoidGeohash = utils.flattenGeohashToVoidGeohash(userGeohash);
     // check if message is profane
-    await content.utils.ensureMessageIsNotProfane(args.message);
+    await contentModel.utils.ensureMessageIsNotProfane(args.message);
     // check if the void exists and if not create it
     const voidExists = await context.prisma.$exists.nVoid({
         voidGeohash: flattenedVoidGeohash
@@ -103,9 +103,9 @@ const shoutIntoTheVoid = async function(parent, args, context, info) {
         });
     }
     // calculate the unique content message hash
-    const uniqueContentMessageHash = await content.utils.calculateUniqueContentMessageHash(args.message);
+    const uniqueContentMessageHash = await contentModel.utils.calculateUniqueContentMessageHash(args.message);
     // get voidId of existing NVoid from voidGeohash
-    const voidId = await nVoid.utils.getVoidIdFromVoidGeohash(context, flattenedVoidGeohash);
+    const voidId = await nVoidModel.utils.getVoidIdFromVoidGeohash(context, flattenedVoidGeohash);
     // create shout and connect it to a new void
     const createdShoutInVoid = await context.prisma.createShoutInVoid({
         createdBy: {
@@ -141,15 +141,15 @@ const shoutIntoTheVoid = async function(parent, args, context, info) {
 
 const upvoteShout = async function(parent, args, context, info) {
     const userIdFromToken = await utils.ensureAuthorized(context);
-    await user.utils.ensureUserExists(context, userIdFromToken);
+    await userModel.utils.ensureUserExists(context, userIdFromToken);
     // make sure location is up to date
-    await user.utils.ensureLocationIsUpToDate(context, userIdFromToken);
+    await userModel.utils.ensureLocationIsUpToDate(context, userIdFromToken);
     // make sure shout exists
-    await shoutInVoid.utils.ensureShoutExists(context, args.shoutInVoidId);
+    await shoutInVoidModel.utils.ensureShoutExists(context, args.shoutInVoidId);
     // get vote bucket id
-    const voteBucketId = await shoutInVoid.utils.getVoteBucketId(context, args.shoutInVoidId);
+    const voteBucketId = await shoutInVoidModel.utils.getVoteBucketId(context, args.shoutInVoidId);
     // check if vote exists as upvote
-    const upvoteHash = await vote.utils.calculateUniqueHash(userIdFromToken, voteBucketId, true);
+    const upvoteHash = await voteModel.utils.calculateUniqueHash(userIdFromToken, voteBucketId, true);
     const upvoteExists = await context.prisma.$exists.vote({
         uniqueHash: upvoteHash
     });
@@ -163,9 +163,9 @@ const upvoteShout = async function(parent, args, context, info) {
         });
     } else {
         // get vote count, we will need it if downvote exists or creating upvote
-        const currentVoteCount = await shoutInVoid.utils.getVoteCount(context, args.shoutInVoidId);
+        const currentVoteCount = await shoutInVoidModel.utils.getVoteCount(context, args.shoutInVoidId);
         // check if vote exists as downvote
-        const downvoteHash = await vote.utils.calculateUniqueHash(userIdFromToken, voteBucketId, false);
+        const downvoteHash = await voteModel.utils.calculateUniqueHash(userIdFromToken, voteBucketId, false);
         const downvoteExists = await context.prisma.$exists.vote({
             uniqueHash: downvoteHash
         });
@@ -180,7 +180,7 @@ const upvoteShout = async function(parent, args, context, info) {
                     uniqueHash: upvoteHash
                 }
             });
-            const updatedVoteBucket = await voteBucket.utils.updateVoteCount(context, voteBucketId, currentVoteCount + 2);
+            const updatedVoteBucket = await voteBucketModel.utils.updateVoteCount(context, voteBucketId, currentVoteCount + 2);
             return updatedVoteBucket;
         } else {
             // just create a new vote as upvote and update vote count
@@ -199,7 +199,7 @@ const upvoteShout = async function(parent, args, context, info) {
                 isUpvote: true,
                 uniqueHash: upvoteHash
             });
-            const updatedVoteBucket = await voteBucket.utils.updateVoteCount(context, voteBucketId, currentVoteCount + 1);
+            const updatedVoteBucket = await voteBucketModel.utils.updateVoteCount(context, voteBucketId, currentVoteCount + 1);
             return updatedVoteBucket;
         }
     }
@@ -207,15 +207,15 @@ const upvoteShout = async function(parent, args, context, info) {
 };
 const downvoteShout = async function(parent, args, context, info) {
     const userIdFromToken = await utils.ensureAuthorized(context);
-    await user.utils.ensureUserExists(context, userIdFromToken);
+    await userModel.utils.ensureUserExists(context, userIdFromToken);
     // make sure location is up to date
-    await user.utils.ensureLocationIsUpToDate(context, userIdFromToken);
+    await userModel.utils.ensureLocationIsUpToDate(context, userIdFromToken);
     // make sure shout exists
-    await shoutInVoid.utils.ensureShoutExists(context, args.shoutInVoidId);
+    await shoutInVoidModel.utils.ensureShoutExists(context, args.shoutInVoidId);
     // get vote bucket id
-    const voteBucketId = await shoutInVoid.utils.getVoteBucketId(context, args.shoutInVoidId);
+    const voteBucketId = await shoutInVoidModel.utils.getVoteBucketId(context, args.shoutInVoidId);
     // check if vote exists as downvote
-    const downvoteHash = await vote.utils.calculateUniqueHash(userIdFromToken, voteBucketId, false);
+    const downvoteHash = await voteModel.utils.calculateUniqueHash(userIdFromToken, voteBucketId, false);
     const downvoteExists = await context.prisma.$exists.vote({
         uniqueHash: downvoteHash
     });
@@ -227,7 +227,7 @@ const downvoteShout = async function(parent, args, context, info) {
         });
     } else {
         // get vote count, we will need it if upvote exists or creating downvote
-        const currentVoteCount = await shoutInVoid.utils.getVoteCount(context, args.shoutInVoidId);
+        const currentVoteCount = await shoutInVoidModel.utils.getVoteCount(context, args.shoutInVoidId);
         // check if we need to delete shout
         if(currentVoteCount == -4) {
             await context.prisma.deleteShoutInVoid({
@@ -238,7 +238,7 @@ const downvoteShout = async function(parent, args, context, info) {
         }
 
         // check if vote exists as upvote
-        const upvoteHash = await vote.utils.calculateUniqueHash(userIdFromToken, voteBucketId, true);
+        const upvoteHash = await voteModel.utils.calculateUniqueHash(userIdFromToken, voteBucketId, true);
         const upvoteExists = await context.prisma.$exists.vote({
             uniqueHash: upvoteHash
         });
@@ -253,7 +253,7 @@ const downvoteShout = async function(parent, args, context, info) {
                     uniqueHash: downvoteHash
                 }
             });
-            const updatedVoteBucket = await voteBucket.utils.updateVoteCount(context, voteBucketId, currentVoteCount - 2);
+            const updatedVoteBucket = await voteBucketModel.utils.updateVoteCount(context, voteBucketId, currentVoteCount - 2);
             return updatedVoteBucket;
         } else {
             // just create a new vote as downvote and update vote count
@@ -271,7 +271,7 @@ const downvoteShout = async function(parent, args, context, info) {
                 isUpvote: false,
                 uniqueHash: downvoteHash
             });
-            const updatedVoteBucket = await voteBucket.utils.updateVoteCount(context, voteBucketId, currentVoteCount - 1);
+            const updatedVoteBucket = await voteBucketModel.utils.updateVoteCount(context, voteBucketId, currentVoteCount - 1);
             return updatedVoteBucket;
         }
     }
