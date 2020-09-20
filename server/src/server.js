@@ -2,49 +2,21 @@ const { GraphQLServer } = require('graphql-yoga');
 const { prisma } = require('./generated/prisma-client');
 const glob = require('glob');
 const path = require('path');
+// const utils = require('./utils');
 
 // get all resolvers in from source in model folder
-// const model;
-const resolvers = {};
-glob.sync('./model/*.js').forEach(function(file) {
-    const typeName = file.slice(0, -3);
-    const typeNameUpper = `${typeName.charAt(0).toUpperCase()}${typeName.substring(0)}`;
-    // model[`${typeName}Model`] = require(path.resolve(file));
-    resolvers[`${typeNameUpper}`] = require(path.resolve(file));
+console.log('finding all resolvers from model/...');
+let resolvers = {};
+glob.sync('./src/model/*.js').forEach(function(file) {
+    const typeName = file.slice('../src/model/'.length - 1, -3);
+    const typeNameUpper = `${typeName.charAt(0).toUpperCase()}${typeName.substring(1)}`;
+    console.log(`typeNameNupper: ${typeNameUpper}`)
+    // const typeModel = require(path.resolve(file));
+    const typeModel = require(`./model/${typeName}`);
+    console.log(`typeModel: ${JSON.stringify(typeModel)}`)
+    resolvers[`${typeNameUpper}`] = typeModel.resolvers;
 });
-
-// const contentModel = require('./model/content');
-// const voteBucketModel = require('./model/voteBucket');
-// const voteModel = require('./model/vote');
-// const userLocationModel = require('./model/userLocation');
-// const userModel = require('./model/user');
-// const shoutInVoidModel = require('./model/shoutInVoid');
-// const replyToShoutInVoidModel = require('./model/replyToShoutInVoid');
-// const userActivatedEchoOfShoutModel = require('./model/userActivatedEchoOfShout');
-// const echoOfShoutInVoidModel = require('./model/echoOfShoutInVoid');
-// const replyToEchoOfShoutInVoidModel = require('./model/replyToEchoOfShoutInVoid');
-// const nVoidModel = require('./model/nVoid');
-// const userSavedVoidModel = require('./model/userSavedVoid');
-
-// const query = require('./model/query');
-// const mutation = require('./model/mutation');
-// const resolvers = {
-//     Content: contentModel.resolvers,
-//     VoteBucket: voteBucketModel.resolvers,
-//     Vote: voteModel.resolvers,
-//     User: userModel.resolvers,
-//     UserLocation: userLocationModel.resolvers,
-//     ShoutInVoid: shoutInVoidModel.resolvers,
-//     ReplyToShoutInVoid: replyToShoutInVoidModel.resolvers,
-//     UserActivatedEchoOfShout: userActivatedEchoOfShoutModel.resolvers,
-//     EchoOfShoutInVoid: echoOfShoutInVoidModel.resolvers,
-//     ReplyToEchoOfShoutInVoid: replyToEchoOfShoutInVoidModel.resolvers,
-//     NVoid: nVoidModel.resolvers,
-//     UserSavedVoid: userSavedVoidModel.resolvers,
-
-//     Query: query.resolvers,
-//     Mutation: mutation.resolvers
-// };
+console.log(`resolvers: ${/*JSON.stringify(*/resolvers/*)*/}`);
 
 const server = new GraphQLServer({
     typeDefs: './src/schema.graphql',
@@ -54,9 +26,13 @@ const server = new GraphQLServer({
     }
 });
 
+//todo make these work
+// utils.ensureRootAdminWasCreated(prisma);
+// utils.ensureTestAdminWasCreated(prisma);
 
-// server.start(function() {
-//     console.log('Server is running on http://localhost:4000');
-// });
+console.log('starting server...');
+server.start(function() {
+    console.log('Server is running on http://localhost:4000');
+});
 
-module.exports = server;
+// module.exports = server;

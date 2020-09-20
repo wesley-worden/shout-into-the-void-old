@@ -3,11 +3,11 @@ const config = require('./../../config.json');
 
 // resolvers
 //todo: create permissions for all individual user info
-const genericResolverNames = [
+const userGenericResolverNames = [
     'adminStatus',
     'createdAdmins'
 ];
-const genericResolvers = utils.generateGenericResolvers('User', genericResolverNames):
+const userGenericResolvers = utils.generateGenericTypeResolvers('User', userGenericResolverNames);
 
 
 // const adminStatus = function(parent, args, context, info) {
@@ -172,7 +172,7 @@ const ensureIsAdmin = async function(context, userId) {
 
 module.exports = {
     resolvers: {
-        ...genericResolvers,
+        ...userGenericResolvers,
         // adminStatus,
         // createdAdmins,
         // lastLocation,

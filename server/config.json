@@ -9,6 +9,7 @@
 	"VOID_VIEW_RADIUS": 5, "VOID_VIEW_UNITS": "miles",
 	"LOCATION_UPDATE_MINIMUM_SECS": 900,
 	"ROOT_ADMIN_USERNAME": "PepeSilvia",
-	"ROOT_ADMIN_PASSWORD": "test"
-	"TEST_ADMIN_USERNAME": ""
+	"ROOT_ADMIN_PASSWORD": "bruh-this-needs-to-be-locked-down",
+	"TEST_ADMIN_USERNAME": "NotPepeSilvia",
+	"TEST_ADMIN_PASSWORD": "bruh-this-needs-to-be-locked-down"
 }

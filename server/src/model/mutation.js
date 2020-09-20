@@ -30,6 +30,7 @@ const login = async function(parent, args, context, info) {
 };
 
 const signup = async function(parent, args, context, info) {
+    console.log('wut')
     const hashedPassword = await bcrypt.hash(args.password, 10); //todo: wait wut
     //bro whats destructuring
     const { password, ...user } = await context.prisma.createUser({ ...args, password: hashedPassword });

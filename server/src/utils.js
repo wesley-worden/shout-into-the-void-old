@@ -3,21 +3,86 @@ const config = require('./../config.json');
 const clipboardy = require('clipboardy');
 const ngeohash = require('ngeohash');
 const getHashesNear = require('geohashes-near');
+// const { ApolloClient, InMemoryCache, gql } = require('@apollo/client');
+
+// const apolloClient = new ApolloClient({
+//     uri: 'http://localhost:4000',
+//     cache: new InMemoryCache()
+// });
+
+// const hmu = function(query) {
+//     apolloClient.query({
+//         query: gql`${query}`
+//     }).then(function(result) {
+//         return result;
+//     });
+// };
 
 // neato
-const generateGenericResolvers = function(typeName, resolverNames) {
+const generateGenericTypeResolvers = function(typeName, typeResolverNames) {
     const typeIdName = `${typeName.charAt(0).toLowerCase()}${typeName.substring(0)}Id`
-    const resolvers = {};
-    resolversNames.forEach(function(resolverName) {
-        resolvers[`${resolverName}`] = function(parent, args, context, info) {
+    const typeResolvers = {};
+    typeResolverNames.forEach(function(resolverName) {
+        typeResolvers[`${resolverName}`] = function(parent, args, context, info) {
             const typeWhere = {};
-            userWhere[`${typeNameId}`] = parent[`${typeNameId}`];
+            typeWhere[`${typeIdName}`] = parent[`${typeIdName}`];
             return context.prisma[`${typeName}`](typeWhere)[`${resolverName}`];
         }
     });
-    return resolvers;
+    return typeResolvers;
 };
+// const checkAndCreateAdmin = async function(prisma, username, password) {
+//     console.log(`checking for User ${username}`);
+//     const userExists = prisma.$exists.user({
+//         username
+//     });
+//     if(!userExists) {
+//         console.log(`creating User ${username}`);
+//         const query = `
+//         mutation {
+//             signup(
+//                 username: "${username}",
+//                 password: "${password}"
+//             ) {
+//                 user {
+//                     userId
+//                 }
+//             }
+//         }`;
+//         const response = hmu(query);
+//         const userId = response.user.userId;
+//         console.log(`created User ${username} with userId ${userId}`);
+//         console.log(`manually creating AdminStatus`);
+//         await prisma.createAdminStatus({
+//             createdBy: {
+//                 connect: {
+//                     userId
+//                 }
+//             },
+//             user: {
+//                 connect: {
+//                     userId
+//                 }
+//             }
+//         });
+//     }
+// };
+// const ensureRootAdminWasCreated = function(prisma) {
+//     checkAndCreateAdmin(prisma, config.ROOT_ADMIN_USERNAME, config.ROOT_ADMIN_PASSWORD);
+// };
+// const ensureTestAdminWasCreated = function(prisma) {
+//     checkAndCreateAdmin(prisma, config.TEST_ADMIN_USERNAME, config.TEST_ADMIN_PASSWORD);
+// };
 
+const randomString = function(length) {
+   let result           = '';
+   const characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+   const charactersLength = characters.length;
+   for ( let i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+   }
+   return result;
+};
 const showToken = function(token) {
     console.log("please place into http headers");
     const prettyToken = `{ "Authorization": "Bearer ${token}" }`;
@@ -100,7 +165,10 @@ const calculateNearbyVoidGeohashes = function(userGeohash) {
 }
 
 module.exports = {
-    generateGenericResolvers,
+    generateGenericTypeResolvers,
+    // hmu,
+    // ensureRootAdminWasCreated,
+    // ensureTestAdminWasCreated,
     exists,
     convertDateTimeStringToEpochSeconds,
     getTimeInEpochSeconds,
@@ -111,5 +179,6 @@ module.exports = {
     flattenGeohashToVoidGeohash,
     // getLastLocationCreatedAtForUserId,
     calculateNearbyVoidGeohashes,
-    showToken
+    showToken,
+    randomString,
 };
